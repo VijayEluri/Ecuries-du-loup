@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="donnees.photo.LectureAlbum" table="photo_lecture">
+
+		<id name="id" column="id">
+			<generator class="increment" />
+		</id>
+
+		<many-to-one name="albumVu" class="donnees.photo.Album"
+			column="album_vu" lazy="false" />
+
+		<many-to-one name="utilisateur" class="donnees.User"
+			column="utilisateur" lazy="false" />
+
+		<property name="heureLecture" column="heure_lecture" />
+	</class>
+
+</hibernate-mapping>

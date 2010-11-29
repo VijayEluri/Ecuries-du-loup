@@ -1,0 +1,17 @@
+@CHARSET "ISO-8859-1";
+
+#corps #inscription li {
+	list-style: none;
+	margin-bottom: 8px;
+	text-decoration: none;
+	text-align: center;
+}
+
+#corps #inscription .error {
+	color: red;
+}
+
+#corps #inscription #bouton_inscription {
+	float: right;
+	clear: both;
+}

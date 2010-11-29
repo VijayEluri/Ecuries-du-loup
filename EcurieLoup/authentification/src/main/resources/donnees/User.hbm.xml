@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="donnees.User" table="user">
+
+		<id name="login" column="login">
+			<generator class="assigned"></generator>
+		</id>
+
+		<property name="password" column="password" />
+
+		<property name="nom" column="nom" />
+
+		<property name="prenom" column="prenom" />
+
+		<property name="email" column="email" />
+
+		<property name="enabled" column="enabled" />
+
+		<property name="creationDate" column="creation_date" />
+
+		<property name="lastAccessDate" column="last_access_date" />
+		
+		<property name="identifiantFacebook" column="identifiant_facebook" />
+
+		<set name="roles" table="user_role" lazy="false">
+			<key column="login" />
+			<many-to-many class="donnees.Role" column="role" />
+		</set>
+
+		<property name="site" column="site" />
+		
+		<property name="birthDate" column="birth_date" />
+		
+		<property name="lastAccessDateNotifier" column="last_access_date_notifier" />
+	</class>
+
+</hibernate-mapping>

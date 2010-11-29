@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="forum.donnees.Topic" table="forum_topic">
+
+		<id name="id" column="id">
+			<generator class="increment" />
+		</id>
+
+		<property name="titre" column="titre" />
+		<property name="ouvert" column="ouvert" />
+
+		<many-to-one name="categorie" class="forum.donnees.Categorie"
+			column="categorie" lazy="false" />
+		<many-to-one name="createur" class="donnees.User" column="createur"
+			lazy="false" />
+
+		
+		<list name="messages" table="forum_message" lazy="false" inverse="true">
+
+			<key column="topic" />
+			<list-index column="id" />
+			<one-to-many class="forum.donnees.Message" />
+		</list>
+	</class>
+
+</hibernate-mapping>

@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+
+#facebook #corps{
+	width: 80%;
+	text-align: center;
+	padding-top: 30px;
+	margin-left: 9%;
+	
+}
+
+#facebook #corps .forum{
+	margin-top: 50px;
+}
+#facebook #corps .album_photo{
+	margin-top: 50px;
+}

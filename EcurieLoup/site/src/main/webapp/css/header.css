@@ -1,0 +1,26 @@
+@CHARSET "ISO-8859-1";
+
+#header { 
+	/*background-color: white;
+	font-size: 450%;
+	font-family: Gigi, "URW Chancery L", Verdana;
+	text-align: center;
+	color: rgb(0, 128, 0);
+	text-shadow: black;
+	height: 100px;
+	border: 10px solid rgb(0, 128, 0);
+	background-repeat: no-repeat;
+	-moz-border-radius: 3% 3% 3% 3%;
+	-moz-box-shadow: 0px -20px 10px -10px rgba(0, 0, 0, 0.3) inset;
+	*/
+	text-align: center;
+	-moz-border-radius: 3% 3% 3% 3%;
+	border: 9px solid rgb(0, 0, 0);
+	width: 75%;
+	margin: auto;
+	
+}
+#header img{
+	height: 150px;
+	width: 100%;
+}

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+
+
+	<bean id="photoBackupDao" class="fr.ecuriesduloup.save.photo.dao.PhotoBackupDaoHibernate">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="photoBackupManagerTarget"
+		class="fr.ecuriesduloup.save.photo.service.PhotoBackupManagerImpl">
+		<property name="dao">
+			<ref bean="photoBackupDao" />
+		</property>
+		<property name="emplacementPhoto">
+			<value>images/albumPhoto/</value>
+		</property>
+		<property name="miniatureUtil">
+			<ref bean="miniatureUtil" />
+		</property>
+
+	</bean>
+
+	<bean id="photoBackupManager"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		 <property name="target">
+			<ref bean="photoBackupManagerTarget" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRES_NEW</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="saveMaker" class="fr.ecuriesduloup.save.photo.SaveMakerImpl">
+		<property name="photoBackupManager">
+			<ref bean="photoBackupManager" />
+		</property>
+	</bean>
+
+	<!-- ****************************************************************-->
+	<!-- ****************************************************************-->
+	<!-- ****************************************************************-->
+	<!-- The interceptors by aspect -->
+	
+	
+	<!--<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
+  -->
+	<bean name="addPhotoBackupAdvice"
+		class="fr.ecuriesduloup.save.photo.interceptor.AddPhotoBackupAdvice">
+		<property name="saveMaker">
+			<ref bean="saveMaker" />
+		</property>
+	</bean>
+
+	<bean name="addPhotoBackupPointcut"
+		class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+		<property name="pattern" value="util.PhotoUtil.creerFicherSurDisque" />
+	</bean>
+
+	<bean name="neSertARien"
+		class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref="addPhotoBackupAdvice" />
+		<property name="pointcut" ref="addPhotoBackupPointcut" />
+	</bean>
+	<!-- ****************************************************************-->
+	<bean name="deletePhotoBackupAdvice"
+		class="fr.ecuriesduloup.save.photo.interceptor.DeletePhotoBackupAdvice">
+		<property name="saveMaker">
+			<ref bean="saveMaker" />
+		</property>
+	</bean>
+
+	<bean name="deletePhotoBackupPointcut"
+		class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+		<property name="pattern" value="util.PhotoUtil.supprimerFicherSurDisque" />
+	</bean>
+
+	<bean name="deletePhotoBackupAspect"
+		class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref="deletePhotoBackupAdvice" />
+		<property name="pointcut" ref="deletePhotoBackupPointcut" />
+	</bean>
+	<bean name="addPhotoBackupAspect"
+		class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref="addPhotoBackupAdvice" />
+		<property name="pointcut" ref="addPhotoBackupPointcut" />
+	</bean>
+		<!-- ****************************************************************-->
+	<bean name="recoveryAllAlbumAdvice"
+		class="fr.ecuriesduloup.save.photo.interceptor.RecoveryAllAlbumAdvice">
+		<property name="saveMaker">
+			<ref bean="saveMaker" />
+		</property>
+	</bean>
+
+	<bean name="recoveryAllAlbumPoincut"
+		class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+		<property name="pattern"
+			value="service.photo.AlbumPhotoManager.recupererTousLesAlbums" />
+	</bean>
+
+	<bean name="recoveryAllAlbumAspect"
+		class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref="recoveryAllAlbumAdvice" />
+		<property name="pointcut" ref="recoveryAllAlbumPoincut" />
+	</bean>
+
+	<!-- ****************************************************************-->
+	<bean name="recoveryAlbumAdvice"
+		class="fr.ecuriesduloup.save.photo.interceptor.RecoveryAlbumAdvice">
+		<property name="saveMaker">
+			<ref bean="saveMaker" />
+		</property>
+	</bean>
+
+	<bean name="recoveryAlbumPoincut"
+		class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+		<property name="pattern"
+			value="service.photo.AlbumPhotoManager.recupererAlbum" />
+	</bean>
+
+	<bean name="recoveryAlbumAspect"
+		class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref="recoveryAlbumAdvice" />
+		<property name="pointcut" ref="recoveryAlbumPoincut" />
+	</bean>
+</beans>

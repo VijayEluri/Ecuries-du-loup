@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	
+	<bean id="smileyManager" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref bean="smileyManagerTarget" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="smileyManagerTarget" class="service.smiley.SmileyManagerImpl">
+		<property name="categorieSmileyManager">
+			<ref bean="categorieSmileyManager" />
+		</property>
+		<property name="smileyManagerData">
+			<ref bean="smileyManagerData"/>
+		</property>
+		<property name="smileyUtil">
+			<ref bean="smileyUtil" />
+		</property>
+		<property name="emplacementSmiley">
+			<value>/images/smiley/</value>
+		</property>
+	</bean>
+	<bean id="categorieSmileyManager" class="service.smiley.CategorieSmileyManagerImpl">
+		<property name="dao">
+			<ref bean="categorieSmileyDAO" />
+		</property>
+	</bean>
+	<bean id="smileyManagerData" class="service.smiley.SmileyManagerDataImpl">
+		<property name="dao">
+			<ref bean="smileyDAO" />
+		</property>
+	</bean>
+	
+	<bean name="smileyUtil" class="util.SmileyUtilImpl">
+	</bean>
+	
+	
+	
+	<bean id="categorieSmileyDAO" class="dao.smiley.CategorieSmileyDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="smileyDAO" class="dao.smiley.SmileyDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+</beans>

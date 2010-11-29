@@ -1,0 +1,11 @@
+@CHARSET "ISO-8859-1";
+
+.administration img {
+	border: none;
+}
+
+/* forum */
+#corps .administrationForum .imagePresentation {
+	border: none;
+	width: 20px;
+}

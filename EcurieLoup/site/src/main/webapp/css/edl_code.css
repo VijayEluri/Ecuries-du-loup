@@ -1,0 +1,70 @@
+@CHARSET "ISO-8859-1";
+
+.edlCode_gras {
+	font-weight: bold;
+}
+
+.edlCode_italique {
+	font-style: italic;
+}
+
+.edlCode_souligne {
+	text-decoration: underline;
+}
+
+.edlCode_barre {
+	text-decoration: line-through;
+}
+
+.edlCode_clignote {
+	text-decoration: blink;
+}
+
+.edlCode_gauche {
+	text-align: left;
+}
+
+.edlCode_droite {
+	text-align: right;
+}
+
+.edlCode_centre {
+	text-align: center;
+}
+
+.edlCode_justifie {
+	text-align: justify;
+}
+
+.edlCode_tableau{
+	border-collapse:collapse;
+}
+
+
+
+
+.edlCode_tableau td{
+    border: rgb(0, 128,0) 2px solid;
+}
+
+.formulaire_edl_code .icone{
+	width: 30px;
+	height: 30px;
+}
+
+
+/* ----------------------------------------- */
+#ajout_image_edlCode .choix_type_image_selected {
+	visibility: visible;
+}
+
+#ajout_image_edlCode .choix_type_image_non_selected {
+	visibility: hidden;
+	width: 0px;
+	height: 0px;
+}
+
+#photoSelectionner{
+	max-width: 100px;
+	max-height: 75px;
+}

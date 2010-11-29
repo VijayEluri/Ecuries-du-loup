@@ -1,0 +1,2 @@
+
+<fb:redirect url="${url}" />

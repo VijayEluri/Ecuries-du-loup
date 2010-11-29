@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="donnees.photo.Photo" table="photo_photo">
+
+		<id name="id" column="id">
+			<generator class="increment" />
+		</id>
+
+		<property name="description" column="description" />
+		
+
+		<many-to-one name="posteur" class="donnees.User" column="posteur"
+			lazy="false" />
+		
+		<property name="datePostage" column="date_postage" />
+		
+		<many-to-one name="album" class="donnees.photo.Album"
+			column="album" lazy="false" />
+
+
+		<list name="commentaires" table="photo_commentaire" lazy="false"
+			inverse="true">
+
+			<key column="photo" />
+			<list-index column="id" />
+			<one-to-many class="donnees.photo.commentaire.Commentaire" />
+		</list>
+
+		<list name="tags" table="photo_tag" lazy="false" inverse="true">
+
+			<key column="photo" />
+			<list-index column="id" />
+			<one-to-many class="donnees.photo.Tag" />
+		</list>
+	</class>
+
+</hibernate-mapping>

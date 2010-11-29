@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+    http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-3.0.xsd">
+	
+	<context:annotation-config />
+	<context:component-scan base-package="mvc" />
+	<context:component-scan base-package="fr.ecuriesduloup.ecurieloup.memo" />
+	<context:component-scan base-package="fr.ecuriesduloup.site.community.mvc" />
+	<context:component-scan base-package="fiche_chevaux.mvc" />
+	<!--
+		le mapping des pages (pour faire correspondre les urls a des
+		controllers)
+	-->
+	<bean id="annotationMapper" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="menuInterceptor" />
+				<ref bean="nouveauMessageForumInterceptor" />
+				<ref bean="nouvellePhotoInterceptor" />
+				<ref bean="memoInterceptor" />
+				<ref bean="lienInterceptor" />
+				<ref bean="pathServeurInterceptor" />
+				<ref bean="enregisteurInformationInterceptor" />
+
+			</list>
+		</property>
+	</bean> 
+
+	<bean id="menuInterceptor" class="mvc.page.MenuInterceptor">
+		<property name="pageManager">
+			<ref bean="pageManager" />
+		</property>
+	</bean>
+
+	<bean id="nouveauMessageForumInterceptor" class="mvc.NouveauMessageForumInterceptor">
+		<property name="utilisateurManager">
+			<ref bean="utilisateurManager" />
+		</property>
+		<property name="forumManager">
+			<ref bean="forumManager" />
+		</property>
+	</bean>
+
+	<bean id="nouvellePhotoInterceptor" class="mvc.NouvellePhotoInterceptor">
+		<property name="utilisateurManager">
+			<ref bean="utilisateurManager" />
+		</property>
+		<property name="albumPhotoManager">
+			<ref bean="albumPhotoManager" />
+		</property>
+	</bean>
+	<bean id="lienInterceptor" class="mvc.LienInterceptor">
+		<property name="utilisateurManager">
+			<ref bean="utilisateurManager" />
+		</property>
+	</bean>
+	<bean id="pathServeurInterceptor" class="mvc.PathServeurInterceptor">
+
+	</bean>
+
+	<bean id="enregisteurInformationInterceptor" class="mvc.EnregistrementInformationInterceptor">
+		<property name="enregistrementManager">
+			<ref bean="enregistrementTraceRequeteManager" />
+		</property>
+	</bean>
+	
+	<bean id="typeEventEditor" class="mvc.calendrier.TypeEventEditor">
+		<property name="calendrierManager">
+			<ref bean="calendrierManager" />
+		</property>
+	</bean>
+	
+	<bean id="photoEditor" class="mvc.photo.commentaire.PhotoEditor">
+		<property name="albumPhotoManager">
+			<ref bean="albumPhotoManager" />
+		</property>
+	</bean>
+	
+	
+	<context:component-scan base-package="fr.ecuriesduloup.ws.notifier" />
+	
+	<bean id="statusXmlView"
+		class="org.springframework.web.servlet.view.xml.MarshallingView">
+		<constructor-arg>
+			<bean class="org.springframework.oxm.xstream.XStreamMarshaller" p:autodetectAnnotations="true">
+			</bean>
+		</constructor-arg>
+	</bean>
+	
+
+	<!-- view resolever (permet de récupéré un ModelAndView())-->
+	<bean id="viewResolver3"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix">
+			<value>/WEB-INF/jsp/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+	<!-- fin des view resolever-->
+
+	<!-- upload de fichiers -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="2000000000" />
+	</bean>
+
+
+</beans>

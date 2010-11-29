@@ -1,0 +1,77 @@
+@CHARSET "ISO-8859-1";
+
+.login {
+	background-color: rgb(0, 128, 0);
+	width: 68%;
+	float: left;
+	color: white;
+	border: solid white 2px;
+	padding: 2%;
+	margin-left: 15%;
+	margin-right:15%;
+	margin-top: 5%;
+	-moz-border-radius: 3% 3% 3% 3%;
+}
+
+.login a {
+	text-decoration: underline;
+	clear: both;
+	float: right;
+	color: white;
+}
+
+.login a:hover {
+	text-decoration: underline;
+	clear: both;
+	float: right;
+	color: rgb(0, 128, 0);
+	background-color: white;
+}
+
+.login .labels {
+	float: left;
+}
+
+.login .labels li {
+	list-style: none;
+	margin-bottom: 10px;
+}
+
+.login .champs {
+	float: left;
+}
+
+.login .champs li {
+	list-style: none;
+	margin-bottom: 8px;
+}
+
+.login #bouton_connexion {
+	float: left;
+	margin-bottom: 20px;
+	background-color: rgb(0, 128, 0);
+	color: white;
+	border: solid white 2px;
+	margin-left: 20px;
+}
+
+.login #bouton_retour {
+	background-color: rgb(0, 128, 0);
+	color: white;
+	border: solid white 2px;
+}
+
+.login #retour {
+	float: left;
+	margin-bottom: 20px;
+	margin-left: 60%;
+	text-decoration: none;
+}
+
+.login .error {
+	font-size: 1.2em;
+	color: rgb(255, 50, 50);
+	border: red solid 1px;
+	padding: 2%;
+	-moz-border-radius: 3% 3% 3% 3%;
+}

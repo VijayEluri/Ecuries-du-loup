@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="donnees.calendrier.Evenement" table="calendrier_evenement">
+
+		<id name="id" column="id">
+			<generator class="increment" />
+		</id>
+
+		<property name="date" column="date" />
+
+		<property name="description" column="description" />
+
+		<many-to-one name="typeEvenement" class="donnees.calendrier.TypeEvenement"
+			column="type_evenement" lazy="false" />
+
+	</class>
+
+</hibernate-mapping>

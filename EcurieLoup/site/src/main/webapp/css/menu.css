@@ -1,0 +1,83 @@
+@CHARSET "ISO-8859-1";
+
+#menu { /* pour une mise en place de tous les éléments */
+	float: left;
+	width: 17%;
+	margin: 0px;
+	color: rgb(50, 60, 40);
+}
+
+#menu img {
+	border: none;
+}
+
+.element_menu {
+	background-color: rgb(255, 255, 255); /*rgb(190, 240, 140);*/
+	background-image: url("images/motif.png");
+	background-repeat: repeat-x;
+	border: 2px none rgb(160, 200, 120);
+	margin-bottom: 10px;
+	padding-bottom: 2px;
+	-moz-border-radius: 3% 3% 3% 3%;
+}
+
+/* Quelques effets sur les menus */
+.element_menu h3 {
+	text-align: center;
+	background-color: rgb(0, 128, 0);
+	color: white;
+	/* FF : contour */
+	-moz-border-radius: 3% 3% 0% 0%;
+	/* FF : dégrader */
+	-moz-box-shadow: 0px -20px 10px -10px rgba(0,0,0,0.3) inset; 
+}
+
+.element_menu ul { 
+	list-style: none;
+	padding: 0px;
+	margin-bottom: 5px;
+}
+
+.element_menu a {
+	text-decoration: none;
+	color: rgb(50, 60, 40);	
+}
+
+.element_menu li a {
+	display: inline;
+	width: 100%;
+	padding-left:10%;
+	
+}
+
+.element_menu li a:hover {
+	color: white;
+	
+	padding-left:5%;
+}
+.element_menu li .lumiereLien{
+	padding-left:0%;
+}
+.element_menu li:hover {
+	background-color: rgb(0, 128, 0);
+	-moz-box-shadow: 2px 2px 4px #000; 
+}
+
+#liens {
+	float: right;
+	width: 17%;
+	margin: 0px;
+	color: rgb(50, 60, 40);
+}
+
+.icon_list{
+	border: none;
+	height: 20px;
+	width: 20px;
+}
+
+
+#breizhFlag{
+	margin-left: 0%;
+	max-width: 100%; 
+}

@@ -1,0 +1,67 @@
+@CHARSET "ISO-8859-1";
+
+.task_status_exceed{
+	background-color: black;
+	color: red;
+}
+
+.task_status_day{
+	background-color: red;
+	text-decoration: blink;
+}
+
+.task_status_near{
+	background-color: red;
+}
+
+.task_status_week{
+	background-color: yellow;
+}
+
+.task_icone{
+	width: 20px;
+	height: 20px;
+}
+.menu_memo_task_status_exceed{
+	background-color: black;
+	color: red;
+}
+
+.menu_memo_task_status_day{
+	background-color: red;
+	text-decoration: blink;
+}
+
+.menu_memo_task_status_near{
+	background-color: red;
+}
+
+.menu_memo_task_status_week{
+	background-color: yellow;
+}
+
+.a img{
+	background-color: yellow;
+}
+
+/****************************************************************/
+
+.memo table{
+	width: 100%;
+	border-collapse: collapse; /* Les bordures du tableau seront collées (plus joli) */
+	
+}
+
+.memo table .describe{
+	width: 50%;
+}
+.memo td, th
+{
+   border: 1px solid black;
+}
+
+.memo th{
+	background-color: rgb(0, 128, 0);	
+	-moz-box-shadow: 0px -20px 10px -10px rgba(0, 0, 0, 0.3) inset;
+	color: white;
+}

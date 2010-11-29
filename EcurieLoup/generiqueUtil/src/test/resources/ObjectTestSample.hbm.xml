@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="fr.ecurie_du_loup.generique_util.data.ObjectTestSample" table="object_test">
+
+		<id name="id" column="id">
+			<generator class="increment" />
+		</id>
+
+		<property name="string1" column="string1" />
+
+		<property name="string2" column="string2" />
+
+		<property name="date1" column="date1" type="timestamp" />
+	</class>
+
+</hibernate-mapping>

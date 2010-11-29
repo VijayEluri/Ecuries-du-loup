@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+	
+	
+	<bean id="albumDAO" class="dao.photo.AlbumDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="photoDAO" class="album_photo.PhotoDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="commentaireDAO" class="album_photo.CommentaireDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="tagDAO" class="album_photo.TagDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	
+	<bean id="albumPhotoManager"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref bean="notSecureAlbumPhotoManager" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRES_NEW</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!--  <bean id="secureAlbumPhotoManagerTarget" class="service.photo.securite.AlbumPhotoDecorateurConcrete">
+		<property name="albumPhotoManager">
+			<ref bean="notSecureAlbumPhotoManager" />
+		</property>
+		<property name="utilisateurManager">
+			<ref bean="utilisateurManager" />
+		</property>
+	</bean>-->
+
+
+	
+	
+
+	<bean id="notSecureAlbumPhotoManager" class="service.photo.AlbumPhotoManagerImpl" >
+		<property name="albumDAO">
+			<ref bean="albumDAO" />
+		</property>
+		<property name="commentaireDAO">
+			<ref bean="commentaireDAO" />
+		</property>
+		<property name="photoDAO">
+			<ref bean="photoDAO" />
+		</property>
+		<property name="tagDAO">
+			<ref bean="tagDAO" />
+		</property>
+		<property name="reflector">
+			<ref bean="albumPhotoReflector" />
+		</property>
+		
+		<property name="pathPhotoInProjet">
+			<value>/images/albumPhoto/</value>
+		</property>
+		<property name="photoUtil">
+			<ref bean="photoUtil" />
+		</property>
+		<property name="utilisateurManager">
+			<ref bean="utilisateurManager" />
+		</property>
+	</bean>
+	
+	<bean id="albumPhotoReflector" class="service.photo.AlbumPhotoManagerReflector">
+	</bean>
+	<bean name="photoUtil" class="util.PhotoUtilImpl">
+		<property name="miniatureUtil">
+			<ref bean="miniatureUtil" />
+		</property>
+	</bean>
+	<bean name="miniatureUtil" class="util.MiniatureUtilImpl">
+	</bean>
+
+	<bean name="longToPhotoEditor" class="album_photo.editor.LongToPhotoEditor">
+		<property name="albumPhotoManager">
+			<ref bean="albumPhotoManager" />
+		</property>
+	</bean>
+
+</beans>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	
+	
+	<bean id="ficheChevauxManager" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref bean="ficheChevauxManagerTarget" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="ficheChevauxManagerTarget" class="fiche_chevaux.service.FicheChevauxManagerImpl">
+		<property name="ficheChevauxDAO">
+			<ref bean="ficheChevauxDAO" />
+		</property>
+		<property name="robeChevauxDAO">
+			<ref bean="robeChevauxDAO" />
+		</property>
+		<property name="raceChevauxDAO">
+			<ref bean="raceChevauxDAO"/>
+		</property>
+		<property name="sexeChevauxDAO">
+			<ref bean="sexeChevauxDAO"/>
+		</property>
+		<property name="surnomsChevauxDAO">
+			<ref bean="surnomChevauxDAO"/>
+		</property>
+		
+		<property name="ownerChevauxDAO">
+			<ref bean="ownerChevauxDAO"/>
+		</property>
+	
+	</bean>
+	
+	<bean id="ficheChevauxDAO" class="fiche_chevaux.dao.FicheChevauxDAOHibernate">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="robeChevauxDAO" class="fiche_chevaux.dao.RobeChevauxDAOHibernate">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="raceChevauxDAO" class="fiche_chevaux.dao.RaceChevauxDAOHibernate">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	
+	<bean id="sexeChevauxDAO" class="fiche_chevaux.dao.SexeChevauxDAOHibernate">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	
+	<bean id="surnomChevauxDAO" class="fiche_chevaux.dao.SurnomsDAOHibernate">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="ownerChevauxDAO" class="fiche_chevaux.dao.OwnerChevauxDAOHibernate">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<!--********************************************************************* -->
+	<bean id="raceEditor" class="fiche_chevaux.editor.RaceEditor">
+		<property name="ficheChevauxManager">
+			<ref bean="ficheChevauxManager" />
+		</property>
+	</bean>
+	
+	<bean id="robeEditor" class="fiche_chevaux.editor.RobeEditor">
+		<property name="ficheChevauxManager">
+			<ref bean="ficheChevauxManager" />
+		</property>
+	</bean>
+	
+	<bean id="sexeEditor" class="fiche_chevaux.editor.SexeEditor">
+		<property name="ficheChevauxManager">
+			<ref bean="ficheChevauxManager" />
+		</property>
+	</bean>
+
+	<bean id="stringToOwnerditor" class="fiche_chevaux.editor.StringToOwnerditor">
+		<property name="ficheChevauxManager">
+			<ref bean="ficheChevauxManager" />
+		</property>
+	</bean>
+</beans>

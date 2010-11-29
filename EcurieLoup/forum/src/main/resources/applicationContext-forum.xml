@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+
+
+	<bean id="forumManager" class="forum.service.securite.ForumSecuriteDecorateurConcret">
+		<property name="utilisateurManager">
+			<ref bean="utilisateurManager" />
+		</property>
+		<property name="forumManager">
+			<ref bean="forumManagerNotSecure" />
+		</property>
+	</bean>
+
+	<bean id="forumManagerNotSecure"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref bean="forumManagerNotSecureTarget" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="forumManagerNotSecureTarget" class="forum.service.ForumManagerImpl">
+		<property name="categorieManager">
+			<ref bean="categorieManager" />
+		</property>
+		<property name="messageManager">
+			<ref bean="messageManager" />
+		</property>
+		<property name="topicManager">
+			<ref bean="topicManager" />
+		</property>
+		<property name="utilisateurManager">
+			<ref bean="utilisateurManager" />
+		</property>
+		
+	</bean>
+
+	<bean id="messageManager" class="forum.service.MessageManagerImpl">
+		<property name="dao">
+			<ref bean="messageDAO" />
+		</property>
+	</bean>
+	<bean id="topicManager" class="forum.service.TopicManagerImpl">
+		<property name="dao">
+			<ref bean="topicDAO" />
+		</property>
+	</bean>
+	<bean id="categorieManager" class="forum.service.CategorieManagerImpl">
+		<property name="dao">
+			<ref bean="categorieDAO" />
+		</property>
+	</bean>
+
+	<bean id="messageDAO" class="forum.dao.MessageDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="topicDAO" class="forum.dao.TopicDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="categorieDAO" class="forum.dao.CategorieDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+</beans>

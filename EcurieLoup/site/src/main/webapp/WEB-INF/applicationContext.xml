@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<bean id="MessageManager" class="service.MessageManagerSpring" />
+	
+
+
+	
+
+	<bean id="pageManagerTarget" class="service.page.PageManagerImpl">
+		<property name="dao">
+			<ref bean="pageDAO" />
+		</property>
+	</bean>
+	
+	<bean id="pageManager" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref bean="pageManagerTarget" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="vracManagerTarget" class="service.VracManagerImpl">
+		<property name="vracDAO">
+			<ref bean="vracDAO" />
+		</property>
+	</bean>
+	
+	<bean id="vracManager" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref bean="vracManagerTarget" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	
+	
+	
+	<bean id="sauvegardeSmileyManager" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref bean="sauvegardeSmileyManagerTarget" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="sauvegardeSmileyManagerTarget" class="sauvegarde.smiley.service.SauvegardeSmileyManagerImpl">
+		<property name="sauvegardeSmileyDAO">
+			<ref bean="sauvegardeSmileyDAO" />
+		</property>
+		<property name="emplacementSmiley">
+			<value>/images/smiley/</value>
+		</property>
+	</bean>
+	
+	
+	<bean id="enregistrementTraceRequeteManager" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref bean="enregistrementTraceRequeteManagerTarget" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="enregistrementTraceRequeteManagerTarget" class="enregistrement_trace_requete.services.EnregistrementManagerImpl">
+		<property name="enregistrementTraceRequeteDAO">
+			<ref bean="enregistrementTraceRequeteDAO" />
+		</property>
+		
+	</bean>
+	
+	
+	
+	
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>i18n/profil</value>
+				<value>i18n/generique_error</value>
+				<value>i18n/ficheChevaux</value>
+				<value>i18n/facebook</value>
+				<value>i18n/email</value>
+			</list>
+		</property>
+	</bean>
+
+</beans>

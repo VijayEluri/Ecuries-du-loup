@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+
+.userCommunityList table{
+	margin: auto;
+	
+	width:  75%;
+}
+
+.userCommunityList table tr{
+	height:  40px;
+}
+
+
+.listUserCard li a{
+	text-decoration: none;
+	
+	color : rgb(0, 128, 0);
+}
+

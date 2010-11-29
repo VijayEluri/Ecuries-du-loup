@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="fr.ecuriesduloup.ecurieLoup.memo.data.Memo" table="memo">
+
+		<id name="id" column="id">
+			<generator class="increment" />
+		</id>
+		<many-to-one name="sender" class="donnees.User" column="sender"
+			lazy="false" />
+			
+		<many-to-one name="receiver" class="donnees.User" column="receiver"
+			lazy="false" />
+			
+			<property name="description" column="description" />
+			
+			<property name="postedDate" column="posted_date" />
+			
+			<property name="deadLine" column="dead_line" />
+			
+			<property name="privateMemo" column="private_memo" />
+			
+			<property name="memoIsDo" column="memo_is_do" />
+	</class>
+
+</hibernate-mapping>

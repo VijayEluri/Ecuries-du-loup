@@ -1,0 +1,10 @@
+@CHARSET "ISO-8859-1";
+
+#foot {
+	background-color: rgb(0, 128, 0);
+	clear: both;
+	text-align: center;
+	border: rgb(160, 200, 120) none 2px;
+	color: black;
+	visibility: hidden;
+}

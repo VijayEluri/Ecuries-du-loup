@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+	<class name="fiche_chevaux.donnees.Fiche" table="ficheChevaux_fiche">
+
+		<id name="id" column="id">
+			<generator class="increment" />
+		</id>
+		<property name="nom" column="nom" />
+		<many-to-one name="robe" class="fiche_chevaux.donnees.Robe" column="robe" lazy="false"/>
+		<many-to-one name="race" class="fiche_chevaux.donnees.Race" column="race" lazy="false"/>
+		<property name="dateNaissance" column="date_naissance" />
+		<property name="anneeNaissance" column="annee_naissance" />
+		<many-to-one name="sexe" class="fiche_chevaux.donnees.Sexe" column="sexe" lazy="false"/>
+		<many-to-one name="photoCorps" class="donnees.photo.Photo" column="photo_corps" lazy="false"  />
+		<many-to-one name="photoTete" class="donnees.photo.Photo" column="photo_tete" lazy="false"  />
+		
+		<many-to-one name="owner" class="fiche_chevaux.donnees.Owner" column="owner" lazy="false"/>
+		
+		<property name="description" column="description" />
+
+		<list name="surnoms" table="ficheChevaux_surnom" lazy="false" inverse="true"  >
+
+			<key column="ficheCheval" />
+			<list-index column="id" />
+			<one-to-many class="fiche_chevaux.donnees.Surnom"/>
+		</list>
+
+	</class>
+
+</hibernate-mapping>

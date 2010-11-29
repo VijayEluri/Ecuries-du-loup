@@ -1,0 +1,34 @@
+@CHARSET "ISO-8859-1";
+
+@IMPORT url("./header.css");
+
+@IMPORT url("./menu.css");
+
+@IMPORT url("./foot.css");
+
+@IMPORT url("./corps.css");
+
+@IMPORT url("./login.css");
+
+@IMPORT url("./inscription.css");
+
+@IMPORT url("./visualisationNews.css");
+
+@IMPORT url("./forum.css");
+
+@IMPORT url("./albumPhoto.css");
+
+@IMPORT url("./calendrier.css");
+
+@IMPORT url("./edl_code.css");
+
+@IMPORT url("./pageSaisis.css");
+
+@IMPORT url("./administration.css");
+
+@IMPORT url("./fiche.css");
+
+@IMPORT url("./facebook.css");
+
+@IMPORT url("./memo.css");
+@IMPORT url("./profil.css");

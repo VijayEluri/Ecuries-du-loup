@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory>
+
+		<!-- Database connection settings -->
+		<property name="connection.driver_class">org.gjt.mm.mysql.Driver</property>
+		<property name="connection.url">${base.url}</property>
+		<property name="connection.username">${base.user}</property>
+		<!--<property name="connection.password">mysql</property>-->
+		<property name="connection.password">${base.pass}</property>
+		<!--
+			<property name="hibernate.connection.autocommit">true</property>
+			<property
+			name="hibernate.connection.release_mode">after_transaction</property>
+		-->
+		<!-- JDBC connection pool (use the built-in) -->
+		<property name="connection.pool_size">1</property>
+
+		<property name="hibernate.c3p0.timeout">5000</property>
+
+		<property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+
+		<!-- SQL dialect -->
+		<property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+		<property name="hibernate.show_sql">false</property>
+		<!--
+			<property name="hibernate.use_outer_join">true</property> <property
+			name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+		-->
+
+		<!-- mapping files -->
+		<mapping resource="donnees/User.hbm.xml" />
+		<mapping resource="donnees/Role.hbm.xml" />
+		<mapping resource="donnees/Vrac.hbm.xml" />
+
+		<mapping resource="donnees/news/Nouvelle.hbm.xml" />
+
+		<mapping resource="forum/donnees/Categorie.hbm.xml" />
+		<mapping resource="forum/donnees/Topic.hbm.xml" />
+		<mapping resource="forum/donnees/Message.hbm.xml" />
+		<mapping resource="forum/donnees/Lecture.hbm.xml" />
+
+		<mapping resource="donnees/photo/Album.hbm.xml" />
+		<mapping resource="donnees/photo/LectureAlbum.hbm.xml" />
+		<mapping resource="donnees/photo/Tag.hbm.xml" />
+		<mapping resource="donnees/photo/Photo.hbm.xml" />
+		<mapping resource="donnees/photo/commentaire/Commentaire.hbm.xml" />
+
+		<mapping resource="donnees/page/Page.hbm.xml" />
+
+		<mapping resource="donnees/calendrier/TypeEvenement.hbm.xml" />
+		<mapping resource="donnees/calendrier/Evenement.hbm.xml" />
+
+		<mapping resource="donnees/smiley/CategorieSmiley.hbm.xml" />
+		<mapping resource="donnees/smiley/Smiley.hbm.xml" />
+
+		<mapping resource="fr/ecuriesduloup/save/photo/data/PhotoBackup.hbm.xml" />
+		<mapping resource="sauvegarde/smiley/donnees/SauvegardeSmiley.hbm.xml" />
+
+		<mapping
+			resource="enregistrement_trace_requete/donnees/EnregistrementTraceRequete.hbm.xml" />
+		<mapping
+			resource="enregistrement_trace_requete/donnees/ParametreEnregistrementTraceRequete.hbm.xml" />
+
+		<mapping resource="fiche_chevaux/donnees/Fiche.hbm.xml" />
+		<mapping resource="fiche_chevaux/donnees/Robe.hbm.xml" />
+		<mapping resource="fiche_chevaux/donnees/Race.hbm.xml" />
+		<mapping resource="fiche_chevaux/donnees/Sexe.hbm.xml" />
+		<mapping resource="fiche_chevaux/donnees/Surnom.hbm.xml" />
+		<mapping resource="fiche_chevaux/donnees/Owner.hbm.xml" />
+
+
+		<mapping resource="fr/ecuriesduloup/ecurieLoup/memo/data/Memo.hbm.xml" />
+		<mapping resource="fr/ecuriesduloup/ecurieLoup/memo/data/ReadingMemo.hbm.xml" />
+
+	</session-factory>
+</hibernate-configuration>

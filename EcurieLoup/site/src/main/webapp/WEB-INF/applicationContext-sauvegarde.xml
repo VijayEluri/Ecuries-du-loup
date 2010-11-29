@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	 <bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
+
+		<!-- ****************************************************************-->
+		<!-- ****************************************************************-->
+		<!-- ****************************************************************-->
+		
+
+	
+	
+	<!-- ****************************************************************-->
+	<!-- ****************************************************************-->
+	<!-- ****************************************************************-->
+	
+	<bean name="sauvegardeAjoutSmileyGreffon" class="sauvegarde.smiley.aspect.AjoutSauvegardeSmileyGreffon">
+		<property name="sauvegardeSmileyManager">
+			<ref bean="sauvegardeSmileyManager" />
+		</property>
+	</bean>
+
+	<bean name="sauvegardeAjoutSmileyCoupe"	class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+		<property name="pattern" value="util.SmileyUtil.creerFicherSurDisque" />
+	</bean>
+
+	<bean name="sauvegardeAjoutSmileyAspect"
+		class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref="sauvegardeAjoutSmileyGreffon" />
+		<property name="pointcut" ref="sauvegardeAjoutSmileyCoupe" />
+	</bean>
+	
+	<!-- ****************************************************************-->
+	<bean name="sauvegardeSuppressionSmileyGreffon" class="sauvegarde.smiley.aspect.SuppressionSauvegardeSmileyGreffon">
+		<property name="sauvegardeSmileyManager">
+			<ref bean="sauvegardeSmileyManager" />
+		</property>
+	</bean>
+
+	<bean name="sauvegardeSuppressionSmileyCoupe"
+		class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+		<property name="pattern" value="util.SmileyUtil.supprimerFicherSurDisque" />
+	</bean>
+
+	<bean name="sauvegardeSuppressionSmileyAspect"
+		class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref="sauvegardeSuppressionSmileyGreffon" />
+		<property name="pointcut" ref="sauvegardeSuppressionSmileyCoupe" />
+	</bean>
+	<!-- ****************************************************************-->
+	<bean name="sauvegardeRecuperationTousLesSmileyGreffon" class="sauvegarde.smiley.aspect.RecuperationTousLesSmileySauvegardeGreffon">
+		<property name="sauvegardeSmileyManager">
+			<ref bean="sauvegardeSmileyManager" />
+		</property>
+	</bean>
+
+	<bean name="sauvegardeRecuperationTousLesSmileyCoupe"
+		class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+		<property name="pattern" value="service.smiley.SmileyManager.recupererTousLesSmiley" />
+	</bean>
+
+	<bean name="sauvegardeRecuperationTousLesSmileyAspect"
+		class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref="sauvegardeRecuperationTousLesSmileyGreffon" />
+		<property name="pointcut" ref="sauvegardeRecuperationTousLesSmileyCoupe" />
+	</bean>
+	
+
+</beans>

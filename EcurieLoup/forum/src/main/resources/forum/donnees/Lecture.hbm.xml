@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="forum.donnees.Lecture" table="forum_lecture">
+
+		<id name="id" column="id">
+			<generator class="increment" />
+		</id>
+
+		<many-to-one name="topicLu" class="forum.donnees.Topic"
+			column="topic_lu" lazy="false" />
+
+		<many-to-one name="utilisateur" class="donnees.User"
+			column="utilisateur" lazy="false" />
+
+		<property name="heureLecture" column="heure_lecture" />
+	</class>
+
+</hibernate-mapping>

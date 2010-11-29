@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+
+	<bean name="sendEmailNewMemo"
+		class="fr.ecuriesduloup.ecurieLoup.email.interceptor.SendEmailNewMemo">
+		<property name="sendEmailMemo">
+			<ref bean="sendEmailMemo" />
+		</property>
+	</bean>
+
+	<bean name="sendEmailNewMemoCut"
+		class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+		<property name="pattern"
+			value="fr.ecuriesduloup.ecurieLoup.memo.service.MemoManager.add" />
+	</bean>
+
+	<bean name="sendEmailNewMemoAspect"
+		class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref="sendEmailNewMemo" />
+		<property name="pointcut" ref="sendEmailNewMemoCut" />
+	</bean>
+
+	<bean name="sendEmailMemo"
+		class="fr.ecuriesduloup.ecurieLoup.email.service.memo.SendEmailMemoImpl">
+		<property name="adresseEmailMemo" value="ecuriesduloup@ecuriesduloup.fr" />
+		<property name="i18nManager">
+			<ref bean="MessageManager" />
+		</property>
+	</bean>
+
+</beans>

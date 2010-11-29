@@ -1,0 +1,69 @@
+@CHARSET "ISO-8859-1";
+
+#corps .fiche_chevaux .visualisationFiche .photo_fiche{
+	float: left;
+	
+	
+	max-width: 40%;
+}
+#corps .fiche_chevaux .visualisationFiche .photo_fiche img{
+	margin: 10%;
+	
+	max-width: 40%;
+	max-height: 200px;
+}
+#corps .fiche_chevaux .visualisationFiche .photo_fiche .survol{
+	display: none;
+	position: absolute;
+	border : black 2px solid;
+}
+#corps .fiche_chevaux .visualisationFiche .photo_fiche .survol img{
+	margin: 0px;
+	max-width: 500px;
+	max-height: 400px;
+}
+#corps .fiche_chevaux .visualisationFiche .surnom{
+	margin-left: 10%;
+	margin-bottom: 10px;
+}
+#corps .fiche_chevaux .visualisationFiche .informations {
+	float: left;
+	max-width: 55%;
+}
+#corps .fiche_chevaux .visualisationFiche .informations h2{
+	color: rgb(0,128,0);
+}
+
+#corps .fiche_chevaux .visualisationTousLesFiches ul a{
+	color: rgb(0,128,0);
+	text-decoration: none;
+}
+#corps .fiche_chevaux .visualisationTousLesFiches ul a:hover{
+	background-color: rgb(0,128,0);
+	color: white;
+}
+
+/* LE FORMULAIRE */
+
+#corps .fiche_chevaux .formulaireFiche .date_visible{
+	display: block;
+}
+#corps .fiche_chevaux .formulaireFiche .date_invisible{
+	display: none;
+}
+
+
+/***************************************************/
+/* selection photo fiches chevaux */
+/***************************************************/
+
+#selection_photo .contenu_album{
+	display: none ;
+}
+#selection_photo li:hover > .contenu_album{
+	display: block;
+}
+
+#selection_photo #selected{
+	border: solid red 2px;
+}

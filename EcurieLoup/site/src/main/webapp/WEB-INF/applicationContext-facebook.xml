@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<bean id="facebookManager" class="fr.ecuriesduloup.site.facebook.api.FacebookMangerImpl">
+		<property name="apiKey">
+			<value>3010c81acbf9b98e334f2285950f079e</value>
+		</property>
+		<property name="secret">
+			<value>eb1214fc834084ac95b51e33956408fa</value>
+		</property>
+
+	</bean>
+
+	<!-- mvc -->
+
+	<bean id="facebookController" class="fr.ecuriesduloup.site.facebook.FacebookController">
+		<property name="albumPhotoManager">
+			<ref bean="albumPhotoManager" />
+		</property>
+		<property name="forumManager">
+			<ref bean="forumManager" />
+		</property>
+	</bean>
+	<bean id="facebookLoginController" class="fr.ecuriesduloup.site.facebook.FacebookLoginController">
+		<property name="utilisateurManager">
+			<ref bean="utilisateurManager" />
+		</property>
+		<property name="facebookManager">
+			<ref bean="facebookManager"/>
+		</property>
+	</bean>
+	
+	
+	<bean id="useUtilisateurConnecterController" class="fr.ecuriesduloup.site.facebook.UseUtilisateurConnecterController">
+		<property name="utilisateurManager">
+			<ref bean="utilisateurManager" />
+		</property>
+		<property name="facebookManager">
+			<ref bean="facebookManager"/>
+		</property>
+	</bean>
+	
+	<bean id="entrerUtilisteurFormController" class="fr.ecuriesduloup.site.facebook.EntrerUtilisateurFormController">
+		<property name="utilisateurManager">
+			<ref bean="utilisateurManager" />
+		</property>
+		<property name="facebookManager">
+			<ref bean="facebookManager"/>
+		</property>
+		
+		<property name="formView" value="facebook/formulaireChoixUtilisateur" />
+		<property name="commandName" value="user" />
+		<property name="validator" ref="choixUserFacebookValidator" />
+		<property name="commandClass" value="fr.ecuriesduloup.site.facebook.ChoixUserFacebook" />
+	</bean>
+	
+	<bean id="choixUserFacebookValidator" class="fr.ecuriesduloup.site.facebook.ChoixUserFacebookValidator">
+		<property name="utilisateurManager">
+			<ref bean="utilisateurManager" />
+		</property>
+	</bean>
+</beans>
