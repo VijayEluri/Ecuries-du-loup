@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<groupId>fr.ecuriesduloup</groupId>
 		<artifactId>EcurieLoup</artifactId>
@@ -27,6 +26,75 @@
 			<properties>
 				<envBase>hibernateBeta</envBase>
 			</properties>
+		</profile>
+
+		<profile>
+			<id>day_test</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>selenium-maven-plugin</artifactId>
+						<version>1.0.1</version>
+
+						<configuration>
+							<forcedBrowserMode>*firefox</forcedBrowserMode>
+							<background>true</background>
+						</configuration>
+
+						<executions>
+							<execution>
+								<id>start-selenium-server</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>start-server</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>stop-selenium-server</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>stop-server</goal>
+								</goals>
+							</execution>
+						</executions>
+
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.4.2</version>
+						<configuration>
+							<excludes>
+								<exclude>**/selenium/**/*.java</exclude> <!-- Les tests selenium sont exclus de la phase de test -->
+							</excludes>
+						</configuration>
+						<executions>
+							<execution>
+								<id>surefire-integration-test</id>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>test</goal>
+								</goals>
+								<configuration>
+									<excludes>
+										<exclude>**/unitaire/***.java</exclude>
+										<exclude>**/integration/**/*.java</exclude>
+										<exclude>**/dao/**/*</exclude>
+									</excludes>
+
+								</configuration>
+
+
+							</execution>
+
+						</executions>
+
+
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 	</profiles>
 	<developers>
@@ -77,66 +145,18 @@
 						<exclude>**/selenium/**/*.java</exclude> <!-- Les tests selenium sont exclus de la phase de test -->
 					</excludes>
 				</configuration>
-				<executions>
-					<execution>
-						<id>surefire-integration-test</id>
-						<phase>integration-test</phase>
-						<goals>
-							<goal>test</goal>
-						</goals>
-						<configuration>
-							<excludes>
-								<exclude>**/unitaire/***.java</exclude>
-								<exclude>**/integration/**/*.java</exclude>
-								<exclude>**/dao/**/*</exclude>
-							</excludes>
-
-						</configuration>
-
-
-					</execution>
-
-				</executions>
-
-
 			</plugin>
 
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>selenium-maven-plugin</artifactId>
-				<version>1.0.1</version>
 
-				<configuration>
-					<forcedBrowserMode>*firefox</forcedBrowserMode>
-					<background>true</background>
-				</configuration>
-
-				<executions>
-					<execution>
-						<id>start-selenium-server</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>start-server</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>stop-selenium-server</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>stop-server</goal>
-						</goals>
-					</execution>
-				</executions>
-
-			</plugin>
 
 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>tomcat-maven-plugin</artifactId>
-				<version>1.0</version>
+				<version>1.1</version>
 				<configuration>
 
+					<url>http://localhost:8080/manager/text</url>
 					<update>true</update>
 					<username>krack</username>
 					<password>ISTACK</password>
@@ -358,11 +378,9 @@
 			<artifactId>util</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		<!-- <dependency>
-			<groupId>fr.ecuriesduloup</groupId>
-			<artifactId>diaporama</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency> -->
+		<!--
+			<dependency> <groupId>fr.ecuriesduloup</groupId> <artifactId>diaporama</artifactId> <version>0.0.1-SNAPSHOT</version> </dependency>
+		-->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
@@ -383,15 +401,10 @@
 			<version>3.2.6.ga</version>
 		</dependency>
 		<!--
-			<dependency> <groupId>org.acegisecurity</groupId>
-			<artifactId>acegi-security</artifactId> <version>1.0.7</version>
-			<exclusions> <exclusion> <artifactId>spring-dao</artifactId>
-			<groupId>org.springframework</groupId> </exclusion> <exclusion>
-			<artifactId>spring-jdbc</artifactId>
-			<groupId>org.springframework</groupId> </exclusion> <exclusion>
-			<artifactId>spring-remoting</artifactId>
-			<groupId>org.springframework</groupId> </exclusion> </exclusions>
-			</dependency>
+			<dependency> <groupId>org.acegisecurity</groupId> <artifactId>acegi-security</artifactId> <version>1.0.7</version> <exclusions> <exclusion>
+			<artifactId>spring-dao</artifactId> <groupId>org.springframework</groupId> </exclusion> <exclusion> <artifactId>spring-jdbc</artifactId>
+			<groupId>org.springframework</groupId> </exclusion> <exclusion> <artifactId>spring-remoting</artifactId> <groupId>org.springframework</groupId>
+			</exclusion> </exclusions> </dependency>
 		-->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -512,4 +525,5 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
+
 </project>
