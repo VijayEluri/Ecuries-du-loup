@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	id="WebApp_ID" version="2.5">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
 	<display-name>EcurieLoup</display-name>
 	<welcome-file-list>
 		<welcome-file>welcom.jsp</welcome-file>
@@ -24,10 +22,11 @@
 			classpath:/applicationContext-SendMemo.xml
 			classpath:/applicationContext-SendUser.xml
 			classpath:/applicationContext-photoBackup.xml
+			classpath:/applicationContext-options.xml
+			classpath:/applicationContext-secretFlag.xml
 		 </param-value>
 
 	</context-param>
-
 	<listener>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
@@ -62,12 +61,12 @@
 			<param-value>/WEB-INF/ws-context.xml</param-value>
 		</init-param>
 	</servlet>
-	
+
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
-	
+
 	<!-- en 1ier spring  Security -->
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
@@ -86,7 +85,10 @@
 		<servlet-name>rcp</servlet-name>
 		<url-pattern>/gwt/diaporma/diaporama</url-pattern>
 	</servlet-mapping>
-
+	<servlet-mapping>
+		<servlet-name>rcp</servlet-name>
+		<url-pattern>/gwt/secretflag/secretFlag</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ws</servlet-name>
 		<url-pattern>/ws/*</url-pattern>

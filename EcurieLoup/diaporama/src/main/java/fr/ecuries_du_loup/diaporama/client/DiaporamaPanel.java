@@ -1,14 +1,15 @@
 package fr.ecuries_du_loup.diaporama.client;
 
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
 
 import fr.ecuries_du_loup.diaporama.client.control.DiaporamaControl;
 import fr.ecuries_du_loup.diaporama.client.ihm.Ihm;
 import fr.ecuries_du_loup.diaporama.shared.data.Picture;
 
 public class DiaporamaPanel extends Composite implements Ihm{
-	private DockPanel panel;
+	private DockLayoutPanel panel;
 	private ImagePanel imagePanel;
 	private TelecommandePanel telecommandePanel;
 	private DiaporamaControl diaporamaControl;
@@ -16,7 +17,7 @@ public class DiaporamaPanel extends Composite implements Ihm{
 
 	public DiaporamaPanel(DiaporamaControl diaporamaControl){
 		this.diaporamaControl = diaporamaControl;
-		this.panel = new DockPanel();
+		this.panel = new DockLayoutPanel(Unit.PC);
 		this.panel.setStyleName("panel");
 		
 		this.createImage();
@@ -29,13 +30,13 @@ public class DiaporamaPanel extends Composite implements Ihm{
 	
 	private void createImage(){
 		this.imagePanel = new ImagePanel();
-		this.panel.add(this.imagePanel, DockPanel.CENTER);
+		this.panel.add(this.imagePanel);
 		
 	}
 	
 	private void createTelecommande(){
 		this.telecommandePanel = new TelecommandePanel(this.diaporamaControl);
-		this.panel.add(telecommandePanel, DockPanel.EAST);
+		this.panel.addEast(telecommandePanel, 15);
 	}
 	
 

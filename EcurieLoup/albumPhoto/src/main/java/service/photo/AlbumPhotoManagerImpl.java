@@ -294,6 +294,7 @@ public class AlbumPhotoManagerImpl implements AlbumPhotoManager {
 					photo.setPosteur(posteur);
 					photo.setDescription("");
 					photo.setDatePostage(new Date().getTime());
+					photo.setTypeAdding("zip");
 					
 					File fichierPhoto = new File(entry.getName());
 					this.reflector.creerPhoto(photo, fichierPhoto, pathServeur);

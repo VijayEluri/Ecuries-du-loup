@@ -15,6 +15,7 @@ public class Photo extends DataWtihLongIdAbstract<Photo> implements DataWithLong
 	private Album album;
 	private List<Commentaire> commentaires;
 	private List<Tag> tags;
+	private String typeAdding;
 	
 	
 	
@@ -65,6 +66,14 @@ public class Photo extends DataWtihLongIdAbstract<Photo> implements DataWithLong
 		this.tags = tags;
 	}	
 	
+
+	public String getTypeAdding() {
+		return typeAdding;
+	}
+
+	public void setTypeAdding(String typeAdding) {
+		this.typeAdding = typeAdding;
+	}
 
 	public String toString(){
 		String retour = "";

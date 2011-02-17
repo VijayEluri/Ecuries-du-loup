@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="fr.ecuriesduloup.siteoptions.data.Option" table="options">
+
+		<id name="id" column="id">
+			<generator class="increment" />
+		</id>
+
+		<many-to-one name="user" class="donnees.User" column="user"	lazy="false" />
+
+		<property name="name" column="name" />
+
+		<property name="value" column="value" />
+
+		
+	</class>
+
+</hibernate-mapping>

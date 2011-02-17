@@ -11,9 +11,6 @@
 	<bean id="MessageManager" class="service.MessageManagerSpring" />
 	
 
-
-	
-
 	<bean id="pageManagerTarget" class="service.page.PageManagerImpl">
 		<property name="dao">
 			<ref bean="pageDAO" />

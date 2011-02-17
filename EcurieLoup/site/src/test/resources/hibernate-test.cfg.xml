@@ -56,5 +56,7 @@
 
 		<mapping resource="donnees/smiley/CategorieSmiley.hbm.xml" />
 		<mapping resource="donnees/smiley/Smiley.hbm.xml" />
+		
+		<mapping resource="fr/ecuriesduloup/siteoptions/data/Option.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

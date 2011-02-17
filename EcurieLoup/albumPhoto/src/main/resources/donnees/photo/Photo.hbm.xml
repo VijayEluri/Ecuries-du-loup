@@ -37,6 +37,10 @@
 			<list-index column="id" />
 			<one-to-many class="donnees.photo.Tag" />
 		</list>
+		
+		
+		<property name="typeAdding" column="typeAdding" />
 	</class>
+	
 
 </hibernate-mapping>

@@ -37,6 +37,7 @@ public class AlbumPhotoTestUtil {
 		assertEquals(photo1.getDatePostage(), photo2.getDatePostage());
 		assertEquals(photo1.getDescription(), photo2.getDescription());
 		assertEquals(photo1.getPosteur(), photo2.getPosteur());
+		assertEquals(photo1.getTypeAdding(), photo2.getTypeAdding());
 
 	}
 
@@ -48,6 +49,7 @@ public class AlbumPhotoTestUtil {
 		photo.setAlbum(AlbumInBase.getAlbum());
 		photo.setPosteur(AlbumInBase.getUtilisateurToutDroit());
 		photo.setDatePostage(123456789);
+		photo.setTypeAdding("notifier");
 
 		return photo;
 	}

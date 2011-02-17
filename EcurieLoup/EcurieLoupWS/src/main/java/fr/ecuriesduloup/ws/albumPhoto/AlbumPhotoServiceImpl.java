@@ -1,6 +1,7 @@
 package fr.ecuriesduloup.ws.albumPhoto;
 
 import java.io.File;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,11 @@ public class AlbumPhotoServiceImpl implements AlbumPhotoService {
 	@Override
 	public Album getAlbum(long albumId) {
 		return this.albumPhotoManager.recupererAlbum(albumId);
+	}
+
+	@Override
+	public List<Album> getAlbums() {
+		return this.albumPhotoManager.recupererTousLesAlbums();
 	}
 
 }

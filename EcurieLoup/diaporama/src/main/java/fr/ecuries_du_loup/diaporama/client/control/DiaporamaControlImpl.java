@@ -2,11 +2,11 @@ package fr.ecuries_du_loup.diaporama.client.control;
 
 import java.util.List;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import fr.ecuries_du_loup.diaporama.client.engine.DataSourcePictures;
 import fr.ecuries_du_loup.diaporama.client.engine.DataSourcePicturesImpl;
-import fr.ecuries_du_loup.diaporama.client.engine.PictureLoader;
 import fr.ecuries_du_loup.diaporama.client.engine.PictureLoaderAsync;
 import fr.ecuries_du_loup.diaporama.client.engine.Scheduler;
 import fr.ecuries_du_loup.diaporama.client.engine.navigator.Navigator;
@@ -50,7 +50,7 @@ public class DiaporamaControlImpl implements DiaporamaControl {
 			
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+				Window.alert(caught.getMessage());
 				
 			}
 		});
@@ -71,7 +71,7 @@ public class DiaporamaControlImpl implements DiaporamaControl {
 			
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+				Window.alert(caught.getMessage());
 				
 			}
 		});

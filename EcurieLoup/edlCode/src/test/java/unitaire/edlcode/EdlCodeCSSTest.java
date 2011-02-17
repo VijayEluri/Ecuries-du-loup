@@ -15,18 +15,26 @@ import service.smiley.SmileyManager;
 import donnees.smiley.Smiley;
 import edlcode.EdlCode;
 import edlcode.EdlCodeEncodageException;
+import fr.ecuriesduloup.siteoptions.data.Option;
+import fr.ecuriesduloup.siteoptions.service.OptionsService;
 
 public class EdlCodeCSSTest {
 	private EdlCode edlCode;
 	private SmileyManager smileyManager;
+	private OptionsService optionsService;
 	
 	@Before
 	public void setUp() throws Exception {
 		this.edlCode = new EdlCode();
 		this.smileyManager = EasyMock.createMock(SmileyManager.class);
+		this.optionsService = EasyMock.createMock(OptionsService.class);
 		this.edlCode.setSmileyManager(smileyManager);
+		this.edlCode.setOptionsService(optionsService);
 		
 		EasyMock.expect(this.smileyManager.recupererTousLesSmiley()).andReturn(new ArrayList<Smiley>());
+		Option option = new Option();
+		option.setValue("1");
+		EasyMock.expect(this.optionsService.get("bigadin")).andReturn(option);
 		EasyMock.replay(this.smileyManager);
 	}
 	

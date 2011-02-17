@@ -6,6 +6,9 @@
 		<property name="smileyManager">
 			<ref bean="smileyManager" />
 		</property>
+		<property name="optionsService">
+			<ref bean="optionsManager" />
+		</property>
 	</bean>
 	
 

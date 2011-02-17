@@ -91,6 +91,7 @@ public class FormulaireNouvellePhotoAlbumPhotoController{
 		MultipartFile fichier = multipartRequest.getFile("fichier");
 
 		photo = this.construirePhoto(nouvellePhoto);
+		photo.setTypeAdding("form");
 		if (fichier.isEmpty()) {
 			// TODO : voir pk sa affiche pas l'erreur
 			result.rejectValue("fichier", "", "Fichier vide");
@@ -154,7 +155,7 @@ public class FormulaireNouvellePhotoAlbumPhotoController{
 
 	
 		final Photo photo = this.construirePhoto(nouvellePhoto);
-
+		photo.setTypeAdding("zip");
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		MultipartFile fichierZip = multipartRequest.getFile("zip");
 

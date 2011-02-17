@@ -454,3 +454,6 @@ INSERT INTO `role` (`role`, `image`, `description`) VALUES
 ('ROLE_ADMINISTRATEUR_PHOTO', 'images/photo.jpg', 'Rôle permettant la gestion des photos et albums photo ainsi que la modération des commentaire sur les photos.'),
 ('ROLE_AUTHENTIFIER', 'images/authentifier.png', 'Rôle permettant l''identification sur le site. Sans ce rôle, l''utilisateur ne pourra plus se connecter. '),
 ('ROLE_ADMINISTRATEUR_FICHECHEVAUX', 'images/fiche.png', 'Permet la création, modification, suppression des fiches chevaux');
+
+
+ALTER TABLE `photo_photo` ADD `typeAdding` VARCHAR( 50 ) NOT NULL;

@@ -171,9 +171,10 @@ CREATE TABLE `photo_tag` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 SET character_set_client = @saved_cs_client;
 
-
+ALTER TABLE `photo_photo` ADD `typeAdding` VARCHAR( 50 ) NOT NULL;
 
 INSERT INTO `photo_album` (`id`, `titre`) VALUES (1, 'titre album');
 INSERT INTO `photo_commentaire` (`id`, `photo`, `posteur`, `date`, `contenu`) VALUES (1, '1', 'krack', '123456789', 'Commentaire test');
-INSERT INTO `photo_photo` (`id`, `description`, `posteur`, `date_postage`, `album`) VALUES (1, 'Description de la photo de test', 'krack', '123456789', '1');
+INSERT INTO `photo_photo` (`id`, `description`, `posteur`, `date_postage`, `album`, `typeAdding`) VALUES (1, 'Description de la photo de test', 'krack', '123456789', '1', 'notifier');
 INSERT INTO `photo_tag` (`id`, `photo`, `x`, `y`, `nom`) VALUES (1, '1', '152', '154', 'Agathe');
+

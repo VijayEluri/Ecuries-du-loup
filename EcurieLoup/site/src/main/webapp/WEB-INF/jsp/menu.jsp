@@ -55,7 +55,8 @@
 	
 	<security:authorize ifAllGranted="ROLE_AUTHENTIFIER">
 		<div class="element_menu">
-			<img id="breizhFlag" alt="<fmt:message key="menu.bzh.alt"/>" src="${ctx}/images/bzh.jpg" />
+			<!-- <img id="breizhFlag" alt="<fmt:message key="menu.bzh.alt"/>" src="${ctx}/images/bzh.jpg" />-->
+			<div id="secretFlag" ></div>
 		</div>
 	</security:authorize>
 	

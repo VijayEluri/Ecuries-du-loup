@@ -12,8 +12,9 @@
 
 .image{
 	background-color: white;
-	width: 650px;
-	height: 450px;
+	/*width: 650px;*/
+	/*height: 450px;*/
+	width: 70%;
 	padding: 2%;
 	margin: 3%;
 	text-align: center;
@@ -32,7 +33,7 @@
 	border: 2px solid black;
 	-moz-border-radius: 3% 3% 3% 3%;
 	padding : 30px;
-	margin: 40px;
+	margin: 30px;
 	text-align: center;
 	
 }

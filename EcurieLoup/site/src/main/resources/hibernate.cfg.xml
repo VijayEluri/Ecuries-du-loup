@@ -77,6 +77,8 @@
 
 		<mapping resource="fr/ecuriesduloup/ecurieLoup/memo/data/Memo.hbm.xml" />
 		<mapping resource="fr/ecuriesduloup/ecurieLoup/memo/data/ReadingMemo.hbm.xml" />
+		
+		<mapping resource="fr/ecuriesduloup/siteoptions/data/Option.hbm.xml" />
 
 	</session-factory>
 </hibernate-configuration>

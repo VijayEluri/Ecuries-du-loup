@@ -65,6 +65,7 @@ public class AlbumInBase {
 		photo.setAlbum(AlbumInBase.getAlbum());
 		photo.setDatePostage(123456789);
 		photo.setDescription("Description de la photo de test");
+		photo.setTypeAdding("notifier");
 		return photo;
 	}
 	

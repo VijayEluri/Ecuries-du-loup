@@ -1,8 +1,10 @@
 package fr.ecuriesduloup.ws.albumPhoto;
 
-import java.util.Enumeration;
-
-import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,10 +12,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import donnees.User;
+import donnees.photo.Album;
+import donnees.photo.Photo;
 import fr.ecuriesduloup.ws.WsStatus;
 import fr.ecuriesduloup.ws.user.UserService;
 
@@ -24,6 +30,16 @@ public class AlbumPhotoController {
 	@Autowired
 	private UserService userService;
 
+	@RequestMapping(value = "/albumPhoto/albums",method=RequestMethod.GET)
+	public ModelAndView listAlbum() {
+		List<Album> albums = this.albumPhotoService.getAlbums();
+		List<AlbumWs> albumWs = new ArrayList<AlbumWs>();
+		for(Album album : albums){
+			albumWs.add(new AlbumWs(album));
+		}
+		ModelAndView mav = new ModelAndView("statusXmlView", BindingResult.MODEL_KEY_PREFIX + "albums", albumWs);
+		return mav;
+	}
 
 	@RequestMapping(value = "/albumPhoto/album/{name}",method=RequestMethod.PUT)
 	public ModelAndView createAlbum(@PathVariable String name) {
@@ -35,35 +51,45 @@ public class AlbumPhotoController {
 	}
 
 	@RequestMapping(value = "/albumPhoto/photo/{albumId}",method=RequestMethod.POST)
-	public ModelAndView upload(@PathVariable long albumId, HttpServletRequest request){
-	/*MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-		Map<String,MultipartFile > filesMap = multipartRequest.getFileMap();
-		System.out.println("filesMap recu : ");
-		for(String key : filesMap.keySet()){
-			System.out.println("\tfichier recu : "+key);
-		}*/
-		System.out.println("postage "+albumId);
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-		System.out.println("postage after cast ");
-		System.out.println(toString(request));
+	
+	public ModelAndView upload(@PathVariable long albumId, @RequestParam("file") MultipartFile multipartFile, MultipartHttpServletRequest request){
 		
-	/*	Photo photo = new Photo();
+
 		User posteur = this.userService.getCurrentUser();
 		Album album = this.albumPhotoService.getAlbum(albumId);
+		
+		Photo photo = new Photo();
 		photo.setAlbum(album);
 		photo.setDatePostage(new Date().getTime());
 		photo.setPosteur(posteur);
-		
-	
-		
+		photo.setDescription("");
+		photo.setTypeAdding("web_service");
+
+
 		if (multipartFile.isEmpty()) {
-			
+
 
 		}
 
 		if(!this.isSupportedPicture(multipartFile)){
-			
+
 		}
+		
+		File temporaire = this.createTemp(multipartFile, posteur);
+		
+		String pathPhoto = request.getSession().getServletContext().getRealPath("/");
+
+		this.albumPhotoService.createPhoto(photo, temporaire, pathPhoto);
+
+		temporaire.delete();
+		WsStatus wsStatus = new WsStatus();
+		wsStatus.setStatus("OK");
+		ModelAndView mav = new ModelAndView("statusXmlView", BindingResult.MODEL_KEY_PREFIX + "Status", wsStatus);
+		return mav;
+		
+	}
+	
+	private File createTemp(MultipartFile multipartFile, User posteur){
 		String chemin = "tmp";
 		chemin += posteur.getLogin();
 		chemin += "_" + new Date().getTime();
@@ -79,52 +105,11 @@ public class AlbumPhotoController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String pathPhoto = request.getSession().getServletContext().getRealPath("/");
-
-		this.albumPhotoService.createPhoto(photo, temporaire, pathPhoto);
-
-		temporaire.delete();*/
-		WsStatus wsStatus = new WsStatus();
-		wsStatus.setStatus("OK");
-		ModelAndView mav = new ModelAndView("statusXmlView", BindingResult.MODEL_KEY_PREFIX + "wsStatus", wsStatus);
-		return mav;
+		return temporaire;
 	}
+
+
 	
-	private String toString(HttpServletRequest request){
-		String s = "----------" +
-				"HttpServletRequest Display :\n";
-		s+="\t"+request.getClass()+" "+request.toString()+"\n";
-		
-		s+="\n";
-		s+="\tAttribute : \n";
-		Enumeration enumeration = request.getAttributeNames();
-		s+= this.addEnum(enumeration);
-		
-
-		s+="\n";
-		s+="\tHeaders : \n";
-		Enumeration enumeration2 = request.getHeaderNames();
-		s+= this.addEnum(enumeration2);
-		
-		s+="\n";
-		s+="\tParameters : \n";
-		Enumeration enumeration3= request.getParameterNames();
-		s+= this.addEnum(enumeration3);
-		
-		
-		s+="----------";
-		return s;
-	}
-	
-	private String addEnum(Enumeration enumeration){
-		String s = "";
-		while(enumeration.hasMoreElements()){
-			String elementName = (String)enumeration.nextElement();
-			s+="\t\t"+elementName+" "+"\n";
-		}
-		return s;
-	}
-
 
 	private boolean isSupportedPicture(MultipartFile multipartFile) {
 		// TODO Auto-generated method stub
