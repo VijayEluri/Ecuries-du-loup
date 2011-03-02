@@ -1,0 +1,40 @@
+@CHARSET "UTF-8";
+
+.portlet{
+	background-color: blue;
+}
+
+.porletHeader{
+	background-color: green;
+}
+
+.porletResizeBorder{
+	background-color: red;
+	
+}
+
+
+.porletResizeBorderNorth{
+	cursor: n-resize;
+}
+.porletResizeBorderNorthEast{
+	cursor: ne-resize;
+}
+.porletResizeBorderEast{
+	cursor: e-resize;
+}
+.porletResizeBorderSouthEast{
+	cursor: se-resize;
+}
+.porletResizeBorderSouth{
+	cursor: s-resize;
+}
+.porletResizeBorderSouthWest{	
+	cursor: sw-resize;
+}
+.porletResizeBorderWest{
+	cursor: w-resize;
+}
+.porletResizeBorderNorthWest{
+	cursor: nw-resize;
+}

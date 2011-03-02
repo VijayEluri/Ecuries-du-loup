@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- -GWT  -->
+	<bean id="edlwyswygServiceRemoteService" class="org.gwtwidgets.server.spring.GWTRPCServiceExporter">
+		<property name="service" ref="greetingServiceImpl" />
+		<property name="serviceInterfaces" value="fr.ecuriesduloup.edlwyswig.client.GreetingService" />
+	</bean>
+
+	<bean id="greetingServiceImpl" class="fr.ecuriesduloup.edlwyswig.server.GreetingServiceImpl">
+		
+	</bean>
+</beans>

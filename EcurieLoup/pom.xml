@@ -34,10 +34,11 @@
 		<module>util</module>
 		<module>sauvegardePhoto</module>
 		<module>batchPhoto</module>
-		 <module>diaporama</module>
+	<!--	 <module>diaporama</module> -->
 		<module>EcurieLoupWS</module>
-		<module>secretFlag</module>
+	<!-- 	<module>secretFlag</module> -->
 		<module>siteOptions</module>
+		<module>edlWyswyg</module>
 	</modules>
 	<repositories>
 		<!-- pour les libs java -->
