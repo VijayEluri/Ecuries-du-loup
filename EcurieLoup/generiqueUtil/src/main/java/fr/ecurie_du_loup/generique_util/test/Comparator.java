@@ -16,8 +16,8 @@ public class Comparator {
 	}
 
 	public static <T> void compareJUnit(T excepted, T actual, Collection<String> notCheckedMembers){
-		System.out.println("class excepted "+excepted.getClass());
-		System.out.println("class actual "+actual.getClass());
+		/*System.out.println("class excepted "+excepted.getClass());
+		System.out.println("class actual "+actual.getClass());*/
 		Class c = excepted.getClass();
 		for(Method method: c.getMethods()){
 			if(method.getName().startsWith("get")){
@@ -26,9 +26,9 @@ public class Comparator {
 						Object objExcepted = method.invoke(excepted, new Object[]{});
 						Object objActual = method.invoke(actual, new Object[]{});
 						
-						System.out.println(method.getName()+" : ");
+						/*System.out.println(method.getName()+" : ");
 						Comparator.print("excepted", objExcepted);
-						Comparator.print("actual", objActual);
+						Comparator.print("actual", objActual);*/
 						
 						if((objExcepted instanceof Date )&& (objActual instanceof Date)){
 							
