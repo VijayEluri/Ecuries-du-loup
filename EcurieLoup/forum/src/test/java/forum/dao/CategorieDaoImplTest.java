@@ -20,14 +20,8 @@ public class CategorieDaoImplTest extends DaoIdLongUtilTest<Categorie>{
 	}
 	@Before
 	public void setUp(){		
+		this.notCheckedValue.clear();
 		this.dao = (CategorieDao) this.context.getBean("categorieDAOTest");
-	}
-
-	
-	@Override
-	protected void compareJUnit(Categorie categorie1, Categorie categorie2) {
-		ForumTestUtil.compareJUnit(categorie1, categorie2);
-		
 	}
 
 	@Override
@@ -45,6 +39,21 @@ public class CategorieDaoImplTest extends DaoIdLongUtilTest<Categorie>{
 	protected void modificationObject(Categorie categorie) {
 		ForumTestUtil.modificationObject(categorie);
 		
+	}
+	
+	@Override
+	public void testFindById() {
+		this.notCheckedValue.add("getTopics");
+		this.notCheckedValue.add("getTopicNonLu");
+		super.testFindById();
+	}
+	
+	@Override
+	public void testFindAll() {
+		this.notCheckedValue.add("getTopics");
+		this.notCheckedValue.add("getTopicNonLu");
+		
+		super.testFindAll();
 	}
 
 }

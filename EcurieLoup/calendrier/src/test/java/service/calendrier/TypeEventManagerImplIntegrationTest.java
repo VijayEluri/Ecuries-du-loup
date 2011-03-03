@@ -26,12 +26,6 @@ public class TypeEventManagerImplIntegrationTest extends DataBaseServiceWithLong
 	}
 	
 	@Override
-	protected void compareJUnit(TypeEvenement te1, TypeEvenement te2) {
-		CalendrierTestUtil.compareJUnit(te1, te2);
-		
-	}
-	
-	@Override
 	protected TypeEvenement getNewObject() {
 		
 		return CalendrierTestUtil.getNewTypeEvent();

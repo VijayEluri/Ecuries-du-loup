@@ -15,6 +15,7 @@ import org.junit.Test;
 import donnees.news.Nouvelle;
 import fr.ecurie_du_loup.generique_util.dao.DaoIdLongUtil;
 import fr.ecurie_du_loup.generique_util.dao.test.DaoIdLongUtilTest;
+import fr.ecurie_du_loup.generique_util.test.Comparator;
 
 public class NouvelleDAOHibernateTest extends DaoIdLongUtilTest<Nouvelle>{
 
@@ -32,7 +33,7 @@ public class NouvelleDAOHibernateTest extends DaoIdLongUtilTest<Nouvelle>{
 		
 		List<Nouvelle> listeNouvelle =  ((NouvelleDAO) this.dao).getDernieresNouvelles(1);
 		assertEquals(1, listeNouvelle.size());
-		this.compareJUnit(listeNouvelle.get(0), nouvelleAjoutee);
+		Comparator.compareJUnit(listeNouvelle.get(0), nouvelleAjoutee);
 		
 	}
 	
@@ -49,16 +50,10 @@ public class NouvelleDAOHibernateTest extends DaoIdLongUtilTest<Nouvelle>{
 		assertEquals(5, listeNouvelle.size());
 		int j = 0;
 		for(int i = 4; i >=0; i--){
-			this.compareJUnit(listeNouvelle.get(j), nouvelleAjouterDansOrdre.get(i));
+			Comparator.compareJUnit(listeNouvelle.get(j), nouvelleAjouterDansOrdre.get(i));
 			j++;
 		}
 		
-		
-	}
-
-	@Override
-	protected void compareJUnit(Nouvelle t1, Nouvelle t2) {
-		NewsTestUtil.compareJUnit(t1, t2);
 		
 	}
 

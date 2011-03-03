@@ -1,19 +1,11 @@
 package smiley;
 
 
-import static org.junit.Assert.assertEquals;
 import donnees.smiley.CategorieSmiley;
 import donnees.smiley.Smiley;
 
 public class SmileyTestUtil {
 
-
-	public static void compareJUnit(CategorieSmiley categorieSmiley1, CategorieSmiley categorieSmiley2) {
-		assertEquals(categorieSmiley1.getId(), categorieSmiley2.getId());
-		assertEquals(categorieSmiley1.getNom(), categorieSmiley2.getNom());
-		assertEquals(categorieSmiley1.getOrdre(), categorieSmiley2.getOrdre());
-
-	}
 
 
 	public static CategorieSmiley getNewCategorieSmiley() {
@@ -30,13 +22,7 @@ public class SmileyTestUtil {
 	}
 
 
-	public static void compareJUnit(Smiley smiley1, Smiley smiley2) {
-		assertEquals(smiley1.getId(), smiley2.getId());
-		assertEquals(smiley1.getCode(), smiley2.getCode());
-		assertEquals(smiley1.getOrdre(), smiley2.getOrdre());
-		assertEquals(smiley1.getCategorieSmiley().getId(), smiley2.getCategorieSmiley().getId());
-		
-	}
+	
 	
 	public static Smiley getNewSmiley() {
 		Smiley smiley = new Smiley();

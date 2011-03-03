@@ -22,12 +22,9 @@ public class TopicManagerImplIntegrationTest extends DataBaseServiceWithLongIdIn
 	
 	@Before
 	public void setUp(){		
-		this.service = (TopicManager) this.context.getBean("topicManagerTest");
-	}
-	@Override
-	protected void compareJUnit(Topic topic1, Topic topic2) {
-		ForumTestUtil.compareJUnit(topic1, topic2);
+		this.notCheckedValue.clear();
 		
+		this.service = (TopicManager) this.context.getBean("topicManagerTest");
 	}
 
 	@Override
@@ -47,5 +44,16 @@ public class TopicManagerImplIntegrationTest extends DataBaseServiceWithLongIdIn
 		
 	}
 
+	@Override
+	public void testGetById() {
+		this.notCheckedValue.add("getMessages");
+		super.testGetById();
+	}
+	
+	@Override
+	public void testGetAll() {
+		this.notCheckedValue.add("getMessages");
+		super.testGetAll();
+	}
 
 }

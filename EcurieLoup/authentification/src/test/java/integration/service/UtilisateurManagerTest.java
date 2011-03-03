@@ -29,8 +29,22 @@ public class UtilisateurManagerTest extends DataBaseServiceWithStringIdIntegrati
 	@Before
 	public void setUp(){
 		this.service = (UtilisateurManager) this.context.getBean("utilisateurManager");
+		this.notCheckedValue.clear();
 	}
 
+	@Override
+	public void testAdd() {
+		this.notCheckedValue.add("getCreationDate");
+		this.notCheckedValue.add("getLastAccessDate");
+		super.testAdd();
+	}
+	
+	@Override
+	public void testUpdate() {
+		this.notCheckedValue.add("getCreationDate");
+		this.notCheckedValue.add("getLastAccessDate");
+		super.testUpdate();
+	}
 	@Test
 	public void testRecupererRoles(){
 		Set<Role> roles = new HashSet<Role>();
@@ -68,12 +82,6 @@ public class UtilisateurManagerTest extends DataBaseServiceWithStringIdIntegrati
 		
 		assertTrue(roleRecuperer.containsAll(roles));
 		assertTrue(roleRecuperer.size()==roles.size());
-		
-	}
-
-	@Override
-	protected void compareJUnit(User utilisateur1, User utilisateur2) {
-		AuthentificationTestUtil.compareJUnit(utilisateur1, utilisateur2);
 		
 	}
 

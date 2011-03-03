@@ -8,12 +8,11 @@ import java.util.List;
 import org.junit.Test;
 
 import fr.ecurie_du_loup.generique_util.dao.DaoUtil;
+import fr.ecurie_du_loup.generique_util.test.Comparator;
 import fr.ecurie_du_loup.generique_util.test.GeneriqueTest;
 
 public abstract class DaoUtilTest<T> extends GeneriqueTest<T>{
 	protected DaoUtil<T> dao;
-	
-	
 	
 	@Test
 	public void testAdd() {
@@ -27,7 +26,7 @@ public abstract class DaoUtilTest<T> extends GeneriqueTest<T>{
 		assertTrue(listFindAll.contains(t));
 		for(T object : listFindAll){
 			if(object.equals(t)){
-				this.compareJUnit(t, object);
+				Comparator.compareJUnit(t, object, this.notCheckedValue);
 			}
 		}
 	}

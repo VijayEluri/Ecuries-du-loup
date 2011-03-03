@@ -15,6 +15,7 @@ import org.junit.Test;
 import fr.ecurie_du_loup.generique_util.dao.test.DaoIdLongUtilTest;
 import fr.ecurie_du_loup.generique_util.data.ObjectTest2;
 import fr.ecurie_du_loup.generique_util.data.ObjectTestSample;
+import fr.ecurie_du_loup.generique_util.test.Comparator;
 
 public class HibernateBySpringDaoTest extends DaoIdLongUtilTest<ObjectTestSample>{
 	private DaoUtil<ObjectTest2> dao2;
@@ -37,7 +38,7 @@ public class HibernateBySpringDaoTest extends DaoIdLongUtilTest<ObjectTestSample
 		assertTrue(listFindAll.contains(objectTest));
 		for(ObjectTestSample object : listFindAll){
 			if(object.equals(objectTest)){
-				this.compareJUnit(objectTest, object);
+				Comparator.compareJUnit(objectTest, object);
 			}
 		}
 	}
@@ -47,7 +48,7 @@ public class HibernateBySpringDaoTest extends DaoIdLongUtilTest<ObjectTestSample
 		assertTrue(listFindAll.contains(objectTest));
 		for(ObjectTest2 object : listFindAll){
 			if(object.equals(objectTest)){
-				this.compareJUnit(objectTest, object);
+				Comparator.compareJUnit(objectTest, object);
 			}
 		}
 	}
@@ -92,16 +93,7 @@ public class HibernateBySpringDaoTest extends DaoIdLongUtilTest<ObjectTestSample
 		assertFalse(listFindAll2.contains(obj2));
 		
 	}
-	@Override
-	protected void compareJUnit(ObjectTestSample t1, ObjectTestSample t2) {
-		ObjectTestSampleTestUtil.compareJUnit(t1, t2);
-		
-		
-	}
-	private void compareJUnit(ObjectTest2 obj1, ObjectTest2 obj2){
-		assertEquals(obj1.getId(), obj2.getId());
-		assertEquals(obj1.getObjectTest(), obj2.getObjectTest());
-	}
+	
 
 	@Override
 	protected ObjectTestSample getNewObject() {

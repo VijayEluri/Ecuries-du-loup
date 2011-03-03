@@ -16,19 +16,9 @@ public class CategorieSmileyManagerTest extends DataBaseServiceWithLongIdAndOrdo
 	}
 
 	@Before
-	public void setUp(){		
+	public void setUp(){	
+		this.notCheckedValue.clear();
 		this.service = (CategorieSmileyManager) this.context.getBean("categorieSmileyManagerTest");
-	}
-
-	
-
-	
-
-
-	@Override
-	protected void compareJUnit(CategorieSmiley categorieSmiley1, CategorieSmiley categorieSmiley2) {
-		SmileyTestUtil.compareJUnit(categorieSmiley1, categorieSmiley2);
-
 	}
 
 	@Override
@@ -44,6 +34,18 @@ public class CategorieSmileyManagerTest extends DataBaseServiceWithLongIdAndOrdo
 	@Override
 	protected void modificationObject(CategorieSmiley categorieSmiley) {
 		SmileyTestUtil.modificationObject(categorieSmiley);
+	}
+	
+	@Override
+	public void testGetById() {
+		this.notCheckedValue.add("getSmileys");
+		super.testGetById();
+	}
+	
+	@Override
+	public void testGetAll() {
+		this.notCheckedValue.add("getSmileys");
+		super.testGetAll();
 	}
 
 

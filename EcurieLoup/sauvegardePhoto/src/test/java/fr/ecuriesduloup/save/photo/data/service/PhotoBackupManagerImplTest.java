@@ -21,12 +21,8 @@ public class PhotoBackupManagerImplTest extends DataBaseServiceWithLongIdIntegra
 
 	@Before
 	public void setUp(){		
+		this.notCheckedValue.clear();
 		this.service = (PhotoBackupManager) this.context.getBean("photoBackupManager");
-	}
-	@Override
-	protected void compareJUnit(PhotoBackup t1, PhotoBackup t2) {
-		PhotoBackupTestUtil.compareJUnit(t1, t2);
-
 	}
 
 	@Override
@@ -42,5 +38,33 @@ public class PhotoBackupManagerImplTest extends DataBaseServiceWithLongIdIntegra
 	@Override
 	protected void modificationObject(PhotoBackup t) {
 		PhotoBackupTestUtil.modificationObject(t);		
+	}
+	
+	@Override
+	public void testGetById() {
+		this.notCheckedValue.add("getFile");
+		
+		super.testGetById();
+	}
+	
+	@Override
+	public void testGetAll() {
+		this.notCheckedValue.add("getFile");
+		
+		super.testGetAll();
+	}
+	
+	@Override
+	public void testAdd() {
+		this.notCheckedValue.add("getFile");
+		
+		super.testAdd();
+	}
+	
+	@Override
+	public void testUpdate() {
+		this.notCheckedValue.add("getFile");
+		
+		super.testUpdate();
 	}
 }

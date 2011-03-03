@@ -1,14 +1,15 @@
 package fr.ecuriesduloup.siteoptions.dao;
 
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import donnees.User;
-
 import fr.ecurie_du_loup.generique_util.dao.test.DaoIdLongUtilTest;
+import fr.ecurie_du_loup.generique_util.test.Comparator;
 import fr.ecuriesduloup.siteoptions.ContextManager;
 import fr.ecuriesduloup.siteoptions.Database;
 import fr.ecuriesduloup.siteoptions.OptionTestUtil;
@@ -20,11 +21,6 @@ public class OptionsDaoImplTest extends DaoIdLongUtilTest<Option>{
 	@Before
 	public void setUp() throws Exception {
 		this.dao = (OptionsDao) ContextManager.getContext().getBean("optionsDaoTest");
-		
-	}
-	@Override
-	protected void compareJUnit(Option option1, Option option2) {
-		OptionTestUtil.compareJUnit(option1, option2);
 		
 	}
 
@@ -48,7 +44,7 @@ public class OptionsDaoImplTest extends DaoIdLongUtilTest<Option>{
 		Option optionInDatabase = Database.getOption();
 		Option option = ((OptionsDao)this.dao).getOption(optionInDatabase.getUser(), optionInDatabase.getName());
 		assertNotNull(option);
-		OptionTestUtil.compareJUnit(optionInDatabase, option);
+		Comparator.compareJUnit(optionInDatabase, option);
 	}
 	
 	@Test

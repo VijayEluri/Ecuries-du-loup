@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 import fr.ecurie_du_loup.generique_util.service.DataBaseServiceWithStringId;
+import fr.ecurie_du_loup.generique_util.test.Comparator;
 import fr.ecurie_du_loup.generique_util.type.DataWithStringId;
 
 
@@ -14,7 +15,7 @@ public abstract class DataBaseServiceWithStringIdIntegrationTest<T extends DataW
 	public void testGetById() {
 		T objectTestInBase =this.getObjectInBase();
 		T objetRecuperer = ((DataBaseServiceWithStringId<T>) this.service).getById(objectTestInBase.getId());
-		this.compareJUnit(objectTestInBase, objetRecuperer);
+		Comparator.compareJUnit(objectTestInBase, objetRecuperer);
 	}
 	
 	@Test

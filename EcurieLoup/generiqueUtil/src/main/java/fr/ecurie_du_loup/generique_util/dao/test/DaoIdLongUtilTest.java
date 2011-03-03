@@ -3,6 +3,7 @@ package fr.ecurie_du_loup.generique_util.dao.test;
 import org.junit.Test;
 
 import fr.ecurie_du_loup.generique_util.dao.DaoIdLongUtil;
+import fr.ecurie_du_loup.generique_util.test.Comparator;
 import fr.ecurie_du_loup.generique_util.type.DataWithLongId;
 
 
@@ -12,7 +13,7 @@ public abstract class DaoIdLongUtilTest<T extends DataWithLongId> extends DaoUti
 	public void testFindById() {
 		T objectTestInBase =this.getObjectInBase();
 		T objetRecuperer = ((DaoIdLongUtil<T>) this.dao).findById(objectTestInBase.getId());
-		this.compareJUnit(objectTestInBase, objetRecuperer);
+		Comparator.compareJUnit(objectTestInBase, objetRecuperer, this.notCheckedValue);
 	}
 
 }

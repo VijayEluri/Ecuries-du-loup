@@ -20,14 +20,8 @@ public class TopicDaoImplTest extends DaoIdLongUtilTest<Topic>{
 	}
 	@Before
 	public void setUp(){		
+		this.notCheckedValue.clear();
 		this.dao = (TopicDao) this.context.getBean("topicDAOTest");
-	}
-
-	
-	@Override
-	protected void compareJUnit(Topic topic1, Topic topic2) {
-		ForumTestUtil.compareJUnit(topic1, topic2);
-		
 	}
 
 	@Override
@@ -45,6 +39,18 @@ public class TopicDaoImplTest extends DaoIdLongUtilTest<Topic>{
 	protected void modificationObject(Topic event) {
 		ForumTestUtil.modificationObject(event);
 		
+	}
+	
+	@Override
+	public void testFindById() {
+		this.notCheckedValue.add("getMessages");
+		super.testFindById();
+	}
+	
+	@Override
+	public void testFindAll() {
+		this.notCheckedValue.add("getMessages");
+		super.testFindAll();
 	}
 
 }

@@ -14,14 +14,11 @@ public class AlbumDAOTest extends DaoIdLongUtilTest<Album>{
 
 	@Before
 	public void setUp() throws Exception {
+		this.notCheckedValue.clear();
 		this.dao = (AlbumDAO) ContextManager.getContext().getBean("albumDAOTest");
 		
 	}
-	@Override
-	protected void compareJUnit(Album t1, Album t2) {
-		AlbumPhotoTestUtil.compareJUnit(t1, t2);
-		
-	}
+	
 
 	@Override
 	protected Album getNewObject() {
@@ -38,5 +35,23 @@ public class AlbumDAOTest extends DaoIdLongUtilTest<Album>{
 		AlbumPhotoTestUtil.modificationObject(t);
 		
 	}
+	
+	@Override
+	public void testFindById() {
+		this.notCheckedValue.add("getPhotos");
+		this.notCheckedValue.add("getPhotoNonVu");
+		
+		super.testFindById();
+	}
+	
+	@Override
+	public void testFindAll() {
+		this.notCheckedValue.add("getPhotos");
+		this.notCheckedValue.add("getPhotoNonVu");
+		
+		super.testFindAll();
+	}
+	
+	
 
 }

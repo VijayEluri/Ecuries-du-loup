@@ -12,13 +12,8 @@ public class PhotoBackupDaoHibernateTest extends DaoIdLongUtilTest<PhotoBackup>{
 
 	@Before
 	public void setUp() throws Exception {
+		this.notCheckedValue.clear();
 		this.dao = (PhotoBackupDAO) ContextManagerPhotoBackup.getContext().getBean("photoBackupDaoTest");
-		
-	}
-	
-	@Override
-	protected void compareJUnit(PhotoBackup t1, PhotoBackup t2) {
-		PhotoBackupTestUtil.compareJUnit(t1, t2);
 		
 	}
 
@@ -35,6 +30,33 @@ public class PhotoBackupDaoHibernateTest extends DaoIdLongUtilTest<PhotoBackup>{
 	@Override
 	protected void modificationObject(PhotoBackup t) {
 		PhotoBackupTestUtil.modificationObject(t);		
+	}
+	
+	@Override
+	public void testFindById() {
+		this.notCheckedValue.add("getFile");
+		super.testFindById();
+	}
+	
+	@Override
+	public void testFindAll() {
+		this.notCheckedValue.add("getFile");
+		
+		super.testFindAll();
+	}
+	
+	@Override
+	public void testAdd() {
+		this.notCheckedValue.add("getFile");
+		
+		super.testAdd();
+	}
+	
+	@Override
+	public void testUpdate() {
+		this.notCheckedValue.add("getFile");
+		
+		super.testUpdate();
 	}
 
 }

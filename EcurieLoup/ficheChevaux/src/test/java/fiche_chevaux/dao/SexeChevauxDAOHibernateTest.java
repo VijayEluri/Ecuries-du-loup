@@ -21,12 +21,6 @@ public class SexeChevauxDAOHibernateTest extends DaoIdLongUtilTest<Sexe>{
 	}
 
 	@Override
-	protected void compareJUnit(Sexe t1, Sexe t2) {
-		ChoixChevauxTestUtil.compareJUnit(t1, t2);
-		
-	}
-
-	@Override
 	protected Sexe getNewObject() {
 		Sexe sexe = new Sexe();
 		sexe.setNom("nom Sexe nouveau"+new Date().getTime());

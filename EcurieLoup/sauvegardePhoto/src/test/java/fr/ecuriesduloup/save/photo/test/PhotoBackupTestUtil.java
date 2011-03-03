@@ -1,7 +1,5 @@
 package fr.ecuriesduloup.save.photo.test;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.File;
 import java.util.Date;
 
@@ -11,12 +9,6 @@ import fr.ecuriesduloup.save.photo.data.PhotoBackup;
 //TODO : transphormer sa en classe générique et supprimer les static ...
 public class PhotoBackupTestUtil {
 	
-	public static void compareJUnit(PhotoBackup t1, PhotoBackup t2) {
-		assertEquals(t1.getId(), t2.getId());
-		//assertEquals(t1.getFile(), t2.getFile());
-		
-	}
-
 	public static PhotoBackup getNewObject() {
 		PhotoBackup photoBackup = new PhotoBackup();
 		

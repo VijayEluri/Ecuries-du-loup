@@ -17,4 +17,4 @@ INSERT INTO `generiqueutiltest`.`object_test` (
 `string2` ,
 `date1` 
 )
-VALUES ('1', 'string11', 'string12', '2010-01-27');
+VALUES ('1', 'string11', 'string12', '2011-03-22 12:20:10');

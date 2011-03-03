@@ -31,6 +31,7 @@ public class DataInBase {
 			List<Surnom> surnoms = new ArrayList<Surnom>();
 			surnoms.add(DataInBase.getSurnom());
 			fiche.setSurnoms(surnoms);
+			fiche.setOwner(DataInBase.getOwner());
 		}
 		return DataInBase.fiche;
 	}

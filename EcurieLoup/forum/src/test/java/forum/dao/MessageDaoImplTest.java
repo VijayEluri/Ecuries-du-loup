@@ -22,13 +22,6 @@ public class MessageDaoImplTest extends DaoIdLongUtilTest<Message>{
 	public void setUp(){		
 		this.dao = (MessageDao) this.context.getBean("messageDAOTest");
 	}
-	
-	
-	@Override
-	protected void compareJUnit(Message message1, Message message2) {
-		ForumTestUtil.compareJUnit(message1, message2);
-		
-	}
 
 	@Override
 	protected Message getNewObject() {

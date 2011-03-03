@@ -9,14 +9,6 @@ import donnees.photo.commentaire.Commentaire;
 
 public class AlbumPhotoTestUtil {
 
-
-	public static void compareJUnit(Album album1, Album album2) {
-		assertEquals(album1.getId(), album2.getId());
-		assertEquals(album1.getTitre(), album2.getTitre());
-		assertEquals(album1.getDateLecture(), album2.getDateLecture());
-
-	}
-
 	public static Album getNewAlbum() {
 		Album album = new Album();
 		int id = (int) (Math.random()*10000);
@@ -28,16 +20,6 @@ public class AlbumPhotoTestUtil {
 
 	public static void modificationObject(Album t) {
 		t.setTitre("titre modifer");
-
-	}
-
-	public static void compareJUnit(Photo photo1, Photo photo2) {
-		assertEquals(photo1.getId(), photo2.getId());
-		assertEquals(photo1.getAlbum(), photo2.getAlbum());
-		assertEquals(photo1.getDatePostage(), photo2.getDatePostage());
-		assertEquals(photo1.getDescription(), photo2.getDescription());
-		assertEquals(photo1.getPosteur(), photo2.getPosteur());
-		assertEquals(photo1.getTypeAdding(), photo2.getTypeAdding());
 
 	}
 
@@ -59,13 +41,6 @@ public class AlbumPhotoTestUtil {
 
 	}
 
-	public static void compareJUnit(Commentaire commentaire1, Commentaire commentaire2) {
-		assertEquals(commentaire1.getId(), commentaire2.getId());
-		assertEquals(commentaire1.getContenu(), commentaire2.getContenu());
-		assertEquals(commentaire1.getDate(), commentaire2.getDate());
-		assertEquals(commentaire1.getPhoto(), commentaire2.getPhoto());
-		assertEquals(commentaire1.getPosteur(), commentaire2.getPosteur());
-	}
 
 	public static Commentaire getNewCommentaire() {
 		Commentaire commentaire = new Commentaire();
@@ -81,14 +56,6 @@ public class AlbumPhotoTestUtil {
 	public static void modification(Commentaire t) {
 		t.setContenu("contenu modifier");
 
-	}
-
-	public static void compareJUnit(Tag tag1, Tag tag2) {
-		assertEquals(tag1.getId(), tag2.getId());
-		assertEquals(tag1.getNom(), tag2.getNom());
-		assertEquals(tag1.getPhoto(), tag2.getPhoto());
-		assertEquals(tag1.getX(), tag2.getX(), 00);
-		assertEquals(tag1.getY(), tag2.getY(), 00);
 	}
 
 	public static Tag getNewTag() {

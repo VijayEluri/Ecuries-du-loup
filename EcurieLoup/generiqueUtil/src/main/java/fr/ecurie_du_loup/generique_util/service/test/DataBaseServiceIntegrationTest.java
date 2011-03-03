@@ -8,17 +8,19 @@ import java.util.List;
 import org.junit.Test;
 
 import fr.ecurie_du_loup.generique_util.service.DataBaseService;
+import fr.ecurie_du_loup.generique_util.test.Comparator;
 import fr.ecurie_du_loup.generique_util.test.GeneriqueTest;
 
 public abstract class DataBaseServiceIntegrationTest<T> extends GeneriqueTest<T>{
 	protected  DataBaseService<T> service;
+	
 	
 	private void testPresenceEqualsInBase(T t) {
 		List<T> listGetAll = this.service.getAll();
 		assertTrue(listGetAll.contains(t));
 		for(T object : listGetAll){
 			if(object.equals(t)){
-				this.compareJUnit(t, object);
+				Comparator.compareJUnit(t, object, this.notCheckedValue);
 			}
 		}
 	}

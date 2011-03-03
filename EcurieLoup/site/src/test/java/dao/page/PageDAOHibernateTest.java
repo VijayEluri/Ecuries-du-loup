@@ -17,12 +17,6 @@ public class PageDAOHibernateTest extends DaoIdLongUtilTest<Page> {
 	}
 
 	@Override
-	protected void compareJUnit(Page page1, Page page2) {
-		PageTestUtil.compareJUnit(page1, page2);
-
-	}
-
-	@Override
 	protected Page getNewObject() {
 		return PageTestUtil.getNewObject();
 	}

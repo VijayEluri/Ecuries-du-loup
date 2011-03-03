@@ -15,12 +15,6 @@ public class UserDAOHibernateTest extends DaoIdStringUtilTest<User>{
 		this.dao = (UserDAO) ContextManager.getContext().getBean("userDAOTest");
 		
 	}
-	
-	@Override
-	protected void compareJUnit(User utilisateur1, User utilisateur2) {
-		AuthentificationTestUtil.compareJUnit(utilisateur1, utilisateur2);
-		
-	}
 
 	@Override
 	protected User getNewObject() {

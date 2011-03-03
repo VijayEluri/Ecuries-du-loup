@@ -22,11 +22,6 @@ public class SmileyDaoImplTest extends DaoIdLongUtilTest<Smiley>{
 		this.dao = (SmileyDao) this.context.getBean("smileyDAOTest");
 	}
 	@Override
-	protected void compareJUnit(Smiley t1, Smiley t2) {
-		SmileyTestUtil.compareJUnit(t1, t2);
-		
-	}
-	@Override
 	protected Smiley getNewObject() {
 		return SmileyTestUtil.getNewSmiley();
 	}

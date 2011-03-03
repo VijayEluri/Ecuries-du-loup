@@ -1,5 +1,6 @@
 package integration;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,6 +39,10 @@ public class UserInBase {
 		user.setSite("http://www.facebook.com");
 		user.setEnabled(true);
 		user.setIdentifiantFacebook(null);
+		//2009-03-03 00:00:00.0
+		user.setCreationDate(new Date(1236034800000l));
+		//2009-07-13 00:00:00.0
+		user.setLastAccessDate(new Date(1247436000000l));
 		
 		Set<Role> roles = new HashSet<Role>();
 		

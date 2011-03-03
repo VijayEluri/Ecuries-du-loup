@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.Test;
 
 import fr.ecurie_du_loup.generique_util.service.DataBaseServiceWithLongId;
+import fr.ecurie_du_loup.generique_util.test.Comparator;
 import fr.ecurie_du_loup.generique_util.type.DataWithLongId;
 
 
@@ -16,7 +17,7 @@ public abstract class DataBaseServiceWithLongIdIntegrationTest<T extends DataWit
 	public void testGetById() {
 		T objectTestInBase =this.getObjectInBase();
 		T objetRecuperer = ((DataBaseServiceWithLongId<T>) this.service).getById(objectTestInBase.getId());
-		this.compareJUnit(objectTestInBase, objetRecuperer);
+		Comparator.compareJUnit(objectTestInBase, objetRecuperer, this.notCheckedValue);
 	}
 	
 	@Test

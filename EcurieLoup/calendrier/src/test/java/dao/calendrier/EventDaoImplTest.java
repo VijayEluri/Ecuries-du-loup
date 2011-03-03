@@ -37,11 +37,6 @@ public class EventDaoImplTest extends DaoIdLongUtilTest<Evenement>{
 		boolean isAlreadyInBase = ((EventDao)this.dao).hasEvenementOfType(new TypeEvenement());
 		assertFalse(isAlreadyInBase);
 	}
-	@Override
-	protected void compareJUnit(Evenement evenement1, Evenement evenement2) {
-		CalendrierTestUtil.compareJUnit(evenement1, evenement2);
-		
-	}
 
 	@Override
 	protected Evenement getNewObject() {

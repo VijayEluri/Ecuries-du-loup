@@ -19,11 +19,8 @@ public class CategorieSmileyDaoImplTest extends DaoIdLongUtilTest<CategorieSmile
 	}
 	@Before
 	public void setUp(){		
+		this.notCheckedValue.clear();
 		this.dao = (CategorieSmileyDao) this.context.getBean("categorieSmileyDAOTest");
-	}
-	@Override
-	protected void compareJUnit(CategorieSmiley t1, CategorieSmiley t2) {
-		SmileyTestUtil.compareJUnit(t1, t2);		
 	}
 	@Override
 	protected CategorieSmiley getNewObject() {
@@ -37,6 +34,20 @@ public class CategorieSmileyDaoImplTest extends DaoIdLongUtilTest<CategorieSmile
 	protected void modificationObject(CategorieSmiley t) {
 		SmileyTestUtil.modificationObject(t);
 		
+	}
+	
+	@Override
+	public void testFindAll() {
+		this.notCheckedValue.add("getSmileys");
+		
+		super.testFindAll();
+	}
+	
+	@Override
+	public void testFindById() {
+		this.notCheckedValue.add("getSmileys");
+		
+		super.testFindById();
 	}
 	
 	

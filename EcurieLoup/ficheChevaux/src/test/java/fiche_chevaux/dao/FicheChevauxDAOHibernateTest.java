@@ -30,11 +30,6 @@ public class FicheChevauxDAOHibernateTest extends DaoIdLongUtilTest<Fiche>{
 		fail("Not yet implemented");
 	}
 */
-	@Override
-	protected void compareJUnit(Fiche t1, Fiche t2) {
-		FicheChevauxTestUtil.compareJUnit(t1, t2);
-		
-	}
 
 	@Override
 	protected Fiche getNewObject() {

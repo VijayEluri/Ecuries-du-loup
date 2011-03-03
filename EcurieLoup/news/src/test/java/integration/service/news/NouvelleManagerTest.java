@@ -17,6 +17,7 @@ import org.springframework.context.ApplicationContext;
 import service.news.NouvelleManager;
 import donnees.news.Nouvelle;
 import fr.ecurie_du_loup.generique_util.service.test.DataBaseServiceWithLongIdIntegrationTest;
+import fr.ecurie_du_loup.generique_util.test.Comparator;
 
 public class NouvelleManagerTest extends  DataBaseServiceWithLongIdIntegrationTest<Nouvelle>{
 	private ApplicationContext context;
@@ -39,7 +40,7 @@ public class NouvelleManagerTest extends  DataBaseServiceWithLongIdIntegrationTe
 		
 		List<Nouvelle> listeNouvelle =  ((NouvelleManager) this.service).recupererDernieresNouvelles(1);
 		assertEquals(1, listeNouvelle.size());
-		this.compareJUnit(listeNouvelle.get(0), nouvelleAjoutee);
+		Comparator.compareJUnit(listeNouvelle.get(0), nouvelleAjoutee);
 		
 	}
 	
@@ -56,7 +57,7 @@ public class NouvelleManagerTest extends  DataBaseServiceWithLongIdIntegrationTe
 		assertEquals(5, listeNouvelle.size());
 		int j = 0;
 		for(int i = 4; i >=0; i--){
-			this.compareJUnit(listeNouvelle.get(j), nouvelleAjouterDansOrdre.get(i));
+			Comparator.compareJUnit(listeNouvelle.get(j), nouvelleAjouterDansOrdre.get(i));
 			j++;
 		}
 		
@@ -70,13 +71,6 @@ public class NouvelleManagerTest extends  DataBaseServiceWithLongIdIntegrationTe
 		List<Nouvelle> nouvellesRecuperer = ((NouvelleManager) this.service).recupererDernieresNouvelles(10000);
 	
 		assertTrue(nouvellesRecuperer.size() < 10000);
-	}
-
-
-	@Override
-	protected void compareJUnit(Nouvelle t1, Nouvelle t2) {
-		NewsTestUtil.compareJUnit(t1, t2);
-		
 	}
 
 	@Override

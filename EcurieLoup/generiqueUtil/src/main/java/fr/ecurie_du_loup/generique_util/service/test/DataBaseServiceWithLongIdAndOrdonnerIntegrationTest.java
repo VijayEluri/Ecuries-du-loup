@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import fr.ecurie_du_loup.generique_util.service.DataBaseServiceWithLongId;
 import fr.ecurie_du_loup.generique_util.service.DataBaseServiceWithLongIdAndOrdonner;
+import fr.ecurie_du_loup.generique_util.test.Comparator;
 import fr.ecurie_du_loup.generique_util.type.DataOrdonner;
 
 public abstract class DataBaseServiceWithLongIdAndOrdonnerIntegrationTest<T extends DataOrdonner> extends DataBaseServiceWithLongIdIntegrationTest<T>{
@@ -57,8 +58,8 @@ public abstract class DataBaseServiceWithLongIdAndOrdonnerIntegrationTest<T exte
 		T tInBaseR = ((DataBaseServiceWithLongId<T>) this.service).getById(tInBase.getId());
 		T tSouhaiteeR = ((DataBaseServiceWithLongId<T>) this.service).getById(tSouhaitee.getId());
 
-		this.compareJUnit(tInBaseR, tInBase);
-		this.compareJUnit(tSouhaiteeR, tSouhaitee);
+		Comparator.compareJUnit(tInBaseR, tInBase);
+		Comparator.compareJUnit(tSouhaiteeR, tSouhaitee);
 		
 		((DataBaseServiceWithLongIdAndOrdonner<T>) this.service).changeOrdre(tSouhaitee, ordreTInBase);
 		
@@ -69,8 +70,8 @@ public abstract class DataBaseServiceWithLongIdAndOrdonnerIntegrationTest<T exte
 		tInBaseR = ((DataBaseServiceWithLongId<T>) this.service).getById(tInBase.getId());
 		tSouhaiteeR = ((DataBaseServiceWithLongId<T>) this.service).getById(tSouhaitee.getId());
 		
-		this.compareJUnit(tInBaseR, tInBase);
-		this.compareJUnit(tSouhaiteeR, tSouhaitee);
+		Comparator.compareJUnit(tInBaseR, tInBase);
+		Comparator.compareJUnit(tSouhaiteeR, tSouhaitee);
 		
 		
 		this.service.delete(tSouhaitee);
@@ -78,7 +79,7 @@ public abstract class DataBaseServiceWithLongIdAndOrdonnerIntegrationTest<T exte
 		//le page 1 récupéré a l'ordre 1
 		tInBase.setOrdre(ordreTInBase);
 		tInBaseR = ((DataBaseServiceWithLongId<T>) this.service).getById(tInBase.getId());
-		this.compareJUnit(tInBaseR, tInBase);
+		Comparator.compareJUnit(tInBaseR, tInBase);
 		
 	}
 }

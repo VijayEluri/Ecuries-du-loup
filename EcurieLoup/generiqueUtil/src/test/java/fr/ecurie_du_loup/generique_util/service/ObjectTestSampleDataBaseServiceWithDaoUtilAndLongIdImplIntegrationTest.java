@@ -20,12 +20,6 @@ public class ObjectTestSampleDataBaseServiceWithDaoUtilAndLongIdImplIntegrationT
 	public void setUp(){		
 		this.service =  (ObjectTestSampleDataBaseServiceWithDaoUtilAndLongId) this.context.getBean("objectTestService");
 	}
-	
-	@Override
-	protected void compareJUnit(ObjectTestSample t1, ObjectTestSample t2) {
-		ObjectTestSampleTestUtil.compareJUnit(t1, t2);
-		
-	}
 
 	@Override
 	protected ObjectTestSample getNewObject() {

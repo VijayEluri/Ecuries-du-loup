@@ -24,11 +24,6 @@ public class MessageManagerImplIntegrationTest extends DataBaseServiceWithLongId
 	public void setUp(){		
 		this.service = (MessageManager) this.context.getBean("messageManagerTest");
 	}
-	@Override
-	protected void compareJUnit(Message message1, Message message2) {
-		ForumTestUtil.compareJUnit(message1, message2);
-		
-	}
 
 	@Override
 	protected Message getNewObject() {

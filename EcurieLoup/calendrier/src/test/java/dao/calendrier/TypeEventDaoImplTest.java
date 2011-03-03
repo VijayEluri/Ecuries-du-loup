@@ -23,11 +23,6 @@ public class TypeEventDaoImplTest  extends DaoIdLongUtilTest<TypeEvenement>{
 		this.dao = (TypeEventDao) this.context.getBean("typeEventDAOTest");
 	}
 	
-	@Override
-	protected void compareJUnit(TypeEvenement te1, TypeEvenement te2) {
-		CalendrierTestUtil.compareJUnit(te1, te2);
-		
-	}
 	
 	@Override
 	protected TypeEvenement getNewObject() {

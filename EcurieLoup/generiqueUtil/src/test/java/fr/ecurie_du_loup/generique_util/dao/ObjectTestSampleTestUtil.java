@@ -40,7 +40,7 @@ public final class ObjectTestSampleTestUtil {
 		objectTest.setId(1);
 		objectTest.setString1("string11");
 		objectTest.setString2("string12");
-		objectTest.setDate1(new Date(1826410000));
+		objectTest.setDate1(new Date(1300792810000l));
 		return objectTest;
 	}
 	

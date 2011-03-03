@@ -20,14 +20,6 @@ public class SmileyManagerDataTest extends DataBaseServiceWithLongIdAndOrdonnerI
 		this.service = (SmileyManagerData) this.context.getBean("smileyManagerDataTest");
 	}
 
-	
-
-	@Override
-	protected void compareJUnit(Smiley smiley1, Smiley smiley2) {
-		SmileyTestUtil.compareJUnit(smiley1, smiley2);
-
-	}
-
 	@Override
 	protected Smiley getNewObject() {
 		return SmileyTestUtil.getNewSmiley();

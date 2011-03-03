@@ -21,12 +21,6 @@ public class SurnomChevauxDAOHibernateTest extends DaoIdLongUtilTest<Surnom>{
 	}
 
 	@Override
-	protected void compareJUnit(Surnom t1, Surnom t2) {
-		ChoixChevauxTestUtil.compareJUnit(t1, t2);
-		
-	}
-
-	@Override
 	protected Surnom getNewObject() {
 		Surnom surnom = new Surnom();
 		surnom.setSurnom("nom surnom nouveau"+new Date().getTime());

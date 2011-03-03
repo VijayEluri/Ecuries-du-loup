@@ -16,11 +16,6 @@ public class CommentaireDAOTest extends DaoIdLongUtilTest<Commentaire>{
 		this.dao = (CommentaireDAO) ContextManager.getContext().getBean("commentaireDAOTest");
 		
 	}
-	@Override
-	protected void compareJUnit(Commentaire t1, Commentaire t2) {
-		AlbumPhotoTestUtil.compareJUnit(t1, t2);
-		
-	}
 
 	@Override
 	protected Commentaire getNewObject() {

@@ -1,12 +1,21 @@
 package fr.ecurie_du_loup.generique_util.test;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 public abstract class GeneriqueTest<T> {
+	protected Collection<String> notCheckedValue;
+	
+	public GeneriqueTest() {
+		this.notCheckedValue = new ArrayList<String>();
+	}
+	
 	/**
 	 * Permet de comparer 2 objets de type T a l'aide d'assert(JUnit)
 	 * @param t le 1ier objet à comparer
 	 * @param object le second objet de la comparaison
 	 */
-	protected abstract void compareJUnit(T t1, T t2);
+	//protected abstract void compareJUnit(T t1, T t2);
 
 	/**
 	 * Permet de définir un objet dans la base de donnée

@@ -19,11 +19,6 @@ public class MemoManagerImplIntegrationTest extends DataBaseServiceWithLongIdInt
 	public void setUp(){
 		this.service = (MemoManager) this.context.getBean("memoManager");
 	}
-	@Override
-	protected void compareJUnit(Memo memo1, Memo memo2) {
-		MemoTestUtil.compareJUnit(memo1, memo2);
-		
-	}
 
 	@Override
 	protected Memo getNewObject() {

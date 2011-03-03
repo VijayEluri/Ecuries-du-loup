@@ -22,14 +22,11 @@ public class CategorieManagerImplIntegrationTest extends DataBaseServiceWithLong
 	
 	@Before
 	public void setUp(){		
+		this.notCheckedValue.clear();
 		this.service = (CategorieManager) this.context.getBean("categorieManagerTest");
 	}
-	@Override
-	protected void compareJUnit(Categorie categorie1, Categorie categorie2) {
-		ForumTestUtil.compareJUnit(categorie1, categorie2);
-		
-	}
 
+	
 	@Override
 	protected Categorie getNewObject() {
 		
@@ -47,4 +44,20 @@ public class CategorieManagerImplIntegrationTest extends DataBaseServiceWithLong
 		
 	}
 
+	@Override
+	public void testGetById() {
+		this.notCheckedValue.add("getTopics");
+		this.notCheckedValue.add("getTopicNonLu");
+		
+		System.out.println("test");
+		super.testGetById();
+	}
+	
+	@Override
+	public void testGetAll() {
+		this.notCheckedValue.add("getTopics");
+		this.notCheckedValue.add("getTopicNonLu");
+		
+		super.testGetAll();
+	}
 }

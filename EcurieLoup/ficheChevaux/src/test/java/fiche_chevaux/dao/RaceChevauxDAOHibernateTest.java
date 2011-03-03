@@ -20,12 +20,6 @@ public class RaceChevauxDAOHibernateTest extends DaoIdLongUtilTest<Race>{
 	}
 
 	@Override
-	protected void compareJUnit(Race t1, Race t2) {
-		ChoixChevauxTestUtil.compareJUnit(t1, t2);
-		
-	}
-
-	@Override
 	protected Race getNewObject() {
 		Race race = new Race();
 		race.setNom("nom Race nouveau"+new Date().getTime());

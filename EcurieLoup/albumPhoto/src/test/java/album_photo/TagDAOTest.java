@@ -16,11 +16,6 @@ public class TagDAOTest extends DaoIdLongUtilTest<Tag>{
 		this.dao = (TagDAO) ContextManager.getContext().getBean("tagDAOTest");
 		
 	}
-	@Override
-	protected void compareJUnit(Tag t1, Tag t2) {
-		AlbumPhotoTestUtil.compareJUnit(t1, t2);
-		
-	}
 
 	@Override
 	protected Tag getNewObject() {

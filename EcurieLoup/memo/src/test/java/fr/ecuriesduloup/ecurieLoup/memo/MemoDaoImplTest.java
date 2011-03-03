@@ -20,11 +20,6 @@ public class MemoDaoImplTest extends DaoIdLongUtilTest<Memo>{
 	public void setUp(){		
 		this.dao = (MemoDao) this.context.getBean("memoDaoTest");
 	}
-	@Override
-	protected void compareJUnit(Memo memo1, Memo memo2) {
-		MemoTestUtil.compareJUnit(memo1, memo2);
-		
-	}
 
 	@Override
 	protected Memo getNewObject() {
