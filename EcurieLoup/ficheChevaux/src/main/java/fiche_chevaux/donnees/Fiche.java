@@ -3,7 +3,7 @@ package fiche_chevaux.donnees;
 import java.util.ArrayList;
 import java.util.List;
 
-import donnees.photo.Photo;
+import donnees.photo.Media;
 import fr.ecurie_du_loup.generique_util.type.DataWithLongId;
 import fr.ecurie_du_loup.generique_util.type.DataWtihLongIdAbstract;
 
@@ -14,8 +14,8 @@ public class Fiche extends DataWtihLongIdAbstract<Fiche> implements DataWithLong
 	private Sexe sexe;
 	private long dateNaissance;
 	private int anneeNaissance;
-	private Photo photoTete;
-	private Photo photoCorps;
+	private Media photoTete;
+	private Media photoCorps;
 	private String description;
 	private List<Surnom> surnoms;
 	private Owner owner;
@@ -64,16 +64,16 @@ public class Fiche extends DataWtihLongIdAbstract<Fiche> implements DataWithLong
 	public void setSexe(Sexe sexe) {
 		this.sexe = sexe;
 	}
-	public Photo getPhotoTete() {
+	public Media getPhotoTete() {
 		return photoTete;
 	}
-	public void setPhotoTete(Photo photoTete) {
+	public void setPhotoTete(Media photoTete) {
 		this.photoTete = photoTete;
 	}
-	public Photo getPhotoCorps() {
+	public Media getPhotoCorps() {
 		return photoCorps;
 	}
-	public void setPhotoCorps(Photo photoCorps) {
+	public void setPhotoCorps(Media photoCorps) {
 		this.photoCorps = photoCorps;
 	}
 	public String getDescription() {

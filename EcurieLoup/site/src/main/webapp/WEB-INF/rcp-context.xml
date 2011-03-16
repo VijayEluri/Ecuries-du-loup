@@ -30,7 +30,7 @@
 	
 	<bean id="pictureLoaderImpl" class="fr.ecuries_du_loup.diaporama.server.PictureLoaderImpl">
 	<property name="albumPhotoManager">
-			<ref bean="albumPhotoManager" />
+			<ref bean="mediaManager" />
 		</property>
 	</bean>
 </beans>

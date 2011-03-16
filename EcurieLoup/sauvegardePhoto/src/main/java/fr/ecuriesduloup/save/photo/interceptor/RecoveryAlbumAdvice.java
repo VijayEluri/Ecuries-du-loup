@@ -24,7 +24,7 @@ public class RecoveryAlbumAdvice implements
 			// public Album recupererAlbum(long id);
 			Album album = (Album) returnValue;
 
-			this.saveMaker.addRecoveryPhoto(album.getPhotos());
+			this.saveMaker.addRecoveryPhoto(album.getMedias());
 			
 
 		}

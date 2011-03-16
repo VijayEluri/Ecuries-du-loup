@@ -2,7 +2,7 @@ package fiche_chevaux.donnees;
 
 import java.util.List;
 
-import donnees.photo.Photo;
+import donnees.photo.Media;
 
 
 public class FicheFormulaire {
@@ -14,15 +14,15 @@ public class FicheFormulaire {
 	private boolean estDateNaissanceChoisi;
 	private long dateNaissance;
 	private int anneeNaissance;
-	private Photo photoTete;
-	private Photo photoCorps;
+	private Media photoTete;
+	private Media photoCorps;
 	private String description;
 	private List<String> surnoms;
 	private String owner;
 	
 	public FicheFormulaire() {
-		this.photoCorps = new Photo();
-		this.photoTete = new Photo();
+		this.photoCorps = new Media();
+		this.photoTete = new Media();
 	}
 	public long getId() {
 		return id;
@@ -87,16 +87,16 @@ public class FicheFormulaire {
 	public void setSexe(Sexe sexe) {
 		this.sexe = sexe;
 	}
-	public Photo getPhotoTete() {
+	public Media getPhotoTete() {
 		return photoTete;
 	}
-	public void setPhotoTete(Photo photoTete) {
+	public void setPhotoTete(Media photoTete) {
 		this.photoTete = photoTete;
 	}
-	public Photo getPhotoCorps() {
+	public Media getPhotoCorps() {
 		return photoCorps;
 	}
-	public void setPhotoCorps(Photo photoCorps) {
+	public void setPhotoCorps(Media photoCorps) {
 		this.photoCorps = photoCorps;
 	}
 	

@@ -54,13 +54,17 @@
 			
 			<c:forEach var="photo" items="${listePhoto}">
 				<a href="${ctx}/albumPhoto/affichagePhoto.do?idPhoto=${photo.id}">
-					<div class="photo">
-						
+					<div class="photo video">
+						<c:if test="${photo.type==1}">
+							<div class="image_video">
+							</div>				
+						</c:if>		
 						<c:if test="${photo.datePostage > album.dateLecture}">
 							<img class="petit_icone_album" src="${ctx}/images/forum/nonVu.png" alt="*" />
 							
 						</c:if>
 						<img src="${ctx}/images/albumPhoto/miniatures/${photo.id}" alt="photo ${photo.id}" />
+					
 					</div>
 				</a>
 			</c:forEach>

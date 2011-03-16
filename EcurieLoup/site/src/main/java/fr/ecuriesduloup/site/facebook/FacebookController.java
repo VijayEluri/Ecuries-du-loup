@@ -9,19 +9,19 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
-import service.photo.AlbumPhotoManager;
+import service.photo.MediaManager;
 import forum.service.ForumManager;
 
 public class FacebookController implements Controller {
 	private ForumManager forumManager;
-	private AlbumPhotoManager albumPhotoManager;
+	private MediaManager mediaManager;
 
 	public void setForumManager(ForumManager forumManager) {
 		this.forumManager = forumManager;
 	}
 
-	public void setAlbumPhotoManager(AlbumPhotoManager albumPhotoManager) {
-		this.albumPhotoManager = albumPhotoManager;
+	public void setAlbumPhotoManager(MediaManager mediaManager) {
+		this.mediaManager = mediaManager;
 	}
 
 	@Override
@@ -30,8 +30,8 @@ public class FacebookController implements Controller {
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("forumNombreNouveauxMessages", this.forumManager
 				.getNombreNouveauxMessages());
-		model.put("albumPhotoNombreNouvellesPhotos", this.albumPhotoManager
-				.getNombreNouvellesPhotos());
+		model.put("albumPhotoNombreNouvellesPhotos", this.mediaManager
+				.getNombreNouvellesMedias());
 
 		return new ModelAndView("facebook/acceuil", model);
 	}

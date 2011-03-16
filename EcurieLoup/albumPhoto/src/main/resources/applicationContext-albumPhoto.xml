@@ -16,7 +16,7 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="photoDAO" class="album_photo.PhotoDAOImpl">
+	<bean id="mediaDAO" class="album_photo.MediaDAOImpl">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
@@ -34,7 +34,7 @@
 	</bean>
 	
 	
-	<bean id="albumPhotoManager"
+	<bean id="mediaManager"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 		<property name="transactionManager">
 			<ref bean="transactionManager" />
@@ -62,21 +62,21 @@
 	
 	
 
-	<bean id="notSecureAlbumPhotoManager" class="service.photo.AlbumPhotoManagerImpl" >
+	<bean id="notSecureAlbumPhotoManager" class="service.photo.MediaManagerImpl" >
 		<property name="albumDAO">
 			<ref bean="albumDAO" />
 		</property>
 		<property name="commentaireDAO">
 			<ref bean="commentaireDAO" />
 		</property>
-		<property name="photoDAO">
-			<ref bean="photoDAO" />
+		<property name="mediaDAO">
+			<ref bean="mediaDAO" />
 		</property>
 		<property name="tagDAO">
 			<ref bean="tagDAO" />
 		</property>
 		<property name="reflector">
-			<ref bean="albumPhotoReflector" />
+			<ref bean="mediaReflector" />
 		</property>
 		
 		<property name="pathPhotoInProjet">
@@ -90,7 +90,7 @@
 		</property>
 	</bean>
 	
-	<bean id="albumPhotoReflector" class="service.photo.AlbumPhotoManagerReflector">
+	<bean id="mediaReflector" class="service.photo.MediaManagerReflector">
 	</bean>
 	<bean name="photoUtil" class="util.PhotoUtilImpl">
 		<property name="miniatureUtil">
@@ -102,7 +102,7 @@
 
 	<bean name="longToPhotoEditor" class="album_photo.editor.LongToPhotoEditor">
 		<property name="albumPhotoManager">
-			<ref bean="albumPhotoManager" />
+			<ref bean="mediaManager" />
 		</property>
 	</bean>
 

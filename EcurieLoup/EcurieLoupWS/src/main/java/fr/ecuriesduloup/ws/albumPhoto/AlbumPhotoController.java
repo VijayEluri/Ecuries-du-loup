@@ -19,7 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import donnees.User;
 import donnees.photo.Album;
-import donnees.photo.Photo;
+import donnees.photo.Media;
+import donnees.photo.TypeMedia;
 import fr.ecuriesduloup.ws.WsStatus;
 import fr.ecuriesduloup.ws.user.UserService;
 
@@ -50,20 +51,32 @@ public class AlbumPhotoController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/albumPhoto/photo/{albumId}",method=RequestMethod.POST)
-	
+	@RequestMapping(value = "/albumPhoto/photo/{albumId}",method=RequestMethod.POST)	
 	public ModelAndView upload(@PathVariable long albumId, @RequestParam("file") MultipartFile multipartFile, MultipartHttpServletRequest request){
+		return this.commonUpload(albumId, multipartFile, request, TypeMedia.Photo);		
+	}
+	
+	@RequestMapping(value = "/albumPhoto/video/{albumId}",method=RequestMethod.POST)
+	public ModelAndView uploadVideo(@PathVariable long albumId, @RequestParam("file") MultipartFile multipartFile, MultipartHttpServletRequest request){
+		return this.commonUpload(albumId, multipartFile, request, TypeMedia.Video);
 		
-
+	}
+	
+	private ModelAndView commonUpload(long albumId, MultipartFile multipartFile, MultipartHttpServletRequest request, TypeMedia type){
 		User posteur = this.userService.getCurrentUser();
 		Album album = this.albumPhotoService.getAlbum(albumId);
 		
-		Photo photo = new Photo();
-		photo.setAlbum(album);
-		photo.setDatePostage(new Date().getTime());
-		photo.setPosteur(posteur);
-		photo.setDescription("");
-		photo.setTypeAdding("web_service");
+		Media media = new Media();
+		media.setAlbum(album);
+		media.setDatePostage(new Date().getTime());
+		media.setPosteur(posteur);
+		media.setDescription("");
+		media.setTypeAdding("web_service");
+		if(type.equals(TypeMedia.Photo)){
+			media.setType(0);
+		}else if(type.equals(TypeMedia.Video)){
+			media.setType(1);
+		}
 
 
 		if (multipartFile.isEmpty()) {
@@ -79,14 +92,13 @@ public class AlbumPhotoController {
 		
 		String pathPhoto = request.getSession().getServletContext().getRealPath("/");
 
-		this.albumPhotoService.createPhoto(photo, temporaire, pathPhoto);
+		this.albumPhotoService.createMedia(media, temporaire, pathPhoto);
 
 		temporaire.delete();
 		WsStatus wsStatus = new WsStatus();
 		wsStatus.setStatus("OK");
 		ModelAndView mav = new ModelAndView("statusXmlView", BindingResult.MODEL_KEY_PREFIX + "Status", wsStatus);
 		return mav;
-		
 	}
 	
 	private File createTemp(MultipartFile multipartFile, User posteur){

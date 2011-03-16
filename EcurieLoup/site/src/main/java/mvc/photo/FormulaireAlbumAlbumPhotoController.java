@@ -7,14 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -24,19 +21,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import service.UtilisateurManager;
-import service.photo.AlbumPhotoManager;
+import service.photo.MediaManager;
 import donnees.User;
 import donnees.photo.Album;
 import donnees.photo.AlbumLight;
 @Controller
 public class FormulaireAlbumAlbumPhotoController{
 	@Autowired
-	@Qualifier("albumPhotoManager")
-	private AlbumPhotoManager albumPhotoManager;
+	@Qualifier("mediaManager")
+	private MediaManager mediaManager;
 	
 	@Autowired
 	@Qualifier("utilisateurManager")
@@ -44,8 +39,8 @@ public class FormulaireAlbumAlbumPhotoController{
 	private String pathPhotoInProjet;
 	
 	
-	public void setAlbumPhotoManager(AlbumPhotoManager albumPhotoManager) {
-		this.albumPhotoManager = albumPhotoManager;
+	public void setAlbumPhotoManager(MediaManager mediaManager) {
+		this.mediaManager = mediaManager;
 	}
 
 	public void setUtilisateurManager(UtilisateurManager utilisateurManager) {
@@ -63,7 +58,7 @@ public class FormulaireAlbumAlbumPhotoController{
 			return new AlbumLight();
 
 		int idAlbum = Integer.parseInt(param);
-		Album album = this.albumPhotoManager.recupererAlbum(idAlbum);
+		Album album = this.mediaManager.recupererAlbum(idAlbum);
 
 		AlbumLight albumLight = new AlbumLight();
 		albumLight.setId(album.getId());
@@ -92,14 +87,14 @@ public class FormulaireAlbumAlbumPhotoController{
 		
 		if (albumLight.getTitre() != null) {
 			if (this.estUneModificationAlbum(albumLight)) {
-				Album album = this.albumPhotoManager.recupererAlbum(albumLight.getId());
+				Album album = this.mediaManager.recupererAlbum(albumLight.getId());
 				album.setTitre(albumLight.getTitre());
 
-				this.albumPhotoManager.modifierAlbum(album);
+				this.mediaManager.modifierAlbum(album);
 			} else {
 				Album album = new Album();
 				album.setTitre(albumLight.getTitre());
-				this.albumPhotoManager.creerAlbum(album);
+				this.mediaManager.creerAlbum(album);
 			}
 		} else {
 
@@ -137,7 +132,7 @@ public class FormulaireAlbumAlbumPhotoController{
 				
 				@Override
 				public void run() {
-					albumPhotoManager.creerAlbum(temporaire, posteur, pathPhoto);
+					mediaManager.creerAlbum(temporaire, posteur, pathPhoto);
 					temporaire.delete();
 				}
 			});

@@ -9,4 +9,6 @@ public interface MiniatureUtil {
 	 * @param dimentionMaximal The width and height of the thumbnail must be maxDim pixels or less.
 	 */
 	public void creerMiniaturesPhoto(String fichierPhotoOriginal, String emplacementMiniature, int dimentionMaximal);
+	
+	public void creerMiniaturesVideo(String pathVideoFile, String outPicturePicturePath);
 }

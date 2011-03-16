@@ -178,3 +178,4 @@ INSERT INTO `photo_commentaire` (`id`, `photo`, `posteur`, `date`, `contenu`) VA
 INSERT INTO `photo_photo` (`id`, `description`, `posteur`, `date_postage`, `album`, `typeAdding`) VALUES (1, 'Description de la photo de test', 'krack', '123456789', '1', 'notifier');
 INSERT INTO `photo_tag` (`id`, `photo`, `x`, `y`, `nom`) VALUES (1, '1', '152', '154', 'Agathe');
 
+ALTER TABLE `photo_photo` ADD `type` INT NOT NULL DEFAULT '0';

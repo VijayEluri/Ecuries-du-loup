@@ -1,10 +1,10 @@
 package album_photo;
 
-import static org.junit.Assert.assertEquals;
 import integration.AlbumInBase;
 import donnees.photo.Album;
-import donnees.photo.Photo;
+import donnees.photo.Media;
 import donnees.photo.Tag;
+import donnees.photo.TypeMedia;
 import donnees.photo.commentaire.Commentaire;
 
 public class AlbumPhotoTestUtil {
@@ -23,20 +23,21 @@ public class AlbumPhotoTestUtil {
 
 	}
 
-	public static Photo getNewPhoto() {
-		Photo photo = new Photo();
+	public static Media getNewMedia() {
+		Media media = new Media();
 		int id = (int) (Math.random()*10000);
-		photo.setId(id);
-		photo.setDescription("description");
-		photo.setAlbum(AlbumInBase.getAlbum());
-		photo.setPosteur(AlbumInBase.getUtilisateurToutDroit());
-		photo.setDatePostage(123456789);
-		photo.setTypeAdding("notifier");
+		media.setId(id);
+		media.setDescription("description");
+		media.setAlbum(AlbumInBase.getAlbum());
+		media.setPosteur(AlbumInBase.getUtilisateurToutDroit());
+		media.setDatePostage(123456789);
+		media.setTypeAdding("notifier");
+		media.setType(TypeMedia.Photo.ordinal());
 
-		return photo;
+		return media;
 	}
 
-	public static void modification(Photo t) {
+	public static void modification(Media t) {
 		t.setDescription("description modifier");
 
 	}
@@ -48,7 +49,7 @@ public class AlbumPhotoTestUtil {
 		commentaire.setId(id);
 		commentaire.setContenu("contenu");
 		commentaire.setDate(123456789);
-		commentaire.setPhoto(AlbumInBase.getPhoto());
+		commentaire.setMedia(AlbumInBase.getMedia());
 		commentaire.setPosteur(AlbumInBase.getUtilisateurToutDroit());
 		return commentaire;
 	}
@@ -63,7 +64,7 @@ public class AlbumPhotoTestUtil {
 		int id = (int) (Math.random()*10000);
 		tag.setId(id);
 		tag.setNom("nom");
-		tag.setPhoto(AlbumInBase.getPhoto());
+		tag.setPhoto(AlbumInBase.getMedia());
 		tag.setX(125.01);
 		tag.setY(0.000051);
 		return tag;

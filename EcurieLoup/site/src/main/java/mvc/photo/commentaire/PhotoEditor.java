@@ -2,14 +2,14 @@ package mvc.photo.commentaire;
 
 import java.beans.PropertyEditorSupport;
 
-import service.photo.AlbumPhotoManager;
-import donnees.photo.Photo;
+import service.photo.MediaManager;
+import donnees.photo.Media;
 
 public class PhotoEditor extends PropertyEditorSupport {
-	private AlbumPhotoManager albumPhotoManager;
+	private MediaManager mediaManager;
 
-	public void setAlbumPhotoManager(AlbumPhotoManager albumPhotoManager) {
-		this.albumPhotoManager = albumPhotoManager;
+	public void setAlbumPhotoManager(MediaManager mediaManager) {
+		this.mediaManager = mediaManager;
 	}
 
 	@Override
@@ -17,7 +17,7 @@ public class PhotoEditor extends PropertyEditorSupport {
 		long id = 0;
 		try {
 			id = Long.parseLong(text);
-			Photo photo = this.albumPhotoManager.recupererPhoto(id);
+			Media photo = this.mediaManager.recupererMedia(id);
 			this.setValue(photo);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();

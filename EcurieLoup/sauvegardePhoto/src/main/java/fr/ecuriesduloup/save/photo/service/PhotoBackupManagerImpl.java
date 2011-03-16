@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import util.MiniatureUtil;
 import donnees.MemoireVariable;
-import donnees.photo.Photo;
+import donnees.photo.Media;
 import fr.ecurie_du_loup.generique_util.service.DataBaseServiceWithDaoIdLongUtilAndLongId;
 import fr.ecuriesduloup.save.photo.data.PhotoBackup;
 
@@ -27,11 +27,11 @@ public class PhotoBackupManagerImpl extends DataBaseServiceWithDaoIdLongUtilAndL
 	}
 
 	@Override
-	public boolean isOnHardDisk(Photo photo) {
+	public boolean isOnHardDisk(Media photo) {
 		File photoFile = new File(this.getPathPhoto(photo));
 		return photoFile.exists();		
 	}
-	private String getPathPhoto(Photo photo){
+	private String getPathPhoto(Media photo){
 		String pathPhoto = MemoireVariable.optenirVariable("pathServeur")+"/";
 		pathPhoto += this.emplacementPhoto + "/";
 		pathPhoto += photo.getId();
@@ -40,14 +40,14 @@ public class PhotoBackupManagerImpl extends DataBaseServiceWithDaoIdLongUtilAndL
 	}
 	
 	@Override
-	public File getOnHardDisk(Photo photo) {
+	public File getOnHardDisk(Media photo) {
 		File photoFile = new File(this.getPathPhoto(photo));
 		return photoFile;
 	}
 	
 	
 	
-	private String getPathPhotoMiniature(Photo photo){
+	private String getPathPhotoMiniature(Media photo){
 		String pathPhoto = MemoireVariable.optenirVariable("pathServeur")+"/";
 		pathPhoto += this.emplacementPhoto + "/";
 		pathPhoto += "miniatures/";
@@ -57,7 +57,7 @@ public class PhotoBackupManagerImpl extends DataBaseServiceWithDaoIdLongUtilAndL
 	}
 
 	@Override
-	public void restorePhotoBackup(Photo photo) {
+	public void restorePhotoBackup(Media photo) {
 		PhotoBackup photoBackup = this.getById(photo.getId());
 		byte[] photoBackupFile = photoBackup.getFile();
 

@@ -58,9 +58,15 @@
 			<div class="navigation_album">
 				<!-- affichage en miniatude de la photo précédente -->
 				<div class="photo_precedente">
+					
 					<c:if test="${photoPrecedente != null}">
+						
 						<a href="${ctx}/albumPhoto/affichagePhoto.do?idPhoto=${photoPrecedente.id}" >
-							<div class="photo">
+							<div class="photo video">
+								<c:if test="${photoPrecedente.type==1}">
+									<div class="image_video">
+									</div>				
+								</c:if>	
 								<img src="${ctx}/images/albumPhoto/miniatures/${photoPrecedente.id}" alt="<fmt:message key="album_photo.photo.previous.alt"/>" title="<fmt:message key="album_photo.photo.previous.title"/>" />
 							</div>
 						</a>
@@ -68,9 +74,15 @@
 				</div>
 				<!-- affichage en miniatude de la photo suivante -->
 				<div class="photo_suivante">
+					
 					<c:if test="${photoSuivante != null}">
+						
 						<a href="${ctx}/albumPhoto/affichagePhoto.do?idPhoto=${photoSuivante.id}" >
-							<div class="photo">
+							<div class="photo video" >
+								<c:if test="${photoSuivante.type==1}">
+									<div class="image_video">
+									</div>				
+								</c:if>	
 								<img src="${ctx}/images/albumPhoto/miniatures/${photoSuivante.id}" alt="<fmt:message key="album_photo.photo.next.alt"/>" title="<fmt:message key="album_photo.photo.next.title"/>"/>
 							</div>
 						</a>
@@ -79,7 +91,18 @@
 			</div>
 			<!-- affichage de la photo en cours -->
 			<div class="photo_principal">
-				<img id="photo_taggage"	src="${ctx}/images/albumPhoto/${photo.id}" alt="${photo.id}"	onclick="taggage()" />
+				<c:choose >
+					<c:when test="${photo.type == 0}">
+						<img id="photo_taggage"	src="${ctx}/images/albumPhoto/${photo.id}" alt="${photo.id}"	onclick="taggage()" />
+					</c:when>
+					<c:when test="${photo.type == 1}">
+						<video width="80%" controls="controls" src="${ctx}/images/albumPhoto/${photo.id}.ogv">
+							Ici la description alternative
+						</video> 
+					</c:when>
+					<c:otherwise>Erreur</c:otherwise>
+				</c:choose>
+			
 			</div>
 			
 			

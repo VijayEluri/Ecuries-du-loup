@@ -34,8 +34,8 @@ public class RecoveryAllAlbumAdvice implements
 
 			
 			for (Album album : listeDesAlbums) {
-				if(!album.getPhotos().isEmpty()){
-					this.saveMaker.addRecoveryPhoto(album.getPhotos().get(0));
+				if(!album.getMedias().isEmpty()){
+					this.saveMaker.addRecoveryPhoto(album.getMedias().get(0));
 				}
 			}
 

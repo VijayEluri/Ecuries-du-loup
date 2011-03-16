@@ -7,19 +7,19 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import service.UtilisateurManager;
-import service.photo.AlbumPhotoManager;
+import service.photo.MediaManager;
 import donnees.User;
 
 public class NouvellePhotoInterceptor extends HandlerInterceptorAdapter {
 	private UtilisateurManager utilisateurManager;
-	private AlbumPhotoManager albumPhotoManager;
+	private MediaManager mediaManager;
 
 	public void setUtilisateurManager(UtilisateurManager utilisateurManager) {
 		this.utilisateurManager = utilisateurManager;
 	}
 
-	public void setAlbumPhotoManager(AlbumPhotoManager albumPhotoManager) {
-		this.albumPhotoManager = albumPhotoManager;
+	public void setAlbumPhotoManager(MediaManager mediaManager) {
+		this.mediaManager = mediaManager;
 	}
 
 	@Override
@@ -30,12 +30,12 @@ public class NouvellePhotoInterceptor extends HandlerInterceptorAdapter {
 		User utilistateurCourant = this.utilisateurManager
 				.getUtilisateurCourant();
 		if (utilistateurCourant != null) {
-			boolean hasNouvellesPhotos = this.albumPhotoManager
-					.hasNouvellesPhotos();
+			boolean hasNouvellesPhotos = this.mediaManager
+					.hasNouvellesMedias();
 			if(modelAndView != null){
 				modelAndView.addObject("hasNouvellesPhotos", hasNouvellesPhotos);
-				int nombreNouvellesPhotos = this.albumPhotoManager
-						.getNombreNouvellesPhotos();
+				int nombreNouvellesPhotos = this.mediaManager
+						.getNombreNouvellesMedias();
 				modelAndView.addObject("nombreNouvellesPhotos",
 						nombreNouvellesPhotos);
 			}

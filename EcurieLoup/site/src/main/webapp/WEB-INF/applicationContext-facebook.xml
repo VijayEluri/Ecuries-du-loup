@@ -22,7 +22,7 @@
 
 	<bean id="facebookController" class="fr.ecuriesduloup.site.facebook.FacebookController">
 		<property name="albumPhotoManager">
-			<ref bean="albumPhotoManager" />
+			<ref bean="mediaManager" />
 		</property>
 		<property name="forumManager">
 			<ref bean="forumManager" />

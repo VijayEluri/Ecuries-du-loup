@@ -33,7 +33,7 @@
 			<ref bean="transactionManager" />
 		</property>
 		<property name="target">
-			<ref bean="photoDAO" />
+			<ref bean="mediaDAO" />
 		</property>
 		<property name="transactionAttributes">
 			<props>

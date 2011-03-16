@@ -6,41 +6,41 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import service.photo.AlbumPhotoManager;
+import service.photo.MediaManager;
 import donnees.photo.Album;
-import donnees.photo.Photo;
+import donnees.photo.Media;
 @Service
 public class AlbumPhotoServiceImpl implements AlbumPhotoService {
 	@Autowired
-	private AlbumPhotoManager albumPhotoManager;
+	private MediaManager mediaManager;
 
 	
-	public void setAlbumPhotoManager(AlbumPhotoManager albumPhotoManager) {
-		this.albumPhotoManager = albumPhotoManager;
+	public void setMediaManager(MediaManager mediaManager) {
+		this.mediaManager = mediaManager;
 	}
 
 	@Override
 	public long createAlbumPhoto(String name) {
 		Album album = new Album();
 		album.setTitre(name);
-		this.albumPhotoManager.creerAlbum(album);
+		this.mediaManager.creerAlbum(album);
 		return album.getId();
 	}
 
 
 	@Override
-	public void createPhoto(Photo photo, File photoFile, String pathServeur) {
-		this.albumPhotoManager.creerPhoto(photo, photoFile, pathServeur);
+	public void createMedia(Media media, File photoFile, String pathServeur) {
+		this.mediaManager.creerMedia(media, photoFile, pathServeur);
 	}
 
 	@Override
 	public Album getAlbum(long albumId) {
-		return this.albumPhotoManager.recupererAlbum(albumId);
+		return this.mediaManager.recupererAlbum(albumId);
 	}
 
 	@Override
 	public List<Album> getAlbums() {
-		return this.albumPhotoManager.recupererTousLesAlbums();
+		return this.mediaManager.recupererTousLesAlbums();
 	}
 
 }

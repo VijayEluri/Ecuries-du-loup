@@ -1,13 +1,14 @@
 package fr.ecuriesduloup.save.photo.dao;
 
 import org.junit.Before;
+import org.junit.Ignore;
 
 import fr.ecurie_du_loup.generique_util.dao.test.DaoIdLongUtilTest;
 import fr.ecuriesduloup.save.photo.data.PhotoBackup;
 import fr.ecuriesduloup.save.photo.test.ContextManagerPhotoBackup;
 import fr.ecuriesduloup.save.photo.test.PhotoBackupTestUtil;
 
-
+@Ignore
 public class PhotoBackupDaoHibernateTest extends DaoIdLongUtilTest<PhotoBackup>{
 
 	@Before

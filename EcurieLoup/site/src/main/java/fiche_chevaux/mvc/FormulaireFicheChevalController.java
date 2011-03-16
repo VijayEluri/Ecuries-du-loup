@@ -17,7 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import service.UtilisateurManager;
 import album_photo.editor.LongToPhotoEditor;
-import donnees.photo.Photo;
+
+import com.google.code.facebookapi.schema.Photo;
+
+import donnees.photo.Media;
 import fiche_chevaux.donnees.Fiche;
 import fiche_chevaux.donnees.FicheFormulaire;
 import fiche_chevaux.donnees.Owner;
@@ -117,13 +120,13 @@ public class FormulaireFicheChevalController{
 		if (fiche.getPhotoCorps() != null) {
 			ficheFormulaire.setPhotoCorps(fiche.getPhotoCorps());
 		}else{
-			ficheFormulaire.setPhotoCorps(new Photo());
+			ficheFormulaire.setPhotoCorps(new Media());
 		}
 
 		if (fiche.getPhotoTete() != null) {
 			ficheFormulaire.setPhotoTete(fiche.getPhotoTete());
 		}else{
-			ficheFormulaire.setPhotoTete(new Photo());
+			ficheFormulaire.setPhotoTete(new Media());
 		}
 
 

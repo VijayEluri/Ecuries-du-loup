@@ -54,7 +54,7 @@
 			<ref bean="utilisateurManager" />
 		</property>
 		<property name="albumPhotoManager">
-			<ref bean="albumPhotoManager" />
+			<ref bean="mediaManager" />
 		</property>
 	</bean>
 	<bean id="lienInterceptor" class="mvc.LienInterceptor">
@@ -80,7 +80,7 @@
 	
 	<bean id="photoEditor" class="mvc.photo.commentaire.PhotoEditor">
 		<property name="albumPhotoManager">
-			<ref bean="albumPhotoManager" />
+			<ref bean="mediaManager" />
 		</property>
 	</bean>
 	

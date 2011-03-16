@@ -41,7 +41,7 @@ public class Comparator {
 						}else if((objExcepted instanceof Collection<?> )&& (objActual instanceof Collection<?>)){
 							Collection<Object> colExcepted= new ArrayList<Object>((Collection<Object>)objExcepted);
 							Collection<Object> colActual= new ArrayList<Object>((Collection<Object>)objActual);
-							assertEquals(colExcepted, colActual);
+							assertEquals(method.getName(), colExcepted, colActual );
 						}	else{
 						
 							assertEquals(objExcepted, objActual);

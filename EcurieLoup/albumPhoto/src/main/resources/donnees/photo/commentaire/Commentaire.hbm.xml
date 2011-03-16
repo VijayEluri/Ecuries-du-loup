@@ -11,7 +11,7 @@
 			<generator class="increment" />
 		</id>
 
-		<many-to-one name="photo" class="donnees.photo.Photo"
+		<many-to-one name="media" class="donnees.photo.Media"
 			column="photo" lazy="false" />
 		<many-to-one name="posteur" class="donnees.User" column="posteur"
 			lazy="false" />

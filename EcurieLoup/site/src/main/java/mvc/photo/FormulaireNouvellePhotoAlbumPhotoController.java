@@ -7,14 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -24,26 +21,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import service.UtilisateurManager;
-import service.photo.AlbumPhotoManager;
+import service.photo.MediaManager;
+
+import com.google.code.facebookapi.schema.Photo;
+
 import donnees.User;
 import donnees.photo.Album;
-import donnees.photo.Photo;
+import donnees.photo.Media;
 import donnees.photo.PhotoNouvelle;
 @Controller
 public class FormulaireNouvellePhotoAlbumPhotoController{
 	@Autowired
-	@Qualifier("albumPhotoManager")
-	private AlbumPhotoManager albumPhotoManager;
+	@Qualifier("mediaManager")
+	private MediaManager mediaManager;
 	@Autowired
 	@Qualifier("utilisateurManager")
 	private UtilisateurManager utilisateurManager;
 
-	public void setAlbumPhotoManager(AlbumPhotoManager albumPhotoManager) {
-		this.albumPhotoManager = albumPhotoManager;
+	public void setAlbumPhotoManager(MediaManager mediaManager) {
+		this.mediaManager = mediaManager;
 	}
 
 	public void setUtilisateurManager(UtilisateurManager utilisateurManager) {
@@ -84,7 +82,7 @@ public class FormulaireNouvellePhotoAlbumPhotoController{
 	}
 
 	private String ajoutPhotoSimple(PhotoNouvelle nouvellePhoto, BindingResult result, HttpServletRequest request){
-		Photo photo = null;
+		Media photo = null;
 
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 
@@ -121,7 +119,7 @@ public class FormulaireNouvellePhotoAlbumPhotoController{
 		String pathPhoto = request.getSession().getServletContext()
 		.getRealPath("/");
 
-		this.albumPhotoManager.creerPhoto(photo, temporaire, pathPhoto);
+		this.mediaManager.creerMedia(photo, temporaire, pathPhoto);
 
 		temporaire.delete();
 
@@ -137,12 +135,12 @@ public class FormulaireNouvellePhotoAlbumPhotoController{
 		return extention.startsWith("image/");
 	}
 
-	private Photo construirePhoto(PhotoNouvelle photoNouvelle) {
-		Album album = this.albumPhotoManager.recupererAlbum(photoNouvelle
+	private Media construirePhoto(PhotoNouvelle photoNouvelle) {
+		Album album = this.mediaManager.recupererAlbum(photoNouvelle
 				.getAlbum());
 		User posteur = this.utilisateurManager.getUtilisateurCourant();
 
-		Photo photo = new Photo();
+		Media photo = new Media();
 		photo.setAlbum(album);
 		photo.setDescription(photoNouvelle.getDescription());
 		photo.setPosteur(posteur);
@@ -154,7 +152,7 @@ public class FormulaireNouvellePhotoAlbumPhotoController{
 	private String ajoutPhotoZip(PhotoNouvelle nouvellePhoto, BindingResult result, HttpServletRequest request){
 
 	
-		final Photo photo = this.construirePhoto(nouvellePhoto);
+		final Media photo = this.construirePhoto(nouvellePhoto);
 		photo.setTypeAdding("zip");
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		MultipartFile fichierZip = multipartRequest.getFile("zip");
@@ -192,7 +190,7 @@ public class FormulaireNouvellePhotoAlbumPhotoController{
 
 			@Override
 			public void run() {
-				albumPhotoManager.creerZipPhoto(temporaire, photo.getAlbum(),posteur, pathServeur);
+				mediaManager.creerZipMedia(temporaire, photo.getAlbum(),posteur, pathServeur);
 				temporaire.delete();
 			}
 		});

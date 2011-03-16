@@ -16,8 +16,8 @@
 		<property name="dateNaissance" column="date_naissance" />
 		<property name="anneeNaissance" column="annee_naissance" />
 		<many-to-one name="sexe" class="fiche_chevaux.donnees.Sexe" column="sexe" lazy="false"/>
-		<many-to-one name="photoCorps" class="donnees.photo.Photo" column="photo_corps" lazy="false"  />
-		<many-to-one name="photoTete" class="donnees.photo.Photo" column="photo_tete" lazy="false"  />
+		<many-to-one name="photoCorps" class="donnees.photo.Media" column="photo_corps" lazy="false"  />
+		<many-to-one name="photoTete" class="donnees.photo.Media" column="photo_tete" lazy="false"  />
 		
 		<many-to-one name="owner" class="fiche_chevaux.donnees.Owner" column="owner" lazy="false"/>
 		

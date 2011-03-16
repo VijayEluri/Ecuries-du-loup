@@ -2,6 +2,7 @@ package fr.ecuriesduloup.save.photo.data.service;
 
 import org.easymock.EasyMock;
 import org.junit.Before;
+import org.junit.Ignore;
 
 import fr.ecurie_du_loup.generique_util.service.test.DataBaseServiceWithDaoIdLongUtilAndLongIdUnitaryTest;
 import fr.ecuriesduloup.save.photo.dao.PhotoBackupDAO;
@@ -9,7 +10,7 @@ import fr.ecuriesduloup.save.photo.data.PhotoBackup;
 import fr.ecuriesduloup.save.photo.service.PhotoBackupManagerImpl;
 import fr.ecuriesduloup.save.photo.test.PhotoBackupTestUtil;
 
-
+@Ignore
 public class PhotoBackupManagerImplUnitaryTest extends DataBaseServiceWithDaoIdLongUtilAndLongIdUnitaryTest<PhotoBackup>{
 
 	

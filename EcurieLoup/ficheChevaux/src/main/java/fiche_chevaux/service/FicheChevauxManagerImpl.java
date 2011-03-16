@@ -2,8 +2,6 @@ package fiche_chevaux.service;
 
 import java.util.List;
 
-import service.photo.AlbumPhotoManager;
-import donnees.photo.Photo;
 import fiche_chevaux.dao.FicheChevauxDAO;
 import fiche_chevaux.dao.OwnerChevauxDAO;
 import fiche_chevaux.dao.RaceChevauxDAO;

@@ -30,7 +30,7 @@
 	<bean name="miniatureUtil" class="util.MiniatureUtilImpl">
 	</bean>
 	
-	<bean id="albumPhotoManager" class="service.photo.AlbumPhotoManagerImpl">
+	<bean id="albumPhotoManager" class="service.photo.MediaManagerImpl">
 	</bean>
 	
 </beans>

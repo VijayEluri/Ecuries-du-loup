@@ -1,6 +1,7 @@
 package fr.ecuriesduloup.save.photo.data.service;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.springframework.context.ApplicationContext;
 
 import fr.ecurie_du_loup.generique_util.service.test.DataBaseServiceWithLongIdIntegrationTest;
@@ -9,7 +10,7 @@ import fr.ecuriesduloup.save.photo.service.PhotoBackupManager;
 import fr.ecuriesduloup.save.photo.test.ContextManagerPhotoBackup;
 import fr.ecuriesduloup.save.photo.test.PhotoBackupTestUtil;
 
-
+@Ignore
 public class PhotoBackupManagerImplTest extends DataBaseServiceWithLongIdIntegrationTest<PhotoBackup>{
 
 	private ApplicationContext context;

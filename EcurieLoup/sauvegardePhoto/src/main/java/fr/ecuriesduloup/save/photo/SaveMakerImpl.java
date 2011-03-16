@@ -10,14 +10,14 @@ import java.util.concurrent.Executors;
 
 import org.springframework.dao.DataIntegrityViolationException;
 
-import donnees.photo.Photo;
+import donnees.photo.Media;
 import fr.ecuriesduloup.save.photo.data.PhotoBackup;
 import fr.ecuriesduloup.save.photo.service.PhotoBackupManager;
 
 public class SaveMakerImpl implements SaveMaker, Runnable{
-	private Set<Photo> photosWaitRecevery;
-	private Set<Photo> photosWaitSave;
-	private Set<Photo> photosWaitDelete;
+	private Set<Media> photosWaitRecevery;
+	private Set<Media> photosWaitSave;
+	private Set<Media> photosWaitDelete;
 	private ExecutorService executorService;
 
 	private PhotoBackupManager photoBackupManager;
@@ -31,26 +31,26 @@ public class SaveMakerImpl implements SaveMaker, Runnable{
 
 
 	public SaveMakerImpl() {
-		this.photosWaitRecevery = new HashSet<Photo>();
-		this.photosWaitSave = new HashSet<Photo>();
-		this.photosWaitDelete = new HashSet<Photo>();
+		this.photosWaitRecevery = new HashSet<Media>();
+		this.photosWaitSave = new HashSet<Media>();
+		this.photosWaitDelete = new HashSet<Media>();
 		this.executorService = Executors.newFixedThreadPool(1);
 	}
 
 
 	@Override
-	public void addRecoveryPhoto(Photo photoRecovery) {
+	public void addRecoveryPhoto(Media photoRecovery) {
 		this.photosWaitRecevery.add(photoRecovery);
 		this.work();
 	}
 	@Override
-	public void addRecoveryPhoto(Collection<Photo> photoRecovery) {
+	public void addRecoveryPhoto(Collection<Media> photoRecovery) {
 		this.photosWaitRecevery.addAll(photoRecovery);
 		this.work();
 	}
 
 	@Override
-	public void addSavePhoto(Photo photoSave) {		
+	public void addSavePhoto(Media photoSave) {		
 		this.photosWaitSave.add(photoSave);
 		this.work();
 	}
@@ -58,14 +58,14 @@ public class SaveMakerImpl implements SaveMaker, Runnable{
 	//que sur l'id dans le reste !!
 	@Override
 	public void addSavePhoto(long idPhotoSave) {
-		Photo photoSave = new Photo();
+		Media photoSave = new Media();
 		photoSave.setId(idPhotoSave);
 		this.addSavePhoto(photoSave);
 	}
 
 
 	@Override
-	public void addDeletePhoto(Photo photoDelete) {
+	public void addDeletePhoto(Media photoDelete) {
 		this.photosWaitDelete.add(photoDelete);
 		this.work();
 
@@ -75,7 +75,7 @@ public class SaveMakerImpl implements SaveMaker, Runnable{
 	//que sur l'id dans le reste !!
 	@Override
 	public void addDeletePhoto(long idPhotoDelete) {
-		Photo photoDelete = new Photo();
+		Media photoDelete = new Media();
 		photoDelete.setId(idPhotoDelete);
 
 		this.addDeletePhoto(photoDelete);		
@@ -110,7 +110,7 @@ public class SaveMakerImpl implements SaveMaker, Runnable{
 	private void workRecovery(){
 		while(!this.photosWaitRecevery.isEmpty()){
 			try{
-				final Photo photo = this.photosWaitRecevery.iterator().next();
+				final Media photo = this.photosWaitRecevery.iterator().next();
 				this.executorService.execute(new Runnable() {
 					@Override
 					public void run() {
@@ -132,7 +132,7 @@ public class SaveMakerImpl implements SaveMaker, Runnable{
 
 	private void workSave(){
 		while(!this.photosWaitSave.isEmpty()){
-			final Photo photo = this.photosWaitSave.iterator().next();
+			final Media photo = this.photosWaitSave.iterator().next();
 			this.executorService.execute(new Runnable() {
 				@Override
 				public void run() {
@@ -156,7 +156,7 @@ public class SaveMakerImpl implements SaveMaker, Runnable{
 
 	private void workDelete(){
 		while(!this.photosWaitDelete.isEmpty()){
-			final Photo photo = this.photosWaitDelete.iterator().next();
+			final Media photo = this.photosWaitDelete.iterator().next();
 			this.executorService.execute(new Runnable() {
 				@Override
 				public void run() {

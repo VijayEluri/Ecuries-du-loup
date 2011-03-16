@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import service.UtilisateurManager;
-import service.photo.AlbumPhotoManager;
+import service.photo.MediaManager;
 import donnees.User;
-import donnees.photo.Photo;
+import donnees.photo.Media;
 import donnees.photo.Tag;
 import donnees.photo.commentaire.Commentaire;
 import edlcode.EdlCode;
@@ -26,8 +26,8 @@ import fiche_chevaux.service.FicheChevauxManager;
 @Controller
 public class AffichagePhotoAlbumPhotoController{
 	@Autowired
-	@Qualifier("albumPhotoManager")
-	private AlbumPhotoManager albumPhotoManager;
+	@Qualifier("mediaManager")
+	private MediaManager mediaManager;
 	@Autowired
 	@Qualifier("utilisateurManager")
 	private UtilisateurManager utilisateurManager;
@@ -41,8 +41,8 @@ public class AffichagePhotoAlbumPhotoController{
 		this.edlCode = edlCode;
 	}
 
-	public void setAlbumPhotoManager(AlbumPhotoManager albumPhotoManager) {
-		this.albumPhotoManager = albumPhotoManager;
+	public void setAlbumPhotoManager(MediaManager mediaManager) {
+		this.mediaManager = mediaManager;
 	}
 
 	
@@ -56,9 +56,9 @@ public class AffichagePhotoAlbumPhotoController{
 	}
 
 	@ModelAttribute("photo")
-	protected Photo formBackingObject(HttpServletRequest request) {
+	protected Media formBackingObject(HttpServletRequest request) {
 		long idPhoto = Long.parseLong(request.getParameter("idPhoto"));
-		Photo photo = this.albumPhotoManager.recupererPhoto(idPhoto);
+		Media photo = this.mediaManager.recupererMedia(idPhoto);
 		
 		
 		this.tagsManagement(photo);
@@ -85,7 +85,7 @@ public class AffichagePhotoAlbumPhotoController{
 		return photo;
 	}
 	
-	private void tagsManagement(Photo photo){
+	private void tagsManagement(Media photo){
 		for(Tag tag : photo.getTags()){
 			//TODO : trop laid , changer sa 
 			try{
@@ -112,13 +112,13 @@ public class AffichagePhotoAlbumPhotoController{
 	}
 
 	@ModelAttribute("photoPrecedente")
-	public Photo getPhotoPrecedente(@RequestParam("idPhoto") long idPhoto ){
-		Photo photo = this.albumPhotoManager.recupererPhoto(idPhoto);
-		List<Photo> photos = photo.getAlbum().getPhotos();
+	public Media getPhotoPrecedente(@RequestParam("idPhoto") long idPhoto ){
+		Media photo = this.mediaManager.recupererMedia(idPhoto);
+		List<Media> photos = photo.getAlbum().getMedias();
 		int indexPhoto = photos.indexOf(photo);
 
 		if (indexPhoto > 0) {
-			Photo photoPrecedente = photos.get(indexPhoto - 1);
+			Media photoPrecedente = photos.get(indexPhoto - 1);
 			return photoPrecedente;
 		} else {
 			return null;
@@ -126,13 +126,13 @@ public class AffichagePhotoAlbumPhotoController{
 	}
 	
 	@ModelAttribute("photoSuivante")
-	public Photo getPhotoSuivante(@RequestParam("idPhoto") long idPhoto ){
-		Photo photo = this.albumPhotoManager.recupererPhoto(idPhoto);
-		List<Photo> photos = photo.getAlbum().getPhotos();
+	public Media getPhotoSuivante(@RequestParam("idPhoto") long idPhoto ){
+		Media photo = this.mediaManager.recupererMedia(idPhoto);
+		List<Media> photos = photo.getAlbum().getMedias();
 		int indexPhoto = photos.indexOf(photo);
 
 		if (indexPhoto + 1 < photos.size()) {
-			Photo photoSuivante = photos.get(indexPhoto + 1);
+			Media photoSuivante = photos.get(indexPhoto + 1);
 			return  photoSuivante;
 		} else {
 			return null;
@@ -147,8 +147,8 @@ public class AffichagePhotoAlbumPhotoController{
 	}
 	
 	@RequestMapping(value="/albumPhoto/affichagePhoto.do", method=RequestMethod.POST)
-	public String onSubmit(@ModelAttribute("photo")Photo photo) {
-		this.albumPhotoManager.modifierPhoto(photo);
+	public String onSubmit(@ModelAttribute("photo")Media photo) {
+		this.mediaManager.modifierMedia(photo);
 		
 		return this.showForm();
 

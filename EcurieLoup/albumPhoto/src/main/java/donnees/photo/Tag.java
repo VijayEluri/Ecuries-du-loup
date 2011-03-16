@@ -7,7 +7,7 @@ public class Tag extends DataWtihLongIdAbstract<Tag> implements DataWithLongId{
 	private double x;
 	private double y;
 	private String nom;
-	private Photo photo;
+	private Media media;
 	
 	private String path;
 	private String display;
@@ -34,11 +34,11 @@ public class Tag extends DataWtihLongIdAbstract<Tag> implements DataWithLongId{
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public Photo getPhoto() {
-		return photo;
+	public Media getPhoto() {
+		return media;
 	}
-	public void setPhoto(Photo photo) {
-		this.photo = photo;
+	public void setPhoto(Media media) {
+		this.media = media;
 	}
 	
 	public String getPath() {

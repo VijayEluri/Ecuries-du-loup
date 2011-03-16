@@ -8,7 +8,7 @@
 	  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 	  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-
+<!-- 
 
 
 	<bean id="photoBackupDao" class="fr.ecuriesduloup.save.photo.dao.PhotoBackupDaoHibernate">
@@ -51,7 +51,7 @@
 			<ref bean="photoBackupManager" />
 		</property>
 	</bean>
-
+ -->
 	<!-- ****************************************************************-->
 	<!-- ****************************************************************-->
 	<!-- ****************************************************************-->
@@ -61,7 +61,7 @@
 	<!--<bean
 		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
   -->
-	<bean name="addPhotoBackupAdvice"
+	<!--  <bean name="addPhotoBackupAdvice"
 		class="fr.ecuriesduloup.save.photo.interceptor.AddPhotoBackupAdvice">
 		<property name="saveMaker">
 			<ref bean="saveMaker" />
@@ -78,8 +78,9 @@
 		<property name="advice" ref="addPhotoBackupAdvice" />
 		<property name="pointcut" ref="addPhotoBackupPointcut" />
 	</bean>
+	-->
 	<!-- ****************************************************************-->
-	<bean name="deletePhotoBackupAdvice"
+	<!-- <bean name="deletePhotoBackupAdvice"
 		class="fr.ecuriesduloup.save.photo.interceptor.DeletePhotoBackupAdvice">
 		<property name="saveMaker">
 			<ref bean="saveMaker" />
@@ -101,8 +102,9 @@
 		<property name="advice" ref="addPhotoBackupAdvice" />
 		<property name="pointcut" ref="addPhotoBackupPointcut" />
 	</bean>
+	 -->
 		<!-- ****************************************************************-->
-	<bean name="recoveryAllAlbumAdvice"
+	<!-- <bean name="recoveryAllAlbumAdvice"
 		class="fr.ecuriesduloup.save.photo.interceptor.RecoveryAllAlbumAdvice">
 		<property name="saveMaker">
 			<ref bean="saveMaker" />
@@ -120,9 +122,9 @@
 		<property name="advice" ref="recoveryAllAlbumAdvice" />
 		<property name="pointcut" ref="recoveryAllAlbumPoincut" />
 	</bean>
-
+ -->
 	<!-- ****************************************************************-->
-	<bean name="recoveryAlbumAdvice"
+<!-- 	<bean name="recoveryAlbumAdvice"
 		class="fr.ecuriesduloup.save.photo.interceptor.RecoveryAlbumAdvice">
 		<property name="saveMaker">
 			<ref bean="saveMaker" />
@@ -139,5 +141,5 @@
 		class="org.springframework.aop.support.DefaultPointcutAdvisor">
 		<property name="advice" ref="recoveryAlbumAdvice" />
 		<property name="pointcut" ref="recoveryAlbumPoincut" />
-	</bean>
+	</bean> -->
 </beans>

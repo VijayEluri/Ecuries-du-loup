@@ -6,24 +6,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import service.photo.AlbumPhotoManager;
-import donnees.photo.Photo;
+import service.photo.MediaManager;
+import donnees.photo.Media;
 import donnees.photo.Tag;
 
 @Controller
 public class EnregistrementTagAjaxController{
 	@Autowired
-	@Qualifier("albumPhotoManager")
-	private AlbumPhotoManager albumPhotoManager;
+	@Qualifier("mediaManager")
+	private MediaManager mediaManager;
 
-	public void setAlbumPhotoManager(AlbumPhotoManager albumPhotoManager) {
-		this.albumPhotoManager = albumPhotoManager;
+	public void setAlbumPhotoManager(MediaManager mediaManager) {
+		this.mediaManager = mediaManager;
 	}
 
 	@RequestMapping("/albumPhoto/tagage.do")
 	public String saveTag(@RequestParam("nom")String nom, @RequestParam("x")double x, @RequestParam("y")double y, @RequestParam("photo")long idPhoto) {
 
-		Photo photoTag = this.albumPhotoManager.recupererPhoto(idPhoto);
+		Media photoTag = this.mediaManager.recupererMedia(idPhoto);
 		
 		
 		Tag tag = new Tag();
@@ -32,7 +32,7 @@ public class EnregistrementTagAjaxController{
 		tag.setX(x);
 		tag.setY(y);
 
-		this.albumPhotoManager.creerTag(tag);
+		this.mediaManager.creerTag(tag);
 
 		return "";
 	}

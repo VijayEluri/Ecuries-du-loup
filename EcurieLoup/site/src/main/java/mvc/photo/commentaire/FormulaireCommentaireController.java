@@ -17,17 +17,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import service.UtilisateurManager;
-import service.photo.AlbumPhotoManager;
+import service.photo.MediaManager;
 import service.smiley.SmileyManager;
-import donnees.photo.Photo;
+
+import com.google.code.facebookapi.schema.Photo;
+
 import donnees.photo.commentaire.Commentaire;
 import donnees.smiley.CategorieSmiley;
 
 @Controller
 public class FormulaireCommentaireController{
 	@Autowired
-	@Qualifier("albumPhotoManager")
-	private AlbumPhotoManager albumPhotoManager;
+	@Qualifier("mediaManager")
+	private MediaManager mediaManager;
 	@Autowired
 	@Qualifier("utilisateurManager")
 	private UtilisateurManager utilisateurManager;
@@ -37,8 +39,8 @@ public class FormulaireCommentaireController{
 	@Autowired
 	private PhotoEditor photoEditor;
 
-	public void setAlbumPhotoManager(AlbumPhotoManager albumPhotoManager) {
-		this.albumPhotoManager = albumPhotoManager;
+	public void setAlbumPhotoManager(MediaManager mediaManager) {
+		this.mediaManager = mediaManager;
 	}
 
 	public void setUtilisateurManager(UtilisateurManager utilisateurManager) {
@@ -68,14 +70,14 @@ public class FormulaireCommentaireController{
 			Commentaire commentaire = new Commentaire();
 
 			long idPhoto = Integer.parseInt(paramPhoto);
-			commentaire.setPhoto(this.albumPhotoManager.recupererPhoto(idPhoto));
+			commentaire.setMedia(this.mediaManager.recupererMedia(idPhoto));
 
 			return commentaire;
 		}
 
 		if (paramCommentaire != null) {
 			int idCommentaire = Integer.parseInt(paramCommentaire);
-			Commentaire commentaire = this.albumPhotoManager
+			Commentaire commentaire = this.mediaManager
 					.recupererCommentaire(idCommentaire);
 
 			return commentaire;
@@ -98,15 +100,15 @@ public class FormulaireCommentaireController{
 
 
 		if (this.estUneModificationAlbum(commentaire)) {
-			this.albumPhotoManager.modifierCommentaire(commentaire);
+			this.mediaManager.modifierCommentaire(commentaire);
 		} else {
 
 			commentaire.setDate(new Date().getTime());
 			commentaire.setPosteur(this.utilisateurManager
 					.getUtilisateurCourant());
-			this.albumPhotoManager.creerCommentaire(commentaire);
+			this.mediaManager.creerCommentaire(commentaire);
 		}
-		return "redirect:affichagePhoto.do?idPhoto="+ commentaire.getPhoto().getId();
+		return "redirect:affichagePhoto.do?idPhoto="+ commentaire.getMedia().getId();
 
 	}
 

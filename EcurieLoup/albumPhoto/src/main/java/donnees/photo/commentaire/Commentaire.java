@@ -1,13 +1,13 @@
 package donnees.photo.commentaire;
 
 import donnees.User;
-import donnees.photo.Photo;
+import donnees.photo.Media;
 import fr.ecurie_du_loup.generique_util.type.DataWithLongId;
 import fr.ecurie_du_loup.generique_util.type.DataWtihLongIdAbstract;
 
 public class Commentaire extends DataWtihLongIdAbstract<Commentaire> implements DataWithLongId{
 	private long id;
-	private Photo photo;
+	private Media media;
 	private User posteur;
 	private long date;
 	private String contenu;
@@ -19,11 +19,11 @@ public class Commentaire extends DataWtihLongIdAbstract<Commentaire> implements 
 	public void setId(long id) {
 		this.id = id;
 	}
-	public Photo getPhoto() {
-		return photo;
+	public Media getMedia() {
+		return media;
 	}
-	public void setPhoto(Photo photo) {
-		this.photo = photo;
+	public void setMedia(Media media) {
+		this.media = media;
 	}
 	public User getPosteur() {
 		return posteur;

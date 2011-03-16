@@ -14,24 +14,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import service.photo.AlbumPhotoManager;
+import service.photo.MediaManager;
+
+import com.google.code.facebookapi.schema.Photo;
+
 import donnees.photo.Album;
-import donnees.photo.Photo;
+import donnees.photo.Media;
 
 @Controller
 public class AffichageAlbumPhotoController {
 	@Autowired
-	@Qualifier("albumPhotoManager")
-	private AlbumPhotoManager albumPhotoManager;
+	@Qualifier("mediaManager")
+	private MediaManager mediaManager;
 
-	public void setAlbumPhotoManager(AlbumPhotoManager albumPhotoManager) {
-		this.albumPhotoManager = albumPhotoManager;
+	public void setAlbumPhotoManager(MediaManager albumPhotoManager) {
+		this.mediaManager = mediaManager;
 	}
 	
 	
 	@RequestMapping("/albumPhoto/affichage.do")
 	public ModelAndView affichageTousLesAlbums(HttpServletRequest request) {
-		List<Album> listeAlbum = this.albumPhotoManager
+		List<Album> listeAlbum = this.mediaManager
 				.recupererTousLesAlbums();
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("listeAlbums", listeAlbum);
@@ -46,10 +49,10 @@ public class AffichageAlbumPhotoController {
 	
 	@RequestMapping(value="/albumPhoto/affichage.do", params="idAlbum")
 	public ModelAndView affichageAlbum(@RequestParam("idAlbum")long idAlbum, HttpServletRequest request) {
-		Album album = this.albumPhotoManager.recupererAlbum(idAlbum);
-		this.albumPhotoManager.visionnnageAlbum(album);
+		Album album = this.mediaManager.recupererAlbum(idAlbum);
+		this.mediaManager.visionnnageAlbum(album);
 
-		List<Photo> listePhoto = new ArrayList<Photo>(album.getPhotos());
+		List<Media> listePhoto = new ArrayList<Media>(album.getMedias());
 
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("album", album);
@@ -65,10 +68,10 @@ public class AffichageAlbumPhotoController {
 
 	@RequestMapping(value="/albumPhoto/affichage.do", params="nonVu")
 	public ModelAndView affichagePhotosNonVu() {
-		List<Photo> listePhoto = this.albumPhotoManager.recupererPhotosNonVu();
+		List<Media> listePhoto = this.mediaManager.recupererMediasNonVu();
 
-		for (Photo photo : listePhoto) {
-			this.albumPhotoManager.visionnnageAlbum(photo.getAlbum());
+		for (Media photo : listePhoto) {
+			this.mediaManager.visionnnageAlbum(photo.getAlbum());
 		}
 
 		Map<String, Object> model = new HashMap<String, Object>();
@@ -84,12 +87,12 @@ public class AffichageAlbumPhotoController {
 	@RequestMapping(value="/albumPhoto/affichage.do", params="deleteAlbum")
 	public String suppressionAlbum(@RequestParam("deleteAlbum") long idAlbum, HttpServletRequest request) {
 		
-		Album album = this.albumPhotoManager.recupererAlbum(idAlbum);
+		Album album = this.mediaManager.recupererAlbum(idAlbum);
 
 		String pathServeur = request.getSession().getServletContext()
 				.getRealPath("/");
 
-		this.albumPhotoManager.supprimerAlbum(album, pathServeur);
+		this.mediaManager.supprimerAlbum(album, pathServeur);
 		
 		return "redirect:affichage.do";
 	}
@@ -97,12 +100,12 @@ public class AffichageAlbumPhotoController {
 	@RequestMapping(value="/albumPhoto/affichage.do", params="deletePhoto")
 	public String suppressionPhoto(@RequestParam("deletePhoto") long idPhoto,@RequestParam("idAlbum") long idAlbum,  HttpServletRequest request) {
 		
-		Photo photo = this.albumPhotoManager.recupererPhoto(idPhoto);
+		Media photo = this.mediaManager.recupererMedia(idPhoto);
 
 		String pathServeur = request.getSession().getServletContext()
 				.getRealPath("/");
 
-		this.albumPhotoManager.supprimerPhoto(photo, pathServeur);
+		this.mediaManager.supprimerMedia(photo, pathServeur);
 		return "redirect:affichage.do?idAlbum="+idAlbum;
 	}
 

@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 
+import donnees.photo.TypeMedia;
+
 public class PhotoUtilImpl implements PhotoUtil {
 	private MiniatureUtil miniatureUtil;
 	
@@ -15,7 +17,7 @@ public class PhotoUtilImpl implements PhotoUtil {
 	}
 
 	@Override
-	public void creerFicherSurDisque(String emplacement, String nom, File fichier) {
+	public void creerFicherSurDisquePhoto(String emplacement, String nom, File fichier) {
 		File ancienFichier = new File(emplacement+nom);
 		if(ancienFichier.exists()){
 			ancienFichier.delete();
@@ -24,6 +26,19 @@ public class PhotoUtilImpl implements PhotoUtil {
 		this.copierFichier(fichier.getAbsolutePath(),  emplacement+nom);
 
 		this.miniatureUtil.creerMiniaturesPhoto(emplacement+nom, emplacement+"/miniatures/"+nom, 100);
+
+	}
+	
+	@Override
+	public void creerFicherSurDisqueVideo(String emplacement, String nom, File fichier) {
+		File ancienFichier = new File(emplacement+nom);
+		if(ancienFichier.exists()){
+			ancienFichier.delete();
+
+		}
+		this.copierFichier(fichier.getAbsolutePath(),  emplacement+nom);
+
+		this.miniatureUtil.creerMiniaturesVideo(emplacement+nom, emplacement+"/miniatures/"+nom.replace(".ogv", ""));
 
 	}
 

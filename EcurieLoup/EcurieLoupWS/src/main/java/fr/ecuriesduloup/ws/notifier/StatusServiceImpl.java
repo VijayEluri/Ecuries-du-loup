@@ -3,10 +3,8 @@ package fr.ecuriesduloup.ws.notifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import donnees.photo.Photo;
-
-import service.photo.AlbumPhotoManager;
-
+import service.photo.MediaManager;
+import donnees.photo.Media;
 import forum.donnees.Message;
 import forum.service.ForumManager;
 @Service
@@ -14,15 +12,15 @@ public class StatusServiceImpl implements NotifierService{
 	@Autowired
 	private ForumManager forumManager;
 	@Autowired
-	private AlbumPhotoManager albumPhotoManager;
+	private MediaManager mediaManager;
 	
 	public void setForumManager(ForumManager forumManager) {
 		this.forumManager = forumManager;
 	}
 
 	
-	public void setAlbumPhotoManager(AlbumPhotoManager albumPhotoManager) {
-		this.albumPhotoManager = albumPhotoManager;
+	public void setAlbumPhotoManager(MediaManager mediaManager) {
+		this.mediaManager = mediaManager;
 	}
 
 
@@ -40,11 +38,11 @@ public class StatusServiceImpl implements NotifierService{
 	
 	@Override
 	public Status getAlbumPhotoStatus() {
-		boolean newPhoto = this.albumPhotoManager.hasNouvellesPhotos();
-		Photo lastPhoto = this.albumPhotoManager.getLastPhoto();
+		boolean newMedia = this.mediaManager.hasNouvellesMedias();
+		Media lastMedia = this.mediaManager.getLastMedia();
 		Status status = new Status();
-		status.setHasNew(newPhoto);
-		status.setTimeLastAction(lastPhoto.getDatePostage());
+		status.setHasNew(newMedia);
+		status.setTimeLastAction(lastMedia.getDatePostage());
 		
 		return status;
 		

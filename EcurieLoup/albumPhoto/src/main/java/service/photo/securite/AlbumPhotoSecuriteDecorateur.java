@@ -1,12 +1,12 @@
 package service.photo.securite;
 
-import service.photo.AlbumPhotoManager;
+import service.photo.MediaManager;
 
-public abstract class AlbumPhotoSecuriteDecorateur implements AlbumPhotoManager {
-	protected AlbumPhotoManager albumPhotoManager;
+public abstract class AlbumPhotoSecuriteDecorateur implements MediaManager {
+	protected MediaManager mediaManager;
 
-	public void setAlbumPhotoManager(AlbumPhotoManager albumPhotoManager) {
-		this.albumPhotoManager = albumPhotoManager;
+	public void setAlbumPhotoManager(MediaManager mediaManager) {
+		this.mediaManager = mediaManager;
 	}
 
 }

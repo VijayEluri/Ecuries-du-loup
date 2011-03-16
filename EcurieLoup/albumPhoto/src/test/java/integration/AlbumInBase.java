@@ -7,7 +7,7 @@ import donnees.Role;
 import donnees.RoleEnum;
 import donnees.User;
 import donnees.photo.Album;
-import donnees.photo.Photo;
+import donnees.photo.Media;
 import donnees.photo.Tag;
 import donnees.photo.commentaire.Commentaire;
 
@@ -51,29 +51,29 @@ public class AlbumInBase {
 	public static Commentaire getCommentaire(){
 		Commentaire commentaire = new Commentaire();
 		commentaire.setId(1);
-		commentaire.setPhoto(AlbumInBase.getPhoto());
+		commentaire.setMedia(AlbumInBase.getMedia());
 		commentaire.setPosteur(AlbumInBase.getUtilisateurToutDroit());
 		commentaire.setDate(123456789);
 		commentaire.setContenu("Commentaire test");
 		return commentaire;
 	}
 
-	public static Photo getPhoto() {
-		Photo photo = new Photo();
-		photo.setId(1);
-		photo.setPosteur(AlbumInBase.getUtilisateurToutDroit());
-		photo.setAlbum(AlbumInBase.getAlbum());
-		photo.setDatePostage(123456789);
-		photo.setDescription("Description de la photo de test");
-		photo.setTypeAdding("notifier");
-		return photo;
+	public static Media getMedia() {
+		Media media = new Media();
+		media.setId(1);
+		media.setPosteur(AlbumInBase.getUtilisateurToutDroit());
+		media.setAlbum(AlbumInBase.getAlbum());
+		media.setDatePostage(123456789);
+		media.setDescription("Description de la photo de test");
+		media.setTypeAdding("notifier");
+		return media;
 	}
 	
 	public static Tag getTag() {
 		Tag tag = new Tag();
 		tag.setId(1);
 		tag.setNom("Agathe");
-		tag.setPhoto(AlbumInBase.getPhoto());
+		tag.setPhoto(AlbumInBase.getMedia());
 		tag.setX(152);
 		tag.setY(154);
 		return tag;
