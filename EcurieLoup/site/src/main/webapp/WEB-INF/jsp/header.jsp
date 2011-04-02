@@ -16,6 +16,14 @@
 		
 		<title><fmt:message key="general.meta.title"/></title>
 		
+		<!-- facebook tag -->
+		<c:if test="${photo != null }">
+			<meta property="og:title" content="Les écuries du loup" />
+			<meta property="og:url" content="http://${header["host"]}${ctx}/albumPhoto/affichagePhoto.do?idPhoto=${photo.id} " />
+			<meta property="og:image" content="http://${header["host"]}${ctx}/images/albumPhoto/miniatures/${photo.id} " />
+			<meta property="og:site_name" content="Les écuries du loup" />
+			<meta property="fb:app_id" content="277479594509" />
+		</c:if>
 		
 		<link rel="icon" type="image/png" href="${ctx}/images/logo.png" />
 		

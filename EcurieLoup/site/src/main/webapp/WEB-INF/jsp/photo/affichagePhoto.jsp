@@ -143,10 +143,14 @@
 					<p>${photo.description}</p>
 				</security:authorize>
 			</div>
-
+			<!-- facebook like ${ctx}-->
+			<iframe src="http://www.facebook.com/plugins/like.php?href=http://${header["host"]}${ctx}/albumPhoto/affichagePhoto.do?idPhoto=${photo.id}&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>
+		
 			<span id="lien_activation_tagage" onclick="cours_tagage()">
 				<fmt:message key="album_photo.photo.tag.add"/>
 			</span>
+			
+			
 
 			<%@ include file="./affichageCommentaires.jsp"%>
 
