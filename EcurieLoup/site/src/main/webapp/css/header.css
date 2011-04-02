@@ -1,7 +1,6 @@
 @CHARSET "ISO-8859-1";
 
-#header { 
-	/*background-color: white;
+#header { /*background-color: white;
 	font-size: 450%;
 	font-family: Gigi, "URW Chancery L", Verdana;
 	text-align: center;
@@ -11,16 +10,18 @@
 	border: 10px solid rgb(0, 128, 0);
 	background-repeat: no-repeat;
 	-moz-border-radius: 3% 3% 3% 3%;
-	-moz-box-shadow: 0px -20px 10px -10px rgba(0, 0, 0, 0.3) inset;
+	box-shadow: 0px -20px 10px -10px rgba(0, 0, 0, 0.3) inset;
 	*/
 	text-align: center;
-	-moz-border-radius: 3% 3% 3% 3%;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 	border: 9px solid rgb(0, 0, 0);
 	width: 75%;
 	margin: auto;
-	
 }
-#header img{
+
+#header img {
 	height: 150px;
 	width: 100%;
 }

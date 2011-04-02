@@ -8,9 +8,11 @@
 	border: solid white 2px;
 	padding: 2%;
 	margin-left: 15%;
-	margin-right:15%;
+	margin-right: 15%;
 	margin-top: 5%;
-	-moz-border-radius: 3% 3% 3% 3%;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 }
 
 .login a {
@@ -73,5 +75,7 @@
 	color: rgb(255, 50, 50);
 	border: red solid 1px;
 	padding: 2%;
-	-moz-border-radius: 3% 3% 3% 3%;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 }

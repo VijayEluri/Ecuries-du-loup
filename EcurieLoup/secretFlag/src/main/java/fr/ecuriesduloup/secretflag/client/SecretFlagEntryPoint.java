@@ -85,7 +85,7 @@ public class SecretFlagEntryPoint implements EntryPoint {
 		}; 
 		img.addClickHandler(new BretonImageClickHandler(img, passwordSender));
 		
-		img.setHeight("100%");
+		//img.setHeight("100%");
 		img.setWidth("100%");
 		RootPanel.get("secretFlag").add(img);
 	}

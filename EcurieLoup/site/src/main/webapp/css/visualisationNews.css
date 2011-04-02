@@ -6,8 +6,9 @@
 	margin: auto;
 	margin-bottom: 30px;
 	padding: 5px;
-	
-	-moz-border-radius: 3% 3% 3% 3%;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 }
 
 .visualisationNews h2 {
@@ -15,9 +16,11 @@
 	margin-bottom: 5px;
 	background-color: rgb(0, 128, 0);
 	color: white;
-	-moz-box-shadow: 0px -20px 10px -10px rgba(0, 0, 0, 0.3) inset;
+	box-shadow: 0px -20px 10px -10px rgba(0, 0, 0, 0.3) inset;
 	padding-left: 5%;
-	-moz-border-radius: 3% 3% 0% 0%;
+	-webkit-border-radius: 12px 12px 0px 0px;
+	-moz-border-radius: 12px 12px 0px 0px;
+	border-radius: 12px 12px 0px 0px;
 }
 
 .visualisationNews img {
@@ -29,15 +32,19 @@
 	width: 90%;
 	margin: auto;
 	margin-bottom: 10px;
-	-moz-border-radius: 3% 3% 3% 3%;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 }
 
 .visualisationNews .nouvelle .entete {
 	padding: 3px;
 	background-color: rgb(0, 128, 0);
 	color: white;
-	-moz-box-shadow: 0px -20px 10px -10px rgba(0, 0, 0, 0.3) inset;
-	-moz-border-radius: 3% 3% 0% 0%;
+	box-shadow: 0px -20px 10px -10px rgba(0, 0, 0, 0.3) inset;
+	-webkit-border-radius: 12px 12px 0px 0px;
+	-moz-border-radius: 12px 12px 0px 0px;
+	border-radius: 12px 12px 0px 0px;
 	padding-left: 3%;
 }
 
@@ -72,8 +79,8 @@
 	margin: 5px;
 }
 
-.visualisationNews a{
-	margin-left:20px;
+.visualisationNews a {
+	margin-left: 20px;
 }
 
 .visualisationNews .nouvelle a {

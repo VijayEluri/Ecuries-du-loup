@@ -18,8 +18,8 @@
 	<div class="albumPhoto">
 		<div class="navigation">
 			&gt; <a href="${ctx}/albumPhoto/affichage.do"><fmt:message key="album_photo.navigation.album.list"/></a>
-			&gt; <a	href="${ctx}/albumPhoto/affichagePhoto.do?idPhoto=${commentaire.photo.id}">
-					<fmt:message key="album_photo.navigation.picture"/> ${commentaire.photo.id}
+			&gt; <a	href="${ctx}/albumPhoto/affichagePhoto.do?idPhoto=${commentaire.media.id}">
+					<fmt:message key="album_photo.navigation.picture"/> ${commentaire.media.id}
 				</a>
 			 &gt; <fmt:message key="album_photo.navigation.comment.form"/>
 		</div>
