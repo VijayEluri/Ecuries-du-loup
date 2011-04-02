@@ -5,9 +5,6 @@ import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
 import com.google.gwt.dom.client.StyleInjector;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.Event.NativePreviewEvent;
-import com.google.gwt.user.client.Event.NativePreviewHandler;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -15,15 +12,13 @@ import com.google.gwt.user.client.ui.Widget;
 import fr.ecuriesduloup.edlwyswig.client.CssResources;
 import fr.ecuriesduloup.edlwyswig.client.ui.board.Board;
 
-public class Portlet extends FocusPanel  {
+public abstract class Portlet extends FocusPanel  {
 
 
 	private int contentHeight;
 
 	private int contentWidth;
 
-
-	private boolean initialLoad = false;
 
 
 	private final PortletController windowController;
@@ -61,9 +56,7 @@ public class Portlet extends FocusPanel  {
 	}
 	
 	protected void select() {
-		System.out.println("slect");
 		setAtTheFistPlan();
-		Portlet.this.board.unSelectAllPortlets();
 		this.contentPortlet.showHeader();
 	}
 	
@@ -103,7 +96,7 @@ public class Portlet extends FocusPanel  {
 	}
 
 	public void setContentSize(int width, int height) {
-		System.out.println("content setContentSize");
+		System.out.println("Portlet.setContentSize("+width+", "+height+")");
 		if (width != contentWidth) {
 			contentWidth = width;
 			this.contentPortlet.setHeaderPixelSize(contentWidth, this.contentPortlet.getHeaderOffsetHeight());
@@ -117,25 +110,7 @@ public class Portlet extends FocusPanel  {
 		//	eastWidget.setPixelSize(BORDER_THICKNESS, contentHeight + headerHeight);
 		}
 		this.contentPortlet.setContentPixelSize(contentWidth, contentHeight);
-		this.reziableWidget.setContentSize(width, height);
-	}
-
-
-	
-	
-
-	
-
-
-
-	@Override
-	protected void onLoad() {
-		super.onLoad();
-		if (!initialLoad && this.contentPortlet.getContentOffsetHeight() != 0) {
-			initialLoad = true;
-			this.contentPortlet.setHeaderPixelSize(this.contentPortlet.getHeaderOffsetWidth(), this.contentPortlet.getHeaderOffsetHeight());
-			setContentSize(this.contentPortlet.getHeaderOffsetWidth(),	this.contentPortlet.getHeaderOffsetHeight());
-		}
+		this.reziableWidget.setContentSize(width, contentHeight);
 	}
 
 	void makeDraggableBy(Widget dragHandle){
@@ -151,7 +126,28 @@ public class Portlet extends FocusPanel  {
 	}
 	
 	
-
-
+	public void onPreviewDragStart(){
+	}
+	
+	public void onPreviewDragEnd(){
+	}
+	
+	public void onDragStart(){
+	}
+	
+	public void onDragEnd(){
+	}
+	
+	public boolean isInPortlet(int x, int y){
+		if((this.getAbsoluteLeft() <= x) && ((this.getAbsoluteLeft()+ this.contentWidth)>= x)){
+			if((this.getAbsoluteTop() <= y) && ((this.getAbsoluteTop()+ this.contentHeight)>= y)){
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}		
+	}
 	
 }

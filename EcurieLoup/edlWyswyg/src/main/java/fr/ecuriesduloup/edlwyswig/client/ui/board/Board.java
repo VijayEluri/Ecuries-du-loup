@@ -3,8 +3,9 @@ package fr.ecuriesduloup.edlwyswig.client.ui.board;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.allen_sauer.gwt.dnd.client.PickupDragController;
+import com.google.gwt.event.dom.client.MouseEvent;
 import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.Event.NativePreviewEvent;
 import com.google.gwt.user.client.Event.NativePreviewHandler;
 import com.google.gwt.user.client.ui.AbsolutePanel;
@@ -35,7 +36,7 @@ public class Board extends Composite implements NativePreviewHandler{
 		
 		this.portletController = new PortletController(this.boardPanel);
 		this.boardPanel.setPixelSize(1000, 1000);
-		PickupDragController dragController = new PickupDragController(this.boardPanel, true);
+		//PickupDragController dragController = new PickupDragController(this.boardPanel, true);
 		this.panel.add(this.boardPanel);
 		initWidget(this.panel);
 		
@@ -71,10 +72,14 @@ public class Board extends Composite implements NativePreviewHandler{
 		return this.boardPanel;
 	}
 	
-	public void unSelectAllPortlets(){
+	public void unSelectAllPortlets(int x, int y){
+		System.out.println("=>>> start");
 		for(Portlet portlet : this.portlets){
-			portlet.unSelect();
+			if(!portlet.isInPortlet(x, y)){
+				portlet.unSelect();
+			}
 		}
+		System.out.println("=>>> end");
 	}
 
 	public void removePortlet(Portlet portlet) {
@@ -89,7 +94,9 @@ public class Board extends Composite implements NativePreviewHandler{
 		int type = event.getTypeInt();
 		switch (type) {
 			case Event.ONCLICK:	
-				this.unSelectAllPortlets();
+				int x = event.getNativeEvent().getClientX();
+				int y = event.getNativeEvent().getClientY();	
+				this.unSelectAllPortlets(x, y);
 				break;
 		}
 		

@@ -111,7 +111,7 @@ public class ReziableWidget extends Composite {
 	}
 	
 	public void setContentSize(int width, int height) {
-		System.out.println("setContentSize "+width+" "+height);
+		System.out.println("ReziableWidget.setContentSize ("+width+", "+height+")");
 		if (width != contentWidth) {
 			contentWidth = width;
 			northWidget.setPixelSize(contentWidth, BORDER_THICKNESS);
@@ -123,16 +123,5 @@ public class ReziableWidget extends Composite {
 			westWidget.setPixelSize(BORDER_THICKNESS, contentHeight + headerHeight);
 			eastWidget.setPixelSize(BORDER_THICKNESS, contentHeight + headerHeight);
 		}
-	}
-	
-
-	@Override
-	protected void onLoad() {
-		super.onLoad();
-		if (!initialLoad && this.panel.getOffsetHeight() != 0) {
-			initialLoad = true;
-			this.content.setHeaderPixelSize(this.content.getHeaderOffsetWidth(), this.content.getHeaderOffsetHeight());
-			setContentSize(this.panel.getOffsetWidth(),	this.panel.getOffsetHeight());
-		}
-	}
+	}	
 }

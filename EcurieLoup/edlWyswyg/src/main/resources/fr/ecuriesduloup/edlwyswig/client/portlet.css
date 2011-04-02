@@ -1,5 +1,7 @@
 @CHARSET "UTF-8";
-
+td{
+	padding: 0px;	
+}
 .portlet{
 	background-color: blue;
 }

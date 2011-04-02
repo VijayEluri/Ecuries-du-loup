@@ -9,8 +9,7 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import fr.ecuriesduloup.edlwyswig.client.ui.board.Board;
 
 public class TextPortlet extends Portlet {
-	private RichTextEditor richTextEditor;
-	private Canvas htmlCanvas;
+	private RichTextSwitcher richTextSwitcher;
 	private HorizontalPanel panel;
 	
 	public TextPortlet(PortletController windowController, Board board) {
@@ -19,7 +18,6 @@ public class TextPortlet extends Portlet {
 		this.panel = new HorizontalPanel();
 		
 		this.createTextArea();
-		this.createCanevas();
 		
 
 		this.defineCenter(this.panel);
@@ -28,71 +26,44 @@ public class TextPortlet extends Portlet {
 	}
 	
 	private void createTextArea(){
-		this.richTextEditor  = new RichTextEditor();  
-		 
-		this.richTextEditor.setCanDragResize(true);  
-		//this.richTextEditor.setShowEdges(true);  
-		
-		this.richTextEditor.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				select();
-				
-			}
-		});
-		
-		//this.richTextEditor.setVisible(false);
-		//this.panel.add(this.richTextEditor);
+		this.richTextSwitcher  = new RichTextSwitcher(); 
+		this.panel.add(this.richTextSwitcher);
+		this.richTextSwitcher .switchText(RichTextBoxSwitcherValue.VIEW);
 	}
 	
-	private void createCanevas(){
-		this.htmlCanvas = new Canvas();  
-		//this. htmlCanvas.setHeight(130);  
-		this. htmlCanvas.setPadding(2);  
-		
-		this. htmlCanvas.setCanDragResize(true);  
-    //    this.htmlCanvas.setShowEdges(true);  
-        this.panel.add(this.htmlCanvas);
-		
-	}
 	
-	@Override
+	/*@Override
 	protected void select() {
 		super.select();
-		//this.richTextEditor.setVisible(true);
-		//this.htmlCanvas.setVisible(false);
-		this.panel.remove(this.htmlCanvas);
-		this.panel.add(this.richTextEditor);
-		
-		String content = this.richTextEditor.getValue();
-		htmlCanvas.setContents(content);
-	}
+		this.richTextSwitcher.switchText(RichTextBoxSwitcherValue.EDIT);
+	}*/
 	@Override
 	public void unSelect() {
 		super.unSelect();
-
-		String content = this.richTextEditor.getValue();
-
-		this.panel.add(this.htmlCanvas);
-		this.panel.remove(this.richTextEditor);
-		
-		System.out.println(content);
-		htmlCanvas.setContents(content);
+		this.richTextSwitcher.switchText(RichTextBoxSwitcherValue.VIEW);
 	}
 
 	@Override
 	public void setContentSize(int width, int height) {
 		super.setContentSize(width, height);
 		
-		int contentHeight = height - 10 - this.getContentPortlet().getHeaderOffsetHeight();
+		int contentHeight = height - this.getContentPortlet().getHeaderOffsetHeight();
 		System.out.println(height +" "+ contentHeight);
-		this.htmlCanvas.setHeight(contentHeight);
-		this.htmlCanvas.setWidth(width);
+		this.richTextSwitcher.setContentSize(width, contentHeight);
+	}
+	
+	@Override
+	public void onPreviewDragStart() {
 		
-		this.richTextEditor.setHeight(contentHeight);
-		this.richTextEditor.setWidth(width);
+		super.onPreviewDragStart();
+		
+		this.richTextSwitcher.saveState();
 	}
 
+	@Override
+	public void onPreviewDragEnd() {
+		super.onPreviewDragEnd();
+		this.richTextSwitcher.restoreState();
+	}
 
 }

@@ -2,13 +2,14 @@ package fr.ecuriesduloup.edlwyswig.client.ui.portlet;
 
 import com.google.gwt.dom.client.StyleInjector;
 import com.google.gwt.user.client.ui.FocusPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import fr.ecuriesduloup.edlwyswig.client.CssResources;
 
 public class ContentPortletPanel extends VerticalPanel {
-	private FocusPanel headerContainer;	
+	private HorizontalPanel headerContainer;	
 	private PortletHeader headerWidget ;
 	private Widget contentWidget;
 	private PortletCss portletCss;
@@ -19,7 +20,7 @@ public class ContentPortletPanel extends VerticalPanel {
 		this.addStyleName(this.portletCss.portlet());
 		
 		// creer l'entete
-		headerContainer = new FocusPanel();
+		headerContainer = new HorizontalPanel();
 		this.headerWidget = new PortletHeader(portlet);
 		headerContainer.addStyleName(portletCss.porletHeader());
 		headerContainer.add(headerWidget);

@@ -13,7 +13,11 @@
  */
 package fr.ecuriesduloup.edlwyswig.client.ui.portlet;
 
+import com.allen_sauer.gwt.dnd.client.DragEndEvent;
+import com.allen_sauer.gwt.dnd.client.DragHandler;
+import com.allen_sauer.gwt.dnd.client.DragStartEvent;
 import com.allen_sauer.gwt.dnd.client.PickupDragController;
+import com.allen_sauer.gwt.dnd.client.VetoDragException;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
 
@@ -29,6 +33,33 @@ public class PortletController {
     this.boundaryPanel = boundaryPanel;
 
     pickupDragController = new PickupDragController(boundaryPanel, true);
+    pickupDragController.addDragHandler(new DragHandler() {
+		
+		@Override
+		public void onPreviewDragStart(DragStartEvent event)
+				throws VetoDragException {
+			((Portlet)event.getSource()).onPreviewDragStart();
+			
+		}
+		
+		@Override
+		public void onPreviewDragEnd(DragEndEvent event) throws VetoDragException {
+			((Portlet)event.getSource()).onPreviewDragEnd();
+			
+		}
+		
+		@Override
+		public void onDragStart(DragStartEvent event) {
+			((Portlet)event.getSource()).onDragStart();
+			
+		}
+		
+		@Override
+		public void onDragEnd(DragEndEvent event) {
+			((Portlet)event.getSource()).onDragEnd();
+			
+		}
+	});
     pickupDragController.setBehaviorConstrainedToBoundaryPanel(true);
     pickupDragController.setBehaviorMultipleSelection(false);
 

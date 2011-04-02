@@ -2,6 +2,9 @@ package fr.ecuriesduloup.edlwyswig.client.ui.portlet;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.DoubleClickEvent;
+import com.google.gwt.event.dom.client.DoubleClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Image;
 
 import fr.ecuriesduloup.edlwyswig.client.ui.board.Board;
@@ -17,7 +20,18 @@ public class ImagePortlet extends Portlet {
 			}
 		}
 		);
+		
+		image.addDoubleClickHandler(new DoubleClickHandler() {
+			
+			@Override
+			public void onDoubleClick(DoubleClickEvent event) {
+				Window.alert("choix");
+				
+			}
+		});
 		this.defineCenter(image);
+		
+		this.setContentSize(500, 250);
 	}
 
 }
