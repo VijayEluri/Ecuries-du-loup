@@ -28,7 +28,7 @@ public class AffichageAlbumPhotoController {
 	private MediaManager mediaManager;
 
 	public void setAlbumPhotoManager(MediaManager albumPhotoManager) {
-		this.mediaManager = mediaManager;
+		this.mediaManager = albumPhotoManager;
 	}
 	
 	

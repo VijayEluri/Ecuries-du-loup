@@ -11,7 +11,8 @@
 		<sec:filter-chain-map path-type="ant">
 			 <sec:filter-chain pattern="/ws/**"
 				filters="securityContextFilter, logoutFilter, basicAuthenticationFilter, servletApiFilter, sessionMgmtFilter, basicExceptionTranslationFilter, filterSecurityInterceptor" />
-			 <sec:filter-chain pattern="/**"
+			<sec:filter-chain pattern="/facebook/albumPhoto/**"	filters=" securityContextFilter" />
+			<sec:filter-chain pattern="/**"
 				filters="securityContextFilter, logoutFilter, formLoginFilter, rememberMeFilter,servletApiFilter, anonFilter, sessionMgmtFilter,  exceptionTranslator, filterSecurityInterceptor" />
 		</sec:filter-chain-map>
 	</bean>

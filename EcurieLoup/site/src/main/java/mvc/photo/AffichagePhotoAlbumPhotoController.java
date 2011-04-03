@@ -45,8 +45,8 @@ public class AffichagePhotoAlbumPhotoController{
 		this.mediaManager = mediaManager;
 	}
 
-	
-	
+
+
 	public void setUtilisateurManager(UtilisateurManager utilisateurManager) {
 		this.utilisateurManager = utilisateurManager;
 	}
@@ -59,10 +59,10 @@ public class AffichagePhotoAlbumPhotoController{
 	protected Media formBackingObject(HttpServletRequest request) {
 		long idPhoto = Long.parseLong(request.getParameter("idPhoto"));
 		Media photo = this.mediaManager.recupererMedia(idPhoto);
-		
-		
+
+
 		this.tagsManagement(photo);
-		
+
 		List<Commentaire> nouvelleList = new ArrayList<Commentaire>();
 
 		for (Commentaire commentaire : photo.getCommentaires()) {
@@ -84,13 +84,13 @@ public class AffichagePhotoAlbumPhotoController{
 
 		return photo;
 	}
-	
+
 	private void tagsManagement(Media photo){
 		for(Tag tag : photo.getTags()){
 			//TODO : trop laid , changer sa 
 			try{
 				long idHorse = Long.parseLong(tag.getNom());
-				
+
 				Fiche fiche = this.ficheChevauxManager.recupererFiche(idHorse);
 				if(fiche != null){
 					tag.setPath("/ficheChevaux/affichageFiche.do?id="+idHorse);
@@ -108,7 +108,7 @@ public class AffichagePhotoAlbumPhotoController{
 				}
 			}
 		}
-		
+
 	}
 
 	@ModelAttribute("photoPrecedente")
@@ -124,7 +124,7 @@ public class AffichagePhotoAlbumPhotoController{
 			return null;
 		}
 	}
-	
+
 	@ModelAttribute("photoSuivante")
 	public Media getPhotoSuivante(@RequestParam("idPhoto") long idPhoto ){
 		Media photo = this.mediaManager.recupererMedia(idPhoto);
@@ -138,18 +138,18 @@ public class AffichagePhotoAlbumPhotoController{
 			return null;
 		}
 	}
-	
-	
+
+
 
 	@RequestMapping(value="/albumPhoto/affichagePhoto.do", method=RequestMethod.GET)
 	public String showForm(){
 		return "photo/affichagePhoto";
 	}
-	
+
 	@RequestMapping(value="/albumPhoto/affichagePhoto.do", method=RequestMethod.POST)
 	public String onSubmit(@ModelAttribute("photo")Media photo) {
 		this.mediaManager.modifierMedia(photo);
-		
+
 		return this.showForm();
 
 	}

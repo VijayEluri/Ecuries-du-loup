@@ -20,7 +20,7 @@
 		</div>
 	</c:if>
 		
-	<form action="j_spring_security_check" method="post">
+	<form action="${ctx}/j_spring_security_check" method="post">
 		<div class="labels">
 			<ul>
 				<li><fmt:message key="login.login"/></li>
