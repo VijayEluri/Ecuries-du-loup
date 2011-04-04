@@ -14,7 +14,7 @@ public abstract class EcurieDuLoupSeleneseTestCase extends SeleneseTestCase {
 	
 	@Override
 	public void setUp() throws Exception {
-		super.setUp("http://localhost:8080/", "*firefox"); 
+		super.setUp("http://192.168.0.13:8080/", "googlechrome"); 
 		selenium.open("beta/index.do");
 		
 		this.connexionTool = new ConnexionTool(this.selenium);

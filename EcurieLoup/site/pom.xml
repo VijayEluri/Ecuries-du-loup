@@ -39,7 +39,7 @@
 						<version>1.1</version>
 						<configuration>
 
-							<url>http://localhost:8080/manager/text</url>
+							<url>http://192.168.0.13:8080/manager/text</url>
 							<update>true</update>
 							<username>krack</username>
 							<password>ISTACK</password>
@@ -62,7 +62,7 @@
 						<version>1.0.1</version>
 
 						<configuration>
-							<forcedBrowserMode>*firefox</forcedBrowserMode>
+							<forcedBrowserMode>googlechrome</forcedBrowserMode>
 							<background>true</background>
 						</configuration>
 
@@ -115,6 +115,25 @@
 
 						</executions>
 
+
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.jmeter</groupId>
+						<artifactId>maven-jmeter-plugin</artifactId>
+						<version>1.0</version>
+						<configuration>
+          					<reportDir>${project.build.directory}/jmeter-reports</reportDir>
+        				</configuration>
+						<executions>
+							<execution>
+								<id>jmeter-tests</id>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>jmeter</goal>
+								</goals>
+							</execution>
+						</executions>
 
 					</plugin>
 				</plugins>
