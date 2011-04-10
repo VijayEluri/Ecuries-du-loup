@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -105,7 +106,7 @@ public class AlbumPhotoController {
 		String chemin = "tmp";
 		chemin += posteur.getLogin();
 		chemin += "_" + new Date().getTime();
-		chemin += (int) (Math.random() * 10000);
+		chemin += new Random().nextInt(10000);
 
 		File temporaire = new File(chemin);
 		try {

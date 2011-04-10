@@ -1,6 +1,5 @@
 package fr.ecuriesduloup.secretflag.client.form.data;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class MultipleData extends Data implements IsSerializable{
 
 	@Override
 	public boolean isValid() {
-		return this.getValue() != null && this.choises.contains(this.getValue());
+		return this.getValue() != null && this.choises.contains(new Choise(this.getValue()));
 	}
 
 }

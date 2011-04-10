@@ -54,5 +54,12 @@ public class CategorieSmiley implements DataOrdonner{
 		return categorieSmiley.id == this.id;
 	}
 	
+	@Override
+	public int hashCode() {
+		long hash = 1;
+        hash = hash * 17 + this.id;
+		return (int)hash;
+	}
+	
 	
 }

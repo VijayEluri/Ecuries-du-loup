@@ -4,7 +4,6 @@ package donnees.smiley;
 public class CategorieSmileyLight {
 	private long id;
 	private String nom;
-	private int ordre;
 	
 	public long getId() {
 		return id;

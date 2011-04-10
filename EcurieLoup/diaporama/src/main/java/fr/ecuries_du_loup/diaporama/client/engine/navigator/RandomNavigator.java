@@ -12,7 +12,7 @@ public class RandomNavigator implements Navigator {
 	private DiaporamaControl diaporamaControl;
 	private List<Integer> pictureNotView;
 	private int retourHistory;
-	
+
 	private boolean loop;
 
 	public RandomNavigator() {
@@ -43,31 +43,31 @@ public class RandomNavigator implements Navigator {
 		this.manageEnable();
 
 	}
-	
+
 	private Picture loopChoiseNext(){
 		int number = this.dataSourcePictures.PicturesNumber();
 		int index = (int)( Math.random() * number);
 		return this.dataSourcePictures.setIndex(index);
-		
+
 	}
-	
+
 	private Picture notLoopChoiseNext(){
 		Picture picture;
 		if(this.isInHistory()){
 			this.retourHistory--;
 			picture = this.dataSourcePictures.getHistory(this.retourHistory);
-			
-		
+
+
 		}else{
 			int number = this.pictureNotView.size();
-			
+
 			int index = (int)( Math.random() * number);
-	
+
 			picture = this.dataSourcePictures.setIndex(this.pictureNotView.get(index));
-			
+
 			this.pictureNotView.remove(index);
-			
-			
+
+
 		}
 		return picture;
 	}
@@ -96,17 +96,15 @@ public class RandomNavigator implements Navigator {
 	public void setDiaporamaControl(DiaporamaControl diaporamaControl) {
 		this.diaporamaControl = diaporamaControl;
 	}
-	
+
 	private void manageEnable(){		
 		this.diaporamaControl.enableNext();
 		this.diaporamaControl.enablePrevious();
-		
-		if(!loop){
-			if(this.pictureNotView.size() ==0 && !this.isInHistory()){
 
-				this.diaporamaControl.disableNext();
-			}		
-		}
+		if((!loop) && (this.pictureNotView.size() ==0 && !this.isInHistory())){
+
+			this.diaporamaControl.disableNext();
+		}	
 		if(this.retourHistory == this.dataSourcePictures.indexHistory().size() -1 ){
 			this.diaporamaControl.disablePrevious();
 		}

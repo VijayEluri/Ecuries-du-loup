@@ -7,8 +7,10 @@ public class Choise implements Serializable{
 	private String value;
 		
 	public Choise(){
-		this.label = "";
-		this.value = "";
+		this("", "");
+	}
+	public Choise(String value){
+		this("", value);
 	}
 	public Choise(String label, String value) {
 		this.label = label;
@@ -35,7 +37,7 @@ public class Choise implements Serializable{
 
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof Choise){
+		if(!(obj instanceof Choise)){
 			return false;
 		}
 		Choise ChoiseEquals = (Choise)obj;

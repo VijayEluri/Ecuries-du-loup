@@ -46,4 +46,11 @@ public class Smiley implements DataOrdonner{
 		return smiley.id == this.id;
 	}
 	
+	@Override
+	public int hashCode() {
+		long hash = 1;
+        hash = hash * 17 + this.id;
+		return (int)hash;
+	}
+	
 }

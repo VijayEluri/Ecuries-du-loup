@@ -2,8 +2,6 @@ package fr.ecuriesduloup.secretflag.client.form.data;
 
 import java.io.Serializable;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
-
 public abstract class Data  implements Serializable{
 	private String label;
 	private String name;
