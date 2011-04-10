@@ -67,7 +67,7 @@ public class MiniatureUtilImpl implements MiniatureUtil {
 		command += " ";
 		command += outPicturePicturePath+".jpg";
 
-		
+		System.out.println("creerMiniaturesVideo :"+command);
 		String commandMove = "mv ";
 		commandMove += " ";
 		commandMove +=  outPicturePicturePath+".jpg";
@@ -79,7 +79,6 @@ public class MiniatureUtilImpl implements MiniatureUtil {
 			Runtime r = Runtime.getRuntime();
 			Process p = r.exec(command);
 			p.waitFor();
-			
 			
 			Process p1 = r.exec(commandMove);
 			p1.waitFor();

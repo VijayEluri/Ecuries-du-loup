@@ -96,8 +96,11 @@
 						<img id="photo_taggage"	src="${ctx}/images/albumPhoto/${photo.id}" alt="${photo.id}"	onclick="taggage()" />
 					</c:when>
 					<c:when test="${photo.type == 1}">
-						<video width="80%" controls="controls" src="${ctx}/images/albumPhoto/${photo.id}.ogv">
-							Ici la description alternative
+						<video class="video_balise" controls="controls" >
+							<source src="${ctx}/images/albumPhoto/${photo.id}.mp4" type="video/mp4" /> 
+							<source src="${ctx}/images/albumPhoto/${photo.id}.webm" type="video/webm" /> 
+							<source src="${ctx}/images/albumPhoto/${photo.id}.ogv" type="video/ogg" /> 
+							Votre navigateur ne gère pas la balise vidéo. Veuillez mettre à jour votre navigateurs.
 						</video> 
 					</c:when>
 					<c:otherwise>Erreur</c:otherwise>

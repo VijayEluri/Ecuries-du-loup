@@ -6,12 +6,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 
-import donnees.photo.TypeMedia;
-
 public class PhotoUtilImpl implements PhotoUtil {
 	private MiniatureUtil miniatureUtil;
-	
-	
+
+
 	public void setMiniatureUtil(MiniatureUtil miniatureUtil) {
 		this.miniatureUtil = miniatureUtil;
 	}
@@ -28,7 +26,7 @@ public class PhotoUtilImpl implements PhotoUtil {
 		this.miniatureUtil.creerMiniaturesPhoto(emplacement+nom, emplacement+"/miniatures/"+nom, 100);
 
 	}
-	
+
 	@Override
 	public void creerFicherSurDisqueVideo(String emplacement, String nom, File fichier) {
 		File ancienFichier = new File(emplacement+nom);
@@ -37,8 +35,11 @@ public class PhotoUtilImpl implements PhotoUtil {
 
 		}
 		this.copierFichier(fichier.getAbsolutePath(),  emplacement+nom);
-
+		
 		this.miniatureUtil.creerMiniaturesVideo(emplacement+nom, emplacement+"/miniatures/"+nom.replace(".ogv", ""));
+
+		this.createMP4File(emplacement+nom);
+
 
 	}
 
@@ -66,6 +67,20 @@ public class PhotoUtilImpl implements PhotoUtil {
 					out.close();
 				} catch (IOException e) {}
 			}
+		}
+	}
+
+	private void createMP4File(String ogvFile){
+		String command = "ffmpeg -i %s -acodec aac -strict experimental -ac 2 -ab 160k -vcodec libx264 -vpre slow -f mp4 -crf 22 %s";
+		String mp4FilePath = ogvFile.replace(".ogv", ".mp4");
+		String execCommand = String.format(command, ogvFile, mp4FilePath);
+
+		try{
+			Runtime r = Runtime.getRuntime();
+			r.exec(execCommand);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
