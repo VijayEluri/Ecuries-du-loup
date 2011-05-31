@@ -1,104 +1,125 @@
 package fr.ecuriesduloup.edlwyswig.client.ui.board;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.google.gwt.event.dom.client.MouseEvent;
-import com.google.gwt.user.client.Event;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.Event.NativePreviewEvent;
-import com.google.gwt.user.client.Event.NativePreviewHandler;
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.util.EventHandler;
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.events.CloseClickHandler;
+import com.smartgwt.client.widgets.events.CloseClientEvent;
+import com.smartgwt.client.widgets.events.DropEvent;
+import com.smartgwt.client.widgets.events.DropHandler;
+import com.smartgwt.client.widgets.layout.HStack;
+import com.smartgwt.client.widgets.layout.VStack;
 
-import fr.ecuriesduloup.edlwyswig.client.ui.portlet.ImagePortlet;
+import fr.ecuriesduloup.edlwyswig.client.TestVisitor;
+import fr.ecuriesduloup.edlwyswig.client.Visitor;
+import fr.ecuriesduloup.edlwyswig.client.WysiwygService;
+import fr.ecuriesduloup.edlwyswig.client.WysiwygServiceAsync;
 import fr.ecuriesduloup.edlwyswig.client.ui.portlet.Portlet;
-import fr.ecuriesduloup.edlwyswig.client.ui.portlet.PortletController;
-import fr.ecuriesduloup.edlwyswig.client.ui.portlet.TextPortlet;
+import fr.ecuriesduloup.edlwyswig.client.ui.portletAdder.PortletAdder;
 
-public class Board extends Composite implements NativePreviewHandler{
-	private AbsolutePanel panel;
-	private AbsolutePanel boardPanel;
-	private PortletController portletController ;
-	private BoardTable boardTable;
-	
-	private List<Portlet> portlets;
-
-	public Board() {
-		this.portlets = new ArrayList<Portlet>();
+public class Board extends VStack{
+	private Canvas workspace;
+	private HStack header;
+	private final WysiwygServiceAsync wysiwygService = GWT.create(WysiwygService.class);
+	public Board(){
+		Button button = new Button("vue");
+		button.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				wysiwygService.generateHtml(getTruc(), new AsyncCallback<String>() {
+					
+					@Override
+					public void onSuccess(String result) {
+						HTMLPanel panel = new HTMLPanel(result);
+						final com.smartgwt.client.widgets.Window winModal = new com.smartgwt.client.widgets.Window();  
+		                winModal.setWidth100();  
+		                winModal.setHeight100();  
+		                winModal.setTitle("Modal Window");  
+		                winModal.setShowMinimizeButton(false);  
+		                winModal.setIsModal(true);  
+		                winModal.setShowModalMask(true);  
+		                winModal.centerInPage();  
+		                winModal.addCloseClickHandler(new CloseClickHandler() {  
+		                    public void onCloseClick(CloseClientEvent event) {  
+		                        winModal.destroy();  
+		                    }  
+		                });  
+						 winModal.addItem(panel);  
+			                winModal.show();  
+						
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("error "+caught.getMessage());
+						
+					}
+				});
+			
+				
+			}
+		});
 		
-		this.panel  = new AbsolutePanel();
-		this.boardPanel = new AbsolutePanel();
+		this.workspace = new Canvas();
 
-		this.boardTable = new BoardTable(this);
-
-		panel.add(this.boardTable);
-		
-		this.portletController = new PortletController(this.boardPanel);
-		this.boardPanel.setPixelSize(1000, 1000);
-		//PickupDragController dragController = new PickupDragController(this.boardPanel, true);
-		this.panel.add(this.boardPanel);
-		initWidget(this.panel);
-		
-
-		
-
-		Event.addNativePreviewHandler(this);
-	}
-
-	public Portlet addPortlet(int x, int y){
-	
-		Portlet windowPanel1 = new TextPortlet(this.portletController, this);
-		this.boardPanel.add(windowPanel1, x, y);
-		this.portlets.add(windowPanel1);
-		return windowPanel1;
-	}
-	
-	public Portlet addImagePortlet(int x, int y){
-		
-		ImagePortlet windowPanel1 = new ImagePortlet(this.portletController, this);
-		this.boardPanel.add(windowPanel1, x, y);
-		this.portlets.add(windowPanel1);
-		return windowPanel1;
+        this.setEdgeSize(6);  
+        this.workspace.setEdgeSize(6);  
+		this.header= new HStack();
+		this.header.setLayoutMargin(20);  
+		this.header.setMembersMargin(40); 
+		this.header.setLayoutAlign(Alignment.CENTER);  
+//		WindowsPortlet window = new WindowsPortlet();  
+        
+		//this.workspace.addChild(window);
+		this.addChild(button);
+		this.addChild(this.header);
+		this.addChild(this.workspace);
+        this.workspace.setHeight("500px");
+        this.workspace.setWidth("500px");
+        
+        this.workspace.setCanAcceptDrop(true);
+        this.workspace.setDropTypes("P");
+        this.header.getElement().getStyle().setBackgroundColor("red");
+        this.workspace.getElement().getStyle().setBackgroundColor("yellow");
+        
+        this.workspace.addDropHandler(new DropHandler() {  
+            public void onDrop(DropEvent event) {  
+            	int x = workspace.getOffsetX() - 15 - workspace.getEdgeSize();
+            	int y = workspace.getOffsetY() - 15 - workspace.getEdgeSize() ;
+                          
+            	Portlet portlet = ((PortletAdder) EventHandler.getDragTarget()).createPorlet();  
+            	Board.this.addPortlet(portlet, x, y);
+            }  
+        }); 
 	}
 	
-	
-
-	public AbsolutePanel getTotalPanelOfBoard(){
-		return this.panel;
-	}
-
-	public AbsolutePanel getBoardPanel(){
-		return this.boardPanel;
+	public void addPortlet(Portlet portlet, int x, int y){
+		this.workspace.addChild(portlet);
+		portlet.setLeft(x);
+		portlet.setTop(y);
 	}
 	
-	public void unSelectAllPortlets(int x, int y){
-		System.out.println("=>>> start");
-		for(Portlet portlet : this.portlets){
-			if(!portlet.isInPortlet(x, y)){
-				portlet.unSelect();
+	public void addPortletAdder(PortletAdder portletAdder){
+		this.header.addMember(portletAdder);
+	}
+	
+	public String getTruc(){
+		Visitor visitor = new TestVisitor();
+		Canvas[] canevas = this.workspace.getChildren();	
+		for(Canvas caneva : canevas ){
+			if(caneva instanceof Portlet){
+				Portlet portlet = (Portlet)caneva;
+				portlet.accept(visitor);
 			}
 		}
-		System.out.println("=>>> end");
-	}
-
-	public void removePortlet(Portlet portlet) {
-		this.portlets.remove(portlet);
-		this.boardPanel.remove(portlet);
-		
-	}
-	
-	@Override
-	public void onPreviewNativeEvent(NativePreviewEvent event) {
-		
-		int type = event.getTypeInt();
-		switch (type) {
-			case Event.ONCLICK:	
-				int x = event.getNativeEvent().getClientX();
-				int y = event.getNativeEvent().getClientY();	
-				this.unSelectAllPortlets(x, y);
-				break;
-		}
-		
+		return visitor.getString();
 	}
 }

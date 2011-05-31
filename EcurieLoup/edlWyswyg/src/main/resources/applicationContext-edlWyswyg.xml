@@ -4,11 +4,11 @@
 
 	<!-- -GWT  -->
 	<bean id="edlwyswygServiceRemoteService" class="org.gwtwidgets.server.spring.GWTRPCServiceExporter">
-		<property name="service" ref="greetingServiceImpl" />
-		<property name="serviceInterfaces" value="fr.ecuriesduloup.edlwyswig.client.GreetingService" />
+		<property name="service" ref="wysiwygServiceImpl" />
+		<property name="serviceInterfaces" value="fr.ecuriesduloup.edlwyswig.client.WysiwygService" />
 	</bean>
 
-	<bean id="greetingServiceImpl" class="fr.ecuriesduloup.edlwyswig.server.GreetingServiceImpl">
+	<bean id="wysiwygServiceImpl" class="fr.ecuriesduloup.edlwyswig.server.WysiwygServiceImpl">
 		
 	</bean>
 </beans>

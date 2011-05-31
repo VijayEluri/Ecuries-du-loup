@@ -23,7 +23,12 @@
 	</repositories>
 
 	<dependencies>
-
+	
+		<dependency>
+			<groupId>fr.ecuriesduloup</groupId>
+			<artifactId>edlCode</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 
 		<!--  GWT deps (from central repo) -->
 		<dependency>
