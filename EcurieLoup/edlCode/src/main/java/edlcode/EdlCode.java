@@ -138,8 +138,8 @@ public class EdlCode {
 	public void setSmileyManager(SmileyManager smileyManager) {
 		this.smileyManager = smileyManager;
 	}
-	
-	
+
+
 	public void setOptionsService(OptionsService optionsService) {
 		this.optionsService = optionsService;
 	}
@@ -168,19 +168,23 @@ public class EdlCode {
 
 	}
 	private String remplaceSmiley(String texte, String pathServeur){
-		for(Smiley smiley : this.smileyManager.recupererTousLesSmiley()){
-			String cheminImage= pathServeur+"/images/smiley/"+smiley.getId();
-			cheminImage =cheminImage.replace("\\", "/");
-			texte = texte.replace(smiley.getCode(),"[smiley=\""+cheminImage+"\"]");
+		if(this.smileyManager != null){
+			for(Smiley smiley : this.smileyManager.recupererTousLesSmiley()){
+				String cheminImage= pathServeur+"/images/smiley/"+smiley.getId();
+				cheminImage =cheminImage.replace("\\", "/");
+				texte = texte.replace(smiley.getCode(),"[smiley=\""+cheminImage+"\"]");
+			}
 		}
 		return texte;
 	}
 
 	private String replaceBigadin(String texte){
-		Option option = this.optionsService.get("bigadin");
-		if(option  != null && option.getValue().equals("1")){
-			for(String word : this.bigadinsWords){
-				texte = texte.replaceAll(word, "bigadin");
+		if(this.optionsService != null){
+			Option option = this.optionsService.get("bigadin");
+			if(option  != null && option.getValue().equals("1")){
+				for(String word : this.bigadinsWords){
+					texte = texte.replaceAll(word, "bigadin");
+				}
 			}
 		}
 		return texte;

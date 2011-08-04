@@ -69,28 +69,35 @@ public class EdlCodeHTMLTest {
 	@Test
 	public void testImage() {
 		String texte = "[image=\"/image/test/image.png\"]";
-		String resultatAttendu = "<img src=\"/image/test/image.png\" alt=\"/image/test/image.png\" />";
+		String resultatAttendu = "<img class=\"edl_block\" src=\"/image/test/image.png\" alt=\"/image/test/image.png\" style=\"\" />";
 		this.testEgaliteDuParsage(texte, resultatAttendu);
 	}
 	
 	@Test
 	public void testImageWithLargeur() {
 		String texte = "[image=\"/image/test/image.png\" largeur=\"90%\"]";
-		String resultatAttendu = "<img src=\"/image/test/image.png\" alt=\"/image/test/image.png\" width=\"90%\" />";
+		String resultatAttendu = "<img class=\"edl_block\" src=\"/image/test/image.png\" alt=\"/image/test/image.png\" width=\"90%\" style=\"\" />";
 		this.testEgaliteDuParsage(texte, resultatAttendu);
 	}
 	
 	@Test
 	public void testImageWithHauteur() {
 		String texte = "[image=\"/image/test/image.png\" hauteur=\"80%\"]";
-		String resultatAttendu = "<img src=\"/image/test/image.png\" alt=\"/image/test/image.png\" height=\"80%\" />";
+		String resultatAttendu = "<img class=\"edl_block\" src=\"/image/test/image.png\" alt=\"/image/test/image.png\" height=\"80%\" style=\"\" />";
 		this.testEgaliteDuParsage(texte, resultatAttendu);
 	}
 	
 	@Test
 	public void testImageWithHauteurAndLargeur() {
 		String texte = "[image=\"/image/test/image.png\" hauteur=\"80%\" largeur=\"90%\"]";
-		String resultatAttendu = "<img src=\"/image/test/image.png\" alt=\"/image/test/image.png\" height=\"80%\" width=\"90%\" />";
+		String resultatAttendu = "<img class=\"edl_block\" src=\"/image/test/image.png\" alt=\"/image/test/image.png\" height=\"80%\" width=\"90%\" style=\"\" />";
+		this.testEgaliteDuParsage(texte, resultatAttendu);
+	}
+	
+	@Test
+	public void testImageWithHauteurAndLargeurAndTopAndLeft() {
+		String texte = "[image=\"/image/test/image.png\" hauteur=\"80%\" largeur=\"90%\" top=\"150px\" left=\"47px\"]";
+		String resultatAttendu = "<img class=\"edl_block\" src=\"/image/test/image.png\" alt=\"/image/test/image.png\" height=\"80%\" width=\"90%\" style=\"top:150px;left:47px;\" />";
 		this.testEgaliteDuParsage(texte, resultatAttendu);
 	}
 	
@@ -99,28 +106,35 @@ public class EdlCodeHTMLTest {
 	@Test
 	public void testImageSite() {
 		String texte = "[imageSite=\"1\"]";
-		String resultatAttendu = "<img src=\"/images/albumPhoto/1\" alt=\"image 1 inexistante \" />";
+		String resultatAttendu = "<img class=\"edl_block\" src=\"/images/albumPhoto/1\" alt=\"image 1 inexistante \" style=\"\" />";
 		this.testEgaliteDuParsage(texte, resultatAttendu);
 	}
 	
 	@Test
 	public void testImageSiteWithLargeur() {
 		String texte = "[imageSite=\"1\" largeur=\"90%\"]";
-		String resultatAttendu = "<img src=\"/images/albumPhoto/1\" alt=\"image 1 inexistante \" width=\"90%\" />";
+		String resultatAttendu = "<img class=\"edl_block\" src=\"/images/albumPhoto/1\" alt=\"image 1 inexistante \" width=\"90%\" style=\"\" />";
 		this.testEgaliteDuParsage(texte, resultatAttendu);
 	}
 	
 	@Test
 	public void testImageSiteWithHauteur() {
 		String texte = "[imageSite=\"1\" hauteur=\"80%\"]";
-		String resultatAttendu = "<img src=\"/images/albumPhoto/1\" alt=\"image 1 inexistante \" height=\"80%\" />";
+		String resultatAttendu = "<img class=\"edl_block\" src=\"/images/albumPhoto/1\" alt=\"image 1 inexistante \" height=\"80%\" style=\"\" />";
 		this.testEgaliteDuParsage(texte, resultatAttendu);
 	}
 	
 	@Test
 	public void testImageSiteWithHauteurAndLargeur() {
 		String texte = "[imageSite=\"1\" hauteur=\"80%\" largeur=\"90%\"]";
-		String resultatAttendu = "<img src=\"/images/albumPhoto/1\" alt=\"image 1 inexistante \" height=\"80%\" width=\"90%\" />";
+		String resultatAttendu = "<img class=\"edl_block\" src=\"/images/albumPhoto/1\" alt=\"image 1 inexistante \" height=\"80%\" width=\"90%\" style=\"\" />";
+		this.testEgaliteDuParsage(texte, resultatAttendu);
+	}
+	
+	@Test
+	public void testImageSiteWithHauteurAndLargeurAndTopAndLeft() {
+		String texte = "[imageSite=\"1\" hauteur=\"80%\" largeur=\"90%\" top=\"150px\" left=\"47px\"]";
+		String resultatAttendu = "<img class=\"edl_block\" src=\"/images/albumPhoto/1\" alt=\"image 1 inexistante \" height=\"80%\" width=\"90%\" style=\"top:150px;left:47px;\" />";
 		this.testEgaliteDuParsage(texte, resultatAttendu);
 	}
 
@@ -208,5 +222,33 @@ public class EdlCodeHTMLTest {
 		String resultatAttendu = "<table class=\"edlCode_tableau\"><tr><td>t1 dgfdf</td><td>t2</td></tr><tr><td>t1</td><td>t2</td></tr></table>";
 		this.testEgaliteDuParsage(texte, resultatAttendu);
 	}
+	
+	@Test
+	public void testTextBlockEmpty() {
+		String texte = "[text hauteur=\"80%\" largeur=\"90%\" top=\"150px\" left=\"47px\"][/text]";
+		String resultatAttendu = "<div class=\"edl_block\" height=\"80%\" width=\"90%\" style=\"top:150px;left:47px;\"></div>";
+		this.testEgaliteDuParsage(texte, resultatAttendu);
+	}
 
+	
+	@Test
+	public void testTextBlock() {
+		String texte = "[text hauteur=\"80%\" largeur=\"90%\" top=\"150px\" left=\"47px\"]abcdef[/text]";
+		String resultatAttendu = "<div class=\"edl_block\" height=\"80%\" width=\"90%\" style=\"top:150px;left:47px;\">abcdef</div>";
+		this.testEgaliteDuParsage(texte, resultatAttendu);
+	}
+	
+	@Test
+	public void testTextBlockWithBalise() {
+		String texte = "[text hauteur=\"80%\" largeur=\"90%\" top=\"150px\" left=\"47px\"]abcdef[gras]test gras[/gras]aaa[/text]";
+		String resultatAttendu = "<div class=\"edl_block\" height=\"80%\" width=\"90%\" style=\"top:150px;left:47px;\">abcdef<span class=\"edlCode_gras\">test gras</span>aaa</div>";
+		this.testEgaliteDuParsage(texte, resultatAttendu);
+	}
+	
+	@Test
+	public void testTextBlockInContext() {
+		String texte = "azerty[text hauteur=\"80%\" largeur=\"90%\" top=\"150px\" left=\"47px\"]abcdef[gras]test gras[/gras]aaa[/text]qwerty[text hauteur=\"160px\" largeur=\"130px\" top=\"153px\" left=\"49px\"]fedcba[gras]test gras[/gras]aaa[/text]fin";
+		String resultatAttendu = "azerty<div class=\"edl_block\" height=\"80%\" width=\"90%\" style=\"top:150px;left:47px;\">abcdef<span class=\"edlCode_gras\">test gras</span>aaa</div>qwerty<div class=\"edl_block\" height=\"160px\" width=\"130px\" style=\"top:153px;left:49px;\">fedcba<span class=\"edlCode_gras\">test gras</span>aaa</div>fin";
+		this.testEgaliteDuParsage(texte, resultatAttendu);
+	}
 }
