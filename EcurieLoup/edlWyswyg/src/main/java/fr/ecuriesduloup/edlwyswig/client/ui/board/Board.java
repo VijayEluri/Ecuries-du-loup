@@ -34,10 +34,11 @@ public class Board extends VStack{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				wysiwygService.generateHtml(getTruc(), new AsyncCallback<String>() {
+				wysiwygService.generateHtml(getEdlCode(), new AsyncCallback<String>() {
 					
 					@Override
 					public void onSuccess(String result) {
+						Window.alert(result);
 						HTMLPanel panel = new HTMLPanel(result);
 						final com.smartgwt.client.widgets.Window winModal = new com.smartgwt.client.widgets.Window();  
 		                winModal.setWidth100();  
@@ -111,7 +112,7 @@ public class Board extends VStack{
 		this.header.addMember(portletAdder);
 	}
 	
-	public String getTruc(){
+	public String getEdlCode(){
 		Visitor visitor = new TestVisitor();
 		Canvas[] canevas = this.workspace.getChildren();	
 		for(Canvas caneva : canevas ){

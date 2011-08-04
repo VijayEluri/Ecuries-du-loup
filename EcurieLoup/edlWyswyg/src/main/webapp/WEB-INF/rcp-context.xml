@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 "http://www.springframework.org/dtd/spring-beans.dtd">
-	
+
 <beans>
-	<!--
-		le mapping des pages (pour faire correspondre les urls a des
-		controllers)
-	-->
+	<!-- le mapping des pages (pour faire correspondre les urls a des controllers) -->
 	<bean id="handlerMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
 			<props>
-				
-				<!-- GWT-->
+
+				<!-- GWT -->
 				<prop key="/edlwyswyg/greet">edlwyswygServiceRemoteService</prop>
 			</props>
 		</property>
 	</bean>
-	
-	<!-- -GWT  -->
+
+	<!-- -GWT -->
 	<bean id="edlwyswygServiceRemoteService" class="org.gwtwidgets.server.spring.GWTRPCServiceExporter">
-		<property name="service" ref="greetingServiceImpl" />
-		<property name="serviceInterfaces" value="fr.ecuriesduloup.edlwyswig.client.GreetingService" />
+		<property name="service" ref="edlwyswygServiceImpl" />
+		<property name="serviceInterfaces"
+			value="fr.ecuriesduloup.edlwyswig.client.WysiwygService" />
 	</bean>
 
-	<bean id="greetingServiceImpl" class="fr.ecuriesduloup.edlwyswig.server.GreetingServiceImpl">
-		
+	<bean id="edlwyswygServiceImpl" class="fr.ecuriesduloup.edlwyswig.server.WysiwygServiceImpl">
+		<property name="edlCode" ref="edlCode" />
 	</bean>
-	
+
 </beans>

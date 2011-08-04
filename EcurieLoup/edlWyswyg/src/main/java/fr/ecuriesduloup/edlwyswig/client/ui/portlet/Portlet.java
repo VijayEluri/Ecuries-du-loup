@@ -1,5 +1,6 @@
 package fr.ecuriesduloup.edlwyswig.client.ui.portlet;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Widget;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.Canvas;
@@ -11,9 +12,12 @@ import com.smartgwt.client.widgets.events.CloseClickHandler;
 import com.smartgwt.client.widgets.events.CloseClientEvent;
 
 import fr.ecuriesduloup.edlwyswig.client.Visitor;
+import fr.ecuriesduloup.edlwyswig.client.ui.portletAdder.PortletResources;
 
 public abstract class Portlet extends Window implements Element{
+	protected static final PortletResources portletResources = GWT.create(PortletResources.class);
 
+	
 	public Portlet(){
 
 		this.setTitle(this.getPortletTitle());  
@@ -62,4 +66,6 @@ public abstract class Portlet extends Window implements Element{
 	public int getBlockLeft(){
 		return this.getLeft();
 	}
+
+	
 }

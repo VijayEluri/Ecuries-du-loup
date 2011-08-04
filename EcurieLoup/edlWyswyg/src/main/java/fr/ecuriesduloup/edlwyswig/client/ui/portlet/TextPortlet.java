@@ -8,6 +8,7 @@ import fr.ecuriesduloup.edlwyswig.client.Visitor;
 
 public class TextPortlet extends Portlet {
 	private TextArea textArea;
+	
 	public TextPortlet() {
 		super();
 	}

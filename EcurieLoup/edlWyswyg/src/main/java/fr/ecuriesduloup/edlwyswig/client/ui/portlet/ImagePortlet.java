@@ -19,12 +19,8 @@ public class ImagePortlet extends Portlet  implements ImageChooserConteneur{
 
 	public ImagePortlet() {
 		super();
-		
 
-		
-
-		
-		this.imagePreview.setUrl("http://www.smartclient.com/smartgwt/showcase/images/animals/Zebra.jpg");
+		this.imagePreview.setResource(portletResources.emptyImagePortletImage());
 		this.addImageChooser();
 		/*this.setShowCustomScrollbars(true);
 		this.setScrollbarSize(0);*/
@@ -78,9 +74,11 @@ public class ImagePortlet extends Portlet  implements ImageChooserConteneur{
 	@Override
 	public void defineImage(Img chooseImage) {
 		this.image = chooseImage;	
-		if(chooseImage.isDefine()){
-			if(chooseImage.isUrl()){
-				this.imagePreview.setUrl(chooseImage.getUrl());
+		if(this.image != null){
+			if(this.image.isDefine()){
+				if(this.image.isUrl()){
+					this.imagePreview.setUrl(this.image.getUrl());
+				}
 			}
 		}
 	}
