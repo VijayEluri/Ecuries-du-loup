@@ -20,26 +20,47 @@
 	height: 100px;
 	float: left;
 	margin: 2%;
-	text-align:center;
-	-moz-border-radius: 5% 5% 5% 5%;
+	text-align: center;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+
+.albumPhoto .video {
+	position: relative;
+}
+
+.albumPhoto .video .image_video {
+	background-image: url("../images/video.png");
+	background-repeat: none;
+	width: 50px;
+	height: 50px;
+	opacity: 0.8;
+	position: absolute;
+	top: 25%;
+	left: 35%;
+}
+
+.albumPhoto .visualisationPhoto .video .image_video {
+	top: 5%;
+	left: 20%;
 }
 
 .albumPhoto .visualisationAlbumPhoto .photo:hover {
-	
 	background-color: rgb(128, 128, 0);
 }
 
 .albumPhoto .visualisationAlbumPhoto .photo img {
 	max-width: 80%;
 	max-height: 80px;
-	
 	padding: 10px;
 }
 
 /********************************/
-.albumPhoto .visualisationPhoto .photo_principal{
-	text-align:center;	
+.albumPhoto .visualisationPhoto .photo_principal {
+	text-align: center;
 }
+
 .albumPhoto .visualisationPhoto .photo_principal img {
 	border: none;
 	max-width: 80%;
@@ -50,12 +71,10 @@
 	margin-bottom: 10%;
 }
 
-
-.albumPhoto .visualisationPhoto .navigation_album{
-	
+.albumPhoto .visualisationPhoto .navigation_album {
 	height: 50px;
-	
 }
+
 .albumPhoto .visualisationPhoto .photo_precedente .photo {
 	float: left;
 	border: 1px dotted black;
@@ -79,7 +98,6 @@
 	width: 10%;
 	margin: auto;
 	max-height: 50px;
-	
 	text-align: center;
 }
 
@@ -104,10 +122,15 @@
 	margin: 2%;
 	background-color: rgb(0, 128, 0);
 	text-align: center;
-	-moz-border-radius: 0% 20% 20% 0%;
+	-webkit-border-top-right-radius: 20px;
+	-webkit-border-bottom-right-radius: 20px;
+	-moz-border-radius-topright: 20px;
+	-moz-border-radius-bottomright: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
 }
+
 .albumPhoto .visualisationTousLesAlbumsPhoto .album:hover {
-	
 	background-color: rgb(128, 128, 0);
 }
 
@@ -116,7 +139,6 @@
 	font-size: 0.7em;
 	text-align: center;
 	color: white;
-	
 }
 
 .albumPhoto .visualisationTousLesAlbumsPhoto .album a {
@@ -131,14 +153,15 @@
 	padding: 10%;
 }
 
-
 /*************************************/
 .albumPhoto .commentaires .commentaire {
 	border: 2px solid rgb(0, 128, 0);
 	width: 90%;
 	margin: auto;
 	margin-bottom: 15px;
-	-moz-border-radius: 3% 3% 3% 3%;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 }
 
 .albumPhoto .commentaires .commentaire .entete {
@@ -147,11 +170,12 @@
 	margin: Opx;
 	border-bottom: 2px dotted white;
 	-moz-border-radius: 3% 3% 0% 0%;
+	-webkit-border-radius: 12px 12px 0px 0px;
+	-moz-border-radius: 12px 12px 0px 0px;
+	border-radius: 12px 12px 0px 0px;
 	padding-left: 3%;
-	
 	/* FF : dégrader */
-	-moz-box-shadow: 0px -20px 10px -10px rgba(0,0,0,0.3) inset; 
-	
+	box-shadow: 0px -20px 10px -10px rgba(0, 0, 0, 0.3) inset;
 }
 
 .albumPhoto .commentaires .commentaire .body {
@@ -200,31 +224,67 @@
 
 .albumPhoto .visualisationTousLesAlbumsPhoto .album .petit_icone_album {
 	width: 15px;
-	
 	height: 20px;
-	margin:0px;
-	margin-top:5px;
-	margin-left:5px;
-	padding:0px;
+	margin: 0px;
+	margin-top: 5px;
+	margin-left: 5px;
+	padding: 0px;
 	float: left;
 }
-.albumPhoto .visualisationTousLesAlbumsPhoto .album .petit_icone_album img{
-	margin:0px;
-	padding:0px;
+
+.albumPhoto .visualisationTousLesAlbumsPhoto .album .petit_icone_album img
+	{
+	margin: 0px;
+	padding: 0px;
 }
 
 .albumPhoto .visualisationAlbumPhoto .photo .petit_icone_album {
 	width: 15px;
-	
 	height: 20px;
-	margin:0px;
-	margin-top:5px;
-	margin-left:5px;
-	padding:0px;
+	margin: 0px;
+	margin-top: 5px;
+	margin-left: 5px;
+	padding: 0px;
 	float: left;
-position: absolute;
+	position: absolute;
 }
-.albumPhoto .visualisationAlbumPhoto .photo .petit_icone_album img{
-	margin:0px;
-	padding:0px;
+
+.albumPhoto .visualisationAlbumPhoto .photo .petit_icone_album img {
+	margin: 0px;
+	padding: 0px;
+}
+
+.albumPhoto .drop-zone {
+	margin: auto;
+	height: 150px;
+	width: 50%;
+	border: dashed 2px black;
+	
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	background-color: rgb(0, 128, 0);
+	opacity: 0.5;
+	
+	text-align: center;
+}
+
+.albumPhoto .dragEnter{
+	width: 55%;
+	height: 155px;
+	border-width:3px;
+	opacity: 1;
+}
+.albumPhoto .dragEnterError{
+	cursor: crosshair;
+	background-color: red;
+}
+
+.albumPhoto table{
+	border: solid 2px black;
+	width: 75%;
+	margin: auto;
+	margin-top: 25px;
+	border-spacing: 0px;
+	text-align: center;
 }

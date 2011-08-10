@@ -29,7 +29,9 @@
 				<input type="radio" name="typeAjout" value="zip" id="zip" onchange="changeModeAjout()" /> 
 				<label for="zip">
 					<fmt:message key="album_photo.photo.form.zip"/>
-				</label><br />
+				</label>
+				
+				<br />
 			</div>
 			
 			<div id="ajout_album_formulaire">

@@ -1,7 +1,5 @@
 @CHARSET "ISO-8859-1";
 
-
-
 .forum img {
 	border: none;
 }
@@ -19,18 +17,22 @@
 	float: left;
 	margin-left: 2%;
 	clear: both;
-	-moz-border-radius: 3% 3% 3% 3%;
 	margin-bottom: 20px;
 	width: 90%;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 }
 
 .forum .visualisationCategorieForum .categorie h2 {
 	margin-top: 0px;
 	background-color: rgb(0, 128, 0);
 	color: white;
-	-moz-border-radius: 3% 3% 0% 0%;
+	-webkit-border-radius: 12px 12px 0px 0px;
+	-moz-border-radius: 12px 12px 0px 0px;
+	border-radius: 12px 12px 0px 0px;
 	padding-left: 2%;
-	-moz-box-shadow: 0px -20px 10px -10px rgba(0, 0, 0, 0.3) inset;
+	box-shadow: 0px -20px 10px -10px rgba(0, 0, 0, 0.3) inset;
 }
 
 .forum .visualisationCategorieForum .categorie h2:hover {
@@ -60,9 +62,10 @@
 	border: solid black 2px;
 	width: 90%;
 	padding-left: 3%;
-	-moz-border-radius: 3% 3% 3% 3%;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 }
-
 
 .forum .visualisationTopicForum .tr {
 	border: solid black 2px;
@@ -75,7 +78,6 @@
 .forum .visualisationTopicForum .topic .titre {
 	width: 60%;
 }
-
 
 .forum .visualisationTopicForum .topic .titre a {
 	text-decoration: none;
@@ -117,7 +119,9 @@
 	margin: 2%;
 	width: 90%;
 	margin-bottom: 10px;
-	-moz-border-radius: 3% 3% 3% 3%;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 }
 
 .forum .visualisationMessageForum .message .entete {
@@ -125,8 +129,10 @@
 	padding: 3px;
 	background-color: rgb(0, 128, 0);
 	color: white;
-	-moz-border-radius: 3% 3% 0% 0%;
-	-moz-box-shadow: 0px -20px 10px -10px rgba(0, 0, 0, 0.3) inset;
+	-webkit-border-radius: 12px 12px 0px 0px;
+	-moz-border-radius: 12px 12px 0px 0px;
+	border-radius: 12px 12px 0px 0px;
+	box-shadow: 0px -20px 10px -10px rgba(0, 0, 0, 0.3) inset;
 }
 
 .forum .visualisationMessageForum .message .entete .info {
@@ -167,7 +173,7 @@
 	border: none;
 }
 
-.petit_icone{
+.petit_icone {
 	width: 20px;
 	height: 20px;
 }

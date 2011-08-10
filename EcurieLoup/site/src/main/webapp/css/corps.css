@@ -24,9 +24,10 @@ body {
 	margin-top: 20px;
 	background-color: white;
 	padding-bottom: 3%;
-	-moz-border-radius: 3% 3% 3% 3%;
-	
 	padding-left: 2%;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 }
 
 #corps h1 {
@@ -35,8 +36,10 @@ body {
 	padding-left: 5%;
 	margin-top: 0px;
 	margin-left: -3%;
-	-moz-box-shadow: 0px -30px 15px -10px rgba(0, 0, 0, 0.3) inset;
-	-moz-border-radius: 3% 3% 0% 0%;
+	box-shadow: 0px -30px 15px -10px rgba(0, 0, 0, 0.3) inset;
+	-webkit-border-radius: 15px 15px 0px 0px;
+	-moz-border-radius: 15px 15px 0px 0px;
+	border-radius: 15px 15px 0px 0px;
 }
 
 #corps .navigation {
@@ -75,14 +78,17 @@ body {
 	padding: 1%;
 	margin-bottom: 10px;
 	text-decoration: none;
-	-moz-border-radius: 50% 50% 50% 50%;
-	-moz-box-shadow: 0px -25px 10px -10px rgba(0, 0, 0, 0.3) inset;
+	box-shadow: 0px -25px 10px -10px rgba(0, 0, 0, 0.3) inset;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 }
 
 #corps .lien a:hover {
 	background-color: rgb(128, 128, 0);
-	-moz-box-shadow: 0px -20px 10px -10px rgba(0, 0, 0, 0.3) inset;
+	box-shadow: 0px -20px 10px -10px rgba(0, 0, 0, 0.3) inset;
 }
+
 #corps img {
 	border: none;
 }

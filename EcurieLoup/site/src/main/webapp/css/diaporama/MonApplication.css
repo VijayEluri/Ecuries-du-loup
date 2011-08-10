@@ -1,44 +1,46 @@
 @CHARSET "UTF-8";
 
-
-.diaporama{
-	background-color: rgb(0, 128, 0);	
+.diaporama {
+	background-color: rgb(0, 128, 0);
 	width: 1000px;
 	height: 500px;
 }
-.panel{
+
+.panel {
 	background-color: rgb(0, 128, 0);
 }
 
-.image{
+.image {
 	background-color: white;
-	/*width: 650px;*/
-	/*height: 450px;*/
+	/*width: 650px;*/ /*height: 450px;*/
 	width: 70%;
 	padding: 2%;
 	margin: 3%;
 	text-align: center;
 	border: black solid 2px;
-	-moz-border-radius: 3% 3% 3% 3%;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 }
-.image img{
-	
+
+.image img {
 	max-width: 95%;
 	max-height: 95%;
 }
-.telecommande{
+
+.telecommande {
 	background-color: white;
 	width: 200px;
 	height: 450px;
 	border: 2px solid black;
-	-moz-border-radius: 3% 3% 3% 3%;
-	padding : 30px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	padding: 30px;
 	margin: 30px;
 	text-align: center;
-	
 }
 
-.telecommande .gwt-Button{
+.telecommande .gwt-Button {
 	margin-left: 25px;
 }
-
