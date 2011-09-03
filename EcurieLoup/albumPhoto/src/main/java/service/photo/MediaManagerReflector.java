@@ -32,7 +32,7 @@ public class MediaManagerReflector implements MediaManager, BeanFactoryAware{
 	
 	public void init(){
 		if(this.albumPhotoManager ==null){
-			this.albumPhotoManager = (MediaManager) beanFactory.getBean("albumPhotoManager");
+			this.albumPhotoManager = (MediaManager) beanFactory.getBean("mediaManager");
 	
 		}
 	}
