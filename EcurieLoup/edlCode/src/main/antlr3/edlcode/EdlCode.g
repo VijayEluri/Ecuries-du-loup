@@ -46,10 +46,16 @@ tokens {
 	SMILEY='[smiley="';
 	IMAGE = '[image="';
 	IMAGE_SITE = '[imageSite="';
+	TEXT = '[text';	
+	FIN_TEXT= '[/text]';
+	FERMETURE_SANS_PARAMETRE = ']';
 	FERMETURE_AVEC_PARAMETRE = '"]';
 	FERMETURE_PARAMETRE='"';
 	LARGEUR = '" largeur="';
-	HAUTEUR = '" hauteur="';
+	HAUTEUR = '" hauteur="';	
+	HAUTEUR_TEXT = ' hauteur="';
+	TOP = '" top="';
+	LEFT = '" left="';
 }
 
 
@@ -167,16 +173,47 @@ prog returns [String retour =""] :
         }
       
       |
+      TEXT HAUTEUR_TEXT hauteur = dimention FERMETURE_PARAMETRE LARGEUR largeur = dimention FERMETURE_PARAMETRE TOP top = dimention FERMETURE_PARAMETRE LEFT left = dimention FERMETURE_PARAMETRE FERMETURE_AVEC_PARAMETRE p =prog  FIN_TEXT
+       {
       
-     IMAGE cheminString= chemin (HAUTEUR hauteur = dimention FERMETURE_PARAMETRE)? (LARGEUR largeur = dimention FERMETURE_PARAMETRE)? FERMETURE_AVEC_PARAMETRE
+      	$retour = "<div class=\"edl_block\"";
+      		if(hauteur != null){
+            $retour += " height=\""+hauteur+"\"";
+          }
+          if(largeur != null){
+            $retour += " width=\""+largeur+"\"";
+           }
+           
+           $retour += " style=\"";
+           if(top != null){
+            	$retour += "top:"+top+";";
+            }
+            if(left != null){
+            	$retour += "left:"+left+";";
+            }
+          $retour += "\"";
+           $retour +=">"+p+"</div>";
+        }
+      |
+      
+     IMAGE cheminString= chemin (HAUTEUR hauteur = dimention FERMETURE_PARAMETRE)? (LARGEUR largeur = dimention FERMETURE_PARAMETRE)? (TOP top = dimention FERMETURE_PARAMETRE)? (LEFT left = dimention FERMETURE_PARAMETRE)? FERMETURE_AVEC_PARAMETRE
         {
-          $retour = "<img src=\""+cheminString+"\" alt=\""+cheminString+"\"";
+          $retour = "<img class=\"edl_block\" src=\""+cheminString+"\" alt=\""+cheminString+"\"";
           if(hauteur != null){
             $retour += " height=\""+hauteur+"\"";
           }
          if(largeur != null){
             $retour += " width=\""+largeur+"\"";
           }
+          
+           $retour += " style=\"";
+          if(top != null){
+            $retour += "top:"+top+";";
+          }
+           if(left != null){
+            $retour += "left:"+left+";";
+          }
+          $retour += "\"";
           
           
           $retour += " />";
@@ -185,20 +222,29 @@ prog returns [String retour =""] :
      
        }
         |
-      IMAGE_SITE cheminString= chemin (HAUTEUR hauteur = dimention FERMETURE_PARAMETRE)? (LARGEUR largeur = dimention FERMETURE_PARAMETRE)? FERMETURE_AVEC_PARAMETRE
+      IMAGE_SITE cheminString= chemin (HAUTEUR hauteur = dimention FERMETURE_PARAMETRE)? (LARGEUR largeur = dimention FERMETURE_PARAMETRE)?  (TOP top = dimention FERMETURE_PARAMETRE)? (LEFT left = dimention FERMETURE_PARAMETRE)? FERMETURE_AVEC_PARAMETRE
         {
-          $retour = "<img src=\"${ctx}/images/albumPhoto/"+cheminString+"\" alt=\"image "+cheminString+" inexistante \"";
+          $retour = "<img class=\"edl_block\" src=\"${ctx}/images/albumPhoto/"+cheminString+"\" alt=\"image "+cheminString+" inexistante \"";
            if(hauteur != null){
             $retour += " height=\""+hauteur+"\"";
           }
          if(largeur != null){
             $retour += " width=\""+largeur+"\"";
           }
+           $retour += " style=\"";
+          if(top != null){
+            $retour += "top:"+top+";";
+          }
+           if(left != null){
+            $retour += "left:"+left+";";
+          }
+          $retour += "\"";
+          
           $retour += " />";
         }
         
       |
-        
+       
       DEBUT_TABLEAU SUITE_CARACTERE_QUELQUONQUE?
         {
             $retour="<table class=\"edlCode_tableau\">";
@@ -220,6 +266,7 @@ prog returns [String retour =""] :
         }
       
       |
+      
       
       SUITE_CARACTERE_QUELQUONQUE
         {
