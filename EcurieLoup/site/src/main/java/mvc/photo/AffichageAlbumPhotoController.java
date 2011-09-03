@@ -44,7 +44,16 @@ public class AffichageAlbumPhotoController {
 		return new ModelAndView("photo/affichageTousLesAbums", model);
 	}
 	
-	
+	@RequestMapping(value="/albumPhoto/affichage.do", params="deletePhoto")
+	public String suppressionPhoto(@RequestParam("deletePhoto") long idPhoto,@RequestParam("idAlbum") long idAlbum,  HttpServletRequest request) {
+		Media photo = this.mediaManager.recupererMedia(idPhoto);
+
+		String pathServeur = request.getSession().getServletContext()
+				.getRealPath("/");
+
+		this.mediaManager.supprimerMedia(photo, pathServeur);
+		return "redirect:affichage.do?idAlbum="+idAlbum;
+	}
 	
 	
 	@RequestMapping(value="/albumPhoto/affichage.do", params="idAlbum")
@@ -97,17 +106,7 @@ public class AffichageAlbumPhotoController {
 		return "redirect:affichage.do";
 	}
 	
-	@RequestMapping(value="/albumPhoto/affichage.do", params="deletePhoto")
-	public String suppressionPhoto(@RequestParam("deletePhoto") long idPhoto,@RequestParam("idAlbum") long idAlbum,  HttpServletRequest request) {
-		
-		Media photo = this.mediaManager.recupererMedia(idPhoto);
-
-		String pathServeur = request.getSession().getServletContext()
-				.getRealPath("/");
-
-		this.mediaManager.supprimerMedia(photo, pathServeur);
-		return "redirect:affichage.do?idAlbum="+idAlbum;
-	}
+	
 
 
 }
