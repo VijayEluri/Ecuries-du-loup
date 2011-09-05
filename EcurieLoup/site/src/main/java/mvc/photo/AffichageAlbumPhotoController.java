@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import service.photo.MediaManager;
-
-import com.google.code.facebookapi.schema.Photo;
-
 import donnees.photo.Album;
 import donnees.photo.Media;
 

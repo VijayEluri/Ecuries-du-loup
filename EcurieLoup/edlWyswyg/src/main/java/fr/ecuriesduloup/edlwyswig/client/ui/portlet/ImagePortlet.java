@@ -16,10 +16,10 @@ import fr.ecuriesduloup.edlwyswig.shared.Img;
 public class ImagePortlet extends Portlet  implements ImageChooserConteneur{
 	private Img image;
 	private Image imagePreview;
+	private boolean isDefineResize;
 
 	public ImagePortlet() {
 		super();
-
 		this.imagePreview.setResource(portletResources.emptyImagePortletImage());
 		this.addImageChooser();
 		/*this.setShowCustomScrollbars(true);
@@ -28,7 +28,9 @@ public class ImagePortlet extends Portlet  implements ImageChooserConteneur{
 			
 			@Override
 			public void onResized(ResizedEvent event) {
-				definePreviewImageSize();
+				if(!isDefineResize){
+					definePreviewImageSize();
+				}
 			}
 		});
 	}
@@ -57,8 +59,7 @@ public class ImagePortlet extends Portlet  implements ImageChooserConteneur{
 		//this.imagePreview.setWidth((this.getWidth()-this.diffWidth)+"px");
 		//this.imagePreview.setHeight((this.getHeight()-this.diffHeight)+"px");
 		//this.setPixelSize(this.getWidth(), this.getHeight());
-		this.imagePreview.setPixelSize(this.getWidth(), this.getHeight());
-		System.out.println(this.getWidth()+"-"+this.getHeight());
+		this.imagePreview.setPixelSize(this.getWidth()-PORTLET_DIFF_WIDTH, this.getHeight()-PORTLET_DIFF_HEIGHT);
 	}
 
 	@Override
@@ -81,8 +82,26 @@ public class ImagePortlet extends Portlet  implements ImageChooserConteneur{
 				}
 			}
 		}
+		
+		this.resizePortletAtImage();
 	}
 
+	private void resizePortletAtImage(){
+		isDefineResize = true;
+		if((this.imagePreview.getWidth() + PORTLET_DIFF_WIDTH) != this.getWidth()){
+			this.imagePreview.setWidth((this.imagePreview.getWidth()-PORTLET_DIFF_WIDTH-1)+"px");
+		}
+		
+		if((this.imagePreview.getHeight() + PORTLET_DIFF_HEIGHT) != this.getHeight()){
+			this.imagePreview.setHeight((this.imagePreview.getHeight()-PORTLET_DIFF_HEIGHT-1)+"px");
+		}
+		this.redraw();
+		this.setWidth(this.imagePreview.getWidth()+PORTLET_DIFF_WIDTH);
+		this.setHeight(this.imagePreview.getHeight()+PORTLET_DIFF_HEIGHT);
+		isDefineResize = false;
+		
+	}
+	
 	public Img getSelectedImage(){
 		return this.image;	
 	}

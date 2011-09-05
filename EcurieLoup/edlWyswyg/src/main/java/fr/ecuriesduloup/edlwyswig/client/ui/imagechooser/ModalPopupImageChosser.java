@@ -47,7 +47,7 @@ public class ModalPopupImageChosser extends Window{
 		this.setAutoSize(true);
 		this.setWidth(ModalPopupSize.getGlobalSize());
 
-		this.setTitle("Modal Window");  
+		this.setTitle("Choix d'image");  
 		this.setShowMinimizeButton(false);  
 		this.setShowCloseButton(false);
 		// this.setIsModal(true);  

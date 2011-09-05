@@ -16,7 +16,9 @@ import fr.ecuriesduloup.edlwyswig.client.ui.portletAdder.PortletResources;
 
 public abstract class Portlet extends Window implements Element{
 	protected static final PortletResources portletResources = GWT.create(PortletResources.class);
-
+	protected static final int PORTLET_DIFF_WIDTH = 14;
+	protected static final int PORTLET_DIFF_HEIGHT = 30;
+	
 	
 	public Portlet(){
 
