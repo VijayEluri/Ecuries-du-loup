@@ -44,6 +44,9 @@
 	<div class="visualisationPhoto">
 		<form method="post">
 			<h1><fmt:message key="album_photo.photo.title"/>${photo.id} 
+				<a	href="${ctx}/albumPhoto/download.do?idMedia=${photo.id}">
+						<img class="title_action" src="${ctx}/images/button_download.png" alt="<fmt:message key="album_photo.photo.download.alt"/>" title="<fmt:message key="album_photo.photo.download.title"/>" />
+					</a>
 				<security:authorize ifAllGranted="ROLE_ADMINISTRATEUR_PHOTO">
 					<a	href="${ctx}/albumPhoto/affichage.do?idAlbum=${photo.album.id}&deletePhoto=${photo.id}">
 						<img src="${ctx}/images/delete.png" alt="<fmt:message key="album_photo.photo.delete.alt"/>" title="<fmt:message key="album_photo.photo.delete.title"/>" />
@@ -93,7 +96,7 @@
 			<div class="photo_principal">
 				<c:choose >
 					<c:when test="${photo.type == 0}">
-						<img id="photo_taggage"	src="${ctx}/images/albumPhoto/${photo.id}" alt="${photo.id}"	onclick="taggage()" />
+						<img id="photo_taggage"	src="${ctx}/images/albumPhoto/view/${photo.id}" alt="${photo.id}"	onclick="taggage()" />
 					</c:when>
 					<c:when test="${photo.type == 1}">
 						<video class="video_balise" controls="controls" >

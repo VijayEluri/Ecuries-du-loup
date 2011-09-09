@@ -22,7 +22,7 @@ public class PhotoUtilImpl implements PhotoUtil {
 
 		}
 		this.copierFichier(fichier.getAbsolutePath(),  emplacement+nom);
-
+		this.miniatureUtil.creerMiniaturesPhoto(emplacement+nom, emplacement+"/view/"+nom, 500);
 		this.miniatureUtil.creerMiniaturesPhoto(emplacement+nom, emplacement+"/miniatures/"+nom, 100);
 
 	}

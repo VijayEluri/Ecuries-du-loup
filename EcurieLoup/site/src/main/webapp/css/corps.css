@@ -92,3 +92,8 @@ body {
 #corps img {
 	border: none;
 }
+
+.title_action{
+	height: 16px;
+	width: 16px;
+}
