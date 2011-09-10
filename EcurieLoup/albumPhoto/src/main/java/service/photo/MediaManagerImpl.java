@@ -142,6 +142,10 @@ public class MediaManagerImpl implements MediaManager {
 		}
 		String pathSortiePhoto = pathServeur+this.pathPhotoInProjet+media.getId();
 		this.photoUtil.supprimerFicherSurDisque(pathSortiePhoto);
+		String pathView = pathServeur+this.pathPhotoInProjet+"view/"+media.getId();
+		this.photoUtil.supprimerFicherSurDisque(pathView);
+		String pathThumbnail = pathServeur+this.pathPhotoInProjet+"miniatures/"+media.getId();
+		this.photoUtil.supprimerFicherSurDisque(pathThumbnail);
 		this.mediaDAO.remove(media);		
 	}
 
