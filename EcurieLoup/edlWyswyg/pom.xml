@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>EcurieLoup</artifactId>
@@ -13,24 +14,29 @@
 	<properties>
 		<gwtVersion>2.1.0</gwtVersion>
 	</properties>
-	
+
 	<repositories>
 		<repository>
-			 <id>www.smartclient.com</id>
-			
+			<id>www.smartclient.com</id>
+
 			<url>http://www.smartclient.com/maven2</url>
+		</repository>
+		<repository>
+			<id>kanboard.kenai.com</id>
+			<name>Maven Repository for gwt</name>
+			<url>http://kanboard.kenai.com/maven2</url>
 		</repository>
 	</repositories>
 
 	<dependencies>
-	
+
 		<dependency>
 			<groupId>fr.ecuriesduloup</groupId>
 			<artifactId>edlCode</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
-		<!--  GWT deps (from central repo) -->
+		<!-- GWT deps (from central repo) -->
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
