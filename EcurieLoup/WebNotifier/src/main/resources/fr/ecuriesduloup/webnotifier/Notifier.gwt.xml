@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module rename-to='secretflag'>
+<module rename-to='notifier'>
   <!-- Inherit the core Web Toolkit stuff.                        -->
   <inherits name='com.google.gwt.user.User'/>
 
@@ -9,11 +9,10 @@
   <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
   <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
 
-	<stylesheet src='SecretFlag.css'/>
   <!-- Other module inherits                                      -->
 
-  <!-- Specify the app entry point class.                         -->
-  <entry-point class='fr.ecuriesduloup.secretflag.client.SecretFlagEntryPoint'/>
+  <!-- Specify the app entry point class.                        
+  <entry-point class='fr.ecuriesduloup.webnotifier.client.NotifierEntryPoint'/> -->
 
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>

@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<groupId>fr.ecuriesduloup</groupId>
 		<artifactId>EcurieLoup</artifactId>
@@ -17,6 +18,7 @@
 		<project.reporting.outputEncoding>UTF-8
 		</project.reporting.outputEncoding>
 		<envBase>hibernateLigne</envBase>
+		<gwtVersion>2.1.0</gwtVersion>
 
 	</properties>
 
@@ -123,8 +125,8 @@
 						<artifactId>maven-jmeter-plugin</artifactId>
 						<version>1.0</version>
 						<configuration>
-          					<reportDir>${project.build.directory}/jmeter-reports</reportDir>
-        				</configuration>
+							<reportDir>${project.build.directory}/jmeter-reports</reportDir>
+						</configuration>
 						<executions>
 							<execution>
 								<id>jmeter-tests</id>
@@ -136,6 +138,8 @@
 						</executions>
 
 					</plugin>
+
+
 				</plugins>
 			</build>
 		</profile>
@@ -189,7 +193,26 @@
 					</excludes>
 				</configuration>
 			</plugin>
-
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>2.1.0-1</version>
+				<configuration>
+					<module>fr.ecuriesduloup.gwt.Gwt</module>
+					<runTarget>Gwt.html</runTarget>
+					<webappDirectory>src/main/webapp</webappDirectory>
+					<style>DETAILED</style>
+				</configuration>
+				<executions>
+					<execution>
+						<id>compile</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
 
 
@@ -406,6 +429,11 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
+			<groupId>fr.ecuriesduloup</groupId>
+			<artifactId>WebNotifier</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>net.sf.gwt-widget</groupId>
 			<artifactId>gwt-sl</artifactId>
 			<version>1.1</version>
@@ -435,12 +463,6 @@
 			<artifactId>hibernate</artifactId>
 			<version>3.2.6.ga</version>
 		</dependency>
-		<!--
-			<dependency> <groupId>org.acegisecurity</groupId> <artifactId>acegi-security</artifactId> <version>1.0.7</version> <exclusions> <exclusion>
-			<artifactId>spring-dao</artifactId> <groupId>org.springframework</groupId> </exclusion> <exclusion> <artifactId>spring-jdbc</artifactId>
-			<groupId>org.springframework</groupId> </exclusion> <exclusion> <artifactId>spring-remoting</artifactId> <groupId>org.springframework</groupId>
-			</exclusion> </exclusions> </dependency>
-		-->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
@@ -558,6 +580,20 @@
 			<groupId>fr.ecuriesduloup</groupId>
 			<artifactId>sauvegardePhoto</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<!-- GWT deps (from central repo) -->
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>${gwtVersion}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwtVersion}</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 

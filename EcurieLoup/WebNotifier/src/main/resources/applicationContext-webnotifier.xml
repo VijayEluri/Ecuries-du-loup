@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- -GWT  -->
+	<bean id="webNotifierServiceRemoteService" class="org.gwtwidgets.server.spring.GWTRPCServiceExporter">
+		<property name="service" ref="webNotifierServiceImpl" />
+		<property name="serviceInterfaces" value="fr.ecuriesduloup.webnotifier.client.WebNotifierService" />
+	</bean>
+
+	<bean id="webNotifierServiceImpl" class="fr.ecuriesduloup.webnotifier.server.WebNotifierServiceImpl">
+		<property name="forumManager" ref="forumManager"/>
+		<property name="mediaManager" ref="mediaManager"/>
+	</bean>
+</beans>

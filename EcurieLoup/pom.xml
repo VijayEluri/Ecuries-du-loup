@@ -39,6 +39,7 @@
 	 	<module>secretFlag</module>
 		<module>siteOptions</module>
 		<module>edlWyswyg</module>
+		<module>WebNotifier</module>
 	</modules>
 	<repositories>
 		<!-- pour les libs java -->

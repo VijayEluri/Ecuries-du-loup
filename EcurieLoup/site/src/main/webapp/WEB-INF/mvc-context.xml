@@ -23,12 +23,12 @@
 		<property name="interceptors">
 			<list>
 				<ref bean="menuInterceptor" />
-				<ref bean="nouveauMessageForumInterceptor" />
+				<!--<ref bean="nouveauMessageForumInterceptor" />
 				<ref bean="nouvellePhotoInterceptor" />
-				<ref bean="memoInterceptor" />
+				<ref bean="memoInterceptor" />-->
 				<ref bean="lienInterceptor" />
 				<ref bean="pathServeurInterceptor" />
-				<ref bean="enregisteurInformationInterceptor" />
+				<!-- <ref bean="enregisteurInformationInterceptor" /> -->
 
 			</list>
 		</property>

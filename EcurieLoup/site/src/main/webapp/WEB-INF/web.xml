@@ -24,6 +24,7 @@
 			classpath:/applicationContext-photoBackup.xml
 			classpath:/applicationContext-options.xml
 			classpath:/applicationContext-secretFlag.xml
+			classpath:/applicationContext-webnotifier.xml
 		 </param-value>
 
 	</context-param>
@@ -92,6 +93,10 @@
 	<servlet-mapping>
 		<servlet-name>ws</servlet-name>
 		<url-pattern>/ws/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>rcp</servlet-name>
+		<url-pattern>/gwtg/webnotifier</url-pattern>
 	</servlet-mapping>
 
 

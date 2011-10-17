@@ -13,7 +13,6 @@
 
 .element_menu {
 	background-color: rgb(255, 255, 255); /*rgb(190, 240, 140);*/
-	background-image: url("images/motif.png");
 	background-repeat: repeat-x;
 	border: 2px none rgb(160, 200, 120);
 	margin-bottom: 10px;
@@ -72,11 +71,15 @@
 	margin: 0px;
 	color: rgb(50, 60, 40);
 }
-
-.icon_list {
-	border: none;
-	height: 20px;
-	width: 20px;
+.notifier{
+	display: inline;	
+	
+}
+.notifier div{
+	display: inline;
+}
+.notifier img{
+	display: inline;
 }
 
 #breizhFlag {

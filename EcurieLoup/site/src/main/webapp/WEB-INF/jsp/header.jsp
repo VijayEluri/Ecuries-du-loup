@@ -119,6 +119,8 @@
     <!-- If you add any GWT meta tags, they must   -->
     <!-- be added before this line.                -->
     <!--                                           -->
+    <script type="text/javascript" language="javascript" src="${ctx}/gwtg/gwtg.nocache.js"></script>
+	
     <script type="text/javascript" language="javascript" src="${ctx}/gwt/secretflag/secretflag.nocache.js"></script>
 	
 	

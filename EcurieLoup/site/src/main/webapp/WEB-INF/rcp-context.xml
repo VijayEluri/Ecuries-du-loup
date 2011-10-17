@@ -14,15 +14,16 @@
 				
 				<!-- GWT-->
 				<prop key="/gwt/diaporma/diaporama">pictureLoaderImplRemoteService</prop>
-				<prop key="/gwt/secretflag/secretFlag">secretFlagServiceRemoteService</prop>			
+				<prop key="/gwt/secretflag/secretFlag">secretFlagServiceRemoteService</prop>
+				<prop key="/gwtg/webnotifier">webNotifierServiceRemoteService</prop>			
 			</props>
 		</property>
-
 		
 	</bean>
 
 	
 	<!-- -GWT  -->
+	
 		<bean id="pictureLoaderImplRemoteService" class="org.gwtwidgets.server.spring.GWTRPCServiceExporter">
 	<property name="service" ref="pictureLoaderImpl" />
 	<property name="serviceInterfaces" value="fr.ecuries_du_loup.diaporama.client.engine.PictureLoader"/>

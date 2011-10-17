@@ -27,22 +27,17 @@
 		<h3><fmt:message key="menu.membre.title"/></h3>
 		<ul>
 			<li>
-				
-				<c:if test="${ hasNouveauMessageForum}">
-					<a class="lumiereLien" href="${ctx}/forum/affichage.do?nonLu">
-						<img alt="*" src="${ctx}/images/forum/nonLu.png" class="icon_list" title="<fmt:message key="menu.membre.forum.new_message"><fmt:param>${ nombreNouveauxMessages}</fmt:param></fmt:message>"/>
-					</a>
-				</c:if>
+				<security:authorize ifAllGranted="ROLE_AUTHENTIFIER">
+					<div id="forumNotifier" class="notifier"></div>		
+				</security:authorize>		
 				<a href="${ctx}/forum/affichage.do">
 					<fmt:message key="menu.membre.forum"/>
 				</a>
 			</li>
 			<li>
-				<c:if test="${ hasNouvellesPhotos}">
-					<a class="lumiereLien" href="${ctx}/albumPhoto/affichage.do?nonVu">
-						<img alt="*" src="${ctx}/images/forum/nonLu.png" class="icon_list" title="<fmt:message key="menu.membre.album_photo.new_photos"><fmt:param>${ nombreNouvellesPhotos}</fmt:param></fmt:message>"/>
-					</a>
-				</c:if>
+				<security:authorize ifAllGranted="ROLE_AUTHENTIFIER">
+					<div id="mediaNotifier" class="notifier"></div>
+				</security:authorize>
 				<a href="${ctx}/albumPhoto/affichage.do">
 					<fmt:message key="menu.membre.album_photo"/>
 				</a>
