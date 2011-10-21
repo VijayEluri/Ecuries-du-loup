@@ -121,8 +121,6 @@
     <!--                                           -->
     <script type="text/javascript" language="javascript" src="${ctx}/gwtg/gwtg.nocache.js"></script>
 	
-    <script type="text/javascript" language="javascript" src="${ctx}/gwt/secretflag/secretflag.nocache.js"></script>
-	
 	
 	<!-- lien css -->
 		<link rel="stylesheet" media="screen" type="text/css" title="Ecuries du loup" href="${ctx}/css/general.css" />

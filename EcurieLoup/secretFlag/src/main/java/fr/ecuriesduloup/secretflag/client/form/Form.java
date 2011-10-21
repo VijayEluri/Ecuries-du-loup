@@ -7,6 +7,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import fr.ecuriesduloup.secretflag.client.CaseNotManageException;
+import fr.ecuriesduloup.secretflag.client.CssResources;
 import fr.ecuriesduloup.secretflag.client.form.data.Data;
 import fr.ecuriesduloup.secretflag.client.form.data.MultipleData;
 import fr.ecuriesduloup.secretflag.client.form.data.SimpleData;
@@ -34,7 +35,7 @@ public class Form extends Composite{
 		}else{
 			throw new CaseNotManageException();
 		}
-
+		field.addStyleName(CssResources.R.SecretFlag().field());
 		this.fields.add(field);
 		this.verticalPanel.add(field);
 	}

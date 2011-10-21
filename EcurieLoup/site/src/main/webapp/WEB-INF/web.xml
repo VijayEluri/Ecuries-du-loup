@@ -84,11 +84,11 @@
 
 	<servlet-mapping>
 		<servlet-name>rcp</servlet-name>
-		<url-pattern>/gwt/diaporma/diaporama</url-pattern>
+		<url-pattern>/gwtg/diaporama</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>rcp</servlet-name>
-		<url-pattern>/gwt/secretflag/secretFlag</url-pattern>
+		<url-pattern>/gwtg/secretFlag</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ws</servlet-name>

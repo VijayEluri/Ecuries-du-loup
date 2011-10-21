@@ -11,6 +11,9 @@
 
   <!-- Other module inherits   -->                                   
     <inherits name='fr.ecuriesduloup.webnotifier.Notifier'/>  
+    <inherits name='fr.ecuriesduloup.secretflag.SecretFlag'/>  
+    <inherits name='fr.ecuries_du_loup.diaporama.Diaporma'/>  
+    
   <!-- Specify the app entry point class.                         -->
   <entry-point class='fr.ecuriesduloup.gwt.client.Gwt'/>
 

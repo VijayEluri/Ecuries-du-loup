@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import fr.ecuriesduloup.secretflag.client.CssResources;
 import fr.ecuriesduloup.secretflag.client.form.data.Data;
 
 public class FormPopup extends PopupPanel {
@@ -33,7 +34,7 @@ public class FormPopup extends PopupPanel {
 		this.addActionPanel();
 		this.add(this.verticalPanel);
 		this.setWidth("400px");
-		this.addStyleName("secretFlag-popup");
+		this.addStyleName(CssResources.R.SecretFlag().field());
 		
 		this.centerPopup();
 	}

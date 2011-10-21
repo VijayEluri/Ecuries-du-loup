@@ -13,8 +13,8 @@
 			<props>
 				
 				<!-- GWT-->
-				<prop key="/gwt/diaporma/diaporama">pictureLoaderImplRemoteService</prop>
-				<prop key="/gwt/secretflag/secretFlag">secretFlagServiceRemoteService</prop>
+				<prop key="/gwtg/diaporama">pictureLoaderImplRemoteService</prop>
+				<prop key="/gwtg/secretFlag">secretFlagServiceRemoteService</prop>
 				<prop key="/gwtg/webnotifier">webNotifierServiceRemoteService</prop>			
 			</props>
 		</property>

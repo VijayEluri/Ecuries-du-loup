@@ -1,9 +1,8 @@
 package fr.ecuries_du_loup.diaporama.client;
 
-import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.Composite;
 
 import fr.ecuries_du_loup.diaporama.client.control.DiaporamaControlImpl;
 import fr.ecuries_du_loup.diaporama.client.engine.PictureLoader;
@@ -18,7 +17,7 @@ import fr.ecuries_du_loup.diaporama.client.engine.navigator.SequentialNavigator;
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class Diaporma implements EntryPoint {
+public class Diaporama extends Composite {
 	
 
 	
@@ -26,7 +25,7 @@ public class Diaporma implements EntryPoint {
 	/**
 	 * This is the entry point method.
 	 */
-	public void onModuleLoad() {
+	public Diaporama() {
 		
 		
 		Navigator navigatorRandom = new RandomNavigator();
@@ -62,6 +61,6 @@ public class Diaporma implements EntryPoint {
 		
 		
 		diaporamaPanel.setStyleName("diaporama");
-		RootPanel.get("nameFieldContainer").add(diaporamaPanel);
+		this.initWidget(diaporamaPanel);
 	}
 }
