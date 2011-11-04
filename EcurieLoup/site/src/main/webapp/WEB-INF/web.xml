@@ -21,7 +21,6 @@
 			classpath:/applicationContext-edlCode.xml
 			classpath:/applicationContext-SendMemo.xml
 			classpath:/applicationContext-SendUser.xml
-			classpath:/applicationContext-photoBackup.xml
 			classpath:/applicationContext-options.xml
 			classpath:/applicationContext-secretFlag.xml
 			classpath:/applicationContext-webnotifier.xml

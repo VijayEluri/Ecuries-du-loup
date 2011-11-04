@@ -59,7 +59,6 @@
 		<mapping resource="donnees/smiley/CategorieSmiley.hbm.xml" />
 		<mapping resource="donnees/smiley/Smiley.hbm.xml" />
 
-		<mapping resource="fr/ecuriesduloup/save/photo/data/PhotoBackup.hbm.xml" />
 		<mapping resource="sauvegarde/smiley/donnees/SauvegardeSmiley.hbm.xml" />
 
 		<mapping

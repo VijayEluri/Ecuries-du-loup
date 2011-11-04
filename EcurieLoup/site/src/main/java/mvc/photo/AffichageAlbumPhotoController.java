@@ -82,6 +82,7 @@ public class AffichageAlbumPhotoController {
 
 		Map<String, Object> model = new HashMap<String, Object>();
 		Album album = new Album();
+		album.setId(0);
 		album.setTitre("non vu");
 		model.put("album", album);
 

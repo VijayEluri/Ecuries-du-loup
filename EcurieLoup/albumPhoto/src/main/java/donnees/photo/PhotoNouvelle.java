@@ -6,8 +6,6 @@ public class PhotoNouvelle {
 	private byte[] fichier;
 	private long album;
 	
-	private byte[] zip;
-	
 	public long getId() {
 		return id;
 	}
@@ -32,13 +30,5 @@ public class PhotoNouvelle {
 	}
 	public void setAlbum(long album) {
 		this.album = album;
-	}
-	
-	public byte[] getZip() {
-		return zip;
-	}
-
-	public void setZip(byte[] zip) {
-		this.zip = zip;
 	}
 }

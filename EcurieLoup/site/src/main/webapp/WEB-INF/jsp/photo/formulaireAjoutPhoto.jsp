@@ -24,31 +24,19 @@
 					<c:out value="${status.value}" />
 				</div>
 			</spring:bind>
-			<div class="type_ajout">
-				<input type="radio" name="typeAjout" value="simple" id="simple" checked="checked" onchange="changeModeAjoutPhoto()" />
-				<label for="simple"><fmt:message key="album_photo.photo.form.simple"/></label>
-				
-				<input type="radio" name="typeAjout" value="zip" id="zip" onchange="changeModeAjoutPhoto()" />
-				<label for="zip"><fmt:message key="album_photo.photo.form.zip"/></label>
-				
-				<input type="radio" name="typeAjout" value="dad" id="dad" onchange="changeModeAjoutPhoto()" /> 
-				<label for="dad">
-					<fmt:message key="album_photo.photo.form.dad"/>
-				</label><br />
-			</div>
 			
 			<div id="ajout_album_formulaire">
-				<div id="formulairePhotoSimple" class="ajout_album_parti_selected">
+				<div id="formulairePhotoSimple" class="ajout_album_parti_non_selected">
 					<%@ include file="./formulairePhotoSimple.jsp"%>
 				</div>
-				<div id="formulairePhotoZip" class="ajout_album_parti_non_selected">
-					<%@ include file="./formulairePhotoZip.jsp"%>
-				</div>
-				<div id="formulaireDaD" class="ajout_album_parti_non_selected">
+				<div id="formulaireDaD" class="ajout_album_parti_selected">
 					<%@ include file="./formulairePhotoDaD.jsp"%>
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript">
+			selectPossibleForm();
+		</script>
 	</div>
 </div>
 

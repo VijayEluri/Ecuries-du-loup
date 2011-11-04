@@ -11,6 +11,14 @@ function removeMessageConfirmToExitInUpload(){
 	
 }
 
+function selectPossibleForm(){
+	if(!Window.File){
+		document.getElementById("formulairePhotoSimple").className="ajout_album_parti_selected";
+		document.getElementById("formulaireDaD").className="ajout_album_parti_non_selected";
+	
+	}
+}
+
 function getUrlParam(name){
 	var result = null;
 
@@ -37,42 +45,17 @@ function getSiteLocation(){
 	return ctx;// window.location.split("albumPhoto")[0];
 }
 
-
-function changeModeAjout(){
-	var simple = document.getElementById("simple").checked;
-	var zip = document.getElementById("zip").checked;
-	if(simple){
-		document.getElementById("formulaireAlbumSimple").className="ajout_album_parti_selected";
-		document.getElementById("formulaireAlbumZip").className="ajout_album_parti_non_selected";
-		
-		
-	}else if(zip){
-		document.getElementById("formulaireAlbumSimple").className="ajout_album_parti_non_selected";
-		document.getElementById("formulaireAlbumZip").className="ajout_album_parti_selected";
-	}
-	
-	
-}
-
 function changeModeAjoutPhoto(){
 	var simple = document.getElementById("simple").checked;
-	var zip = document.getElementById("zip").checked;
 	var dad = document.getElementById("dad").checked;
 	
 	if(simple){
 		
 		document.getElementById("formulairePhotoSimple").className="ajout_album_parti_selected";
-		document.getElementById("formulairePhotoZip").className="ajout_album_parti_non_selected";
-		document.getElementById("formulaireDaD").className="ajout_album_parti_non_selected";
-		
-	}else if(zip){
-		document.getElementById("formulairePhotoSimple").className="ajout_album_parti_non_selected";
-		document.getElementById("formulairePhotoZip").className="ajout_album_parti_selected";
 		document.getElementById("formulaireDaD").className="ajout_album_parti_non_selected";
 		
 	}else if(dad){
 		document.getElementById("formulairePhotoSimple").className="ajout_album_parti_non_selected";
-		document.getElementById("formulairePhotoZip").className="ajout_album_parti_non_selected";
 		document.getElementById("formulaireDaD").className="ajout_album_parti_selected";
 	}
 }
@@ -89,7 +72,7 @@ var XHR2Uploader = {
 			//on boucle sur la collection FileList pour récupéré le nom et la taille de chaque fichier
 			for(var i = 0; i < aFiles.length; i++){
 				oFile = aFiles[i];//reférence locale
-				if(oFile.type.match('image.*')){
+				if(oFile.type.match('image.*')||oFile.type.match('video.*')){
 					//ajoute à la liste des fichiers à traité
 					XHR2Uploader.aQueue.push(oFile);
 					//liste des fichier mis à jour dans l'interface
@@ -127,11 +110,18 @@ var XHR2Uploader = {
 			addMessageConfirmToExitInUpload();
 			var path = getSiteLocation();
 			var album = getUrlParam("album");
-			XHR2Uploader.oXHR.open("POST", path+"/ws/albumPhoto/photo/"+album);
 			XHR2Uploader.oCurrentFile = XHR2Uploader.aQueue.shift();
+			
+			var currentFile = XHR2Uploader.oCurrentFile;
+			if(currentFile.type.match('image.*')){
+				XHR2Uploader.oXHR.open("POST", path+"/ws/albumPhoto/photo/"+album);
+			}else if(currentFile.type.match('video.*')){
+				XHR2Uploader.oXHR.open("POST", path+"/ws/albumPhoto/video/"+album);
+			}
+			
 			//on construit l'équivalent du formulaire HTML
 			var oFormData = new FormData();
-			oFormData.append('file', XHR2Uploader.oCurrentFile);
+			oFormData.append('file', currentFile);
 			XHR2Uploader.oXHR.send(oFormData);		
 		},
 		onUploading:function(e){

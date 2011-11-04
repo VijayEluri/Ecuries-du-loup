@@ -46,7 +46,7 @@ public class SecretFlag extends Image{
 
 								@Override
 								public void onFailure(Throwable caught) {
-									Window.alert("Internal error : "+caught.getMessage());									
+									//Window.alert("Internal error : "+caught.getMessage());									
 								}
 
 								@Override
@@ -63,7 +63,7 @@ public class SecretFlag extends Image{
 			
 			@Override
 			public void onFailure(Throwable arg0) {
-				Window.alert("Internal error : "+arg0.getMessage());
+			//	Window.alert("Internal error : "+arg0.getMessage());
 				
 			}
 		};

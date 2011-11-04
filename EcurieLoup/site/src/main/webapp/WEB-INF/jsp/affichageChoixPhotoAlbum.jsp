@@ -2,7 +2,7 @@
 	<c:forEach var="album" items="${listesAlbums}">
 		<li class="titre_album">${album.titre }
 			<ul class="contenu_album">
-				 <c:forEach var="photo" items="${album.photos}">
+				 <c:forEach var="photo" items="${album.medias}">
 				 	<c:choose>
 				 		<c:when test="${photo.id==valeurChamps}">
 				 			<img id="selected" src="${ctx}/images/albumPhoto/miniatures/${photo.id }" alt="${photo.id }" onclick="selectionnePhoto(${photo.id })"/>

@@ -82,74 +82,23 @@ public class FormulaireAlbumAlbumPhotoController{
 		if(result.hasErrors()){
 			return this.showForm();
 		}
-		
-		Map<String, Object> model = new HashMap<String, Object>();
-		
-		if (albumLight.getTitre() != null) {
-			if (this.estUneModificationAlbum(albumLight)) {
-				Album album = this.mediaManager.recupererAlbum(albumLight.getId());
-				album.setTitre(albumLight.getTitre());
+		Album album = null;
+		if (this.estUneModificationAlbum(albumLight)) {
+			album = this.mediaManager.recupererAlbum(albumLight.getId());
+			album.setTitre(albumLight.getTitre());
 
-				this.mediaManager.modifierAlbum(album);
-			} else {
-				Album album = new Album();
-				album.setTitre(albumLight.getTitre());
-				this.mediaManager.creerAlbum(album);
-			}
+			this.mediaManager.modifierAlbum(album);
 		} else {
-
-			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-			MultipartFile fichierZip = multipartRequest.getFile("zip");
-
-			if (fichierZip.isEmpty()) {
-				result.rejectValue("zip", "", "Pas de zip");
-				return this.showForm();
-			}
-			if(!this.isSupportedCompressedFile(fichierZip)){
-				result.rejectValue("zip", "", "Fichier compresser non supporté.");
-				return this.showForm();
-			}
-
-			String chemin = fichierZip.getOriginalFilename() + "_tmpZip";
-			chemin += "_" + new Date().getTime();
-			chemin += (int) (Math.random() * 10000);
-			
-			final File temporaire = new File(chemin + "temporaire.zip");
-			try {
-				fichierZip.transferTo(temporaire);
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			final User posteur = this.utilisateurManager.getUtilisateurCourant();
-
-			final String pathPhoto = request.getSession().getServletContext()
-					.getRealPath("/");
-			Executors.newCachedThreadPool().execute(new Runnable() {
-				
-				@Override
-				public void run() {
-					mediaManager.creerAlbum(temporaire, posteur, pathPhoto);
-					temporaire.delete();
-				}
-			});
-			model.put("message", "album_photo.photo.zip.notification_message.add_zip_album");
+			album = new Album();
+			album.setTitre(albumLight.getTitre());
+			this.mediaManager.creerAlbum(album);
 		}
-		//TODO : ajouté le message !!
-		return "redirect:affichage.do";
+		
+		return "redirect:affichage.do?idAlbum="+album.getId();
 	}
 
 	private boolean estUneModificationAlbum(AlbumLight album) {
 		return album.getId() != 0;
-	}
-	
-	private boolean isSupportedCompressedFile(MultipartFile compressezFile){
-		String extention = compressezFile.getContentType();
-		
-		return extention.equals("application/zip");
 	}
 
 }

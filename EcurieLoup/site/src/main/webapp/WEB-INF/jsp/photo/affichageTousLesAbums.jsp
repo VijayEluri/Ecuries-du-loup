@@ -21,6 +21,12 @@
 				<a href="javascript:openVisionneuse();">
 					<img alt="visionneuse" src="${ctx}/images/icone_visionneuse.gif" alt="<fmt:message key="album_photo.album.visionneuse.alt.all"/>" title="<fmt:message key="album_photo.album.visionneuse.title.all"/>" />
 				</a>
+				<security:authorize ifAllGranted="ROLE_ADMINISTRATEUR_PHOTO">
+					<a href="${ctx}/albumPhoto/formulaireAlbum.do">
+						<img alt="add" src="${ctx}/images/add.png" alt="<fmt:message key="album_photo.album.add" />" title="<fmt:message key="album_photo.album.add"/>" />
+					
+					</a>					
+				</security:authorize>
 			</h1>
 			
 			<c:if test="${!empty message }">
@@ -28,14 +34,6 @@
 					<fmt:message key="${message}"/>
 				</div>
 			</c:if>
-			
-			<security:authorize ifAllGranted="ROLE_ADMINISTRATEUR_PHOTO">
-				<div class="lien">
-					<a href="${ctx}/albumPhoto/formulaireAlbum.do">
-						<fmt:message key="album_photo.album.add"/>
-					</a>
-				</div>
-			</security:authorize>
 			
 			<c:if test="${empty listeAlbums}">
 				<p><fmt:message key="album_photo.album.empty_list"/></p>

@@ -80,10 +80,7 @@
 		</property>
 		
 		<property name="pathPhotoInProjet">
-			<value>/images/albumPhoto/</value>
-		</property>
-		<property name="photoUtil">
-			<ref bean="photoUtil" />
+			<value>/images/albumPhotoTmp/</value>
 		</property>
 		<property name="utilisateurManager">
 			<ref bean="utilisateurManager" />
@@ -91,13 +88,6 @@
 	</bean>
 	
 	<bean id="mediaReflector" class="service.photo.MediaManagerReflector">
-	</bean>
-	<bean name="photoUtil" class="util.PhotoUtilImpl">
-		<property name="miniatureUtil">
-			<ref bean="miniatureUtil" />
-		</property>
-	</bean>
-	<bean name="miniatureUtil" class="util.MiniatureUtilImpl">
 	</bean>
 
 	<bean name="longToPhotoEditor" class="album_photo.editor.LongToPhotoEditor">

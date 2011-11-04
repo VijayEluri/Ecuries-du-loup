@@ -71,14 +71,7 @@ public class FormulaireNouvellePhotoAlbumPhotoController{
 	
 	@RequestMapping(value= "/albumPhoto/formulaireNouvellePhoto.do", method=RequestMethod.POST)
 	public String onSubmit(@ModelAttribute("photo") PhotoNouvelle nouvellePhoto, BindingResult result, HttpServletRequest request){
-		if (nouvellePhoto.getFichier() != null) {
-
-			return this.ajoutPhotoSimple(nouvellePhoto, result, request);
-		} else {
-			return this.ajoutPhotoZip(nouvellePhoto, result, request);
-		}
-
-
+		return this.ajoutPhotoSimple(nouvellePhoto, result, request);
 	}
 
 	private String ajoutPhotoSimple(PhotoNouvelle nouvellePhoto, BindingResult result, HttpServletRequest request){
@@ -87,6 +80,11 @@ public class FormulaireNouvellePhotoAlbumPhotoController{
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 
 		MultipartFile fichier = multipartRequest.getFile("fichier");
+		String[] s = fichier.getName().split("\\.");
+		String extention = "";
+		if(s.length > 1){	
+			extention = s[s.length -1];
+		}
 
 		photo = this.construirePhoto(nouvellePhoto);
 		photo.setTypeAdding("form");
@@ -105,6 +103,7 @@ public class FormulaireNouvellePhotoAlbumPhotoController{
 		chemin += this.utilisateurManager.getUtilisateurCourant().getLogin();
 		chemin += "_" + new Date().getTime();
 		chemin += (int) (Math.random() * 10000);
+		chemin +="."+extention;
 
 		File temporaire = new File(chemin);
 		try {
@@ -126,7 +125,7 @@ public class FormulaireNouvellePhotoAlbumPhotoController{
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("message", "album_photo.photo.zip.notification_message.add_photo");
 		//TODO : remettre le message
-		return "redirect:affichage.do?idAlbum="+ nouvellePhoto.getAlbum();
+		return "redirect:affichagePhoto.do?idPhoto="+ photo.getId();
 	}
 
 	private boolean isSupportedPicture(MultipartFile compressezFile){
@@ -147,66 +146,5 @@ public class FormulaireNouvellePhotoAlbumPhotoController{
 		photo.setDatePostage(new Date().getTime());
 
 		return photo;
-	}
-
-	private String ajoutPhotoZip(PhotoNouvelle nouvellePhoto, BindingResult result, HttpServletRequest request){
-
-	
-		final Media photo = this.construirePhoto(nouvellePhoto);
-		photo.setTypeAdding("zip");
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-		MultipartFile fichierZip = multipartRequest.getFile("zip");
-
-		if (fichierZip.isEmpty()) {
-			result.rejectValue("zip", "", "Pas de zip");
-			return this.showForm();
-		}
-		if(!this.isSupportedCompressedFile(fichierZip)){
-			result.rejectValue("zip", "", "Fichier compresser non supporté.");
-			return this.showForm();
-		}
-
-		String chemin = fichierZip.getOriginalFilename() + "_tmpZip";
-		chemin += "_" + new Date().getTime();
-		chemin += (int) (Math.random() * 10000);
-
-		final File temporaire = new File(chemin + "temporaire.zip");
-		try {
-			fichierZip.transferTo(temporaire);
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		final User posteur = this.utilisateurManager.getUtilisateurCourant();
-
-		final String pathServeur = request.getSession().getServletContext()
-		.getRealPath("/");
-
-		Executors.newCachedThreadPool().execute(new Runnable() {
-
-			@Override
-			public void run() {
-				mediaManager.creerZipMedia(temporaire, photo.getAlbum(),posteur, pathServeur);
-				temporaire.delete();
-			}
-		});
-
-
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("message", "album_photo.photo.zip.notification_message.add_zip_photo");
-		//TODO : remettre le message
-		return "redirect:affichage.do?idAlbum="+ nouvellePhoto.getAlbum();
-
-
-	}
-
-	private boolean isSupportedCompressedFile(MultipartFile compressezFile){
-		String extention = compressezFile.getContentType();
-
-		return extention.equals("application/zip");
 	}
 }

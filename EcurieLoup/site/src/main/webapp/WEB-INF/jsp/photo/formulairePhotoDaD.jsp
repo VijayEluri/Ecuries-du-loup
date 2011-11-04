@@ -1,12 +1,12 @@
 <div id="drop-area" class="drop-zone">
-	Posez vos photos ici!
+	<fmt:message key="album_photo.photo.dad.message" />
 </div>
 
 <table id="list_files">
 	<tr>
-		<th>Fichier</th>
-		<th>Taille</th>
-		<th>Status</th>
+		<th><fmt:message key="album_photo.photo.dad.list.file_name" /></th>
+		<th><fmt:message key="album_photo.photo.dad.list.size" /></th>
+		<th><fmt:message key="album_photo.photo.dad.list.state" /></th>
 	</tr>
 </table>
 

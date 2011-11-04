@@ -12,34 +12,34 @@
 <%@ include file="../menu.jsp"%>
 
 
-<fmt:setBundle basename="i18n.album_photo"/>
+<fmt:setBundle basename="i18n.album_photo" />
 
 <div id="corps">
 	<div class="forum">
 		<div class="formulaireAlbum">
-			<h1><fmt:message key="album_photo.album.form.title"/></h1>
-			
-			<div class="type_ajout">
-			
-				<input type="radio" name="typeAjout" value="simple" id="simple" checked="checked" onchange="changeModeAjout()" />
-				<label for="simple">
-					<fmt:message key="album_photo.photo.form.simple"/>
-				</label> 
-				
-				<input type="radio" name="typeAjout" value="zip" id="zip" onchange="changeModeAjout()" /> 
-				<label for="zip">
-					<fmt:message key="album_photo.photo.form.zip"/>
-				</label>
-				
-				<br />
-			</div>
-			
+			<h1>
+				<fmt:message key="album_photo.album.form.title" />
+			</h1>
 			<div id="ajout_album_formulaire">
 				<div id="formulaireAlbumSimple" class="ajout_album_parti_selected">
-					<%@ include file="./formulaireAlbumSimple.jsp"%>
-				</div>
-				<div id="formulaireAlbumZip" class="ajout_album_parti_non_selected">
-					<%@ include file="./formulaireAlbumZip.jsp"%>
+					<form method="post">
+						<spring:bind path="album">
+							<div class="error">
+								<c:out value="${status.value}" />
+								<c:out value="${status.errorMessage}" />
+							</div>
+						</spring:bind>
+
+						<spring:bind path="album.titre">
+							<fmt:message key="album_photo.album.simple.form.title" />
+							<input type="text" name="titre"	value="<c:out value="${album.titre}"/>" placeholder="Mon tite d'album" size="15" maxlength="50" />
+							&#160;<span class="error"> <c:out value="${status.errorMessage}" /></span>
+						</spring:bind>
+						<br />
+						 <br /> 
+						 <input type="submit" value="<fmt:message key="album_photo.album.simple.form.submit"/>" />
+
+					</form>
 				</div>
 			</div>
 		</div>

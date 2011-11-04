@@ -19,16 +19,21 @@
 	<div class="albumPhoto">
 		<div class="visualisationAlbumPhoto">
 			<h1><fmt:message key="album_photo.album.title" />${album.titre} 
-				<a href="javascript:openVisionneuseAlbum(${album.id});">
-					<img alt="visionneuse" src="${ctx}/images/icone_visionneuse.gif" alt="<fmt:message key="album_photo.album.visionneuse.alt" />" title="<fmt:message key="album_photo.album.visionneuse.title"/>"/>
-				</a>
-				<security:authorize ifAllGranted="ROLE_ADMINISTRATEUR_PHOTO">
-					<a href="${ctx}/albumPhoto/formulaireAlbum.do?album=${album.id}">
-						<img src="${ctx}/images/edit.png" alt="<fmt:message key="album_photo.album.edit.alt" />" title="<fmt:message key="album_photo.album.edit.title" />" />
+				<c:if test="${album.id != 0}">
+					<a href="javascript:openVisionneuseAlbum(${album.id});">
+						<img alt="visionneuse" src="${ctx}/images/icone_visionneuse.gif" alt="<fmt:message key="album_photo.album.visionneuse.alt" />" title="<fmt:message key="album_photo.album.visionneuse.title"/>"/>
 					</a>
-					<a href="${ctx}/albumPhoto/affichage.do?deleteAlbum=${album.id}">
-					<img src="${ctx}/images/delete.png" alt="<fmt:message key="album_photo.album.delete.alt" />" title="<fmt:message key="album_photo.album.delete.title" />" /></a>
-				</security:authorize>
+					<security:authorize ifAllGranted="ROLE_ADMINISTRATEUR_PHOTO">
+						<a href="${ctx}/albumPhoto/formulaireNouvellePhoto.do?album=${album.id}">
+							<img alt="add" src="${ctx}/images/add.png" alt="<fmt:message key="yalbum_photo.album.add_photo" />" title="<fmt:message key="album_photo.album.add_photo"/>" />
+						</a>
+						<a href="${ctx}/albumPhoto/formulaireAlbum.do?album=${album.id}">
+							<img src="${ctx}/images/edit.png" alt="<fmt:message key="album_photo.album.edit.alt" />" title="<fmt:message key="album_photo.album.edit.title" />" />
+						</a>
+						<a href="${ctx}/albumPhoto/affichage.do?deleteAlbum=${album.id}">
+						<img src="${ctx}/images/delete.png" alt="<fmt:message key="album_photo.album.delete.alt" />" title="<fmt:message key="album_photo.album.delete.title" />" /></a>
+					</security:authorize>
+				</c:if>
 			</h1>
 			
 			<c:if test="${!empty message }">
@@ -36,16 +41,6 @@
 					<fmt:message key="${message}"/>
 				</div>
 			</c:if>
-			
-			
-
-			<security:authorize ifAllGranted="ROLE_ADMINISTRATEUR_PHOTO">
-				<div class="lien">
-					<a href="${ctx}/albumPhoto/formulaireNouvellePhoto.do?album=${album.id}">
-						<fmt:message key="album_photo.album.add_photo" />
-					</a>
-				</div>
-			</security:authorize>
 			
 			<c:if test="${empty listePhoto}">
 				<p><fmt:message key="album_photo.album.empty_list" /></p>

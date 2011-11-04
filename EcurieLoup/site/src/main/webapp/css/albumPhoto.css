@@ -119,6 +119,7 @@
 	float: left;
 	border: rgb(0, 128, 0) solid 2px;
 	width: 20%;
+	height: 140px;
 	margin: 2%;
 	background-color: rgb(0, 128, 0);
 	text-align: center;
@@ -290,4 +291,8 @@
 	margin-top: 25px;
 	border-spacing: 0px;
 	text-align: center;
+}
+
+#list_files progress{
+	width: 100%
 }

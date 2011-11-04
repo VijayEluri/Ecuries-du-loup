@@ -32,8 +32,6 @@
 		<module>memo</module>
 		<module>email</module>
 		<module>util</module>
-		<module>sauvegardePhoto</module>
-		<module>batchPhoto</module>
 		<module>diaporama</module>
 		<module>EcurieLoupWS</module>
 	 	<module>secretFlag</module>

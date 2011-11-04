@@ -103,10 +103,17 @@ public class AlbumPhotoController {
 	}
 	
 	private File createTemp(MultipartFile multipartFile, User posteur){
+		String[] s = multipartFile.getOriginalFilename().split("\\.");
+		String extention = "";
+		if(s.length > 1){	
+			extention = s[s.length -1];
+		}
+		
 		String chemin = "tmp";
 		chemin += posteur.getLogin();
 		chemin += "_" + new Date().getTime();
 		chemin += new Random().nextInt(10000);
+		chemin += "."+extention;
 
 		File temporaire = new File(chemin);
 		try {

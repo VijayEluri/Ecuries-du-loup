@@ -1,6 +1,5 @@
 package fr.ecuriesduloup.webnotifier.client.ui.news;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class NotifierAsyncCallback implements AsyncCallback<Integer> {

@@ -59,9 +59,6 @@
         <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/secretFlag/secretFlag">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/sauvegardePhoto/sauvegardePhoto">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <property name="context-root" value="site"/>
         <property name="java-output-path" value="/site/target/classes"/>
     </wb-module>

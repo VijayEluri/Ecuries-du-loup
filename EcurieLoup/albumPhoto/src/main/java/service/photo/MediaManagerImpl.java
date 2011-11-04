@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +15,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import service.UtilisateurManager;
-import util.PhotoUtil;
 import album_photo.CommentaireDAO;
 import album_photo.MediaDAO;
 import album_photo.TagDAO;
@@ -32,7 +32,6 @@ public class MediaManagerImpl implements MediaManager {
 	private TagDAO tagDAO;
 
 	private String pathPhotoInProjet;
-	private PhotoUtil photoUtil;
 
 
 	private UtilisateurManager utilisateurManager;
@@ -81,11 +80,6 @@ public class MediaManagerImpl implements MediaManager {
 
 
 
-	public void setPhotoUtil(PhotoUtil photoUtil) {
-		this.photoUtil = photoUtil;
-	}
-
-
 
 
 	public void setUtilisateurManager(UtilisateurManager utilisateurManager) {
@@ -102,10 +96,48 @@ public class MediaManagerImpl implements MediaManager {
 	@Override
 	public void creerMedia(Media media, File fichierMedia, String pathServeur) {
 		this.mediaDAO.add(media);
-		if(media.getType() == 0){
-			this.photoUtil.creerFicherSurDisquePhoto(pathServeur+this.pathPhotoInProjet, ""+media.getId(), fichierMedia);
-		}else if(media.getType() == 1){
-			this.photoUtil.creerFicherSurDisqueVideo(pathServeur+this.pathPhotoInProjet, ""+media.getId()+".ogv", fichierMedia);
+		String[] s = fichierMedia.getName().split("\\.");
+		String extention = "";
+		if(s.length > 1){	
+			extention = s[s.length -1];
+		}
+		String location = pathServeur+this.pathPhotoInProjet;
+		
+		String name = media.getId()+"."+extention;
+		
+		
+		File ancienFichier = new File(location+name);
+		if(ancienFichier.exists()){
+			ancienFichier.delete();
+
+		}
+		this.copierFichier(fichierMedia.getAbsolutePath(),  location+name);
+	}
+	
+	private void copierFichier(String entree, String sortie){
+		FileChannel in = null; // canal d'entrée
+		FileChannel out = null; // canal de sortie
+
+		try {
+			// Init
+			in = new FileInputStream(entree).getChannel();
+			out = new FileOutputStream(sortie).getChannel();
+
+			// Copie depuis le in vers le out
+			in.transferTo(0, in.size(), out);
+		} catch (Exception e) {
+			e.printStackTrace(); // n'importe quelle exception
+		} finally { // finalement on ferme
+			if(in != null) {
+				try {
+					in.close();
+				} catch (IOException e) {}
+			}
+			if(out != null) {
+				try {
+					out.close();
+				} catch (IOException e) {}
+			}
 		}
 	}
 
@@ -139,13 +171,7 @@ public class MediaManagerImpl implements MediaManager {
 
 		for(Commentaire commentaire : media.getCommentaires()){
 			this.supprimerCommentaire(commentaire);
-		}
-		String pathSortiePhoto = pathServeur+this.pathPhotoInProjet+media.getId();
-		this.photoUtil.supprimerFicherSurDisque(pathSortiePhoto);
-		String pathView = pathServeur+this.pathPhotoInProjet+"view/"+media.getId();
-		this.photoUtil.supprimerFicherSurDisque(pathView);
-		String pathThumbnail = pathServeur+this.pathPhotoInProjet+"miniatures/"+media.getId();
-		this.photoUtil.supprimerFicherSurDisque(pathThumbnail);
+		}		
 		this.mediaDAO.remove(media);		
 	}
 

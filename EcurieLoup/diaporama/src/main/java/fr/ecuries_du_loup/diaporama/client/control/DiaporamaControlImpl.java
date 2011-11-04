@@ -50,7 +50,7 @@ public class DiaporamaControlImpl implements DiaporamaControl {
 			
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert(caught.getMessage());
+			//	Window.alert(caught.getMessage());
 				
 			}
 		});
