@@ -18,6 +18,5 @@
   <source path='client'/>
   <source path='shared'/>
   
-  <stylesheet src='../css/diaporama/MonApplication.css'/>
 
 </module>

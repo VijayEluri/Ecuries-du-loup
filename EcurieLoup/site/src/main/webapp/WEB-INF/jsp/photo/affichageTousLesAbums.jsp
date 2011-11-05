@@ -18,9 +18,7 @@
 	<div class="albumPhoto">
 		<div class="visualisationTousLesAlbumsPhoto">
 			<h1><fmt:message key="album_photo.all_album.title"/>
-				<a href="javascript:openVisionneuse();">
-					<img alt="visionneuse" src="${ctx}/images/icone_visionneuse.gif" alt="<fmt:message key="album_photo.album.visionneuse.alt.all"/>" title="<fmt:message key="album_photo.album.visionneuse.title.all"/>" />
-				</a>
+				<div id="nameFieldContainer"></div>		
 				<security:authorize ifAllGranted="ROLE_ADMINISTRATEUR_PHOTO">
 					<a href="${ctx}/albumPhoto/formulaireAlbum.do">
 						<img alt="add" src="${ctx}/images/add.png" alt="<fmt:message key="album_photo.album.add" />" title="<fmt:message key="album_photo.album.add"/>" />

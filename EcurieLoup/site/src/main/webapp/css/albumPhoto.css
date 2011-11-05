@@ -296,3 +296,8 @@
 #list_files progress{
 	width: 100%
 }
+
+#nameFieldContainer{
+	display: inline;
+	cursor: pointer;	
+}

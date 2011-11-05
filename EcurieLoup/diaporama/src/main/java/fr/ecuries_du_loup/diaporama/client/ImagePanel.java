@@ -8,7 +8,7 @@ public class ImagePanel extends SimplePanel {
 	
 	public ImagePanel() {
 		this.image = new Image();
-		this.setStyleName("image");
+		this.setStyleName(DiaporamaResources.INSTANCE.DiaporamaCss().image());
 		this.add(image);
 	}
 	

@@ -1,66 +1,30 @@
 package fr.ecuries_du_loup.diaporama.client;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Window;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Image;
 
-import fr.ecuries_du_loup.diaporama.client.control.DiaporamaControlImpl;
-import fr.ecuries_du_loup.diaporama.client.engine.PictureLoader;
-import fr.ecuries_du_loup.diaporama.client.engine.PictureLoaderAsync;
-import fr.ecuries_du_loup.diaporama.client.engine.Scheduler;
-import fr.ecuries_du_loup.diaporama.client.engine.SchedulerImpl;
-import fr.ecuries_du_loup.diaporama.client.engine.navigator.Navigator;
-import fr.ecuries_du_loup.diaporama.client.engine.navigator.NavigatorSelector;
-import fr.ecuries_du_loup.diaporama.client.engine.navigator.RandomNavigator;
-import fr.ecuries_du_loup.diaporama.client.engine.navigator.SequentialNavigator;
 
-/**
- * Entry point classes define <code>onModuleLoad()</code>.
- */
 public class Diaporama extends Composite {
 	
-
-	
-	private final PictureLoaderAsync pictureLoader = GWT.create(PictureLoader.class);
-	/**
-	 * This is the entry point method.
-	 */
 	public Diaporama() {
+		DiaporamaResources.INSTANCE.DiaporamaCss().ensureInjected();
+		ImageResource imageResource = DiaporamaResources.INSTANCE.diaporamaIcon(); 
+		Image img = new Image(imageResource);
 		
 		
-		Navigator navigatorRandom = new RandomNavigator();
-		Navigator navigatorSequential= new SequentialNavigator();
+		img.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				DiaporamaPopup diapoPopup = new DiaporamaPopup();
+				diapoPopup.show();
+				
+			}
+		});
 		
-		NavigatorSelector navigatorSelector = new NavigatorSelector();
-		navigatorSelector.addNavigator("sequential", navigatorSequential);
-		navigatorSelector.addNavigator("random", navigatorRandom);
-		navigatorSelector.setNavigator("sequential");
-		
-		DiaporamaControlImpl diaporamaControl = new DiaporamaControlImpl(); 
-		
-		diaporamaControl.setNavigator(navigatorSelector);
-		diaporamaControl.setPictureLoader(pictureLoader);
-		
-		DiaporamaPanel diaporamaPanel = new DiaporamaPanel(diaporamaControl);
-		
-		diaporamaControl.setIhm(diaporamaPanel);
-		Scheduler scheduler = new SchedulerImpl(navigatorSelector);
-		
-		((RandomNavigator)navigatorRandom).setDiaporamaControl(diaporamaControl);
-		((SequentialNavigator)navigatorSequential).setDiaporamaControl(diaporamaControl);
-		diaporamaControl.setScheduler(scheduler);
-		
-		//choose pictures
-		String album = Window.Location.getParameter("album");
-		if(album==null){
-			diaporamaControl.loadAllPicture();
-		}else{
-			int numAlbum = Integer.parseInt(album);
-			diaporamaControl.loadAlbum(numAlbum);
-		}
-		
-		
-		diaporamaPanel.setStyleName("diaporama");
-		this.initWidget(diaporamaPanel);
+		this.initWidget(img);
 	}
 }

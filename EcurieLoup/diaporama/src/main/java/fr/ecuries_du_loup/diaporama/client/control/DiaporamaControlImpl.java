@@ -2,7 +2,6 @@ package fr.ecuries_du_loup.diaporama.client.control;
 
 import java.util.List;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import fr.ecuries_du_loup.diaporama.client.engine.DataSourcePictures;
@@ -71,7 +70,7 @@ public class DiaporamaControlImpl implements DiaporamaControl {
 			
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert(caught.getMessage());
+				//Window.alert(caught.getMessage());
 				
 			}
 		});

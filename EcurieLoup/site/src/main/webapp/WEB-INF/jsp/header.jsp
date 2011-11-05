@@ -111,8 +111,6 @@
 		<script language="javascript" src="${ctx}/js/ficheChevaux.js"> </script>
 		<!-- le les profil -->
 		<script language="javascript" src="${ctx}/js/profil.js"> </script>
-		<!-- la visionneuse -->
-		<script language="javascript" src="${ctx}/js/visionneuse.js"> </script>
 		
 		 <!--                                           -->
     <!-- This script loads your compiled module.   -->

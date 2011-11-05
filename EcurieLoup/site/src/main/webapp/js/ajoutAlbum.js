@@ -45,20 +45,6 @@ function getSiteLocation(){
 	return ctx;// window.location.split("albumPhoto")[0];
 }
 
-function changeModeAjoutPhoto(){
-	var simple = document.getElementById("simple").checked;
-	var dad = document.getElementById("dad").checked;
-	
-	if(simple){
-		
-		document.getElementById("formulairePhotoSimple").className="ajout_album_parti_selected";
-		document.getElementById("formulaireDaD").className="ajout_album_parti_non_selected";
-		
-	}else if(dad){
-		document.getElementById("formulairePhotoSimple").className="ajout_album_parti_non_selected";
-		document.getElementById("formulaireDaD").className="ajout_album_parti_selected";
-	}
-}
 var iNbFiles = 0;
 var XHR2Uploader = {
 		aQueue :[], //contien la liste des objects File a envoyer

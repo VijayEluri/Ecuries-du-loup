@@ -18,7 +18,7 @@ public class DiaporamaPanel extends Composite implements Ihm{
 	public DiaporamaPanel(DiaporamaControl diaporamaControl){
 		this.diaporamaControl = diaporamaControl;
 		this.panel = new DockLayoutPanel(Unit.PC);
-		this.panel.setStyleName("panel");
+		this.panel.setStyleName(DiaporamaResources.INSTANCE.DiaporamaCss().panel());
 		
 		this.createImage();
 		this.createTelecommande();

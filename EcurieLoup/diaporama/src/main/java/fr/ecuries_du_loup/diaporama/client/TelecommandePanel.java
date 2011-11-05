@@ -26,7 +26,7 @@ public class TelecommandePanel extends VerticalPanel {
 	
 	public TelecommandePanel(DiaporamaControl diaporamaControl) {
 		this.diaporamaControl = diaporamaControl;
-		this.setStyleName("telecommande");
+		this.setStyleName(DiaporamaResources.INSTANCE.DiaporamaCss().telecommande());
 		
 		this.navigationPanel = new HorizontalPanel();
 		this.add(this.navigationPanel);		
@@ -45,6 +45,7 @@ public class TelecommandePanel extends VerticalPanel {
 
 	private void createPreviousButton(){
 		this.previousButton = new Button("<");
+		this.previousButton.setStyleName(DiaporamaResources.INSTANCE.DiaporamaCss().telecommandeButton());
 		this.navigationPanel.add(previousButton);
 		previousButton.addClickHandler(new ClickHandler() {
 			
@@ -57,6 +58,7 @@ public class TelecommandePanel extends VerticalPanel {
 	}
 	private void createNextButton(){
 		this.nextButton = new Button(">");
+		this.nextButton.setStyleName(DiaporamaResources.INSTANCE.DiaporamaCss().telecommandeButton());
 		this.navigationPanel.add(nextButton);
 		nextButton.addClickHandler(new ClickHandler() {
 			

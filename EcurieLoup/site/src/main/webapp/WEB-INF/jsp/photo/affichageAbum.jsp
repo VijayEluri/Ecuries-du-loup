@@ -20,9 +20,7 @@
 		<div class="visualisationAlbumPhoto">
 			<h1><fmt:message key="album_photo.album.title" />${album.titre} 
 				<c:if test="${album.id != 0}">
-					<a href="javascript:openVisionneuseAlbum(${album.id});">
-						<img alt="visionneuse" src="${ctx}/images/icone_visionneuse.gif" alt="<fmt:message key="album_photo.album.visionneuse.alt" />" title="<fmt:message key="album_photo.album.visionneuse.title"/>"/>
-					</a>
+					<div id="nameFieldContainer"></div>		
 					<security:authorize ifAllGranted="ROLE_ADMINISTRATEUR_PHOTO">
 						<a href="${ctx}/albumPhoto/formulaireNouvellePhoto.do?album=${album.id}">
 							<img alt="add" src="${ctx}/images/add.png" alt="<fmt:message key="yalbum_photo.album.add_photo" />" title="<fmt:message key="album_photo.album.add_photo"/>" />
