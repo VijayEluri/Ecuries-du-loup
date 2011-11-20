@@ -105,13 +105,16 @@
 			<groupId>fr.ecuriesduloup</groupId>
 			<artifactId>forum</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>fr.ecuriesduloup</groupId>
 			<artifactId>albumPhoto</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>fr.ecuriesduloup</groupId>
+			<artifactId>ficheChevaux</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 

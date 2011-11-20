@@ -17,9 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import service.UtilisateurManager;
 import album_photo.editor.LongToPhotoEditor;
-
-import com.google.code.facebookapi.schema.Photo;
-
 import donnees.photo.Media;
 import fiche_chevaux.donnees.Fiche;
 import fiche_chevaux.donnees.FicheFormulaire;
@@ -50,32 +47,6 @@ public class FormulaireFicheChevalController{
 	private LongToPhotoEditor longToPhotoEditor;
 
 	
-	public void setSexeEditor(SexeEditor sexeEditor) {
-		this.sexeEditor = sexeEditor;
-	}
-
-	public void setRaceEditor(RaceEditor raceEditor) {
-		this.raceEditor = raceEditor;
-	}
-
-	public void setRobeEditor(RobeEditor robeEditor) {
-		this.robeEditor = robeEditor;
-	}
-
-	public void setLongToPhotoEditor(LongToPhotoEditor longToPhotoEditor) {
-		this.longToPhotoEditor = longToPhotoEditor;
-	}
-
-	public void setFicheChevauxManager(FicheChevauxManager ficheChevauxManager) {
-		this.ficheChevauxManager = ficheChevauxManager;
-	}
-	
-	
-
-
-	public void setUtilisateurManager(UtilisateurManager utilisateurManager) {
-		this.utilisateurManager = utilisateurManager;
-	}
 
 	@InitBinder
 	public void initBinder(HttpServletRequest request,
@@ -83,7 +54,7 @@ public class FormulaireFicheChevalController{
 		binder.registerCustomEditor(Sexe.class, this.sexeEditor);
 		binder.registerCustomEditor(Race.class, this.raceEditor);
 		binder.registerCustomEditor(Robe.class, this.robeEditor);
-		binder.registerCustomEditor(Photo.class, this.longToPhotoEditor);
+		binder.registerCustomEditor(Media.class, this.longToPhotoEditor);
 	}
 
 	@ModelAttribute("fiche")

@@ -1,11 +1,27 @@
 @CHARSET "UTF-8";
-
-.boardTable {
-	height: 20px;
-	width: 100%;
-	background-color: fuchsia;
+.edlWysiwygWidget{
+	border: black solid 1px;
+	width: 500px;	
+	
 }
 
-.boardElement{
-	width: 50px;
+.board{
+	border: black solid 1px;
+	width: 100%;	
+	background-color: green;
+	
+}
+.boardheader{
+	background-color: red;
+	
+	height: 10px;
+	width: 500px;	
+}
+
+.boardworkspace{
+	top:10px;
+	background-color: yellow;
+	height: 500px;
+	width: 500px;	
+	
 }

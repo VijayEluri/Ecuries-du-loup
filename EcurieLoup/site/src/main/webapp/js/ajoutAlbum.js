@@ -12,7 +12,7 @@ function removeMessageConfirmToExitInUpload(){
 }
 
 function selectPossibleForm(){
-	if(!Window.File){
+	if(!window.File){
 		document.getElementById("formulairePhotoSimple").className="ajout_album_parti_selected";
 		document.getElementById("formulaireDaD").className="ajout_album_parti_non_selected";
 	

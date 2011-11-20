@@ -21,7 +21,7 @@
 		
 	</bean>
 
-	
+
 	<!-- -GWT  -->
 	
 		<bean id="pictureLoaderImplRemoteService" class="org.gwtwidgets.server.spring.GWTRPCServiceExporter">

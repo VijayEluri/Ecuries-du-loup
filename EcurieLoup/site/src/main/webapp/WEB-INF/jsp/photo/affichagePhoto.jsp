@@ -26,20 +26,16 @@
 		</div>
 		
 		
-	<div id="saisisTag">
-		<form method="post" onsubmit="return submitTagage()">
-		<p><fmt:message key="album_photo.photo.tag.form.name"/></p>
+		<div id="saisisTag">
+			<input id="input_tag_nom" name="input_tag_nom" type="text"/>
+			<input id="tag_valid" value="Ok" type="button" />
+			
 			<input id="input_tag_photo" name="tag_photo" type="hidden" value="${photo.id}" />
 			<input id="input_tag_x" name="tag_x" type="hidden" />
 			<input id="input_tag_y" name="tag_y" type="hidden"/>
-			<input id="input_tag_nom" name="tag" type="text" />
-			<br />
-			<br />
-			<input value="<fmt:message key="album_photo.photo.tag.form.submit"/>" type="submit" />
-			<input value="<fmt:message key="album_photo.photo.tag.form.cancel"/>"	type="button" onclick="cachageSaisiTag()" />
-		</form>
-	</div>
-	
+			<input id="id_tag" name="id_tag" type="hidden" />
+		</div>
+		
 		
 	<div class="visualisationPhoto">
 		<form method="post">
@@ -96,7 +92,7 @@
 			<div class="photo_principal">
 				<c:choose >
 					<c:when test="${photo.type == 0}">
-						<img id="photo_taggage"	src="${ctx}/images/albumPhoto/view/${photo.id}" alt="${photo.id}"	onclick="taggage()" />
+						<img id="photo_taggage"	src="${ctx}/images/albumPhoto/view/${photo.id}" alt="${photo.id}"/>
 					</c:when>
 					<c:when test="${photo.type == 1}">
 						<video class="video_balise" controls="controls" >
@@ -114,30 +110,17 @@
 			
 			
 			
-			
-			
-			<c:if test="${!empty photo.tags}">
-				<fmt:message key="album_photo.photo.tag.on_photo"/>-
-				<c:forEach var="tag" items="${photo.tags}">
-					<span class="nom_tag" onmouseover="rendreVisibleRectangle('tagage_${tag.id}')"	onmouseout="rendreInvisibleRectangle('tagage_${tag.id}')">
-					<c:choose>
-						<c:when test="${tag.path != null}">
-							<a href="${ctx}${tag.path}" >${tag.display}</a>
-						</c:when>
-						<c:otherwise>
-							${tag.display}
-						</c:otherwise>
-					</c:choose>
-					
-					 </span> - 
-					<div id="tagage_${tag.id}" class="cadreTague" title="${tag.display}"></div>
-					<script language="javascript">
-					
-								positonnerRectangle("tagage_${tag.id}",${tag.x}, ${tag.y}, 100, 100);
-								
-					</script>
-				</c:forEach>
-			</c:if>
+			<div id="tags">
+				<img id="tagActivateButton" src="${ctx}/images/tag.jpeg" alt="<fmt:message key="album_photo.photo.tag"/>" title="Activer le taggage"/>			
+				<c:if test="${!empty photo.tags}">					
+					<c:forEach var="tag" items="${photo.tags}">						
+						 <script language="javascript">
+							appendTag("${tag.id}", "${tag.display}", ${tag.x}, ${tag.y}, "${tag.path}");
+											
+						</script>
+					</c:forEach>
+				</c:if>
+			</div>
 
 			<div class="description">
 				<security:authorize ifAllGranted="ROLE_ADMINISTRATEUR_PHOTO">
@@ -151,10 +134,7 @@
 			</div>
 			<!-- facebook like ${ctx}-->
 			<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2F${header['host']}${ctx}%2Ffacebook%2FalbumPhoto%2FaffichagePhoto.do%3FidPhoto%3D${photo.id}&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>
-			.
-			<span id="lien_activation_tagage" onclick="cours_tagage()">
-				<fmt:message key="album_photo.photo.tag.add"/>
-			</span>
+			
 			
 			
 

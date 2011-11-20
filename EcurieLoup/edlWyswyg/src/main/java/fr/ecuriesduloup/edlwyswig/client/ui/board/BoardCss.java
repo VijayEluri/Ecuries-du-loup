@@ -4,8 +4,13 @@ import com.google.gwt.resources.client.CssResource;
 
 public interface BoardCss extends CssResource {
 
-	public String boardTable();
-	public String boardElement();
+	public String edlWysiwygWidget();
+	public String board();
+	
+	public String boardheader();
+	public String boardworkspace();
+	
+	
 	
 
 }

@@ -1,4 +1,4 @@
-package fr.ecuriesduloup.ws.albumPhoto;
+package fr.ecuriesduloup.ws;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 

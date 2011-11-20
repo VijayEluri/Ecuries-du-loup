@@ -22,6 +22,7 @@ import donnees.User;
 import donnees.photo.Album;
 import donnees.photo.Media;
 import donnees.photo.TypeMedia;
+import fr.ecuriesduloup.ws.Id;
 import fr.ecuriesduloup.ws.WsStatus;
 import fr.ecuriesduloup.ws.user.UserService;
 

@@ -17,8 +17,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.smartgwt.client.widgets.Window;
 
-import fr.ecuriesduloup.edlwyswig.client.ui.portlet.ImagePortlet;
-import fr.ecuriesduloup.edlwyswig.client.ui.portletAdder.PortletResources;
+import fr.ecuriesduloup.edlwyswig.client.ui.portlet.PortletResources;
+import fr.ecuriesduloup.edlwyswig.client.ui.portlet.imageportlet.ImagePortlet;
 import fr.ecuriesduloup.edlwyswig.shared.Img;
 
 public class ModalPopupImageChosser extends Window{

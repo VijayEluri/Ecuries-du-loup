@@ -34,20 +34,26 @@
 		
 		
 		<!-- lien javascript -->
-		<!-- scriptaculous 
-		<script src="${ctx}/js/prototype.js" type="text/javascript"></script>
-		<script src="${ctx}/js/scriptaculous.js" type="text/javascript"></script>
-	-->
-		<script language="javascript" src="${ctx}/js/gestionVariable.js"> </script>
-		<script language="javascript">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js" type="text/javascript"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
+
+		<!-- pour le tagage des photo -->
+		<script src="${ctx}/js/tagagePhoto.js" type="text/javascript"> </script>
+		
+		
+		
+		<link rel=stylesheet type=text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/smoothness/jquery.ui.all.css" />
+		
+		<script src="${ctx}/js/gestionVariable.js" type="text/javascript"> </script>
+		<script type="text/javascript">
 			set_ctx("${ctx}");
 		</script>
-		<script language="javascript" src="${ctx}/js/edlCode.js"> </script>
+		<script src="${ctx}/js/edlCode.js" type="text/javascript"> </script>
 		
 		<!-- pou la palette de couleurs -->
 		<link rel="stylesheet" href="${ctx}/mooRainbow.css" type="text/css" />
 		
-		<script src="${ctx}/mootools.js" type="text/javascript"></script>
+		<!--  <script src="${ctx}/mootools.js" type="text/javascript"></script>
 		<script src="${ctx}/mooRainbow.js" type="text/javascript"></script>
 		
 		
@@ -91,7 +97,7 @@
 						});
 			});
 		
-		</script>
+		</script>-->
 		
 		<!--pour les calendrier -->
 		
@@ -100,17 +106,15 @@
 			media="screen"></link>
 		<script type="text/javascript"
 			src="${ctx}/dhtmlgoodies_calendar/dhtmlgoodies_calendar.js?random=20060118"></script>
-		<script language="javascript" src="${ctx}/js/calendrier.js"> </script>
-		
-		<!-- pour le tagage des photo -->
-		<script language="javascript" src="${ctx}/js/tagagePhoto.js"> </script>
+		<script src="${ctx}/js/calendrier.js" type="text/javascript"> </script>
 		
 		
-		<script language="javascript" src="${ctx}/js/ajoutAlbum.js"> </script>
+		
+		<script src="${ctx}/js/ajoutAlbum.js" type="text/javascript"> </script>
 		<!-- le les fiche chevaux -->
-		<script language="javascript" src="${ctx}/js/ficheChevaux.js"> </script>
+		<script src="${ctx}/js/ficheChevaux.js" type="text/javascript"> </script>
 		<!-- le les profil -->
-		<script language="javascript" src="${ctx}/js/profil.js"> </script>
+		<script src="${ctx}/js/profil.js" type="text/javascript"> </script>
 		
 		 <!--                                           -->
     <!-- This script loads your compiled module.   -->

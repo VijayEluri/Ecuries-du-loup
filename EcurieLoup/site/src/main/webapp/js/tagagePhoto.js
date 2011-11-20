@@ -1,189 +1,265 @@
+var tagging = false;
+var cadreSize = 100;
+var isfieldTagOpen = false;
+var isMouseOnFieldTag = false;
+var isOpenClick = false;
 
-var position_souris = new Array();
-var en_cours_de_tagage = false;
-
-
-function cours_tagage(){
-	en_cours_de_tagage =!en_cours_de_tagage;
-	var objet = document.getElementById("nouveauTage");
-	var lien = document.getElementById("lien_activation_tagage");
-	
-	if(!en_cours_de_tagage){
-
-		cachageSaisiTag();
-		objet.style.cursor= "crosshair";
-		objet.style.cursor= "default";
-		document.getElementById("photo_taggage").style.cursor= "default";
-		
-		lien.innerHTML ="Tagger des gens";
-
-	}else{
-		objet.style.cursor= "crosshair";
-		document.getElementById("photo_taggage").style.cursor= "crosshair";
-		lien.innerHTML ="Arreter le taggage";
-	}
+function startTag(){
+	tagging =true;
+	$("#nouveauTage").css({"cursor": "crosshair"});
+	$("#photo_taggage").css({"cursor": "crosshair"});
+	$("#tagActivateButton").attr("title", "Stopper le taggage");
 }
-
-
-function taggage(){
-	if(en_cours_de_tagage){
-		var objet = document.getElementById("nouveauTage");
-		objet.style.border= "4px solid black";
-		
-		var position_photo = getPosition("photo_taggage");
-
-
-		var position_tague_x = position_souris[0] - position_photo[0];
-		var position_tague_y = position_souris[1] - position_photo[1];
-		positonnerRectangle("nouveauTage", position_tague_x,  position_tague_y, 100, 100);
-		
-		affichageSaisiTag(position_tague_x , position_tague_y);
-	}
-}
-
-function affichageSaisiTag(x, y){
-	var objet = document.getElementById("saisisTag");
-	
-	var position_photo = getPosition("photo_taggage");
-	
-
-	document.getElementById("input_tag_x").value = x;
-	document.getElementById("input_tag_y").value = y;
-	
-	x += position_photo[0];
-	y += position_photo[1];
-	
-	objet.style.left = (x+100)+"px";
-	objet.style.top = y+"px";
-	objet.style.visibility = "visible";
-	
-	document.getElementById("input_tag_nom").focus();
-}
-
-function submitTagage(){
-	var nom = document.getElementById("input_tag_nom").value;
-	var x = document.getElementById("input_tag_x").value;
-	var y = document.getElementById("input_tag_y").value;
-	var photo = document.getElementById("input_tag_photo").value;
-	
-	var taillePhotoX = document.getElementById("photo_taggage").width;
-	var taillePhotoY = document.getElementById("photo_taggage").height;
-	var xEnPC = x/taillePhotoX*100;
-	var yEnPC = y/taillePhotoY*100;
-	
-	if(nom != ""){
-		
-		enregistrementTag(photo, xEnPC, yEnPC, nom);
-	}
-	cachageSaisiTag();
-	
-	return false;
-}
-
-function enregistrementTag(photo, x, y, nom){
-	var xhr=null;
-    
-    if (window.XMLHttpRequest) { 
-        xhr = new XMLHttpRequest();
-    }
-    else if (window.ActiveXObject) 
-    {
-        xhr = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-
-    var url =ctx+"/albumPhoto/tagage.do?photo="+photo+"&x="+x+"&y="+y+"&nom="+nom;
-   
-    xhr.open("GET", url, false);
-    xhr.send(null);
-    
+function stopTag(){
+	tagging = false;
+	hideTagField();
+	$("#nouveauTage").css({"cursor": "default"});
+	$("#photo_taggage").css({"cursor": "default"});
+	$("#tagActivateButton").attr("title", "Activer le taggage");
 
 }
 
-function cachageSaisiTag(){
-	var objet = document.getElementById("saisisTag");
-	objet.style.visibility = "hidden";
-	rendreInvisibleRectangle("nouveauTage");
-	
-	document.getElementById("input_tag_nom").value = "";
-	document.getElementById("input_tag_x").value = "";
-	document.getElementById("input_tag_y").value = "";
+function cleanTagField(){
+	$("#id_tag").val("");
+	$("#input_tag_nom").val("");
+	$("input_tag_nom").val("");
+	$("input_tag_x").val("");
+	$("input_tag_y").val("");
 }
 
-
-function getPosition(element)
-{
-	var left = 0;
-	var top = 0;
-	/*On récupère l'élément*/
-	var e = document.getElementById(element);
-	/*Tant que l'on a un élément parent*/
-	while (e.offsetParent != undefined && e.offsetParent != null)
-	{
-		/*On ajoute la position de l'élément parent*/
-		left += e.offsetLeft + (e.clientLeft != null ? e.clientLeft : 0);
-		top += e.offsetTop + (e.clientTop != null ? e.clientTop : 0);
-		e = e.offsetParent;
-	}
-	return new Array(left,top);
+function showTagField(x, y){	
+	isOpenClick= true;
+	x += 30;
+	y += 30;
+	
+	$("#saisisTag").offset({ top : y, left : x });
+	$("#saisisTag").css({"visibility": "visible"});
+	
+	$("#input_tag_nom").focus();
+	isfieldTagOpen = true;
 }
 
-function positonnerRectangle(identifiant, x, y, largeur, hauteur){
+function recordTag(mediaId, x, y, name){
 	
-	var objet = document.getElementById(identifiant);
-	//on récupère les anciens sur onlaod
-	var fonctionLoad = document.getElementById("photo_taggage").onload;
-	document.getElementById("photo_taggage").onload = function(){
-		//on appell les anciens onload
-		if(fonctionLoad != null && typeof(fonctionLoad) == 'function') {
-			fonctionLoad();
+	var position = {x:x, y:y};
+	$.ajax ({
+		url : ctx+"/ws/albumPhoto/tag/"+mediaId+"/"+name,
+		data: position, 
+		context : position,
+		type :"post",
+		success : function (response, textStatus, xhr)
+		{
+			var id = $( xhr.responseXML).find("value").text();
+			appendTag(id, name,this.x, this.y);
+		},
+		error : function (xhr, textStatus)
+		{
+			alert("error");
 		}
-		var position_photo = getPosition("photo_taggage");
 		
-		
-		var taillePhotoX = document.getElementById("photo_taggage").width;
-		var taillePhotoY = document.getElementById("photo_taggage").height;
-		
-		var xEnPx = x/100*taillePhotoX;
-		var yEnPx = y/100*taillePhotoY;
+	});
+}
+function saveTag(){
+	var id = $("#id_tag").val();
+	var x = $("#input_tag_x").val();
+	var y = $("#input_tag_y").val();
+	var photoId = $("#input_tag_photo").val();
 	
-		xEnPx+=position_photo[0];
-		yEnPx+=position_photo[1];
-		
-		objet.style.left = xEnPx-(largeur/2)+"px";
-		objet.style.top = yEnPx-(hauteur/2)+"px";
-		objet.style.width = largeur+"px";
-		objet.style.height = hauteur+"px";
-		
-		objet.style.visibility = "visible";
-		//alert(taillePhotoX+" "+taillePhotoY )
+	var widthPhoto = $("#photo_taggage").width();
+	var heightPhoto = $("#photo_taggage").height();
+	var widthPercent = parseInt(x/widthPhoto*100);
+	var heightPercent =  parseInt(y/heightPhoto*100);
+	
+	if(id != ""){
+		recordTag(photoId, widthPercent, heightPercent, id);
 	}
 }
-function rendreVisibleRectangle(identifiant){
-	var objet = document.getElementById(identifiant);
-	objet.style.border = "4px solid black";
-}
-function rendreInvisibleRectangle(identifiant){
-	var objet = document.getElementById(identifiant);
-	objet.style.border = "none";
+
+function hideTagField(){
+	isfieldTagOpen = false;
+	$("#saisisTag").css({"visibility": "hidden"});
+	$("#nouveauTage").css({"visibility": "hidden"});
+	
+	cleanTagField();
 }
 
 
-function WhereMouse( e ){
-	var DocRef;    
-	if( e){              
-		position_souris[0] = e.pageX;
-		position_souris[1] = e.pageY;
+function taggage(top, left){
+	$("#nouveauTage").css({"border": "4px solid black"});
+	
+	var leftPosition = left;
+	var topPosition = top;
+	
+	var photoTop= $("#photo_taggage").offset().top;
+	var photoLeft= $("#photo_taggage").offset().left;
+	
+	$("#input_tag_x").val(leftPosition-photoLeft);
+	$("#input_tag_y").val(topPosition-photoTop);
+	
+	//mark position
+	$("#nouveauTage").offset({top:top-(cadreSize/2), left: left-(cadreSize/2)});
+	$("#nouveauTage").css({"visibility": "visible"});
+	
+	showTagField(leftPosition , topPosition);
+}
+
+function appendTag(id, displayName, x, y, path){
+	var span = document.createElement ("span");
+	span.className= "nom_tag";
+	if(path == null){
+		$(span).html(displayName+" - ");
 	}else{
-		position_souris[0] = event.clientX;
-		position_souris[1] = event.clientY;
-
-		if( document.documentElement && document.documentElement.clientWidth)
-			DocRef = document.documentElement; 
-		else
-			DocRef = document.body;
-
-		position_souris[0] += DocRef.scrollLeft;
-		position_souris[1] += DocRef.scrollTop;
+		var link = document.createElement ("a");
+		$(link).attr("href", ctx+path);
+		$(link).html(displayName+" - ");
+		$(span).append(link)
 	}
+
+	$("#tags").append(span);
+	
+	
+	
+	var cadreTag = document.createElement ("div");
+	cadreTag.className = "cadreTague cadreTague2";
+	$(cadreTag).attr("title", displayName);
+	var photoTop= $("#photo_taggage").offset().top;
+	var postionTop =photoTop + (y* $("#photo_taggage").height() / 100)-(cadreSize/2);
+	var photoLeft= $("#photo_taggage").offset().left;
+	var postionLeft =photoLeft + (x* $("#photo_taggage").width() / 100)-(cadreSize/2);
+	$(cadreTag).offset({top: postionTop, left: postionLeft});
+	$(cadreTag).css({"position" : "absolute"});
+	$("#tags").append(cadreTag);
+	
+	$(span).bind("mouseover", { cadre : cadreTag },function(event){
+		$(event.data.cadre).css({"border-style" : "solid"});
+	});
+	$(span).bind("mouseout", { cadre : cadreTag },function(event){
+		$(event.data.cadre).css({"border-style" : "none"});
+	});
+	
+	
 }
-document.onmousemove = WhereMouse;
+var items = [];
+function fieldAutocomplete(){
+	$.ajax ({
+		url : ctx+"/ws/users",
+		type :"get",
+		success : function (response, textStatus, xhr)
+		{
+			var response = xhr.responseXML;
+			
+			// récupération des titres
+			$(response).find ("item").each (function ()
+			{
+				var item = {
+							id : $(this).find("id").text(),
+							value:$(this).find("value").text(),
+							type:$(this).find("type").text()
+							};
+				items.push (item);
+			});
+			createAutocomplete();
+		
+		},
+		error : function (xhr, textStatus)
+		{
+			alert("error");
+		}
+
+	});
+}
+
+function createAutocomplete(){
+	
+	//add the autocomplete 
+	$("#input_tag_nom").autocomplete ({
+		autoFocus: false,
+		minLength: 0,
+		source : items
+		,
+		open : function (event)
+		{
+			var ul = $(this).autocomplete ("widget");
+			ul.css ("width", "250px");
+		},
+		focus: function( event, ui ) {
+			$( "#input_tag_nom" ).val( ui.item.value );
+			return false;
+		},
+		select: function( event, ui ) {
+			$( "#input_tag_nom" ).val( ui.item.value );
+			$( "#id_tag" ).val( ui.item.id );
+
+			return false;
+		}
+	}).data( "autocomplete" )._renderItem = function( ul, item ) {
+			var src="";
+			if(item.type=="human"){
+				src =ctx+"/images/personne.png";				
+			}else if(item.type=="horse"){
+				src= ctx+"/images/logo.png";
+			}else{
+				src="";
+			}
+				return $( "<li></li>" )
+					.data( "item.autocomplete", item )
+					.append( "<a><table><tr><td><img src="+src+" /></td><td>" + item.value + "</td></tr></table></a>" )
+					.appendTo( ul );
+			};
+			
+			$("#saisisTag").mouseover (function(){
+				isMouseOnFieldTag  = true;
+			});	
+			$("#saisisTag").mouseout (function(){
+				isMouseOnFieldTag  = false;
+			});	
+			$(".ui-autocomplete").mouseover (function(){
+				isMouseOnFieldTag  = true;
+			});	
+			$(".ui-autocomplete").mouseout (function(){
+				isMouseOnFieldTag  = false;
+			});	
+			
+}
+//add suggest list
+$(document).ready(function(){
+	$("body").click(function (){
+		if(isfieldTagOpen && !isMouseOnFieldTag && !isOpenClick){
+			hideTagField();
+		}else if(isOpenClick){
+			isOpenClick= false;			
+		}
+	});
+	fieldAutocomplete();
+	
+	
+	
+	
+	
+	//add the tag field comportement
+	$("#tagActivateButton").click(function(){
+		if(tagging){
+			stopTag();
+		}else{
+			startTag();
+		}
+	});	
+			
+	$("#tag_valid").click(function (){
+		saveTag();
+		hideTagField();
+	});
+	
+	$("#photo_taggage").click(function(e){
+		if(tagging){
+			taggage(e.pageY, e.pageX);
+		}
+	});
+});
+
+
+
+
+
+
+

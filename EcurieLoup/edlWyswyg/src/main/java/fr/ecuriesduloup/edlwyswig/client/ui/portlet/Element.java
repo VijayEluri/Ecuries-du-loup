@@ -1,6 +1,6 @@
 package fr.ecuriesduloup.edlwyswig.client.ui.portlet;
 
-import fr.ecuriesduloup.edlwyswig.client.Visitor;
+import fr.ecuriesduloup.edlwyswig.client.visitor.Visitor;
 
 public interface Element {
 	

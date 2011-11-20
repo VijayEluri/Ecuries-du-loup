@@ -1,13 +1,9 @@
 package fr.ecuriesduloup.edlwyswig.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
-
-import fr.ecuriesduloup.edlwyswig.client.ui.board.Board;
-import fr.ecuriesduloup.edlwyswig.client.ui.portletAdder.BlockPortletAdder;
-import fr.ecuriesduloup.edlwyswig.client.ui.portletAdder.ImagePortletAdder;
-import fr.ecuriesduloup.edlwyswig.client.ui.portletAdder.PortletAdder;
-import fr.ecuriesduloup.edlwyswig.client.ui.portletAdder.TextPortletAdder;
 
 
 
@@ -25,22 +21,28 @@ public class EdlWyswyg implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
+		GWT.setUncaughtExceptionHandler(new ClientExceptionHandler());
 
-
-		Board board = new Board();
+		EdlWysiwygWidget edlWysiwygWidget = new EdlWysiwygWidget();
 		
+		Button view= edlWysiwygWidget.createButtonPreview();
 		
-		PortletAdder testAdder = new TextPortletAdder();
-		board.addPortletAdder(testAdder);
-		PortletAdder testAdder2 = new ImagePortletAdder();
-		board.addPortletAdder(testAdder2);
-		PortletAdder testAdder3 = new BlockPortletAdder();
-		board.addPortletAdder(testAdder3);
-		
-
-		RootPanel.get("test").add(board);
+		RootPanel.get("test").add(edlWysiwygWidget);
+		RootPanel.get("test2").add(view);
 		
 	}
+	
+	public class ClientExceptionHandler implements GWT.UncaughtExceptionHandler {
+
+
+		@Override
+		public void onUncaughtException(Throwable cause) {
+		cause.printStackTrace();
+		}
+
+
+
+		} 
 
 
 }
