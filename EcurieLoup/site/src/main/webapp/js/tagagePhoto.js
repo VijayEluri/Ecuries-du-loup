@@ -223,38 +223,38 @@ function createAutocomplete(){
 }
 //add suggest list
 $(document).ready(function(){
-	$("body").click(function (){
-		if(isfieldTagOpen && !isMouseOnFieldTag && !isOpenClick){
+	if($("#input_tag_nom").length!=0){
+	
+		$("body").click(function (){
+			if(isfieldTagOpen && !isMouseOnFieldTag && !isOpenClick){
+				hideTagField();
+			}else if(isOpenClick){
+				isOpenClick= false;			
+			}
+		});
+		fieldAutocomplete();
+		
+		
+		//add the tag field comportement
+		$("#tagActivateButton").click(function(){
+			if(tagging){
+				stopTag();
+			}else{
+				startTag();
+			}
+		});	
+				
+		$("#tag_valid").click(function (){
+			saveTag();
 			hideTagField();
-		}else if(isOpenClick){
-			isOpenClick= false;			
-		}
-	});
-	fieldAutocomplete();
-	
-	
-	
-	
-	
-	//add the tag field comportement
-	$("#tagActivateButton").click(function(){
-		if(tagging){
-			stopTag();
-		}else{
-			startTag();
-		}
-	});	
-			
-	$("#tag_valid").click(function (){
-		saveTag();
-		hideTagField();
-	});
-	
-	$("#photo_taggage").click(function(e){
-		if(tagging){
-			taggage(e.pageY, e.pageX);
-		}
-	});
+		});
+		
+		$("#photo_taggage").click(function(e){
+			if(tagging){
+				taggage(e.pageY, e.pageX);
+			}
+		});
+	}
 });
 
 
