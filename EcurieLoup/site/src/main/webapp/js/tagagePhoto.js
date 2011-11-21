@@ -5,11 +5,55 @@ var isMouseOnFieldTag = false;
 var isOpenClick = false;
 var loadedTag = [];
 
+
+
+function createCookie(name,value,days) {
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime()+(days*24*60*60*1000));
+		var expires = "; expires="+date.toGMTString();
+	}
+	else var expires = "";
+	document.cookie = name+"="+value+expires+"; path=/";
+}
+
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+
+function eraseCookie(name) {
+	createCookie(name,"",-1);
+}
+
+
+function saveStartTag(){
+	createCookie("tag","open",1);
+}
+function saveStopTag(){
+	eraseCookie("tag");
+}
+function isSaveTagOpenStared(){
+	var open = readCookie("tag");
+	if((open!=null)&&(open=="open")){
+		return true;
+	}else{
+		return false;
+	}
+}
+
 function startTag(){
 	tagging =true;
 	$("#nouveauTage").css({"cursor": "crosshair"});
 	$("#photo_taggage").css({"cursor": "crosshair"});
 	$("#tagActivateButton").attr("title", "Stopper le taggage");
+	saveStartTag();
 }
 function stopTag(){
 	tagging = false;
@@ -17,6 +61,7 @@ function stopTag(){
 	$("#nouveauTage").css({"cursor": "default"});
 	$("#photo_taggage").css({"cursor": "default"});
 	$("#tagActivateButton").attr("title", "Activer le taggage");
+	saveStopTag();
 
 }
 
@@ -224,6 +269,10 @@ function createAutocomplete(){
 
 //add suggest list
 $(document).ready(function(){
+	
+	if(isSaveTagOpenStared()){
+		startTag();
+	}
 	
 	while(loadedTag.length != 0){
 		var tagInfos = loadedTag[0];
