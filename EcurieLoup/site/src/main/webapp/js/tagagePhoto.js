@@ -3,6 +3,7 @@ var cadreSize = 100;
 var isfieldTagOpen = false;
 var isMouseOnFieldTag = false;
 var isOpenClick = false;
+var loadedTag = [];
 
 function startTag(){
 	tagging =true;
@@ -163,7 +164,6 @@ function fieldAutocomplete(){
 		},
 		error : function (xhr, textStatus)
 		{
-			alert("error");
 		}
 
 	});
@@ -221,40 +221,49 @@ function createAutocomplete(){
 			});	
 			
 }
+
 //add suggest list
 $(document).ready(function(){
-	$("body").click(function (){
-		if(isfieldTagOpen && !isMouseOnFieldTag && !isOpenClick){
-			hideTagField();
-		}else if(isOpenClick){
-			isOpenClick= false;			
-		}
-	});
-	fieldAutocomplete();
 	
-	
-	
-	
-	
-	//add the tag field comportement
-	$("#tagActivateButton").click(function(){
-		if(tagging){
-			stopTag();
-		}else{
-			startTag();
-		}
-	});	
+	while(loadedTag.length != 0){
+		var tagInfos = loadedTag[0];
+		loadedTag.shift();
+		//add tag
+		appendTag(tagInfos.id, tagInfos.display,tagInfos.x, tagInfos.y,tagInfos.path);
+	}
+	if($("#input_tag_nom").length!=0){
 			
-	$("#tag_valid").click(function (){
-		saveTag();
-		hideTagField();
-	});
 	
-	$("#photo_taggage").click(function(e){
-		if(tagging){
-			taggage(e.pageY, e.pageX);
-		}
-	});
+		$("body").click(function (){
+			if(isfieldTagOpen && !isMouseOnFieldTag && !isOpenClick){
+				hideTagField();
+			}else if(isOpenClick){
+				isOpenClick= false;			
+			}
+		});
+		fieldAutocomplete();
+		
+		
+		//add the tag field comportement
+		$("#tagActivateButton").click(function(){
+			if(tagging){
+				stopTag();
+			}else{
+				startTag();
+			}
+		});	
+				
+		$("#tag_valid").click(function (){
+			saveTag();
+			hideTagField();
+		});
+		
+		$("#photo_taggage").click(function(e){
+			if(tagging){
+				taggage(e.pageY, e.pageX);
+			}
+		});
+	}
 });
 
 

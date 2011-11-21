@@ -129,5 +129,10 @@ var XHR2Uploader = {
 		
 }
 
-XHR2Uploader.oXHR.upload.onprogress = XHR2Uploader.onUploading;
-XHR2Uploader.oXHR.onload = XHR2Uploader.onUploaded;
+if(XHR2Uploader.oXHR.upload){
+	XHR2Uploader.oXHR.upload.onprogress = XHR2Uploader.onUploading;
+}
+
+if(XHR2Uploader.oXHR.onload){
+	XHR2Uploader.oXHR.onload = XHR2Uploader.onUploaded;
+}

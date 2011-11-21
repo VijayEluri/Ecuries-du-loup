@@ -115,8 +115,8 @@
 				<c:if test="${!empty photo.tags}">					
 					<c:forEach var="tag" items="${photo.tags}">						
 						 <script language="javascript">
-							appendTag("${tag.id}", "${tag.display}", ${tag.x}, ${tag.y}, "${tag.path}");
-											
+						 var infos =  { id : "${tag.id}", display : "${tag.display}", x :"${tag.x}", y : "${tag.y}", path: "${tag.path}"};
+						 loadedTag.push(infos);
 						</script>
 					</c:forEach>
 				</c:if>
