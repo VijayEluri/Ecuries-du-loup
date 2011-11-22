@@ -53,6 +53,7 @@ function startTag(){
 	$("#nouveauTage").css({"cursor": "crosshair"});
 	$("#photo_taggage").css({"cursor": "crosshair"});
 	$("#tagActivateButton").attr("title", "Stopper le taggage");
+	$("#tagActivateButton").attr("src", ctx+"/images/tag_actif.jpeg");
 	saveStartTag();
 }
 function stopTag(){
@@ -61,6 +62,7 @@ function stopTag(){
 	$("#nouveauTage").css({"cursor": "default"});
 	$("#photo_taggage").css({"cursor": "default"});
 	$("#tagActivateButton").attr("title", "Activer le taggage");
+	$("#tagActivateButton").attr("src", ctx+"/images/tag.jpeg");
 	saveStopTag();
 
 }
