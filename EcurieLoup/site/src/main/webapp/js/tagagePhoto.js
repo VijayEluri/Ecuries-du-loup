@@ -303,6 +303,14 @@ $(document).ready(function(){
 				startTag();
 			}
 		});	
+		
+		$("#input_tag_nom").keypress (function (event){
+			 if(event.keyCode == 13){  
+				 saveTag();
+				 hideTagField();
+			 }
+		});
+
 				
 		$("#tag_valid").click(function (){
 			saveTag();
