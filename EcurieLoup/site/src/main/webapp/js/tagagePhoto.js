@@ -272,18 +272,18 @@ function createAutocomplete(){
 //add suggest list
 $(document).ready(function(){
 	
-	if(isSaveTagOpenStared()){
-		startTag();
-	}
 	
-	while(loadedTag.length != 0){
-		var tagInfos = loadedTag[0];
-		loadedTag.shift();
-		//add tag
-		appendTag(tagInfos.id, tagInfos.display,tagInfos.x, tagInfos.y,tagInfos.path);
-	}
 	if($("#input_tag_nom").length!=0){
-			
+		if(isSaveTagOpenStared()){
+			startTag();
+		}
+		
+		while(loadedTag.length != 0){
+			var tagInfos = loadedTag[0];
+			loadedTag.shift();
+			//add tag
+			appendTag(tagInfos.id, tagInfos.display,tagInfos.x, tagInfos.y,tagInfos.path);
+		}
 	
 		$("body").click(function (){
 			if(isfieldTagOpen && !isMouseOnFieldTag && !isOpenClick){
@@ -310,7 +310,6 @@ $(document).ready(function(){
 				 hideTagField();
 			 }
 		});
-
 				
 		$("#tag_valid").click(function (){
 			saveTag();
