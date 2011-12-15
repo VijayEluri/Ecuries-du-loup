@@ -7,11 +7,11 @@ import com.google.gwt.user.client.ui.Widget;
 import com.smartgwt.client.widgets.events.ResizedEvent;
 import com.smartgwt.client.widgets.events.ResizedHandler;
 
-import fr.ecuriesduloup.edlwyswig.client.ui.imagechooser.ImageChooserConteneur;
-import fr.ecuriesduloup.edlwyswig.client.ui.imagechooser.ModalPopupImageChosser;
 import fr.ecuriesduloup.edlwyswig.client.ui.portlet.Portlet;
 import fr.ecuriesduloup.edlwyswig.client.visitor.Visitor;
-import fr.ecuriesduloup.edlwyswig.shared.Img;
+import fr.ecuriesduloup.imagechooser.client.ImageChooserConteneur;
+import fr.ecuriesduloup.imagechooser.client.ModalPopupImageChosser;
+import fr.ecuriesduloup.imagechooser.shared.Img;
 
 
 public class ImagePortlet extends Portlet  implements ImageChooserConteneur{

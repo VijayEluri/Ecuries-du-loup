@@ -1,4 +1,4 @@
-package fr.ecuriesduloup.edlwyswig.client.ui.imagechooser;
+package fr.ecuriesduloup.imagechooser.client;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,8 +6,6 @@ import java.util.Map;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.LoadEvent;
-import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -17,17 +15,15 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.smartgwt.client.widgets.Window;
 
-import fr.ecuriesduloup.edlwyswig.client.ui.portlet.PortletResources;
-import fr.ecuriesduloup.edlwyswig.client.ui.portlet.imageportlet.ImagePortlet;
-import fr.ecuriesduloup.edlwyswig.shared.Img;
+import fr.ecuriesduloup.imagechooser.shared.Img;
 
 public class ModalPopupImageChosser extends Window{
-	private static Map<ImagePortlet, ModalPopupImageChosser> instance = new HashMap<ImagePortlet, ModalPopupImageChosser>();
+	private static Map<ImageChooserConteneur, ModalPopupImageChosser> instance = new HashMap<ImageChooserConteneur, ModalPopupImageChosser>();
 
 	protected static final PortletResources portletResources = GWT.create(PortletResources.class);
 
 
-	public static ModalPopupImageChosser getInstance(ImagePortlet imagePortlet) {
+	public static ModalPopupImageChosser getInstance(ImageChooserConteneur imagePortlet) {
 		if(!instance.containsKey(imagePortlet)){
 			ModalPopupImageChosser modalPopup = new ModalPopupImageChosser(imagePortlet);
 			instance.put(imagePortlet, modalPopup);
@@ -36,11 +32,11 @@ public class ModalPopupImageChosser extends Window{
 	}
 
 	private Image preview;
-	private ImagePortlet imagePortlet;
+	private ImageChooserConteneur imagePortlet;
 	private ImageSelector imageSelector;
 	private Img selectedImage;
 
-	public ModalPopupImageChosser(ImagePortlet imagePortlet) {
+	public ModalPopupImageChosser(ImageChooserConteneur imagePortlet) {
 
 		this.imagePortlet = imagePortlet;
 		this.imageSelector= new ImageSelector(this);

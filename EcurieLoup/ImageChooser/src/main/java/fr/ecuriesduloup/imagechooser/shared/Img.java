@@ -1,4 +1,4 @@
-package fr.ecuriesduloup.edlwyswig.shared;
+package fr.ecuriesduloup.imagechooser.shared;
 
 public class Img {
 	private boolean define;

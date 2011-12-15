@@ -3,7 +3,7 @@ package fr.ecuriesduloup.edlwyswig.client.visitor;
 import fr.ecuriesduloup.edlwyswig.client.ui.portlet.Portlet;
 import fr.ecuriesduloup.edlwyswig.client.ui.portlet.imageportlet.ImagePortlet;
 import fr.ecuriesduloup.edlwyswig.client.ui.portlet.textportlet.TextPortlet;
-import fr.ecuriesduloup.edlwyswig.shared.Img;
+import fr.ecuriesduloup.imagechooser.shared.Img;
 
 
 public class TestVisitor implements Visitor {

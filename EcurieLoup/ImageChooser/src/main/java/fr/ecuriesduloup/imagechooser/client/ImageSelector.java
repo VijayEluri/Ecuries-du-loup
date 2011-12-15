@@ -1,16 +1,17 @@
-package fr.ecuriesduloup.edlwyswig.client.ui.imagechooser;
+package fr.ecuriesduloup.imagechooser.client;
+
 
 import com.smartgwt.client.types.Side;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.TextItem;
-import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
+import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.tab.Tab;
 import com.smartgwt.client.widgets.tab.TabSet;
 
-import fr.ecuriesduloup.edlwyswig.shared.Img;
+import fr.ecuriesduloup.imagechooser.shared.Img;
 
 public class ImageSelector extends Canvas {
 	private ModalPopupImageChosser chosser;
