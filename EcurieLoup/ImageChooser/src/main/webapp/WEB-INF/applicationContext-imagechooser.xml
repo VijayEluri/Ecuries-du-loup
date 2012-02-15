@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	
+	<bean id="imageChooserServiceRemoteService" class="org.gwtwidgets.server.spring.GWTRPCServiceExporter">
+		<property name="service" ref="imageChooserServiceImpl" />
+		<property name="serviceInterfaces" value="fr.ecuriesduloup.imagechooser.client.ImageChooserService" />
+	</bean>
+
+	<bean id="imageChooserServiceImpl" class="fr.ecuriesduloup.imagechooser.server.ImageChooserServiceImpl">
+		<property name="mediaManager" ref="mediaManager"/>
+	</bean>
+</beans>

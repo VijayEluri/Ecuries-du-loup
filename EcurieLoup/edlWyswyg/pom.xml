@@ -6,9 +6,7 @@
 		<groupId>fr.ecuriesduloup</groupId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>fr.ecuriesduloup</groupId>
 	<artifactId>edlWyswyg</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>edl Wyswyg</name>
 
 	<properties>

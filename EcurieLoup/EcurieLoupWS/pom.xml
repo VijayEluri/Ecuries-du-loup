@@ -5,9 +5,7 @@
 		<groupId>fr.ecuriesduloup</groupId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>fr.ecuriesduloup</groupId>
 	<artifactId>EcurieLoupWS</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Ecuries du loup Web Services</name>
 	<description>The web services for ecuries du loup site</description>

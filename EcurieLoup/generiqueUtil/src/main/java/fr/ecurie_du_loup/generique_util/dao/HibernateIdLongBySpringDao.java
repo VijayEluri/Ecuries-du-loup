@@ -10,7 +10,6 @@ public abstract class HibernateIdLongBySpringDao<T extends DataWithLongId> exten
 		super();
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public T findById(long id) {
 		return (T) this.getHibernateTemplate().get(this.parametreClass, id);

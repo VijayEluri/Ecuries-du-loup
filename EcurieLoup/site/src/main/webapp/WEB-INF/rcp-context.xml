@@ -15,7 +15,9 @@
 				<!-- GWT-->
 				<prop key="/gwtg/diaporama">pictureLoaderImplRemoteService</prop>
 				<prop key="/gwtg/secretFlag">secretFlagServiceRemoteService</prop>
-				<prop key="/gwtg/webnotifier">webNotifierServiceRemoteService</prop>			
+				<prop key="/gwtg/webnotifier">webNotifierServiceRemoteService</prop>	
+				<prop key="/gwtg/imagechooser">imageChooserServiceRemoteService</prop>	
+					
 			</props>
 		</property>
 		

@@ -1,4 +1,4 @@
-package fr.ecuriesduloup.imagechooser.client;
+package fr.ecuriesduloup.imagechooser.client.ui;
 
 public class Size {
 	private int height;

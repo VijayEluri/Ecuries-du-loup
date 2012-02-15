@@ -14,6 +14,7 @@
 	<context:component-scan base-package="mvc" />
 	<context:component-scan base-package="fr.ecuriesduloup.ecurieloup.memo" />
 	<context:component-scan base-package="fr.ecuriesduloup.site.community.mvc" />
+	<context:component-scan base-package="fr.ecuriesduloup.imagechooser" />
 	<context:component-scan base-package="fiche_chevaux.mvc" />
 	<!--
 		le mapping des pages (pour faire correspondre les urls a des

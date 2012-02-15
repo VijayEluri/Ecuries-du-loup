@@ -8,7 +8,6 @@ public abstract class HibernateIdStringBySpringDao<T> extends HibernateBySpringD
 		super();
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public T findById(String id) {
 		return (T) this.getHibernateTemplate().get(this.parametreClass, id);

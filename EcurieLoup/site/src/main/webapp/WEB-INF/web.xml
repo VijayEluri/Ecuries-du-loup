@@ -24,6 +24,7 @@
 			classpath:/applicationContext-options.xml
 			classpath:/applicationContext-secretFlag.xml
 			classpath:/applicationContext-webnotifier.xml
+			classpath:/applicationContext-imagechooser.xml
 		 </param-value>
 
 	</context-param>
@@ -96,6 +97,10 @@
 	<servlet-mapping>
 		<servlet-name>rcp</servlet-name>
 		<url-pattern>/gwtg/webnotifier</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>rcp</servlet-name>
+		<url-pattern>/gwtg/imagechooser</url-pattern>
 	</servlet-mapping>
 
 

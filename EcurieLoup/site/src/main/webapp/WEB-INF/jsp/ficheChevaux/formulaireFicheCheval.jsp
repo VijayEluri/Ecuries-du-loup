@@ -41,9 +41,8 @@
 				
 				<spring:bind path="fiche.photoTete">
 					<fmt:message key="ficheChevaux.formulaireFiche.photoTete"/>
-					<input type="hidden" id="fieldPhotoTete" name="photoTete" value="<c:out value="${fiche.photoTete.id}"/>" size="15" maxlength="50" />
-					<img id="img_photoTete" src="${ctx}/images/albumPhoto/miniatures/${fiche.photoTete.id}" alt="photo tete" onclick="ouvrirPopupChoixPhotoFicheCheval('photoTete')" />
-					&#160;
+					<div id="imageHeadHorse" ></div>
+					<input type="hidden" id="fieldHeadPicture" name="photoTete" value="<c:out value="${fiche.photoTete.id}"/>" size="15" maxlength="50" />
 					<span class="error">
 						<c:out value="${status.errorMessage}" />
 					</span>
@@ -52,8 +51,8 @@
 				
 				<spring:bind path="fiche.photoCorps">
 					<fmt:message key="ficheChevaux.formulaireFiche.photoCorps"/>
-					<input type="hidden" name="photoCorps" value="<c:out value="${fiche.photoCorps.id}"/>" size="15" maxlength="50" />
-					<img id="img_photoCorps" src="${ctx}/images/albumPhoto/miniatures/${fiche.photoCorps.id}" alt="photo corps" onclick="ouvrirPopupChoixPhotoFicheCheval('photoCorps')" />
+					<div id="imageBodyHorse" ></div>
+					<input type="hidden"id="fieldBodyPicture"  name="photoCorps" value="<c:out value="${fiche.photoCorps.id}"/>" maxlength="50" />
 					&#160;
 					<span class="error">
 						<c:out value="${status.errorMessage}" />

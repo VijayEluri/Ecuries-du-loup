@@ -9,12 +9,12 @@ import com.smartgwt.client.widgets.events.ResizedHandler;
 
 import fr.ecuriesduloup.edlwyswig.client.ui.portlet.Portlet;
 import fr.ecuriesduloup.edlwyswig.client.visitor.Visitor;
-import fr.ecuriesduloup.imagechooser.client.ImageChooserConteneur;
-import fr.ecuriesduloup.imagechooser.client.ModalPopupImageChosser;
+import fr.ecuriesduloup.imagechooser.client.ImageDefine;
+import fr.ecuriesduloup.imagechooser.client.ui.ModalPopupImageChosser;
 import fr.ecuriesduloup.imagechooser.shared.Img;
 
 
-public class ImagePortlet extends Portlet  implements ImageChooserConteneur{
+public class ImagePortlet extends Portlet  implements ImageDefine{
 	private Img image;
 	private Image imagePreview;
 	private boolean isDefineResize;
@@ -49,7 +49,7 @@ public class ImagePortlet extends Portlet  implements ImageChooserConteneur{
 			@Override
 			public void onClick(ClickEvent event) {
 
-				ModalPopupImageChosser chooser = ModalPopupImageChosser.getInstance(ImagePortlet.this);
+				ModalPopupImageChosser chooser = ModalPopupImageChosser.getInstance(ImagePortlet.this, null);
 				chooser.showPopup();
 			}
 		});

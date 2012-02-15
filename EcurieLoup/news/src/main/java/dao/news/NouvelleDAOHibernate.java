@@ -8,8 +8,6 @@ import fr.ecurie_du_loup.generique_util.dao.HibernateIdLongBySpringDao;
 
 public class NouvelleDAOHibernate extends HibernateIdLongBySpringDao<Nouvelle> implements NouvelleDAO{
 
-	
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Nouvelle> getDernieresNouvelles(int nombreVoullu) {
 		//List<Nouvelle> find = this.getHibernateTemplate().find("FROM nouvelle ORDER BY date_creation DESC LIMIT 0,"+nombre);

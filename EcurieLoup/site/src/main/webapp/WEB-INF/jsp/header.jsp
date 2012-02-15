@@ -32,7 +32,6 @@
 		<link rel="icon" type="image/png" href="${ctx}/images/logo.png" />
 		
 		
-		
 		<!-- lien javascript -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js" type="text/javascript"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
@@ -48,6 +47,8 @@
 		<script type="text/javascript">
 			set_ctx("${ctx}");
 		</script>
+		
+		<script> var isomorphicDir = ctx+"/gwtg/sc/"; </script>
 		<script src="${ctx}/js/edlCode.js" type="text/javascript"> </script>
 		
 		<!-- pou la palette de couleurs -->

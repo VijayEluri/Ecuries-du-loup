@@ -42,7 +42,7 @@ public class DiaporamaPanel extends Composite implements Ihm{
 
 	@Override
 	public void setPicture(Picture picture) {
-		this.imagePanel.setUrl("../images/albumPhoto/"+picture.getId());
+		this.imagePanel.setUrl("../images/albumPhoto/view/"+picture.getId());
 	}
 
 	@Override
