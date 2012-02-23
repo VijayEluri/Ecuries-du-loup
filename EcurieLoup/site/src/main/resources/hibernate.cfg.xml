@@ -53,14 +53,10 @@
 
 		<mapping resource="donnees/page/Page.hbm.xml" />
 
-		<mapping resource="donnees/calendrier/TypeEvenement.hbm.xml" />
-		<mapping resource="donnees/calendrier/Evenement.hbm.xml" />
-
 		<mapping resource="donnees/smiley/CategorieSmiley.hbm.xml" />
 		<mapping resource="donnees/smiley/Smiley.hbm.xml" />
 
-		<mapping resource="sauvegarde/smiley/donnees/SauvegardeSmiley.hbm.xml" />
-
+	
 		<mapping
 			resource="enregistrement_trace_requete/donnees/EnregistrementTraceRequete.hbm.xml" />
 		<mapping

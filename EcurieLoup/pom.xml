@@ -20,7 +20,6 @@
 		<module>site</module>
 		<module>albumPhoto</module>
 		<module>authentification</module>
-		<module>calendrier</module>
 		<module>forum</module>
 		<module>ficheChevaux</module>
 		<module>news</module>

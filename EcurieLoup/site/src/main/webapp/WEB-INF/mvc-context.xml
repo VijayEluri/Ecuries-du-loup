@@ -73,11 +73,6 @@
 		</property>
 	</bean>
 	
-	<bean id="typeEventEditor" class="mvc.calendrier.TypeEventEditor">
-		<property name="calendrierManager">
-			<ref bean="calendrierManager" />
-		</property>
-	</bean>
 	
 	<bean id="photoEditor" class="mvc.photo.commentaire.PhotoEditor">
 		<property name="albumPhotoManager">

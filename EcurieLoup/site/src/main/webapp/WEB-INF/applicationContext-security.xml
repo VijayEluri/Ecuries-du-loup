@@ -88,7 +88,6 @@
 				<sec:intercept-url pattern="/albumphoto/formulaire**" access="ROLE_ADMINISTRATEUR_PHOTO" />
 				<sec:intercept-url pattern="/albumphoto/**" access="ROLE_AUTHENTIFIER" />
 				<sec:intercept-url pattern="/page/**" access="ROLE_ADMINISTRATEUR_ADMIN" />
-				<sec:intercept-url pattern="/calendrier/administration/**" access="ROLE_ADMINISTRATEUR_CALENDRIER" />
 				<sec:intercept-url pattern="/calendrier/**" access="ROLE_AUTHENTIFIER" />
 				<sec:intercept-url pattern="/administration/**" access="ROLE_ADMINISTRATEUR_ADMIN" />
 				<sec:intercept-url pattern="/news/formulaire**" access="ROLE_ADMINISTRATEUR_NEWS" />

@@ -51,8 +51,6 @@
 
 		<mapping resource="donnees/page/Page.hbm.xml" />
 
-		<mapping resource="donnees/calendrier/TypeEvenement.hbm.xml" />
-		<mapping resource="donnees/calendrier/Evenement.hbm.xml" />
 
 		<mapping resource="donnees/smiley/CategorieSmiley.hbm.xml" />
 		<mapping resource="donnees/smiley/Smiley.hbm.xml" />

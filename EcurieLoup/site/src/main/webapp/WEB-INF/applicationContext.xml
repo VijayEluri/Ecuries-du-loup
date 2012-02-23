@@ -55,28 +55,6 @@
 	
 	
 	
-	<bean id="sauvegardeSmileyManager" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-		<property name="transactionManager">
-			<ref bean="transactionManager" />
-		</property>
-		<property name="target">
-			<ref bean="sauvegardeSmileyManagerTarget" />
-		</property>
-		<property name="transactionAttributes">
-			<props>
-				<prop key="*">PROPAGATION_REQUIRED</prop>
-			</props>
-		</property>
-	</bean>
-	
-	<bean id="sauvegardeSmileyManagerTarget" class="sauvegarde.smiley.service.SauvegardeSmileyManagerImpl">
-		<property name="sauvegardeSmileyDAO">
-			<ref bean="sauvegardeSmileyDAO" />
-		</property>
-		<property name="emplacementSmiley">
-			<value>/images/smiley/</value>
-		</property>
-	</bean>
 	
 	
 	<bean id="enregistrementTraceRequeteManager" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">

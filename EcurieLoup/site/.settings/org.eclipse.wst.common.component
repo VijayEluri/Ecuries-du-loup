@@ -20,13 +20,10 @@
         <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/albumPhoto/albumPhoto">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/news/news">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/calendrier/calendrier">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/ficheChevaux/ficheChevaux">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/news/news">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/Smiley/Smiley">
@@ -56,7 +53,13 @@
         <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/diaporama/diaporama">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/WebNotifier/WebNotifier">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/secretFlag/secretFlag">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/ImageChooser/ImageChooser">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="context-root" value="site"/>
