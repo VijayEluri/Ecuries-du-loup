@@ -10,4 +10,5 @@ public interface UserService {
 	public List<SuggestListItem> getItemSuggestList();
 	public Collection<Role> getRolesOfConnectedUser();
 	public User getCurrentUser();
+	public User getUserByLogin(String login);
 }

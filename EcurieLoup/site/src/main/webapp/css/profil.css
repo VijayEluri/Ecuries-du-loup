@@ -1,8 +1,7 @@
 @CHARSET "UTF-8";
 
 .userCommunityList table{
-	margin: auto;
-	
+	margin: auto;	
 	width:  75%;
 }
 
@@ -17,3 +16,7 @@
 	color : rgb(0, 128, 0);
 }
 
+#tabsUserCard{
+	float: left;
+	width: 95%;
+}

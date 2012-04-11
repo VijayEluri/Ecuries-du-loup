@@ -62,4 +62,10 @@ public class UserServiceImpl implements UserService {
 		return items;
 	}
 
+	@Override
+	public User getUserByLogin(String login) {
+		User user = this.utilisateurManager.getById(login);
+		return user;
+	}
+
 }

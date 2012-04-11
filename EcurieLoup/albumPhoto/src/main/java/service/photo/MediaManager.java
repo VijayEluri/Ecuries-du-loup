@@ -34,6 +34,9 @@ public interface MediaManager {
 	
 	public void creerTag(Tag tag);
 	public void supprimerTag(Tag tag);
+	public List<Media> getTagContent(User user);
+	//TODO : change long in fiche horse
+	public List<Media> getTagContent(long horseIdentifier);
 	
 	public void visionnnageAlbum(Album album);
 	public boolean hasNouvellesMedias();

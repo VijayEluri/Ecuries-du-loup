@@ -11,7 +11,7 @@ import donnees.photo.Album;
 import donnees.photo.Media;
 import donnees.photo.Tag;
 import donnees.photo.commentaire.Commentaire;
-
+//TODO : use spring annotation for this class
 public class MediaDecorateurConcrete extends AlbumPhotoSecuriteDecorateur {
 	
 	private UtilisateurManager utilisateurManager;
@@ -212,6 +212,16 @@ public class MediaDecorateurConcrete extends AlbumPhotoSecuriteDecorateur {
 	@Override
 	public Media getLastMedia() {
 		return this.mediaManager.getLastMedia();
+	}
+
+	@Override
+	public List<Media> getTagContent(User user) {
+		return this.mediaManager.getTagContent(user);
+	}
+
+	@Override
+	public List<Media> getTagContent(long horseIdentifier) {
+		return this.mediaManager.getTagContent(horseIdentifier);
 	}	
 
 }

@@ -1,5 +1,8 @@
 @CHARSET "ISO-8859-1";
-
+#tabsHorseCard{
+	float: left;
+	width: 95%;
+}
 #corps .fiche_chevaux .visualisationFiche .photo_fiche{
 	float: left;
 	

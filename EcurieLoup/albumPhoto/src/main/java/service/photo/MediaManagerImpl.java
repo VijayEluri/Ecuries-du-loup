@@ -400,5 +400,25 @@ public class MediaManagerImpl implements MediaManager {
 		int indexLastMedia = medias.size() -1;
 		return medias.get(indexLastMedia);
 	}
+	
+	
+	@Override
+	public List<Media> getTagContent(User user) {
+		List<Tag> tags = this.tagDAO.getTagOnUser(user);
+		List<Media> medias = new ArrayList<Media>();
+		for(Tag tag : tags){
+			medias.add(tag.getPhoto());
+		}
+		return medias;
+	}
+	@Override
+	public List<Media> getTagContent(long horseIdentifier) {
+		List<Tag> tags = this.tagDAO.getTagOnHorse(horseIdentifier);
+		List<Media> medias = new ArrayList<Media>();
+		for(Tag tag : tags){
+			medias.add(tag.getPhoto());
+		}
+		return medias;
+	}
 
 }

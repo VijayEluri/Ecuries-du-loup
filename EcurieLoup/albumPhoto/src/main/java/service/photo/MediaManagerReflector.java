@@ -170,6 +170,18 @@ public class MediaManagerReflector implements MediaManager, BeanFactoryAware{
 		return this.albumPhotoManager.getLastMedia();
 	}
 
+	@Override
+	public List<Media> getTagContent(User user) {
+		this.init();
+		return albumPhotoManager.getTagContent(user);
+	}
+
+	@Override
+	public List<Media> getTagContent(long horseIdentifier) {
+		this.init();
+		return albumPhotoManager.getTagContent(horseIdentifier);
+	}
+
 	
 
 	

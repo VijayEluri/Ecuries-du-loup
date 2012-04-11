@@ -1,0 +1,62 @@
+@CHARSET "ISO-8859-1";
+
+
+#photosAlbums .loading{
+margin-bottom: 20px;
+}
+#photosAlbums img {
+	border: none;
+}
+
+#photosAlbums  a {
+	text-decoration: none;
+}
+
+#photosAlbums {
+	width: 100%;
+	float: left;
+	text-align: center;
+}
+
+#photosAlbums .photo {
+	border: black 4px solid;
+	background-color: rgb(0, 128, 0);
+	width: 19%;
+	height: 100px;
+	float: left;
+	margin: 2%;
+	text-align: center;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+
+#photosAlbums .video {
+	position: relative;
+}
+
+#photosAlbums .video .image_video {
+	background-image: url("../images/video.png");
+	background-repeat: none;
+	width: 50px;
+	height: 50px;
+	opacity: 0.8;
+	position: absolute;
+	top: 25%;
+	left: 35%;
+}
+
+#photosAlbums .video .image_video {
+	top: 5%;
+	left: 20%;
+}
+
+#photosAlbums .photo:hover {
+	background-color: rgb(128, 128, 0);
+}
+
+#photosAlbums .photo img {
+	max-width: 80%;
+	max-height: 80px;
+	padding: 10px;
+}

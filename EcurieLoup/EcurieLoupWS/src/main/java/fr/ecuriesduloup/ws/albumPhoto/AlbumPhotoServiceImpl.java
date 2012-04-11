@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import service.photo.MediaManager;
+import donnees.User;
 import donnees.photo.Album;
 import donnees.photo.Media;
 @Service
@@ -41,6 +42,15 @@ public class AlbumPhotoServiceImpl implements AlbumPhotoService {
 	@Override
 	public List<Album> getAlbums() {
 		return this.mediaManager.recupererTousLesAlbums();
+	}
+
+	@Override
+	public List<Media> getMediaWithHorse(long horseIdentifier) {
+		return this.mediaManager.getTagContent(horseIdentifier);
+	}
+	@Override
+	public List<Media> getMediaWithUser(User user) {
+		return this.mediaManager.getTagContent(user);
 	}
 
 }

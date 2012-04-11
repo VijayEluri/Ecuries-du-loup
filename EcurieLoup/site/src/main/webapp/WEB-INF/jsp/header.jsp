@@ -32,17 +32,19 @@
 		<link rel="icon" type="image/png" href="${ctx}/images/logo.png" />
 		
 		
-		<!-- lien javascript -->
+		<!-- jquery -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js" type="text/javascript"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
-
+		<link rel="stylesheet" type="text/css" media="screen" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/smoothness/jquery.ui.all.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
+		<script src="${ctx}/js/photoAlbumPlugin.js" type="text/javascript"> </script>
+		
 		<!-- pour le tagage des photo -->
 		<script src="${ctx}/js/tagagePhoto.js" type="text/javascript"> </script>
 		
 		
 		
-		<link rel=stylesheet type=text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/smoothness/jquery.ui.all.css" />
-		
+			
 		<script src="${ctx}/js/gestionVariable.js" type="text/javascript"> </script>
 		<script type="text/javascript">
 			set_ctx("${ctx}");

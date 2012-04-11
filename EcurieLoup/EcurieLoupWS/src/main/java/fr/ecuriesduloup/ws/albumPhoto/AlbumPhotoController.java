@@ -33,6 +33,56 @@ public class AlbumPhotoController {
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * Return all media with a personn or a horse.
+	 * @param identifier the identifier of the horse or personn you want all media.
+	 * @return a xml of media contents personn.
+	 */
+	@RequestMapping(value = "/albumPhoto/photos/{identifier}",method=RequestMethod.GET)
+	public ModelAndView GetMediaWith(@PathVariable String identifier) {
+		long t0 = System.currentTimeMillis();
+		User user = this.userService.getUserByLogin(identifier);
+		long t1 = System.currentTimeMillis();
+		List<Media> medias = new ArrayList<Media>();
+		if(user == null){
+			long id = Long.parseLong(identifier);
+			List<Media> mediasWithHorse = this.albumPhotoService.getMediaWithHorse(id);
+			medias.addAll(mediasWithHorse);
+		
+		}else{
+			List<Media> mediasWithUser = this.albumPhotoService.getMediaWithUser(user);
+			medias.addAll(mediasWithUser);
+		}
+
+		long t2 = System.currentTimeMillis();
+		
+	
+		ModelAndView mav = new ModelAndView("statusXmlView", BindingResult.MODEL_KEY_PREFIX + "meduas", convert(medias));
+
+		long t3 = System.currentTimeMillis();
+		System.out.println("getUserByLogin "+(t1-t0));
+		System.out.println("getMediaWith... "+(t2-t1));
+
+		System.out.println("ModelAndView. "+(t3-t2));
+		return mav;
+	}
+	private List<MediaDto> convert(List<Media> medias){
+		List<MediaDto> mediasDto = new ArrayList<MediaDto>();
+		for(Media media : medias){
+			MediaDto dto = new MediaDto();
+			dto.setId(media.getId());
+			dto.setDatePostage(media.getDatePostage());
+			dto.setDescription(media.getDescription());
+			dto.setType(media.getType());
+			mediasDto.add(dto);
+		}
+		
+		return mediasDto;
+	}
+	/**
+	 * Get all albums.
+	 * @return The xml with all album.
+	 */
 	@RequestMapping(value = "/albumPhoto/albums",method=RequestMethod.GET)
 	public ModelAndView listAlbum() {
 		List<Album> albums = this.albumPhotoService.getAlbums();
@@ -43,7 +93,11 @@ public class AlbumPhotoController {
 		ModelAndView mav = new ModelAndView("statusXmlView", BindingResult.MODEL_KEY_PREFIX + "albums", albumWs);
 		return mav;
 	}
-
+	/**
+	 * Add new album.
+	 * @param name The name of album.
+	 * @return
+	 */
 	@RequestMapping(value = "/albumPhoto/album/{name}",method=RequestMethod.PUT)
 	public ModelAndView createAlbum(@PathVariable String name) {
 		long idAlbumPhoto = this.albumPhotoService.createAlbumPhoto(name);
@@ -53,11 +107,24 @@ public class AlbumPhotoController {
 		return mav;
 	}
 
+	/**
+	 * Upload photo.
+	 * @param albumId the id of the album.
+	 * @param multipartFile The file to upload
+	 * @param request the request.
+	 * @return
+	 */
 	@RequestMapping(value = "/albumPhoto/photo/{albumId}",method=RequestMethod.POST)	
 	public ModelAndView upload(@PathVariable long albumId, @RequestParam("file") MultipartFile multipartFile, MultipartHttpServletRequest request){
 		return this.commonUpload(albumId, multipartFile, request, TypeMedia.Photo);		
 	}
-	
+	/**
+	 * Upload video.
+	 * @param albumId the id of the album.
+	 * @param multipartFile The file to upload
+	 * @param request the request.
+	 * @return
+	 */
 	@RequestMapping(value = "/albumPhoto/video/{albumId}",method=RequestMethod.POST)
 	public ModelAndView uploadVideo(@PathVariable long albumId, @RequestParam("file") MultipartFile multipartFile, MultipartHttpServletRequest request){
 		return this.commonUpload(albumId, multipartFile, request, TypeMedia.Video);
