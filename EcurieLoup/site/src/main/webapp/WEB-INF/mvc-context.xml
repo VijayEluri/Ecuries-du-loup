@@ -91,8 +91,10 @@
 		</constructor-arg>
 	</bean>
 	
-
+<bean  class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+<bean id="rssViewer" class="fr.ecuriesduloup.rss.CustomRssViewer"></bean>
 	<!-- view resolever (permet de récupéré un ModelAndView())-->
+	
 	<bean id="viewResolver3"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"

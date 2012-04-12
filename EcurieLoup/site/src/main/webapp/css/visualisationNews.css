@@ -10,7 +10,18 @@
 	-moz-border-radius: 15px;
 	border-radius: 15px;
 }
-
+#corps .lien .rss{
+	float:right;
+	background-color: #ffffff;
+    border: none;
+    text-decoration: none;
+   box-shadow: none;
+   padding: 0%;
+}
+#corps .lien .rss:hover{
+	background-color: #ffffff;
+   box-shadow: none;
+}
 .visualisationNews h2 {
 	margin: -5px;
 	margin-bottom: 5px;

@@ -30,15 +30,18 @@
 		</div>
 		
 		<div class="nouvelles">
-		
-			<security:authorize ifAllGranted="ROLE_ADMINISTRATEUR_NEWS">
-				<div class="lien">
-					<a href="${ctx}/administration/news/formulaireNews.do">
-						<fmt:message key="new.lien.write_news"/>
-					</a>
-				</div>
-			</security:authorize>
+			<div class="lien">
+				<security:authorize ifAllGranted="ROLE_ADMINISTRATEUR_NEWS">
+					
+				<a href="${ctx}/administration/news/formulaireNews.do">
+					<fmt:message key="new.lien.write_news"/>
+				</a>
 			
+				</security:authorize>
+				<a href="${ctx}/rssfeed.do" class="rss">
+					<img src="${ctx}/images/rss.png" alt="<fmt:message key="new.rss.alt"/>" title="<fmt:message key="new.rss.title"/>" />
+				</a>
+			</div>
 			<c:if test="${empty listeNews}">
 				<p><fmt:message key="new.empty_list"/></p>
 			</c:if> 

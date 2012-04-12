@@ -65,6 +65,21 @@ public class AffichageNewsController{
 		return new ModelAndView("news/visualisationNews", renvoyer);
 	}
 	
+	@RequestMapping(value = "/news/show.do", params = "newsId")
+	public ModelAndView showNews(HttpServletRequest request, @RequestParam("newsId") long newsId){
+
+		Map<String, Object> renvoyer = new HashMap<String, Object>();
+		
+		Nouvelle news = this.nouvelleManager.getById(newsId);
+
+		news = this.moulinetteEdlCode(news, request);
+		renvoyer.put("news", news);
+
+		
+
+		return new ModelAndView("news/showSingleNew", renvoyer);
+	}
+	
 	
 	@RequestMapping(value = {"/index.do", "/news/affichageNews.do"}, params= "deleteNouvelle")
 	public ModelAndView handleRequestDelete(@RequestParam("deleteNouvelle") int idNouvelle){
@@ -81,28 +96,30 @@ public class AffichageNewsController{
 			HttpServletRequest request) {
 		List<Nouvelle> listeModifier = new ArrayList<Nouvelle>();
 		for (Nouvelle nouvelle : listeAvant) {
-			Nouvelle nouvelleEdlCode = new Nouvelle();
-			nouvelleEdlCode.setAuteur(nouvelle.getAuteur());
-			nouvelleEdlCode.setDateCreation(nouvelle.getDateCreation());
-			nouvelleEdlCode.setDateDerniereModification(nouvelle
-					.getDateDerniereModification());
-			nouvelleEdlCode.setId(nouvelle.getId());
-			nouvelleEdlCode.setTitre(nouvelle.getTitre());
-
-			String contenuMouline;
-			try {
-				String pathServeur = request.getContextPath();
-
-				contenuMouline = this.edlCode.parse(nouvelle.getContenu(),
-						pathServeur);
-			} catch (EdlCodeEncodageException e) {
-				contenuMouline = nouvelle.getContenu();
-			}
-			nouvelleEdlCode.setContenu(contenuMouline);
-
-			listeModifier.add(nouvelleEdlCode);
+			listeModifier.add(moulinetteEdlCode(nouvelle, request));	
 		}
 
 		return listeModifier;
+	}
+	
+	private Nouvelle moulinetteEdlCode(Nouvelle nouvelle, HttpServletRequest request){
+		Nouvelle nouvelleEdlCode = new Nouvelle();
+		nouvelleEdlCode.setAuteur(nouvelle.getAuteur());
+		nouvelleEdlCode.setDateCreation(nouvelle.getDateCreation());
+		nouvelleEdlCode.setDateDerniereModification(nouvelle
+				.getDateDerniereModification());
+		nouvelleEdlCode.setId(nouvelle.getId());
+		nouvelleEdlCode.setTitre(nouvelle.getTitre());
+
+		String contenuMouline;
+		try {
+			String pathServeur = request.getContextPath();
+
+			contenuMouline = this.edlCode.parse(nouvelle.getContenu(),	pathServeur);
+		} catch (EdlCodeEncodageException e) {
+			contenuMouline = nouvelle.getContenu();
+		}
+		nouvelleEdlCode.setContenu(contenuMouline);
+		return nouvelleEdlCode;
 	}
 }
