@@ -18,6 +18,8 @@
 	<div class="navigation">
 		&gt; <fmt:message key="administraction.navigation.administration"/>
 	</div>
+	
+	<h1><fmt:message key="administraction.title"/></h1>
 	<div class="administration">
 		<a href="${ctx }/administration/gestionDroit.do"><fmt:message key="administraction.menu.rights_management"/></a><br />
 		<a href="${ctx }/administration/gestionUtilisateur.do"><fmt:message key="administraction.menu.users_management"/></a><br />
