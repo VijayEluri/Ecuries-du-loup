@@ -5,26 +5,14 @@
 }
 #corps .fiche_chevaux .visualisationFiche .photo_fiche{
 	float: left;
-	
-	
 	max-width: 40%;
 }
 #corps .fiche_chevaux .visualisationFiche .photo_fiche img{
 	margin: 10%;
-	
 	max-width: 40%;
 	max-height: 200px;
 }
-#corps .fiche_chevaux .visualisationFiche .photo_fiche .survol{
-	display: none;
-	position: absolute;
-	border : black 2px solid;
-}
-#corps .fiche_chevaux .visualisationFiche .photo_fiche .survol img{
-	margin: 0px;
-	max-width: 500px;
-	max-height: 400px;
-}
+
 #corps .fiche_chevaux .visualisationFiche .surnom{
 	margin-left: 10%;
 	margin-bottom: 10px;
@@ -53,6 +41,26 @@
 }
 #corps .fiche_chevaux .formulaireFiche .date_invisible{
 	display: none;
+}
+/************************/
+/* hover image */
+/************************/
+#corps .fiche_chevaux .presentation_image {
+	
+}
+#corps .fiche_chevaux .presentation_image .tooltip{
+	display: none;
+	border : black 2px solid;
+	position: absolute;
+}
+#corps .fiche_chevaux .presentation_image .tooltip img{
+	margin: 0px;
+	max-width: 500px;
+	max-height: 400px;
+	max-width: 100%;
+}
+#corps .fiche_chevaux .presentation_image:hover > .tooltip{
+	display: block;
 }
 
 

@@ -40,23 +40,3 @@ function selectionnePhoto(idPhoto){
 	document.getElementById("photoSelectionner").src= document.getElementById("selected").src;
 	document.getElementById("idPhoto").value=idPhoto;
 }
-
-/*********************************************************************/
-function affichePhotoGrand(event, idPhoto){
-	var x = 10 + event.clientX + (document.body.scrollLeft || document.documentElement.scrollLeft);
-	var y = 10 + event.clientY + (document.body.scrollTop || document.documentElement.scrollTop);
-
-	/*x-=document.getElementById(idPhoto).width;
-	y-=document.getElementById(idPhoto).height;*/
-
-	document.getElementById(idPhoto).style.top=y+"px";
-	document.getElementById(idPhoto).style.left=x+"px";
-
-	document.getElementById(idPhoto).style.display = "block";
-	
-	//alert("hauteur : "+document.body.clientHeight+ ", largeur "+document.body.clientWidth+"\nh "+document.getElementById(idPhoto).height+", w "+document.getElementById(idPhoto).width)
-}
-
-function cachePhotoGrand(idPhoto){
-	document.getElementById(idPhoto).style.display = "none";
-}

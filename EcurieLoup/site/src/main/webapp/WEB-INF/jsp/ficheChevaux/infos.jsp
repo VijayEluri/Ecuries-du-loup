@@ -1,13 +1,13 @@
 <div class="photo_fiche">
 	<c:choose>
 		<c:when test="${ficheCheval.photoTete != null }">
-			<img alt="photo tete du cheval"
-				src="${ctx}/images/albumPhoto/view/${ficheCheval.photoTete.id}"
-				onmouseover="affichePhotoGrand(event, 'survolTete')"
-				onmouseout="cachePhotoGrand('survolTete')" />
-			<div id="survolTete" class="survol">
+			<div class="presentation_image">
 				<img alt="photo tete du cheval"
 					src="${ctx}/images/albumPhoto/view/${ficheCheval.photoTete.id}" />
+					<div class="tooltip">
+						<img alt="photo tete du cheval"
+							src="${ctx}/images/albumPhoto/view/${ficheCheval.photoTete.id}" />
+					</div>
 			</div>
 		</c:when>
 		<c:otherwise>
@@ -17,15 +17,14 @@
 	<br />
 	<c:choose>
 		<c:when test="${ficheCheval.photoCorps != null }">
-			<img alt="photo du corps du cheval"
-				src="${ctx}/images/albumPhoto/view/${ficheCheval.photoCorps.id}"
-				onmouseover="affichePhotoGrand(event, 'survolCorps')"
-				onmouseout="cachePhotoGrand('survolCorps')">
-			<div id="survolCorps" class="survol">
+			<div class="presentation_image">
 				<img alt="photo du corps du cheval"
-					src="${ctx}/images/albumPhoto/view/${ficheCheval.photoCorps.id}" />
+					src="${ctx}/images/albumPhoto/view/${ficheCheval.photoCorps.id}"/>
+				<div class="tooltip">
+					<img alt="photo du corps du cheval"
+						src="${ctx}/images/albumPhoto/view/${ficheCheval.photoCorps.id}" />
+				</div>
 			</div>
-
 		</c:when>
 		<c:otherwise>
 			<img alt="pas de photo du corps du cheval" src="" />
