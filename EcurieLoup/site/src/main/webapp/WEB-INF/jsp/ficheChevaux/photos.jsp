@@ -5,4 +5,4 @@ $(function() {
 });
 </script>
 <div id="photosAlbums">
-</div
+</div>
