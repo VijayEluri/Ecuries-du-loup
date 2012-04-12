@@ -35,6 +35,9 @@
 		<property name="vracDAO">
 			<ref bean="vracDAO" />
 		</property>
+		<property name="edlCode">		
+			<ref bean="edlCode" />
+		</property>
 	</bean>
 	
 	<bean id="vracManager" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">

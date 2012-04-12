@@ -16,17 +16,20 @@ import org.junit.Test;
 import service.news.NouvelleManagerImpl;
 import dao.news.NouvelleDAO;
 import donnees.news.Nouvelle;
+import edlcode.EdlCode;
 import fr.ecurie_du_loup.generique_util.service.test.DataBaseServiceWithDaoIdLongUtilAndLongIdUnitaryTest;
 
 public class NouvelleManagerImplTest extends DataBaseServiceWithDaoIdLongUtilAndLongIdUnitaryTest<Nouvelle>{
-
+private EdlCode edlcode;
 	
 
 	@Before
 	public void setUp() throws Exception {
 		this.dao = EasyMock.createMock(NouvelleDAO.class);
+		this.edlcode= new EdlCode();
 		this.service = new NouvelleManagerImpl();
 		this.service.setDao(this.dao);
+		((NouvelleManagerImpl)this.service).setEdlCode(this.edlcode);
 	}
 
 	@After
@@ -40,13 +43,14 @@ public class NouvelleManagerImplTest extends DataBaseServiceWithDaoIdLongUtilAnd
 			Nouvelle nouvelle = new Nouvelle();
 			int id = (int) Math.random()*10000;
 			nouvelle.setId(id);
+			nouvelle.setContenu("");
 			listNouvelle.add(nouvelle);
 		}
 		EasyMock.expect(((NouvelleDAO) this.dao).getDernieresNouvelles(2)).andReturn(listNouvelle);
 
 		EasyMock.replay(this.dao);
 
-		List<Nouvelle> listeNouvelleRecuperer = ((NouvelleManagerImpl) this.service).recupererDernieresNouvelles(2);
+		List<Nouvelle> listeNouvelleRecuperer = ((NouvelleManagerImpl) this.service).recupererDernieresNouvelles(2, "");
 
 		assertEquals(listeNouvelleRecuperer, listNouvelle);
 		EasyMock.verify(this.dao);
@@ -60,7 +64,7 @@ public class NouvelleManagerImplTest extends DataBaseServiceWithDaoIdLongUtilAnd
 
 		EasyMock.replay(this.dao);
 
-		List<Nouvelle> listeNouvelleRecuperer = ((NouvelleManagerImpl) this.service).recupererDernieresNouvelles(2);
+		List<Nouvelle> listeNouvelleRecuperer = ((NouvelleManagerImpl) this.service).recupererDernieresNouvelles(2, "");
 
 		assertEquals(listeNouvelleRecuperer, listNouvelle);
 		assertTrue(listeNouvelleRecuperer.isEmpty());

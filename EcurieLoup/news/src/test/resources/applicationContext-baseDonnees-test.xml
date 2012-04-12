@@ -17,4 +17,6 @@
 	<bean id="utilisateurManager" class="service.UtilisateurManagerImpl">
 	</bean>
 
+	<bean id="edlCode" class="edlcode.EdlCode">
+	</bean>
 </beans>

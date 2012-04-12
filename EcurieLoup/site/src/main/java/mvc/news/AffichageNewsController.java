@@ -29,12 +29,7 @@ public class AffichageNewsController{
 	@Autowired
 	@Qualifier("vracManager")
 	private VracManager vracManager;
-	@Autowired
-	private EdlCode edlCode;
 	
-	public void setEdlCode(EdlCode edlCode) {
-		this.edlCode = edlCode;
-	}
 	public void setVracManager(VracManager vracManager) {
 		this.vracManager = vracManager;
 	}
@@ -48,18 +43,12 @@ public class AffichageNewsController{
 		Map<String, Object> renvoyer = new HashMap<String, Object>();
 		String pathServeur = request.getContextPath();
 
-		List<Nouvelle> listeNews = this.nouvelleManager.recupererDernieresNouvelles(5);
+		List<Nouvelle> listeNews = this.nouvelleManager.recupererDernieresNouvelles(5,  request.getContextPath());
 
-		listeNews = this.moulinetteEdlCode(listeNews, request);
 		renvoyer.put("listeNews", listeNews);
 
-		String edito = "";
-		try {
-			edito = this.edlCode.parse(this.vracManager.recupererVrac(
-					"edito").getContenu(), pathServeur);
-		} catch (EdlCodeEncodageException e) {
-			e.printStackTrace();
-		}
+		String edito = this.vracManager.getFormatedVrac("edito", pathServeur).getContenu();
+		
 		renvoyer.put("edito", edito);
 
 		return new ModelAndView("news/visualisationNews", renvoyer);
@@ -70,9 +59,8 @@ public class AffichageNewsController{
 
 		Map<String, Object> renvoyer = new HashMap<String, Object>();
 		
-		Nouvelle news = this.nouvelleManager.getById(newsId);
+		Nouvelle news = this.nouvelleManager.getFormatedNews(newsId,  request.getContextPath());
 
-		news = this.moulinetteEdlCode(news, request);
 		renvoyer.put("news", news);
 
 		
@@ -92,34 +80,5 @@ public class AffichageNewsController{
 
 	
 
-	private List<Nouvelle> moulinetteEdlCode(List<Nouvelle> listeAvant,
-			HttpServletRequest request) {
-		List<Nouvelle> listeModifier = new ArrayList<Nouvelle>();
-		for (Nouvelle nouvelle : listeAvant) {
-			listeModifier.add(moulinetteEdlCode(nouvelle, request));	
-		}
-
-		return listeModifier;
-	}
 	
-	private Nouvelle moulinetteEdlCode(Nouvelle nouvelle, HttpServletRequest request){
-		Nouvelle nouvelleEdlCode = new Nouvelle();
-		nouvelleEdlCode.setAuteur(nouvelle.getAuteur());
-		nouvelleEdlCode.setDateCreation(nouvelle.getDateCreation());
-		nouvelleEdlCode.setDateDerniereModification(nouvelle
-				.getDateDerniereModification());
-		nouvelleEdlCode.setId(nouvelle.getId());
-		nouvelleEdlCode.setTitre(nouvelle.getTitre());
-
-		String contenuMouline;
-		try {
-			String pathServeur = request.getContextPath();
-
-			contenuMouline = this.edlCode.parse(nouvelle.getContenu(),	pathServeur);
-		} catch (EdlCodeEncodageException e) {
-			contenuMouline = nouvelle.getContenu();
-		}
-		nouvelleEdlCode.setContenu(contenuMouline);
-		return nouvelleEdlCode;
-	}
 }

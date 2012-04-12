@@ -1,7 +1,8 @@
 package mvc;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import service.news.NouvelleManager;
-
 import donnees.news.Nouvelle;
 
 @Controller
@@ -26,9 +26,9 @@ public class RssController {
 	}
 	
 	@RequestMapping(value="/rssfeed.do", method = RequestMethod.GET)
-	public ModelAndView getFeedInRss(){
+	public ModelAndView getFeedInRss(HttpServletRequest request){
 
-		List<Nouvelle> items = this.nouvelleManager.recupererDernieresNouvelles(5);
+		List<Nouvelle> items = this.nouvelleManager.recupererDernieresNouvelles(5, request.getContextPath());
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("rssViewer");
@@ -36,4 +36,6 @@ public class RssController {
 		
 		return mav;
 	}
+	
+	
 }

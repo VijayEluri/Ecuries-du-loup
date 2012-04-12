@@ -14,6 +14,8 @@
 		<property name="dao">
 			<ref bean="nouvelleDAO" />
 		</property>
+		<property name="edlCode">
+			<ref bean="edlCode" /></property>
 	</bean>
 	
 	<bean id="nouvelleManager" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
