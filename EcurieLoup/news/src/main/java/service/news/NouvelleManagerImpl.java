@@ -19,19 +19,19 @@ public class NouvelleManagerImpl extends DataBaseServiceWithDaoIdLongUtilAndLong
 		this.edlCode = edlCode;
 	}
 	@Override
-	public List<Nouvelle> recupererDernieresNouvelles(int nombreDerniereNouvelle, String pathServeur) {
-		return moulinetteEdlCode(((NouvelleDAO) this.dao).getDernieresNouvelles(nombreDerniereNouvelle), pathServeur);
+	public List<Nouvelle> recupererDernieresNouvelles(int nombreDerniereNouvelle) {
+		return moulinetteEdlCode(((NouvelleDAO) this.dao).getDernieresNouvelles(nombreDerniereNouvelle));
 	}
-	private List<Nouvelle> moulinetteEdlCode(List<Nouvelle> listeAvant,String pathServeur) {
+	private List<Nouvelle> moulinetteEdlCode(List<Nouvelle> listeAvant) {
 		List<Nouvelle> listeModifier = new ArrayList<Nouvelle>();
 		for (Nouvelle nouvelle : listeAvant) {
-			listeModifier.add(moulinetteEdlCode(nouvelle, pathServeur));	
+			listeModifier.add(moulinetteEdlCode(nouvelle));	
 		}
 
 		return listeModifier;
 	}
 	
-	private Nouvelle moulinetteEdlCode(Nouvelle nouvelle, String pathServeur){
+	private Nouvelle moulinetteEdlCode(Nouvelle nouvelle){
 		Nouvelle nouvelleEdlCode = new Nouvelle();
 		nouvelleEdlCode.setAuteur(nouvelle.getAuteur());
 		nouvelleEdlCode.setDateCreation(nouvelle.getDateCreation());
@@ -43,7 +43,7 @@ public class NouvelleManagerImpl extends DataBaseServiceWithDaoIdLongUtilAndLong
 		String contenuMouline;
 		try {
 
-			contenuMouline = this.edlCode.parse(nouvelle.getContenu(),	pathServeur);
+			contenuMouline = this.edlCode.parse(nouvelle.getContenu());
 		} catch (EdlCodeEncodageException e) {
 			contenuMouline = nouvelle.getContenu();
 		}
@@ -51,9 +51,9 @@ public class NouvelleManagerImpl extends DataBaseServiceWithDaoIdLongUtilAndLong
 		return nouvelleEdlCode;
 	}
 	@Override
-	public Nouvelle getFormatedNews(long newsId, String contextPath) {
+	public Nouvelle getFormatedNews(long newsId) {
 		Nouvelle news = this.getById(newsId);
-		return this.moulinetteEdlCode(news, contextPath);
+		return this.moulinetteEdlCode(news);
 	}
 	
 }

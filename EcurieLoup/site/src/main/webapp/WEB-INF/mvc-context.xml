@@ -83,13 +83,16 @@
 	
 	<context:component-scan base-package="fr.ecuriesduloup.ws.notifier" />
 	
-	<bean id="statusXmlView"
-		class="org.springframework.web.servlet.view.xml.MarshallingView">
+	<bean id="statusXmlView" class="org.springframework.web.servlet.view.xml.MarshallingView">
 		<constructor-arg>
 			<bean class="org.springframework.oxm.xstream.XStreamMarshaller" p:autodetectAnnotations="true">
 			</bean>
 		</constructor-arg>
 	</bean>
+	
+
+    
+   
 	
 <bean  class="org.springframework.web.servlet.view.BeanNameViewResolver" />
 <bean id="rssViewer" class="fr.ecuriesduloup.rss.CustomRssViewer"></bean>

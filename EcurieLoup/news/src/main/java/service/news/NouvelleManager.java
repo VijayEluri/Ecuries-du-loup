@@ -6,7 +6,7 @@ import donnees.news.Nouvelle;
 import fr.ecurie_du_loup.generique_util.service.DataBaseServiceWithLongId;
 
 public interface NouvelleManager extends DataBaseServiceWithLongId<Nouvelle>{
-	public List<Nouvelle> recupererDernieresNouvelles(int nombreDerniereNouvelle, String pathServeur);
+	public List<Nouvelle> recupererDernieresNouvelles(int nombreDerniereNouvelle);
 
-	public Nouvelle getFormatedNews(long newsId, String contextPath);
+	public Nouvelle getFormatedNews(long newsId);
 }

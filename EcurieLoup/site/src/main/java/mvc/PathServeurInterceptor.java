@@ -17,6 +17,7 @@ public class PathServeurInterceptor extends HandlerInterceptorAdapter {
 				.getRealPath("/");
 
 		MemoireVariable.definirVariable("pathServeur", pathServeur);
+		MemoireVariable.definirVariable("contextPath", request.getContextPath());
 
 		return super.preHandle(request, response, handler);
 	}

@@ -1,31 +1,30 @@
 package fr.ecuriesduloup.ws.notifier;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import fr.ecuriesduloup.ws.AbstractWsController;
+
 
 @Controller
-public class NotifierContoller {
+public class NotifierContoller extends AbstractWsController{
 
 	@Autowired
 	private NotifierService notifierService;
  
 	@RequestMapping(value = "/status/forum")
-	public ModelAndView getStatusForum() {
-		Status status = this.notifierService.getForumStatus();
-		ModelAndView mav = 
-			new ModelAndView("statusXmlView", BindingResult.MODEL_KEY_PREFIX + "forum", status);
-		return mav;
+	public ModelAndView getStatusForum(HttpServletRequest request) {
+		Status status = this.notifierService.getForumStatus();		
+		return this.ChooseView(request, "forum", status);
 	} 
 	
 	@RequestMapping(value = "/status/photos")
-	public ModelAndView getStatusPhotos() {
+	public ModelAndView getStatusPhotos(HttpServletRequest request) {
 		Status status = this.notifierService.getAlbumPhotoStatus();
-		ModelAndView mav = 
-			new ModelAndView("statusXmlView", BindingResult.MODEL_KEY_PREFIX + "photo", status);
-		return mav;
+		return this.ChooseView(request, "photo", status);
 	} 
 }

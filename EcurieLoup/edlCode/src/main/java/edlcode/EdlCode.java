@@ -11,6 +11,7 @@ import service.smiley.SmileyManager;
 
 import com.lowagie.text.html.HtmlEncoder;
 
+import donnees.MemoireVariable;
 import donnees.smiley.Smiley;
 import fr.ecuriesduloup.siteoptions.data.Option;
 import fr.ecuriesduloup.siteoptions.service.OptionsService;
@@ -21,6 +22,8 @@ public class EdlCode {
 
 	private SmileyManager smileyManager;
 	private OptionsService optionsService;
+	
+	private String pathServeur;
 
 	public EdlCode(){
 		this.caracteres = new ArrayList<RemplacementEntre>();
@@ -144,8 +147,20 @@ public class EdlCode {
 		this.optionsService = optionsService;
 	}
 
-	public String parse(String texte, String pathServeur) throws EdlCodeEncodageException{
-		texte = this.remplaceSmiley(texte, pathServeur);
+	private String getContextPath(){
+		if(this.pathServeur == null){
+			String saved = MemoireVariable.optenirVariable("contextPath");
+			if(saved != null){
+				this.pathServeur = saved;
+			}else{
+				this.pathServeur ="";
+			}
+		}
+		return this.pathServeur;
+	}
+	
+	public String parse(String texte) throws EdlCodeEncodageException{
+		texte = this.remplaceSmiley(texte, getContextPath());
 		texte = this.replaceBigadin(texte);
 		texte = HtmlEncoder.encode(texte);
 		texte = this.remplaceCaractereHTML(texte);

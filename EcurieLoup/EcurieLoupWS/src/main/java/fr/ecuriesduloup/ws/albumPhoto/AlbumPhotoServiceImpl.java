@@ -10,6 +10,7 @@ import service.photo.MediaManager;
 import donnees.User;
 import donnees.photo.Album;
 import donnees.photo.Media;
+import donnees.photo.commentaire.Commentaire;
 @Service
 public class AlbumPhotoServiceImpl implements AlbumPhotoService {
 	@Autowired
@@ -51,6 +52,33 @@ public class AlbumPhotoServiceImpl implements AlbumPhotoService {
 	@Override
 	public List<Media> getMediaWithUser(User user) {
 		return this.mediaManager.getTagContent(user);
+	}
+
+	@Override
+	public List<Commentaire> getComments(long mediaId) {		
+		return this.mediaManager.recupererMedia(mediaId).getCommentaires();
+	}
+
+	@Override
+	public Commentaire getComment(long commentId) {
+		return this.mediaManager.recupererCommentaire(commentId);
+	}
+
+	@Override
+	public Commentaire createComment(Commentaire comment) {
+		this.mediaManager.creerCommentaire(comment);
+		return this.mediaManager.recupererCommentaire(comment.getId());
+	}
+
+	@Override
+	public void deleteComment(long commentId) {
+		Commentaire comment = this.mediaManager.recupererCommentaire(commentId);
+		this.mediaManager.supprimerCommentaire(comment);		
+	}
+
+	@Override
+	public Media getMedia(long mediaId) {
+		return this.mediaManager.recupererMedia(mediaId);
 	}
 
 }

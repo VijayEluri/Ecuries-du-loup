@@ -68,9 +68,7 @@ public class AffichagePhotoAlbumPhotoController{
 		for (Commentaire commentaire : photo.getCommentaires()) {
 			if (commentaire != null) {
 				try {
-					String pathServeur = request.getContextPath();
-					commentaire.setContenu(this.edlCode.parse(commentaire
-							.getContenu(), pathServeur));
+					commentaire.setContenu(this.edlCode.parse(commentaire.getContenu()));
 				} catch (EdlCodeEncodageException e) {
 					e.printStackTrace();
 				}

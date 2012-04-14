@@ -7,9 +7,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,12 +23,13 @@ import donnees.User;
 import donnees.photo.Album;
 import donnees.photo.Media;
 import donnees.photo.TypeMedia;
+import fr.ecuriesduloup.ws.AbstractWsController;
 import fr.ecuriesduloup.ws.Id;
 import fr.ecuriesduloup.ws.WsStatus;
 import fr.ecuriesduloup.ws.user.UserService;
 
 @Controller
-public class AlbumPhotoController {
+public class AlbumPhotoController extends AbstractWsController{
 	@Autowired
 	private AlbumPhotoService albumPhotoService;
 	@Autowired
@@ -39,33 +41,23 @@ public class AlbumPhotoController {
 	 * @return a xml of media contents personn.
 	 */
 	@RequestMapping(value = "/albumPhoto/photos/{identifier}",method=RequestMethod.GET)
-	public ModelAndView GetMediaWith(@PathVariable String identifier) {
-		long t0 = System.currentTimeMillis();
+	public ModelAndView GetMediaWith(HttpServletRequest request, @PathVariable String identifier) {
+
 		User user = this.userService.getUserByLogin(identifier);
-		long t1 = System.currentTimeMillis();
 		List<Media> medias = new ArrayList<Media>();
 		if(user == null){
 			long id = Long.parseLong(identifier);
 			List<Media> mediasWithHorse = this.albumPhotoService.getMediaWithHorse(id);
 			medias.addAll(mediasWithHorse);
-		
+
 		}else{
 			List<Media> mediasWithUser = this.albumPhotoService.getMediaWithUser(user);
 			medias.addAll(mediasWithUser);
 		}
-
-		long t2 = System.currentTimeMillis();
-		
-	
-		ModelAndView mav = new ModelAndView("statusXmlView", BindingResult.MODEL_KEY_PREFIX + "meduas", convert(medias));
-
-		long t3 = System.currentTimeMillis();
-		System.out.println("getUserByLogin "+(t1-t0));
-		System.out.println("getMediaWith... "+(t2-t1));
-
-		System.out.println("ModelAndView. "+(t3-t2));
-		return mav;
+		return this.ChooseView(request, "media", convert(medias));
 	}
+	
+
 	private List<MediaDto> convert(List<Media> medias){
 		List<MediaDto> mediasDto = new ArrayList<MediaDto>();
 		for(Media media : medias){
@@ -76,7 +68,7 @@ public class AlbumPhotoController {
 			dto.setType(media.getType());
 			mediasDto.add(dto);
 		}
-		
+
 		return mediasDto;
 	}
 	/**
@@ -84,14 +76,14 @@ public class AlbumPhotoController {
 	 * @return The xml with all album.
 	 */
 	@RequestMapping(value = "/albumPhoto/albums",method=RequestMethod.GET)
-	public ModelAndView listAlbum() {
+	public ModelAndView listAlbum(HttpServletRequest request) {
 		List<Album> albums = this.albumPhotoService.getAlbums();
 		List<AlbumWs> albumWs = new ArrayList<AlbumWs>();
 		for(Album album : albums){
 			albumWs.add(new AlbumWs(album));
 		}
-		ModelAndView mav = new ModelAndView("statusXmlView", BindingResult.MODEL_KEY_PREFIX + "albums", albumWs);
-		return mav;
+		
+		return this.ChooseView(request, "albums", albumWs);
 	}
 	/**
 	 * Add new album.
@@ -99,12 +91,12 @@ public class AlbumPhotoController {
 	 * @return
 	 */
 	@RequestMapping(value = "/albumPhoto/album/{name}",method=RequestMethod.PUT)
-	public ModelAndView createAlbum(@PathVariable String name) {
+	public ModelAndView createAlbum(HttpServletRequest request, @PathVariable String name) {
 		long idAlbumPhoto = this.albumPhotoService.createAlbumPhoto(name);
 		Id id = new Id();
 		id.setValue(idAlbumPhoto);
-		ModelAndView mav = new ModelAndView("statusXmlView", BindingResult.MODEL_KEY_PREFIX + "albumPhoto", id);
-		return mav;
+
+		return this.ChooseView(request, "albumPhoto", id);
 	}
 
 	/**
@@ -128,13 +120,13 @@ public class AlbumPhotoController {
 	@RequestMapping(value = "/albumPhoto/video/{albumId}",method=RequestMethod.POST)
 	public ModelAndView uploadVideo(@PathVariable long albumId, @RequestParam("file") MultipartFile multipartFile, MultipartHttpServletRequest request){
 		return this.commonUpload(albumId, multipartFile, request, TypeMedia.Video);
-		
+
 	}
-	
+
 	private ModelAndView commonUpload(long albumId, MultipartFile multipartFile, MultipartHttpServletRequest request, TypeMedia type){
 		User posteur = this.userService.getCurrentUser();
 		Album album = this.albumPhotoService.getAlbum(albumId);
-		
+
 		Media media = new Media();
 		media.setAlbum(album);
 		media.setDatePostage(new Date().getTime());
@@ -156,9 +148,9 @@ public class AlbumPhotoController {
 		if(!this.isSupportedPicture(multipartFile)){
 
 		}
-		
+
 		File temporaire = this.createTemp(multipartFile, posteur);
-		
+
 		String pathPhoto = request.getSession().getServletContext().getRealPath("/");
 
 		this.albumPhotoService.createMedia(media, temporaire, pathPhoto);
@@ -166,17 +158,18 @@ public class AlbumPhotoController {
 		temporaire.delete();
 		WsStatus wsStatus = new WsStatus();
 		wsStatus.setStatus("OK");
-		ModelAndView mav = new ModelAndView("statusXmlView", BindingResult.MODEL_KEY_PREFIX + "Status", wsStatus);
-		return mav;
+		
+
+		return this.ChooseView(request, "Status", wsStatus);
 	}
-	
+
 	private File createTemp(MultipartFile multipartFile, User posteur){
 		String[] s = multipartFile.getOriginalFilename().split("\\.");
 		String extention = "";
 		if(s.length > 1){	
 			extention = s[s.length -1];
 		}
-		
+
 		String chemin = "tmp";
 		chemin += posteur.getLogin();
 		chemin += "_" + new Date().getTime();
@@ -197,7 +190,7 @@ public class AlbumPhotoController {
 	}
 
 
-	
+
 
 	private boolean isSupportedPicture(MultipartFile multipartFile) {
 		// TODO Auto-generated method stub

@@ -50,7 +50,7 @@ private EdlCode edlcode;
 
 		EasyMock.replay(this.dao);
 
-		List<Nouvelle> listeNouvelleRecuperer = ((NouvelleManagerImpl) this.service).recupererDernieresNouvelles(2, "");
+		List<Nouvelle> listeNouvelleRecuperer = ((NouvelleManagerImpl) this.service).recupererDernieresNouvelles(2);
 
 		assertEquals(listeNouvelleRecuperer, listNouvelle);
 		EasyMock.verify(this.dao);
@@ -64,7 +64,7 @@ private EdlCode edlcode;
 
 		EasyMock.replay(this.dao);
 
-		List<Nouvelle> listeNouvelleRecuperer = ((NouvelleManagerImpl) this.service).recupererDernieresNouvelles(2, "");
+		List<Nouvelle> listeNouvelleRecuperer = ((NouvelleManagerImpl) this.service).recupererDernieresNouvelles(2);
 
 		assertEquals(listeNouvelleRecuperer, listNouvelle);
 		assertTrue(listeNouvelleRecuperer.isEmpty());

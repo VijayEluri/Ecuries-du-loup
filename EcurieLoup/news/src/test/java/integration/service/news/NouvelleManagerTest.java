@@ -38,7 +38,7 @@ public class NouvelleManagerTest extends  DataBaseServiceWithLongIdIntegrationTe
 		
 		this.service.add(nouvelleAjoutee);
 		
-		List<Nouvelle> listeNouvelle =  ((NouvelleManager) this.service).recupererDernieresNouvelles(1, "");
+		List<Nouvelle> listeNouvelle =  ((NouvelleManager) this.service).recupererDernieresNouvelles(1);
 		assertEquals(1, listeNouvelle.size());
 		Comparator.compareJUnit(listeNouvelle.get(0), nouvelleAjoutee);
 		
@@ -53,7 +53,7 @@ public class NouvelleManagerTest extends  DataBaseServiceWithLongIdIntegrationTe
 			nouvelleAjouterDansOrdre.add(nouvelleAjoutee);
 		}
 		
-		List<Nouvelle> listeNouvelle =  ((NouvelleManager) this.service).recupererDernieresNouvelles(5, "");
+		List<Nouvelle> listeNouvelle =  ((NouvelleManager) this.service).recupererDernieresNouvelles(5);
 		assertEquals(5, listeNouvelle.size());
 		int j = 0;
 		for(int i = 4; i >=0; i--){
@@ -68,7 +68,7 @@ public class NouvelleManagerTest extends  DataBaseServiceWithLongIdIntegrationTe
 	@Test
 	public void testRecupererDernieresNouvellesPlus() {
 
-		List<Nouvelle> nouvellesRecuperer = ((NouvelleManager) this.service).recupererDernieresNouvelles(10000, "");
+		List<Nouvelle> nouvellesRecuperer = ((NouvelleManager) this.service).recupererDernieresNouvelles(10000);
 	
 		assertTrue(nouvellesRecuperer.size() < 10000);
 	}

@@ -78,6 +78,9 @@
 		<property name="reflector">
 			<ref bean="mediaReflector" />
 		</property>
+		<property name="edlCode">
+			<ref bean="edlCode" />
+		</property>
 		
 		<property name="pathPhotoInProjet">
 			<value>/images/albumPhotoTmp/</value>

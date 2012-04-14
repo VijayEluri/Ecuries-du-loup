@@ -3,37 +3,34 @@ package fr.ecuriesduloup.ws.user;
 import java.util.Collection;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import donnees.Role;
+import fr.ecuriesduloup.ws.AbstractWsController;
 
 @Controller
-public class UserController {
+public class UserController extends AbstractWsController{
 	@Autowired
 	private UserService userService;
 	
 	@RequestMapping(value = "/user/rights")
-	public ModelAndView getStatusForum() {
+	public ModelAndView getStatusForum(HttpServletRequest request) {
 		Collection<Role> roles = this.userService.getRolesOfConnectedUser();
 		ListOfRoles listOfRoles = new ListOfRoles();
 		for(Role role : roles){
 			listOfRoles.add(role.getRole());
 		}
-		ModelAndView mav = 
-			new ModelAndView("statusXmlView", BindingResult.MODEL_KEY_PREFIX + "user", listOfRoles);
-		return mav;
+		return this.ChooseView(request, "user", listOfRoles);
 	} 
 	@RequestMapping(value = "/users",method=RequestMethod.GET)
-	public ModelAndView getSuggestList(){
+	public ModelAndView getSuggestList(HttpServletRequest request){
 		List<SuggestListItem> items = this.userService.getItemSuggestList();
-		ModelAndView mav = 
-				new ModelAndView("statusXmlView", BindingResult.MODEL_KEY_PREFIX + "suggestliste", items);
-			return mav;
-		
+		return this.ChooseView(request, "suggestliste", items);		
 	}
 }

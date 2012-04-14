@@ -12,6 +12,17 @@ public class Commentaire extends DataWtihLongIdAbstract<Commentaire> implements 
 	private long date;
 	private String contenu;
 	
+	public Commentaire() {
+	}
+	
+	public Commentaire(Commentaire comment) {
+		this.setId(comment.getId());
+		this.setContenu(comment.getContenu());
+		this.setDate(comment.getDate());
+		this.setMedia(comment.getMedia());
+		this.setPosteur(comment.getPosteur());
+	}
+	
 	@Override
 	public long getId() {
 		return id;

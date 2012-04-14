@@ -17,7 +17,7 @@ public class WysiwygServiceImpl implements WysiwygService {
 	public String generateHtml(String text) {
 		
 		try {
-			return this.edlCode.parse(text, "");
+			return this.edlCode.parse(text);
 		} catch (EdlCodeEncodageException e) {
 			return text;
 		}

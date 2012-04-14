@@ -1,6 +1,5 @@
 package mvc.news;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import service.VracManager;
 import service.news.NouvelleManager;
 import donnees.news.Nouvelle;
-import edlcode.EdlCode;
-import edlcode.EdlCodeEncodageException;
 
 @Controller
 public class AffichageNewsController{
@@ -41,13 +38,12 @@ public class AffichageNewsController{
 	public ModelAndView handleRequest(HttpServletRequest request){
 
 		Map<String, Object> renvoyer = new HashMap<String, Object>();
-		String pathServeur = request.getContextPath();
 
-		List<Nouvelle> listeNews = this.nouvelleManager.recupererDernieresNouvelles(5,  request.getContextPath());
+		List<Nouvelle> listeNews = this.nouvelleManager.recupererDernieresNouvelles(5);
 
 		renvoyer.put("listeNews", listeNews);
 
-		String edito = this.vracManager.getFormatedVrac("edito", pathServeur).getContenu();
+		String edito = this.vracManager.getFormatedVrac("edito").getContenu();
 		
 		renvoyer.put("edito", edito);
 
@@ -59,7 +55,7 @@ public class AffichageNewsController{
 
 		Map<String, Object> renvoyer = new HashMap<String, Object>();
 		
-		Nouvelle news = this.nouvelleManager.getFormatedNews(newsId,  request.getContextPath());
+		Nouvelle news = this.nouvelleManager.getFormatedNews(newsId);
 
 		renvoyer.put("news", news);
 

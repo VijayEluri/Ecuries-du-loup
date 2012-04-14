@@ -28,7 +28,7 @@ public class RssController {
 	@RequestMapping(value="/rssfeed.do", method = RequestMethod.GET)
 	public ModelAndView getFeedInRss(HttpServletRequest request){
 
-		List<Nouvelle> items = this.nouvelleManager.recupererDernieresNouvelles(5, request.getContextPath());
+		List<Nouvelle> items = this.nouvelleManager.recupererDernieresNouvelles(5);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("rssViewer");

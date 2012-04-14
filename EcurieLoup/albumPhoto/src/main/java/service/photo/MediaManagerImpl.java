@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import service.UtilisateurManager;
 import album_photo.CommentaireDAO;
 import album_photo.MediaDAO;
@@ -24,6 +26,8 @@ import donnees.photo.Album;
 import donnees.photo.Media;
 import donnees.photo.Tag;
 import donnees.photo.commentaire.Commentaire;
+import edlcode.EdlCode;
+import edlcode.EdlCodeEncodageException;
 
 public class MediaManagerImpl implements MediaManager {
 	private AlbumDAO albumDAO;
@@ -32,6 +36,13 @@ public class MediaManagerImpl implements MediaManager {
 	private TagDAO tagDAO;
 
 	private String pathPhotoInProjet;
+	
+	@Autowired
+	private EdlCode edlCode;
+	
+	public void setEdlCode(EdlCode edlCode) {
+		this.edlCode = edlCode;
+	}
 
 
 	private UtilisateurManager utilisateurManager;
@@ -182,7 +193,7 @@ public class MediaManagerImpl implements MediaManager {
 		if(media !=null){
 			media.setAlbum(this.gestionAlbum(media.getAlbum()));
 			media = this.gestionTag(media);
-			media = this.gestionCommentaire(media);
+			//media = this.gestionCommentaire(media);
 		}
 		return media;
 	}
@@ -199,12 +210,20 @@ public class MediaManagerImpl implements MediaManager {
 		media.setTags(listeTag);
 		return media;
 	}
-
+	private Commentaire formatedComment(Commentaire comment){
+		Commentaire formatedComment = new Commentaire(comment);
+		try {
+			formatedComment.setContenu(this.edlCode.parse(formatedComment.getContenu()));
+		} catch (EdlCodeEncodageException e) {
+		}
+		return formatedComment;
+	
+	}
 	private Media gestionCommentaire(Media media){
 		List<Commentaire> listeCommentaire = new ArrayList<Commentaire>();
 		for(Commentaire commentaire : media.getCommentaires()){
 			if(commentaire != null){
-				listeCommentaire.add(commentaire);
+				listeCommentaire.add(this.formatedComment(commentaire));
 			}
 		}
 
@@ -254,7 +273,8 @@ public class MediaManagerImpl implements MediaManager {
 
 	@Override
 	public Commentaire recupererCommentaire(long idCommentaire) {
-		return this.commentaireDAO.findById(idCommentaire);
+		
+		return this.formatedComment(this.commentaireDAO.findById(idCommentaire));
 	}
 
 	@Override

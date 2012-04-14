@@ -42,6 +42,7 @@ public class UserDetailsServiceBasicImpl implements UserDetailsService {
 		username = username.toLowerCase();
 		donnees.User utilisateur = this.utilisateurManager.getById(username);
 
+		if(utilisateur == null) throw new UsernameNotFoundException(username);
 		this.updateLastAccessDate(utilisateur);
 		
 		User acegiUser = this.manageUser(utilisateur);

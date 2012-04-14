@@ -42,7 +42,7 @@ public class EdlCodeHTMLTest {
 	private void testEgaliteDuParsage(String texte, String resultatAttendu){
 		String resultatObtenu;
 		try {
-			resultatObtenu = this.edlCode.parse(texte, "");
+			resultatObtenu = this.edlCode.parse(texte);
 			assertEquals(resultatAttendu, resultatObtenu);
 		} catch (EdlCodeEncodageException e) {
 			e.printStackTrace();
@@ -51,7 +51,7 @@ public class EdlCodeHTMLTest {
 
 	private void testErreurDuParsage(String texte){
 		try {
-			String test = this.edlCode.parse(texte, "");
+			String test = this.edlCode.parse(texte);
 			System.err.println(test);
 			fail("pas de jeter d'exception");
 		} catch (EdlCodeEncodageException e) {

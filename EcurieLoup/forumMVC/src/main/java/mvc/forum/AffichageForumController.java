@@ -138,9 +138,7 @@ public class AffichageForumController{
 			messageEdlCode.setTopic(message.getTopic());
 			String contenuMouline;
 			try {
-				String pathServeur = request.getContextPath(); 
-
-				contenuMouline = this.edlCode.parse(message.getContenu(), pathServeur);
+				contenuMouline = this.edlCode.parse(message.getContenu());
 			} catch (EdlCodeEncodageException e) {
 				contenuMouline = message.getContenu();
 			}

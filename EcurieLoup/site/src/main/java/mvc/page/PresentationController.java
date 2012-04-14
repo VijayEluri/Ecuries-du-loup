@@ -39,9 +39,8 @@ public class PresentationController{
 		Map<String, Object> renvoyer = new HashMap<String, Object>();
 
 		String contenu = pageRecuperer.getContenu();
-		String pathServeur = request.getContextPath();
 		try {
-			contenu = this.edlCode.parse(contenu, pathServeur);
+			contenu = this.edlCode.parse(contenu);
 		} catch (EdlCodeEncodageException e) {
 			e.printStackTrace();
 		}

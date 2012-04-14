@@ -155,34 +155,51 @@
 }
 
 /*************************************/
+.albumPhoto .commentaires .loadingDiv{
+
+	text-align: center;
+}
+.albumPhoto .commentaires .loading{
+	margin: 10px;
+}
+.albumPhoto .commentaires {
+	border: 1px none black;
+	width: 70%;
+	margin: auto;	
+	position: relative;
+}
 .albumPhoto .commentaires .commentaire {
-	border: 2px solid rgb(0, 128, 0);
-	width: 90%;
-	margin: auto;
-	margin-bottom: 15px;
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
+	width: 100%;
+	border-bottom:  1px solid black;
 }
 
-.albumPhoto .commentaires .commentaire .entete {
-	color: white;
-	background-color: rgb(0, 128, 0);
-	margin: Opx;
-	border-bottom: 2px dotted white;
-	-moz-border-radius: 3% 3% 0% 0%;
-	-webkit-border-radius: 12px 12px 0px 0px;
-	-moz-border-radius: 12px 12px 0px 0px;
-	border-radius: 12px 12px 0px 0px;
-	padding-left: 3%;
-	/* FF : dégrader */
-	box-shadow: 0px -20px 10px -10px rgba(0, 0, 0, 0.3) inset;
-}
 
 .albumPhoto .commentaires .commentaire .body {
-	margin: 3%;
+	padding: 5px;
 }
 
+.albumPhoto .commentaires .commentaire .body .login{
+	background-color: transparent;
+	color: rgb(0, 128, 0);
+    border: none;
+    border-radius: none;
+    float: none;
+    margin: 0%;
+    padding: 0%;
+    width: 100%;
+    font-weight: bold;
+}
+.albumPhoto .commentaires .commentaire .date{
+ font-size: 0.6em;
+ opacity: 0.7;
+ filter: alpha(70);
+    text-align: right;
+    color: gray;
+}
+.albumPhoto .commentaires textarea{	
+	width: 99%;
+	resize:none; 
+}
 /**********************/
 /* suggest list */
 /**********************/

@@ -34,12 +34,12 @@ public class VracManagerImpl implements VracManager {
 	}
 
 	@Override
-	public Vrac getFormatedVrac(String string, String pathServeur) {
+	public Vrac getFormatedVrac(String string) {
 		Vrac vrac = this.recupererVrac(string);
 		Vrac copyVrac = new Vrac();
 		copyVrac.setId(vrac.getId());
 		try {
-			copyVrac.setContenu(this.edlCode.parse(vrac.getContenu(), pathServeur));
+			copyVrac.setContenu(this.edlCode.parse(vrac.getContenu()));
 		} catch (EdlCodeEncodageException e) {
 			copyVrac.setContenu(vrac.getContenu());
 		};

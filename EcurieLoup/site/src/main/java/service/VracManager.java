@@ -9,5 +9,5 @@ public interface VracManager {
 
 	public void modifierVrac(Vrac vrac);
 
-	public Vrac getFormatedVrac(String string, String pathServeur);
+	public Vrac getFormatedVrac(String string);
 }

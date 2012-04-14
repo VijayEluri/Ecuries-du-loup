@@ -29,6 +29,9 @@
 		</constructor-arg>
 	</bean>
 	
+	<bean name="jsonView" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+    </bean>
+    
 	<!-- upload de fichiers -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
