@@ -21,7 +21,7 @@ public class CustomRssViewer extends AbstractRssFeedView {
 	@Override
 	protected void buildFeedMetadata(Map<String,Object> model, Channel feed, HttpServletRequest request) {
 		feed.setTitle("Ecuries du loup");
-		feed.setDescription("Les nouvelles des écuries du loup.");
+		feed.setDescription("Les nouvelles des Ã©curies du loup.");
 		feed.setLink("http://www.ecuriesduloup.fr");
 		feed.setEncoding("ISO-8859-1");
 		
