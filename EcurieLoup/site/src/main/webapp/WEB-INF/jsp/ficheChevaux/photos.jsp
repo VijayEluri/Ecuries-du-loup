@@ -1,5 +1,7 @@
 <!-- if user connected : display photos-->
 <security:authorize ifAllGranted="ROLE_AUTHENTIFIER">
+<script type="text/javascript">
+
 var idFiche = "${ficheCheval.id}";
 $(function() {
 	$( "#photosAlbums" ).photosAlbum({tag : idFiche});

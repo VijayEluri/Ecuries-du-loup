@@ -54,33 +54,18 @@ var XHR2Uploader = {
 		iCurrentAdd:0,
 		addNewFiles: function (aFiles){
 			iNbFiles += aFiles.length;
-			var oLine, oProgress, oFile;
 			//on boucle sur la collection FileList pour récupéré le nom et la taille de chaque fichier
 			for(var i = 0; i < aFiles.length; i++){
-				oFile = aFiles[i];//reférence locale
+				var oFile = aFiles[i];
+				//check is supported type
 				if(oFile.type.match('image.*')||oFile.type.match('video.*')){
-					//ajoute à la liste des fichiers à traité
+					//add traitement and displayed table
 					XHR2Uploader.aQueue.push(oFile);
-					//liste des fichier mis à jour dans l'interface
-					oLine = document.createElement('TR');
-					oLine.innerHTML = '<td>'+oFile.name +'</td><td>'+oFile.size+' octets</td>';
-					//affichage de la barre de progression
-					oProgress = document.createElement('PROGRESS');
-					//ceci nous servira a identifier la ligne du fichier
-					oProgress.id = 'progress'+XHR2Uploader.iCurrentAdd;
+					XHR2Uploader.addHtmlElementToAdd(oFile);
 					XHR2Uploader.iCurrentAdd++;
-					oProgress.max = oFile.size;
-					oProgress.value = 0;
-					oProgress.innerHTML = '<img alt=\"wait\" src=\"'+ctx+'/images/WaitImg.gif\" title=\"Attente de la fin de l\'envoi d\'autres fichiers.\"/>';
-					oTd = document.createElement('TD');
-					oTd.appendChild(oProgress);
-					oLine.appendChild(oTd);
-					
-					document.getElementById('list_files').appendChild(oLine);
 				}else{
-					oLine = document.createElement('TR');
-					oLine.innerHTML = '<td>'+oFile.name +'</td><td>'+oFile.size+' octets</td><td><img alt=\"ignore\" src=\"'+ctx+'/images/non_droit.png\" title=\"Format du fichier incorrect.\" /></td>';
-					document.getElementById('list_files').appendChild(oLine);
+					//add on table on error
+					XHR2Uploader.addHtmlElementInError(oFile);
 				}
 			}
 			//si la requete n'a jamais été lancé ou si la resquete précétence est terminer
@@ -88,6 +73,38 @@ var XHR2Uploader = {
 				XHR2Uploader.startUpload();
 			}
 		},
+		addHtmlElementToAdd:function(oFile){
+			//ceci nous servira a identifier la ligne du fichier
+			var currentName = XHR2Uploader.iCurrentAdd;
+
+			//liste des fichier mis à jour dans l'interface
+			var oLine = document.createElement('TR');
+			oLine.innerHTML = '<td>'+oFile.name +'</td><td>'+oFile.size+' octets</td>';		
+			
+			
+			var oTd = document.createElement('TD');
+			oTd.id="tdprogress"+currentName;
+			oTd.appendChild(XHR2Uploader.createProgress(oFile, currentName));
+			oLine.appendChild(oTd);
+			
+			document.getElementById('list_files').appendChild(oLine);
+		},
+		createProgress:function(oFile, currentName){
+			//affichage de la barre de progression
+			var oProgress = document.createElement('PROGRESS');
+			oProgress.id = 'progress'+currentName;
+			oProgress.max = oFile.size;
+			oProgress.value = 0;
+			oProgress.innerHTML = '<img alt="wait" src="'+ctx+'/images/WaitImg.gif" title="Attente de la fin de l\'envoi d\'autres fichiers."/>';
+			return oProgress;
+		},
+
+		addHtmlElementInError:function(oFile){
+			var oLine = document.createElement('TR');
+			oLine.innerHTML = '<td>'+oFile.name +'</td><td>'+oFile.size+' octets</td><td><img alt="ignore" src="'+ctx+'/images/non_droit.png" title="Format du fichier incorrect." /></td>';
+			document.getElementById('list_files').appendChild(oLine);
+		},
+
 		startUpload:function(){
 			//reste t ilqqc a envoyer?
 			if(XHR2Uploader.aQueue.length <1){
@@ -100,9 +117,9 @@ var XHR2Uploader = {
 			
 			var currentFile = XHR2Uploader.oCurrentFile;
 			if(currentFile.type.match('image.*')){
-				XHR2Uploader.oXHR.open("POST", path+"/ws/albumPhoto/photo/"+album);
+				XHR2Uploader.oXHR.open("POST", path+"/ws/albumPhoto/photo/"+album, true);
 			}else if(currentFile.type.match('video.*')){
-				XHR2Uploader.oXHR.open("POST", path+"/ws/albumPhoto/video/"+album);
+				XHR2Uploader.oXHR.open("POST", path+"/ws/albumPhoto/video/"+album, true);
 			}
 			
 			//on construit l'équivalent du formulaire HTML
@@ -117,22 +134,23 @@ var XHR2Uploader = {
 		}
 		,
 		onUploaded:function(e){
-			var oProgress = document.getElementById('progress'+XHR2Uploader.iCurrentIndex);
-			oProgress.value = XHR2Uploader.oCurrentFile.size;
-			oProgress.innerHTML = '<img alt=\"finish\" src=\"'+ctx+'/images/tick.png\" title=\"Fichier envoyer.\"/>';;
-			XHR2Uploader.startUpload();
-			XHR2Uploader.iCurrentIndex++;
-			if(XHR2Uploader.aQueue.length <1){
-				removeMessageConfirmToExitInUpload();
+			if (XHR2Uploader.oXHR.readyState ==4){
+				var oProgress = document.getElementById('tdprogress'+XHR2Uploader.iCurrentIndex);
+				oProgress.value = XHR2Uploader.oCurrentFile.size;
+				oProgress.innerHTML = '<img alt="finish" src="'+ctx+'/images/tick.png" title="Fichier envoyer."/>';
+
+				XHR2Uploader.iCurrentIndex++;
+				XHR2Uploader.startUpload();
+				if(XHR2Uploader.aQueue.length <1){
+					removeMessageConfirmToExitInUpload();
+				}
 			}
 		}
 		
-}
+};
 
 if(XHR2Uploader.oXHR.upload){
 	XHR2Uploader.oXHR.upload.onprogress = XHR2Uploader.onUploading;
 }
 
-if(XHR2Uploader.oXHR.onload){
-	XHR2Uploader.oXHR.onload = XHR2Uploader.onUploaded;
-}
+XHR2Uploader.oXHR.onreadystatechange = XHR2Uploader.onUploaded;
