@@ -3,8 +3,6 @@ package fr.ecuriesduloup.gwt.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.InputElement;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -122,6 +120,7 @@ public class Gwt implements EntryPoint{
 	private void addElement(String id, Test element){
 		if(RootPanel.get(id)!= null){
 			RootPanel.get(id).add(element.getWidget());
+			element.run();
 		}
 	}
 
