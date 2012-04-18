@@ -22,21 +22,27 @@
 					<a href="${ctx}/ficheChevaux/administration/administration.do">
 						<img src="${ctx}/images/edit.png" alt="<fmt:message key="ficheChevaux.administration.alt"/>" title="<fmt:message key="ficheChevaux.administration.title"/>" />
 					</a>
+					<a href="${ctx}/ficheChevaux/administration/formulaireFiche.do">
+						<img alt="add" src="${ctx}/images/add.png" alt="<fmt:message key="ficheChevaux.newFiche" />" title="<fmt:message key="ficheChevaux.newFiche.title"/>" />
+					</a>
 				</security:authorize>
 				
 			</h1>
-			<ul>
 			 <c:forEach var="fiche" items="${fichesChevaux}">
-			 	<li><a href="${ctx}/ficheChevaux/affichageFiche.do?id=${fiche.id }">${fiche.nom }</a></li>
+				 <a href="${ctx}/ficheChevaux/affichageFiche.do?id=${fiche.id }">
+				 	<div class="horseCard">
+				 		<table width="100%" height="100px" align="center" valign="center">
+							<tr>
+								<td style="text-align: center">
+							   		<img src="${ctx}/images/albumPhoto/miniatures/${fiche.photoCorps.id}" />
+								</td>
+							</tr>
+						</table>
+				 		<div class="name">${fiche.nom }</div>
+				 	</div>
+			 	</a>
 			 </c:forEach>
-			</ul>
-			<security:authorize ifAllGranted="ROLE_ADMINISTRATEUR_FICHECHEVAUX">
-				<div class="lien">
-					<a href="${ctx}/ficheChevaux/administration/formulaireFiche.do">
-						<fmt:message key="ficheChevaux.newFiche"/>
-					</a>
-				</div>
-			</security:authorize>
+			
 		</div>
 	</div>
 </div>
