@@ -60,7 +60,7 @@
 					
 					<c:if test="${photoPrecedente != null}">
 						
-						<a href="${ctx}/albumPhoto/affichagePhoto.do?idPhoto=${photoPrecedente.id}" >
+						<a href="${ctx}/albumPhoto/affichagePhoto.do?idPhoto=${photoPrecedente.id}${searchtagParameter}" >
 							<div class="photo video">
 								<c:if test="${photoPrecedente.type==1}">
 									<div class="image_video">
@@ -76,7 +76,7 @@
 					
 					<c:if test="${photoSuivante != null}">
 						
-						<a href="${ctx}/albumPhoto/affichagePhoto.do?idPhoto=${photoSuivante.id}" >
+						<a href="${ctx}/albumPhoto/affichagePhoto.do?idPhoto=${photoSuivante.id}${searchtagParameter}" >
 							<div class="photo video" >
 								<c:if test="${photoSuivante.type==1}">
 									<div class="image_video">

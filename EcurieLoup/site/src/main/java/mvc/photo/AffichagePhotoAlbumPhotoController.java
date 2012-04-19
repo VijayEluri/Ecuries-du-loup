@@ -55,6 +55,15 @@ public class AffichagePhotoAlbumPhotoController{
 		this.ficheChevauxManager = ficheChevauxManager;
 	}
 
+	@ModelAttribute("searchtagParameter")
+	protected String getParams(HttpServletRequest request) {
+
+		String params = request.getParameter("searchtag");
+		if(params != null){
+			return "&searchtag="+params;
+		}
+		return "";
+	}
 	@ModelAttribute("photo")
 	protected Media formBackingObject(HttpServletRequest request) {
 		long idPhoto = Long.parseLong(request.getParameter("idPhoto"));
@@ -109,33 +118,71 @@ public class AffichagePhotoAlbumPhotoController{
 
 	}
 
+
 	@ModelAttribute("photoPrecedente")
-	public Media getPhotoPrecedente(@RequestParam("idPhoto") long idPhoto ){
-		Media photo = this.mediaManager.recupererMedia(idPhoto);
-		List<Media> photos = photo.getAlbum().getMedias();
-		int indexPhoto = photos.indexOf(photo);
+	public Media getPreviousMediaSpecific(@RequestParam("idPhoto") long mediaId, @RequestParam( value = "searchtag", required=false)  String searchtag){
+		return returnDeltaMedia(mediaId, searchtag, -1);
 
-		if (indexPhoto > 0) {
-			Media photoPrecedente = photos.get(indexPhoto - 1);
-			return photoPrecedente;
-		} else {
-			return null;
-		}
 	}
-
 	@ModelAttribute("photoSuivante")
-	public Media getPhotoSuivante(@RequestParam("idPhoto") long idPhoto ){
-		Media photo = this.mediaManager.recupererMedia(idPhoto);
-		List<Media> photos = photo.getAlbum().getMedias();
-		int indexPhoto = photos.indexOf(photo);
+	public Media getNextMedia(@RequestParam("idPhoto") long mediaId, @RequestParam( value = "searchtag", required=false)  String searchtag){
+		return returnDeltaMedia(mediaId, searchtag, +1);
+	}
 
-		if (indexPhoto + 1 < photos.size()) {
-			Media photoSuivante = photos.get(indexPhoto + 1);
-			return  photoSuivante;
+	private Media returnDeltaMedia(long mediaId, String searchtag, int delta){
+		if(searchtag != null){
+			return getDeltaMediaInTagAlbum(mediaId, searchtag, delta);
+		}else{
+			return getDeltaMediaInMediaAlbum(mediaId, delta);
+
+		}
+	}
+
+	public Media getDeltaMediaInTagAlbum(long mediaId, String userLogin, int delta){
+		User user = this.utilisateurManager.getById(userLogin);
+		if(user != null){
+			List<Media> photos = this.mediaManager.getTagContent(user);
+			int indexPhoto = searchIndex(photos, mediaId);
+			return returnDeltaMedia(photos, indexPhoto, delta);
+		}else{
+			try{
+				long horseId = Long.parseLong(userLogin);
+				List<Media> photos = this.mediaManager.getTagContent(horseId);
+				int indexPhoto = searchIndex(photos, mediaId);
+				return returnDeltaMedia(photos, indexPhoto, delta);
+			}catch (NumberFormatException e) {
+				return null;
+			}
+		}
+	}
+	private int searchIndex(List<Media> medias, long mediaId){
+		int index = -1;
+		for(int i = 0; i < medias.size(); i++){
+			if(medias.get(i).getId() == mediaId){
+				index = i;
+				break;
+			}
+		}		
+		return index;
+	}
+	private Media returnDeltaMedia(List<Media> photos, int indexPhoto, int delta){
+		int deltaMedia = indexPhoto +delta;
+		if (deltaMedia >= 0 && deltaMedia < photos.size()) {
+			return photos.get(deltaMedia);
 		} else {
 			return null;
 		}
 	}
+
+
+	public Media getDeltaMediaInMediaAlbum(long idPhoto, int delta){
+		Media photo = this.mediaManager.recupererMedia(idPhoto);
+		List<Media> photos = photo.getAlbum().getMedias();
+		int indexPhoto = photos.indexOf(photo);
+		return returnDeltaMedia(photos, indexPhoto, delta);
+	}
+
+
 
 
 
