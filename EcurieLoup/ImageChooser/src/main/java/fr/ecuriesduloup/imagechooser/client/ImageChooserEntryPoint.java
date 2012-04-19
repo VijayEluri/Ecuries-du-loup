@@ -12,7 +12,7 @@ public class ImageChooserEntryPoint implements EntryPoint {
 		Img selectedImage = new Img();
 		selectedImage.define("https://fbcdn-sphotos-a.akamaihd.net/hphotos-ak-ash4/397765_2991682119625_1489307025_33097171_1586448697_n.jpg");
 		
-		TabDisplay tabDisplay = new TabDisplay(true, true);
+		TabDisplay tabDisplay = new TabDisplay(true, true, true);
 		
 		ImageChooser imageChooser = new ImageChooser(selectedImage, tabDisplay, new ImageDefine() {
 			

@@ -2,6 +2,7 @@ package fr.ecuriesduloup.imagechooser.shared;
 
 public class Img {
 	private boolean define;
+	private boolean emptyImage;
 	private String url;
 	private long photoOfAlbum = 0;
 
@@ -12,7 +13,9 @@ public class Img {
 	public boolean isUrl() {
 		return url != null;
 	}
-
+	public boolean isEmptyImage() {
+		return emptyImage;
+	}
 	public String getUrl() {
 		return this.url;
 	}
@@ -25,6 +28,11 @@ public class Img {
 		return this.photoOfAlbum;
 	}
 	
+	public void defineEmptyImage(){
+		this.clean();
+		this.define = true;
+		this.emptyImage = true;
+	}
 	public void define(String url){
 		this.clean();
 		this.define = true;
@@ -40,5 +48,6 @@ public class Img {
 	private void clean(){
 		this.define = false;
 		this.url = null;
+		this.emptyImage = false;
 	}
 }

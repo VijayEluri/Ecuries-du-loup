@@ -30,7 +30,7 @@ public class ModalPopupImageChosser extends Window implements ImageDefine{
 		}
 		return instance.get(imageDefine);
 	}
-	
+
 	protected static final ImageChooserResources portletResources = GWT.create(ImageChooserResources.class);
 
 
@@ -38,43 +38,45 @@ public class ModalPopupImageChosser extends Window implements ImageDefine{
 	private ImageDefine imagePortlet;
 	private ImageSelectorTab imageSelector;
 	private Img selectedImage;
+	private TabDisplay tabDisplay;
 
 	public ModalPopupImageChosser(ImageDefine imageDefine, TabDisplay tabDisplay) {
 		this.imagePortlet = imageDefine;
-		
+		this.tabDisplay = tabDisplay;
+
 		this.defineWindowsOption();
 
 		this.imageSelector =  this.createImageSelector(tabDisplay);
 		Panel previewPanel = this.createPreviewPanel();
 
-		
+
 		HorizontalPanel  horizontalPanel = new HorizontalPanel();		
 		horizontalPanel.add(this.imageSelector);
 		horizontalPanel.add(previewPanel);
 		this.addItem(horizontalPanel);
-		
+
 		this.centerInPage();  
 	}
-	
+
 	private void defineWindowsOption(){
 		this.setTitle("Choix d'image");  
 		this.setShowMinimizeButton(false);  
 		this.setShowCloseButton(false);
 		// this.setIsModal(true);  
 		this.setShowModalMask(true);  
-}
-	
+	}
+
 	private ImageSelectorTab createImageSelector(TabDisplay tabDisplay){
 
 		this.imageSelector= new ImageSelectorTab(this, tabDisplay);
 		this.setAutoSize(true);
 		this.setWidth("600px");
 		this.imageSelector.setWidth("400px");
-;
+		;
 		this.imageSelector.setHeight("50%");
-		
+
 		return imageSelector;
-	
+
 	}
 
 	private Panel createPreviewPanel(){
@@ -82,16 +84,30 @@ public class ModalPopupImageChosser extends Window implements ImageDefine{
 		panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		panel.setSize("220px", "300px");
 		panel.getElement().getStyle().setMarginTop(25, Unit.PX);
-		
+
 		this.preview = new SelectImage(200, 200);
 
-		
+
 		panel.add(this.preview);
+		if(this.tabDisplay.isAllowEmptyImage()){
+			Button noImageButton = new Button("Aucune");
+			noImageButton.addClickHandler(new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent event) {
+					Img img = new Img();
+					img.defineEmptyImage();
+					defineImage(img);
+
+				}
+			});
+			panel.add(noImageButton);
+		}
 
 		HorizontalPanel buttonPanel = new HorizontalPanel();
 
-		
-		
+
+
 		Button cancelButton = new Button("Annuler");
 		cancelButton.addClickHandler(new ClickHandler() {
 
@@ -102,7 +118,7 @@ public class ModalPopupImageChosser extends Window implements ImageDefine{
 			}
 		});
 		buttonPanel.add(cancelButton);
-		
+
 		Button validButton = new Button("Valider");
 		validButton.addClickHandler(new ClickHandler() {
 
@@ -113,15 +129,15 @@ public class ModalPopupImageChosser extends Window implements ImageDefine{
 			}
 		});
 		buttonPanel.add(validButton);
-		
-		
+
+
 		panel.add(buttonPanel);
 
 		return panel;
 
 	}
-	
-	
+
+
 
 	public void showPopup() {
 		this.show();  
@@ -132,13 +148,13 @@ public class ModalPopupImageChosser extends Window implements ImageDefine{
 		imagePortlet.defineImage(this.selectedImage);
 		this.hide();
 	}
-	
+
 	private void cancel(){
 		this.hide();
 	}
 
-	
-	
+
+
 	@Override
 	public void defineImage(Img selectedImage){
 		if(selectedImage.isDefine()){

@@ -88,7 +88,7 @@ public class Gwt implements EntryPoint{
 			@Override
 			public Widget getWidget() {
 				
-				TabDisplay tabDisplay = new TabDisplay(false, true);
+				TabDisplay tabDisplay = new TabDisplay(false, true, true);
 				
 				InputElement element =InputElement.as(DOM.getElementById(idFieldToFill));
 
@@ -99,9 +99,11 @@ public class Gwt implements EntryPoint{
 					@Override
 					public void defineImage(Img chooseImage) {
 						if(chooseImage.isDefine()){
+							InputElement element =InputElement.as(DOM.getElementById(idFieldToFill));
 							if(chooseImage.isPhotoAlbum()){
-								InputElement element =InputElement.as(DOM.getElementById(idFieldToFill));
 								element.setValue(chooseImage.getPhotoAlbum()+"");
+							}else if(chooseImage.isEmptyImage()){
+								element.setValue("0");
 							}
 						}
 

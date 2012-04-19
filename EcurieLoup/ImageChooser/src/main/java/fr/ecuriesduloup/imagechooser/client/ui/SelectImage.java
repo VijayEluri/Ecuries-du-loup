@@ -49,6 +49,8 @@ public class SelectImage extends Image {
 				super.setUrl(image.getUrl());
 			}else if(image.isPhotoAlbum()){
 				super.setUrl(getUrlPhoto(image.getPhotoAlbum()));
+			}else if(image.isEmptyImage()){
+				//use empty image
 			}
 		}
 	}

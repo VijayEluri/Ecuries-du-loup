@@ -4,12 +4,14 @@ public class TabDisplay {
 
 	private boolean url = false;
 	private boolean album = false;
+	private boolean allowEmptyImage = false;
 	
 	
 	
-	public TabDisplay(boolean url, boolean album) {
+	public TabDisplay(boolean url, boolean album, boolean allowEmptyImage) {
 		this.url = url;
 		this.album = album;
+		this.allowEmptyImage = allowEmptyImage;
 	}
 	public boolean isUrl() {
 		return url;
@@ -23,6 +25,10 @@ public class TabDisplay {
 	public void setAlbum(boolean album) {
 		this.album = album;
 	}
-	
-	
+	public boolean isAllowEmptyImage() {
+		return allowEmptyImage;
+	}
+	public void setAllowEmptyImage(boolean allowEmptyImage) {
+		this.allowEmptyImage = allowEmptyImage;
+	}
 }
