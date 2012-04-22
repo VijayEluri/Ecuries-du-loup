@@ -28,9 +28,14 @@ public class UserController extends AbstractWsController{
 		}
 		return this.ChooseView(request, "user", listOfRoles);
 	} 
+	@RequestMapping(value = "/usershorses",method=RequestMethod.GET)
+	public ModelAndView getSuggestListUserAndHorses(HttpServletRequest request){
+		List<SuggestListItem> items = this.userService.getItemSuggestList(true, true);
+		return this.ChooseView(request, "suggestliste", items);		
+	}
 	@RequestMapping(value = "/users",method=RequestMethod.GET)
-	public ModelAndView getSuggestList(HttpServletRequest request){
-		List<SuggestListItem> items = this.userService.getItemSuggestList();
+	public ModelAndView getSuggestListUsers(HttpServletRequest request){
+		List<SuggestListItem> items = this.userService.getItemSuggestList(false, true);
 		return this.ChooseView(request, "suggestliste", items);		
 	}
 }

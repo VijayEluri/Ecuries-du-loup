@@ -27,13 +27,12 @@
 		
 		
 		<div id="saisisTag">
-			<input id="input_tag_nom" name="input_tag_nom" type="text"/>
-			<input id="tag_valid" value="Ok" type="button" />
 			
+			<input id="id_tag" name="id_tag" type="hidden" />			
 			<input id="input_tag_photo" name="tag_photo" type="hidden" value="${photo.id}" />
 			<input id="input_tag_x" name="tag_x" type="hidden" />
 			<input id="input_tag_y" name="tag_y" type="hidden"/>
-			<input id="id_tag" name="id_tag" type="hidden" />
+			<input id="tag_valid" value="Ok" type="button" />
 		</div>
 		
 		

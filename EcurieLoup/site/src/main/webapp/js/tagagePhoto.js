@@ -54,6 +54,7 @@ function startTag(){
 	$("#photo_taggage").css({"cursor": "crosshair"});
 	$("#tagActivateButton").attr("title", "Stopper le taggage");
 	$("#tagActivateButton").attr("src", ctx+"/images/tag_actif.jpeg");
+	$("#id_tag").edlSuggest("load");
 	saveStartTag();
 }
 function stopTag(){
@@ -68,9 +69,7 @@ function stopTag(){
 }
 
 function cleanTagField(){
-	$("#id_tag").val("");
-	$("#input_tag_nom").val("");
-	$("input_tag_nom").val("");
+	$("#id_tag").edlSuggest("clear");
 	$("input_tag_x").val("");
 	$("input_tag_y").val("");
 }
@@ -83,7 +82,8 @@ function showTagField(x, y){
 	$("#saisisTag").offset({ top : y, left : x });
 	$("#saisisTag").css({"visibility": "visible"});
 	
-	$("#input_tag_nom").focus();
+
+	$("#id_tag").edlSuggest("focus");
 	isfieldTagOpen = true;
 }
 
@@ -160,7 +160,7 @@ function appendTag(id, displayName, x, y, path){
 		var link = document.createElement ("a");
 		$(link).attr("href", ctx+path);
 		$(link).html(displayName+" - ");
-		$(span).append(link)
+		$(span).append(link);
 	}
 
 	$("#tags").append(span);
@@ -187,96 +187,11 @@ function appendTag(id, displayName, x, y, path){
 	
 	
 }
-var items = [];
-function fieldAutocomplete(){
-	$.ajax ({
-		url : ctx+"/ws/users",
-		type :"get",
-		success : function (response, textStatus, xhr)
-		{
-			var response = xhr.responseXML;
-			
-			// récupération des titres
-			$(response).find ("item").each (function ()
-			{
-				var item = {
-							id : $(this).find("id").text(),
-							value:$(this).find("value").text(),
-							type:$(this).find("type").text()
-							};
-				items.push (item);
-			});
-			createAutocomplete();
-		
-		},
-		error : function (xhr, textStatus)
-		{
-		}
-
-	});
-}
-
-function createAutocomplete(){
-	
-	//add the autocomplete 
-	$("#input_tag_nom").autocomplete ({
-		autoFocus: false,
-		minLength: 0,
-		source : items
-		,
-		open : function (event)
-		{
-			var ul = $(this).autocomplete ("widget");
-			ul.css ("width", "250px");
-		},
-		focus: function( event, ui ) {
-			$( "#input_tag_nom" ).val( ui.item.value );
-			return false;
-		},
-		select: function( event, ui ) {
-			$( "#input_tag_nom" ).val( ui.item.value );
-			$( "#id_tag" ).val( ui.item.id );
-
-			return false;
-		}
-	}).data( "autocomplete" )._renderItem = function( ul, item ) {
-			var src="";
-			if(item.type=="human"){
-				src =ctx+"/images/personne.png";				
-			}else if(item.type=="horse"){
-				src= ctx+"/images/logo.png";
-			}else{
-				src="";
-			}
-				return $( "<li></li>" )
-					.data( "item.autocomplete", item )
-					.append( "<a><table><tr><td><img src="+src+" /></td><td>" + item.value + "</td></tr></table></a>" )
-					.appendTo( ul );
-			};
-			
-			$("#saisisTag").mouseover (function(){
-				isMouseOnFieldTag  = true;
-			});	
-			$("#saisisTag").mouseout (function(){
-				isMouseOnFieldTag  = false;
-			});	
-			$(".ui-autocomplete").mouseover (function(){
-				isMouseOnFieldTag  = true;
-			});	
-			$(".ui-autocomplete").mouseout (function(){
-				isMouseOnFieldTag  = false;
-			});	
-			
-}
-
 //add suggest list
 $(document).ready(function(){
 	
-	
-	if($("#input_tag_nom").length!=0){
-		if(isSaveTagOpenStared()){
-			startTag();
-		}
+	//if($("#input_tag_nom").length!=0){
+		
 		
 		while(loadedTag.length != 0){
 			var tagInfos = loadedTag[0];
@@ -292,8 +207,34 @@ $(document).ready(function(){
 				isOpenClick= false;			
 			}
 		});
-		fieldAutocomplete();
 		
+		var options ={
+				horses: true,//get horses
+	    		humans: true, //get humans
+				loadOnCreate : false,
+	    		pressEnterCallBack : function (){
+	    			saveTag();
+					hideTagField();
+	    		}
+		};
+		$("#id_tag").edlSuggest(options);
+		
+		$("#saisisTag").mouseover (function(){
+			isMouseOnFieldTag  = true;
+		});	
+		$("#saisisTag").mouseout (function(){
+			isMouseOnFieldTag  = false;
+		});	
+		$(".ui-autocomplete").mouseover (function(){
+			isMouseOnFieldTag  = true;
+		});	
+		$(".ui-autocomplete").mouseout (function(){
+			isMouseOnFieldTag  = false;
+		});	
+		
+		if( isSaveTagOpenStared()){
+			startTag();
+		}
 		
 		//add the tag field comportement
 		$("#tagActivateButton").click(function(){
@@ -303,13 +244,6 @@ $(document).ready(function(){
 				startTag();
 			}
 		});	
-		
-		$("#input_tag_nom").keypress (function (event){
-			 if(event.keyCode == 13){  
-				 saveTag();
-				 hideTagField();
-			 }
-		});
 				
 		$("#tag_valid").click(function (){
 			saveTag();
@@ -321,7 +255,7 @@ $(document).ready(function(){
 				taggage(e.pageY, e.pageX);
 			}
 		});
-	}
+	//}
 });
 
 

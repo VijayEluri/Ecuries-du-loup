@@ -199,7 +199,7 @@
 				<br />
 				<spring:bind path="fiche.owner">
 					<fmt:message key="ficheChevaux.formulaireFiche.owner"/>
-				 	<input type="text" id="owner" name="owner" value="<c:out value="${fiche.owner}"/>" size="15" maxlength="50" />
+				 	<input type="hidden" id="owner" name="owner" value="<c:out value="${fiche.owner}"/>" size="15" maxlength="50" />
 					
 					&#160;
 					<span class="error">

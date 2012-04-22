@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	@Qualifier("ficheChevauxManager")
 	private FicheChevauxManager horseManager;
-	
+
 	@Override
 	public Collection<Role> getRolesOfConnectedUser() {
 		User user = this.getCurrentUser();
@@ -34,31 +34,48 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<SuggestListItem> getItemSuggestList() {
-		List<User> users = this.utilisateurManager.getAll();
-		
+	public List<SuggestListItem> getItemSuggestList(boolean horses, boolean human) {
 		List<SuggestListItem> items = new ArrayList<SuggestListItem>();
+		
+		if(human){
+			items.addAll(getItemSuggestListHuman());
+		}
+
+		if(horses){
+			items.addAll(getItemSuggestListHorses());
+		}
+		Collections.sort(items);
+
+		return items;
+	}
+	
+	private List<SuggestListItem> getItemSuggestListHuman(){
+
+		List<SuggestListItem> items = new ArrayList<SuggestListItem>();
+		List<User> users = this.utilisateurManager.getAll();
 		for(User user : users){
 			SuggestListItem item = new SuggestListItem();
 			item.setId(user.getId());
 			item.setValue(user.getPrenom()+" "+user.getNom());
 			item.setType("human");
-			
+
 			items.add(item);
 		}
-		
+		return items;
+	}
+	
+	private List<SuggestListItem> getItemSuggestListHorses(){
+
+		List<SuggestListItem> items = new ArrayList<SuggestListItem>();
 		List<Fiche> fiches = this.horseManager.recupererToutesLesFiches();
 		for(Fiche fiche : fiches){
 			SuggestListItem item = new SuggestListItem();
 			item.setId(""+fiche.getId());
 			item.setValue(fiche.getNom());
 			item.setType("horse");
-			
+
 			items.add(item);
 		}
-		
-		Collections.sort(items);
-		
 		return items;
 	}
 

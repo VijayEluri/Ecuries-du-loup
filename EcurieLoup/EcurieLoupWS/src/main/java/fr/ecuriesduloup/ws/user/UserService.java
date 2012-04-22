@@ -7,7 +7,7 @@ import donnees.Role;
 import donnees.User;
 
 public interface UserService {
-	public List<SuggestListItem> getItemSuggestList();
+	public List<SuggestListItem> getItemSuggestList(boolean horses, boolean human);
 	public Collection<Role> getRolesOfConnectedUser();
 	public User getCurrentUser();
 	public User getUserByLogin(String login);

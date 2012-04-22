@@ -40,3 +40,11 @@ function selectionnePhoto(idPhoto){
 	document.getElementById("photoSelectionner").src= document.getElementById("selected").src;
 	document.getElementById("idPhoto").value=idPhoto;
 }
+
+$(document).ready(function(){
+	var options = {
+			horses: false,//get horses
+    		humans: true //get humans	
+	};
+	$("#owner").edlSuggest(options);
+});
