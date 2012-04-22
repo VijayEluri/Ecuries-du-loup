@@ -44,7 +44,10 @@ function selectionnePhoto(idPhoto){
 $(document).ready(function(){
 	var options = {
 			horses: false,//get horses
-    		humans: true //get humans	
+    		humans: true, //get humans
+			loadOnCreate : false,
+    		pressEnterCallBack : function (){
+    		}
 	};
 	$("#owner").edlSuggest(options);
 });

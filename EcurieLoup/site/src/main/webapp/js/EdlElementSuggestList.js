@@ -8,36 +8,38 @@
 	var optionsGlobal;
 	
     $.fn.edlSuggest = function(param1) { 
-    	if(typeof(param1) ==="object"){
-	        var opts = $.extend({}, $.fn.edlSuggest.defaults, param1);
-	        return this.each(function() {
-		        optionsGlobal = opts;
-	        	//this is the input to insert result (login or id)
-	            inputId = $(this);
-	            //create the element is visible : for display selected label
-	            createDisplayedInput();
-	            inputId.before(inputLabel);
-	            createAutocomplete(opts);
-	            if(opts.loadOnCreate){
-	            	load(opts);
-	            };
-	            inputLabel.keypress (function (event){
-					 if(event.keyCode == 13){  
-						 opts.pressEnterCallBack();
-					 }
-	            });
-	        });
-    	}else if(typeof(param1) ==="string"){
-    		if(param1=="clear"){
-    			clear();
-    		}else if(param1=="focus"){
-    			focus();
-    		}
-    		else if(param1=="load"){
-    			load(optionsGlobal);
-    		}
+    	if(this.length > 0){
+	    	if(typeof(param1) ==="object"){
+		        var opts = $.extend({}, $.fn.edlSuggest.defaults, param1);
+		        return this.each(function() {
+			        optionsGlobal = opts;
+		        	//this is the input to insert result (login or id)
+		            inputId = $(this);
+		            //create the element is visible : for display selected label
+		            createDisplayedInput();
+		            inputId.before(inputLabel);
+		            createAutocomplete(opts);
+		            if(optionsGlobal.loadOnCreate){
+		            	load();
+		            };
+		            inputLabel.keypress (function (event){
+						 if(event.keyCode == 13){  
+							 opts.pressEnterCallBack();
+						 }
+		            });
+		        });
+	    	}else if(typeof(param1) ==="string"){
+	    		if(param1=="clear"){
+	    			clear();
+	    		}else if(param1=="focus"){
+	    			focus();
+	    		}
+	    		else if(param1=="load"){
+	    			load();
+	    		}
+	    	}
     	}
-    };
+	};
 
     $.fn.edlSuggest.defaults = {
     		horses: true,//get horses
@@ -54,7 +56,7 @@
     	inputLabel.focus();
     };
     var load = function(options){
-    	 loadSuggest(options, function(){
+    	 loadSuggest(function(){
          	insertLabel();
          });
     };
@@ -74,18 +76,18 @@
     	});
     };
     
-    var loadSuggest=  function (options, endLoadCallback){
+    var loadSuggest=  function (endLoadCallback){
     	if(items== null){
     		items = new Array();
 	    	var url = "";
-	    	if(options.horses){
-	    		if(options.humans){
+	    	if(optionsGlobal.horses){
+	    		if(optionsGlobal.humans){
 	    			url = ctx+"/ws/usershorses";
 	    		}else{
 	    			return;
 	    		}
 	    	}else{
-	    		if(options.humans){
+	    		if(optionsGlobal.humans){
 	    			url = ctx+"/ws/users";
 	    		}else{
 	    			return;
