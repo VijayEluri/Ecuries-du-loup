@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import service.UtilisateurManager;
 import album_photo.editor.LongToPhotoEditor;
 import donnees.photo.Media;
+import fiche_chevaux.donnees.Category;
 import fiche_chevaux.donnees.Fiche;
 import fiche_chevaux.donnees.FicheFormulaire;
 import fiche_chevaux.donnees.Owner;
@@ -45,6 +46,7 @@ public class FormulaireFicheChevalController{
 	private RobeEditor robeEditor;
 	@Autowired
 	private LongToPhotoEditor longToPhotoEditor;
+	
 
 	
 
@@ -115,6 +117,12 @@ public class FormulaireFicheChevalController{
 			ficheFormulaire.setOwner(fiche.getOwner().getName());
 		}else{
 			ficheFormulaire.setOwner("");
+		}
+		
+		if(fiche.getCategory() != null){
+			ficheFormulaire.setCategory(fiche.getCategory().getId());
+		}else{
+			ficheFormulaire.setCategory(0);
 		}
 
 		return ficheFormulaire;
@@ -221,6 +229,9 @@ public class FormulaireFicheChevalController{
 				this.ficheChevauxManager.modifierOwnerCheval(fiche.getOwner());
 			}
 		}
+		long categoryId = ficheFormulaire.getCategory();
+		Category category = this.ficheChevauxManager.getCategory(categoryId);
+		fiche.setCategory(category);
 	}
 
 	private void gestionSurnom(Fiche fiche, FicheFormulaire ficheFormulaire) {

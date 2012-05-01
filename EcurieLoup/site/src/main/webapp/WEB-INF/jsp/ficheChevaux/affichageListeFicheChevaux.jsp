@@ -12,12 +12,15 @@
 
 <div id="corps">
 	<div class="navigation">
+		&gt; <a href="${ctx}/ficheChevaux/categoryslist.do"><fmt:message key="horsecard.browse.categoryslist"/></a>
 		&gt; <fmt:message key="ficheChevaux.navigation.listeFiche"/>
 	</div>
 	<div class="fiche_chevaux">
 		<div class="visualisationTousLesFiches">
 			<h1> 
-				<fmt:message key="ficheChevaux.listeFiche.title"/>
+				<fmt:message key="ficheChevaux.listeFiche.title">
+					<fmt:param>${ category.name}</fmt:param>
+				</fmt:message>
 				<security:authorize ifAllGranted="ROLE_ADMINISTRATEUR_FICHECHEVAUX">
 					<a href="${ctx}/ficheChevaux/administration/administration.do">
 						<img src="${ctx}/images/edit.png" alt="<fmt:message key="ficheChevaux.administration.alt"/>" title="<fmt:message key="ficheChevaux.administration.title"/>" />

@@ -38,7 +38,8 @@
 		<mapping resource="fiche_chevaux/donnees/Race.hbm.xml" />
 		<mapping resource="fiche_chevaux/donnees/Sexe.hbm.xml" />
 		<mapping resource="fiche_chevaux/donnees/Surnom.hbm.xml" />
-		<mapping resource="fiche_chevaux/donnees/Owner.hbm.xml" />
+		<mapping resource="fiche_chevaux/donnees/Owner.hbm.xml" />		
+		<mapping resource="fiche_chevaux/donnees/Category.hbm.xml" />
 		
 		<mapping resource="donnees/User.hbm.xml" />
 		<mapping resource="donnees/Role.hbm.xml" />

@@ -14,6 +14,7 @@ public interface FicheChevauxDAO extends DaoIdLongUtil<Fiche>{
 	public List<Fiche> getFichesChevaux(Sexe sexe);
 	public List<Fiche> getFichesChevaux(Race race);
 	public List<Fiche> getFichesChevaux(Robe robe);
+	public List<Fiche> getFichesChevauxCategory(long category);
 	
 	public List<Fiche> getHorseBorn(int month, int day);
 	

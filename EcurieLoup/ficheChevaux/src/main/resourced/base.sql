@@ -206,3 +206,12 @@ INSERT INTO `ficheChevaux_owner` (`id`, `name`, `user`) VALUES ('1', 'krack', 'k
 
 ALTER TABLE `user` ADD `birth_date` BIGINT NOT NULL ;
 ALTER TABLE `user` ADD `last_access_date_notifier` BIGINT NOT NULL ;
+
+CREATE TABLE ficheChevaux_category(
+	`id` int(11) NOT NULL,
+	`name` varchar(255) NOT NULL,
+  	PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `ficheChevaux_fiche` ADD `category` int(11) NULL ;

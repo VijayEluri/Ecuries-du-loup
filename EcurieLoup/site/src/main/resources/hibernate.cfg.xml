@@ -68,6 +68,7 @@
 		<mapping resource="fiche_chevaux/donnees/Sexe.hbm.xml" />
 		<mapping resource="fiche_chevaux/donnees/Surnom.hbm.xml" />
 		<mapping resource="fiche_chevaux/donnees/Owner.hbm.xml" />
+		<mapping resource="fiche_chevaux/donnees/Category.hbm.xml" />
 
 
 		<mapping resource="fr/ecuriesduloup/ecurieLoup/memo/data/Memo.hbm.xml" />

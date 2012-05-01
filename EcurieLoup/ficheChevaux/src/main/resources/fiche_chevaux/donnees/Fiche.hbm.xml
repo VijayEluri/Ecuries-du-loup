@@ -20,6 +20,7 @@
 		<many-to-one name="photoTete" class="donnees.photo.Media" column="photo_tete" lazy="false"  />
 		
 		<many-to-one name="owner" class="fiche_chevaux.donnees.Owner" column="owner" lazy="false"/>
+		<many-to-one name="category" class="fiche_chevaux.donnees.Category" column="category" lazy="false"/>
 		
 		<property name="description" column="description" />
 

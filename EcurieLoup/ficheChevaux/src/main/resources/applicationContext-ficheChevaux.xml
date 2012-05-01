@@ -43,6 +43,10 @@
 		<property name="ownerChevauxDAO">
 			<ref bean="ownerChevauxDAO"/>
 		</property>
+		<property name="categoryChevauxDAO">
+			<ref bean="categoryChevauxDAO"/>
+		</property>
+		
 	
 	</bean>
 	
@@ -79,6 +83,11 @@
 	</bean>
 	
 	<bean id="ownerChevauxDAO" class="fiche_chevaux.dao.OwnerChevauxDAOHibernate">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="categoryChevauxDAO" class="fiche_chevaux.dao.CategoryChevauxDAOHibernate">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
