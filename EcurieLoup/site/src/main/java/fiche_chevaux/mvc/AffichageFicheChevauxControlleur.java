@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import fiche_chevaux.donnees.Category;
 import fiche_chevaux.donnees.Fiche;
 import fiche_chevaux.service.FicheChevauxManager;
 
@@ -39,12 +40,21 @@ public class AffichageFicheChevauxControlleur{
 	
 	
 	@RequestMapping("/ficheChevaux/affichage.do")
-	public ModelAndView showFicheList(){
-		List<Fiche> fiches = this.ficheChevauxManager.recupererToutesLesFiches();
+	public ModelAndView showFicheList(@RequestParam("id") long id){
+		Category category = this.ficheChevauxManager.getCategory(id);
+		List<Fiche> fiches = this.ficheChevauxManager.getHorseCardCategory(id);
 		Map<String, Object> renvoyer = new HashMap<String, Object>();
-
+		renvoyer.put("category", category);
 		renvoyer.put("fichesChevaux", fiches);
 		return new ModelAndView("ficheChevaux/affichageListeFicheChevaux",renvoyer);
+	}
+	@RequestMapping("/ficheChevaux/categoryslist.do")
+	public ModelAndView showCategoryList(){
+		List<Category> categorys = this.ficheChevauxManager.getAllCategorys();
+		Map<String, Object> renvoyer = new HashMap<String, Object>();
+
+		renvoyer.put("categorys", categorys);
+		return new ModelAndView("ficheChevaux/showHorseCardCategorys",renvoyer);
 	}
 
 

@@ -19,7 +19,7 @@
 			<c:forEach var="page" items="${listePagesPresentation}">
 				<li><a href="${ctx}/presentation.do?page=${page.id}">${page.lien}</a></li>
 			</c:forEach>
-			<li><a href="${ctx}/ficheChevaux/affichage.do"><fmt:message key="menu.membre.fiche_chevaux"/></a></li>
+			<li><a href="${ctx}/ficheChevaux/categoryslist.do"><fmt:message key="menu.membre.fiche_chevaux"/></a></li>
 		</ul>
 	</div>
 

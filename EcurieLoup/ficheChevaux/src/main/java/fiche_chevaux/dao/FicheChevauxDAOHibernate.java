@@ -35,7 +35,18 @@ public class FicheChevauxDAOHibernate extends HibernateIdLongBySpringDao<Fiche> 
 		List<Fiche> fiches = this.getHibernateTemplate().find("FROM Fiche WHERE robe=? ORDER BY nom ASC", robe);
 		return fiches;
 	}
-
+	@Override
+	public List<Fiche> getFichesChevauxCategory(long category) {
+		List<Fiche> fiches;
+		if(category == 0){
+			fiches = this.getHibernateTemplate().find("FROM Fiche WHERE category is null ORDER BY nom ASC");
+			
+		}else{
+			fiches = this.getHibernateTemplate().find("FROM Fiche WHERE category.id=? ORDER BY nom ASC", category);
+				
+		}
+		return fiches;
+	}
 	@Override
 	public List<Fiche> getHorseBorn(int month, int day) {
 		List<Fiche> horses = this.findAll();
@@ -60,5 +71,7 @@ public class FicheChevauxDAOHibernate extends HibernateIdLongBySpringDao<Fiche> 
 		}
 		return horsesBorn;
 	}
+
+	
 
 }

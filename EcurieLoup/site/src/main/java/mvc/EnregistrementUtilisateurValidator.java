@@ -41,7 +41,15 @@ public class EnregistrementUtilisateurValidator implements Validator {
 					new Object[] { utilisateur.getLogin() },
 					"login déjà utilisé");
 		}
+		for(User user : this.utilisateurManager.getAll()){
+			if(utilisateur.getEmail() != null && utilisateur.getEmail().equals(user.getEmail())){
+				errors.rejectValue("email", "error.email.already_use",
+						new Object[] { utilisateur.getLogin() },
+						"email déjà utilisé");
+			}
+		}
 		
+		//TODO : make this with regex autorize only accept char
 		// ' pose problème dans les requêtes
 		if(utilisateur.getLogin().contains("'")){
 			errors.rejectValue("login", "error.login.specialChar",

@@ -16,8 +16,19 @@ $(function() {
 </script>
 <div id="corps">
 	<div class="navigation">
-		&gt; <a href="${ctx}/ficheChevaux/affichage.do"><fmt:message key="ficheChevaux.navigation.listeFiche"/></a>
-		&gt; ${ficheCheval.nom}
+		&gt; <a href="${ctx}/ficheChevaux/categoryslist.do"><fmt:message key="horsecard.browse.categoryslist"/></a>
+		<c:choose>
+		<c:when test="${empty ficheCheval.category}">
+		&gt; <a href="${ctx}/ficheChevaux/affichage.do?id=0"><fmt:message key="ficheChevaux.navigation.listeFiche"/></a>
+		</c:when>
+		<c:otherwise>
+			&gt; <a href="${ctx}/ficheChevaux/affichage.do?id=${ficheCheval.category.id}"><fmt:message key="ficheChevaux.navigation.listeFiche"/></a>
+		</c:otherwise>
+		</c:choose>
+		
+		&gt; <fmt:message key="ficheChevaux.navigation.fiche">
+		<fmt:param>${ficheCheval.nom}</fmt:param>
+		</fmt:message>
 	</div>
 	<div class="fiche_chevaux">
 		<div class="visualisationFiche">

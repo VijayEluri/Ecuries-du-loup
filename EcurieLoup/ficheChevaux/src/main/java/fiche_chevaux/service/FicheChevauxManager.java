@@ -2,6 +2,7 @@ package fiche_chevaux.service;
 
 import java.util.List;
 
+import fiche_chevaux.donnees.Category;
 import fiche_chevaux.donnees.Fiche;
 import fiche_chevaux.donnees.Owner;
 import fiche_chevaux.donnees.Race;
@@ -64,5 +65,12 @@ public interface FicheChevauxManager {
 	public void supprimerOwnerCheval(Owner owner);
 	
 	
+	public Category getCategory(long idCategory);
+	public List<Category> getAllCategorys();
+	public void deleteCategory(long idCategory);
+	public void updateCategory(Category category);
+	public void createCategory(Category category);
+	
+	public List<Fiche> getHorseCardCategory(long idCategory);
 	
 }

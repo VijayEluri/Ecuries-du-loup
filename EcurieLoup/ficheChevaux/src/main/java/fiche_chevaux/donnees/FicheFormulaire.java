@@ -19,6 +19,7 @@ public class FicheFormulaire {
 	private String description;
 	private List<String> surnoms;
 	private String owner;
+	private long category;
 	
 	public FicheFormulaire() {
 		this.photoCorps = new Media();
@@ -106,5 +107,13 @@ public class FicheFormulaire {
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
+	public long getCategory() {
+		return category;
+	}
+	public void setCategory(long category) {
+		this.category = category;
+	}
+	
+	
 	
 }

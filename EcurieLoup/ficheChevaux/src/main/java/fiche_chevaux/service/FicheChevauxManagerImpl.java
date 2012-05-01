@@ -2,12 +2,14 @@ package fiche_chevaux.service;
 
 import java.util.List;
 
+import fiche_chevaux.dao.CategoryChevauxDAO;
 import fiche_chevaux.dao.FicheChevauxDAO;
 import fiche_chevaux.dao.OwnerChevauxDAO;
 import fiche_chevaux.dao.RaceChevauxDAO;
 import fiche_chevaux.dao.RobeChevauxDAO;
 import fiche_chevaux.dao.SexeChevauxDAO;
 import fiche_chevaux.dao.SurnomsChevauxDAO;
+import fiche_chevaux.donnees.Category;
 import fiche_chevaux.donnees.Fiche;
 import fiche_chevaux.donnees.Owner;
 import fiche_chevaux.donnees.Race;
@@ -23,6 +25,7 @@ public class FicheChevauxManagerImpl implements FicheChevauxManager {
 	//private AlbumPhotoManager albumPhotoManager;
 	private SurnomsChevauxDAO surnomsChevauxDAO;
 	private OwnerChevauxDAO ownerChevauxDAO;
+	private CategoryChevauxDAO categoryChevauxDAO;
 
 	public void setFicheChevauxDAO(FicheChevauxDAO ficheChevauxDAO) {
 		this.ficheChevauxDAO = ficheChevauxDAO;
@@ -43,6 +46,9 @@ public class FicheChevauxManagerImpl implements FicheChevauxManager {
 
 	public void setOwnerChevauxDAO(OwnerChevauxDAO ownerChevauxDAO) {
 		this.ownerChevauxDAO = ownerChevauxDAO;
+	}
+	public void setCategoryChevauxDAO(CategoryChevauxDAO categoryChevauxDAO) {
+		this.categoryChevauxDAO = categoryChevauxDAO;
 	}
 	
 	/*public void setAlbumPhotoManager(AlbumPhotoManager albumPhotoManager) {
@@ -258,5 +264,62 @@ public class FicheChevauxManagerImpl implements FicheChevauxManager {
 	public void supprimerOwnerCheval(Owner owner) {
 		this.ownerChevauxDAO.remove(owner);
 		
+	}
+
+	@Override
+	public Category getCategory(long idCategory) {
+		return this.categoryChevauxDAO.findById(idCategory);
+	}
+
+	@Override
+	public List<Category> getAllCategorys() {
+		List<Category> categorys = this.categoryChevauxDAO.findAll();		
+		Category categoryNotClassed = new Category();
+		categoryNotClassed.setId(0);
+		categoryNotClassed.setName("non classé");
+		categorys.add(categoryNotClassed);
+		
+		for(Category category : categorys){
+			List<Fiche> horseCards = this.getHorseCardCategory(category.getId());
+			category.setEmptyCategory(horseCards.isEmpty());
+			if(!horseCards.isEmpty()){
+				long mediaId = 0;
+				if(horseCards.get(0).getPhotoCorps() != null){
+					mediaId = horseCards.get(0).getPhotoCorps().getId();
+				}
+				category.setMediaId(mediaId);
+			}
+		}
+		return categorys;
+	}
+	@Override
+	public List<Fiche> getHorseCardCategory(long idCategory){
+		return this.ficheChevauxDAO.getFichesChevauxCategory(idCategory);
+	}
+
+	@Override
+	public void deleteCategory(long idCategory) {
+		this.reinitCategoryHorseCardOfOneCategory(idCategory);
+		Category category = this.categoryChevauxDAO.findById(idCategory);
+		this.categoryChevauxDAO.remove(category);
+	}
+	
+	public void reinitCategoryHorseCardOfOneCategory(long idCategory){
+		List<Fiche> horseCardOfCategory = this.getHorseCardCategory(idCategory);
+		for(Fiche fiche : horseCardOfCategory){
+			fiche.setCategory(null);
+			this.modifierFicheChevaux(fiche);
+		}
+	}
+
+	@Override
+	public void updateCategory(Category category) {
+		this.categoryChevauxDAO.update(category);
+		
+	}
+
+	@Override
+	public void createCategory(Category category) {
+		this.categoryChevauxDAO.add(category);		
 	}
 }

@@ -19,6 +19,7 @@ public class Fiche extends DataWtihLongIdAbstract<Fiche> implements DataWithLong
 	private String description;
 	private List<Surnom> surnoms;
 	private Owner owner;
+	private Category category;
 	
 	public Fiche(){
 		this.surnoms = new ArrayList<Surnom>();
@@ -100,4 +101,16 @@ public class Fiche extends DataWtihLongIdAbstract<Fiche> implements DataWithLong
 	public void setOwner(Owner owner) {
 		this.owner = owner;
 	}
+
+
+	public Category getCategory() {
+		return category;
+	}
+
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+	
+	
 }

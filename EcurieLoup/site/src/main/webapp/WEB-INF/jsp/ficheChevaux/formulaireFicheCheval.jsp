@@ -13,7 +13,11 @@
 
 <div id="corps">
 	<div class="navigation">
-		&gt; <a href="${ctx}/ficheChevaux/affichage.do"><fmt:message key="ficheChevaux.navigation.listeFiche"/></a>
+		&gt; <a href="${ctx}/ficheChevaux/categoryslist.do"><fmt:message key="horsecard.browse.categoryslist"/></a>
+		&gt; <a href="${ctx}/ficheChevaux/affichage.do?id=${fiche.category}"><fmt:message key="ficheChevaux.navigation.listeFiche"/></a>
+		&gt; <a href="${ctx}/ficheChevaux/affichageFiche.do?id=${fiche.id}"><fmt:message key="ficheChevaux.navigation.fiche">
+		<fmt:param>${fiche.nom}</fmt:param>
+		</fmt:message></a>
 		&gt; <fmt:message key="ficheChevaux.navigation.formulaireFiche"/>
 	</div>
 	<div class="fiche_chevaux">
@@ -206,6 +210,23 @@
 						<c:out value="${status.errorMessage}" />
 					</span>
 				</spring:bind>
+				<br />
+				<spring:bind path="fiche.category">
+					<fmt:message key="ficheChevaux.formulaireFiche.category"/>
+				 	<input type="hidden" id="category" name="category" value="<c:out value="${fiche.category}"/>" size="15" maxlength="50" />
+					
+					&#160;
+					<span class="error">
+						<c:out value="${status.errorMessage}" />
+					</span>
+				</spring:bind>
+				<script type="text/javascript">
+
+				$(function() {
+					$( "#category" ).suggestSavedChoose({});
+				});
+
+				</script>
 				<br />
 				<spring:bind path="fiche.surnoms">
 					<fmt:message key="ficheChevaux.formulaireFiche.surnom"/>
