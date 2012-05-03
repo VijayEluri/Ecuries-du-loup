@@ -8,6 +8,7 @@
         var opts = $.extend({}, $.fn.comments.defaults, options);
         return this.each(function() {
             var $this = $(this);
+            $this.empty();
             addComments($this, opts);
         });
     };

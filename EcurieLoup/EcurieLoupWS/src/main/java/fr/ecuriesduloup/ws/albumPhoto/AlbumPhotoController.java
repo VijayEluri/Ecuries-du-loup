@@ -56,16 +56,22 @@ public class AlbumPhotoController extends AbstractWsController{
 		}
 		return this.ChooseView(request, "media", convert(medias));
 	}
-	
+
+	@RequestMapping(value = "/albumPhoto/{identifier}",method=RequestMethod.GET)
+	public ModelAndView getAlbum(HttpServletRequest request, @PathVariable long identifier) {
+
+		Album album = this.albumPhotoService.getAlbum(identifier);
+		
+		AlbumWs albumWs = new AlbumWs(album);
+		
+		return this.ChooseView(request, "media", albumWs);
+	}
+
 
 	private List<MediaDto> convert(List<Media> medias){
 		List<MediaDto> mediasDto = new ArrayList<MediaDto>();
 		for(Media media : medias){
-			MediaDto dto = new MediaDto();
-			dto.setId(media.getId());
-			dto.setDatePostage(media.getDatePostage());
-			dto.setDescription(media.getDescription());
-			dto.setType(media.getType());
+			MediaDto dto = new MediaDto(media);
 			mediasDto.add(dto);
 		}
 
@@ -82,7 +88,7 @@ public class AlbumPhotoController extends AbstractWsController{
 		for(Album album : albums){
 			albumWs.add(new AlbumWs(album));
 		}
-		
+
 		return this.ChooseView(request, "albums", albumWs);
 	}
 	/**
@@ -158,7 +164,7 @@ public class AlbumPhotoController extends AbstractWsController{
 		temporaire.delete();
 		WsStatus wsStatus = new WsStatus();
 		wsStatus.setStatus("OK");
-		
+
 
 		return this.ChooseView(request, "Status", wsStatus);
 	}

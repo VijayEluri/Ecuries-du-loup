@@ -17,8 +17,8 @@
 
 	<div class="navigation">
 		&gt; <a href="${ctx}/albumPhoto/affichage.do"><fmt:message key="album_photo.navigation.album.list"/></a>
-		&gt; <a	href="${ctx}/albumPhoto/affichage.do?idAlbum=${photo.album.id}">${photo.album.titre}</a>
-		&gt; <fmt:message key="album_photo.navigation.picture"/> ${photo.id}
+		&gt; <a	id="browneAlbum" href=""></a>
+		&gt; <fmt:message key="album_photo.navigation.picture"/> <span class="mediaId"></span>
 	</div>
 	
 	<div class="albumPhoto">
@@ -38,72 +38,26 @@
 		
 	<div class="visualisationPhoto">
 		<form method="post">
-			<h1><fmt:message key="album_photo.photo.title"/>${photo.id} 
-				<a	href="${ctx}/albumPhoto/download.do?idMedia=${photo.id}">
-						<img class="title_action" src="${ctx}/images/button_download.png" alt="<fmt:message key="album_photo.photo.download.alt"/>" title="<fmt:message key="album_photo.photo.download.title"/>" />
-					</a>
+			<h1><fmt:message key="album_photo.photo.title"/><span class="mediaId"></span>
+			
+				<a id="downloadButton"	href="">
+					<img class="title_action" src="${ctx}/images/button_download.png" alt="<fmt:message key="album_photo.photo.download.alt"/>" title="<fmt:message key="album_photo.photo.download.title"/>" />
+				</a>
 				<security:authorize ifAllGranted="ROLE_ADMINISTRATEUR_PHOTO">
-					<a	href="${ctx}/albumPhoto/affichage.do?idAlbum=${photo.album.id}&deletePhoto=${photo.id}">
+					<a id="deleteButton"	href="">
 						<img src="${ctx}/images/delete.png" alt="<fmt:message key="album_photo.photo.delete.alt"/>" title="<fmt:message key="album_photo.photo.delete.title"/>" />
 					</a>
 				</security:authorize>
 			</h1>
 
-			<fmt:message key="album_photo.photo.by"/>${photo.posteur.login}
+			<fmt:message key="album_photo.photo.by"/><span id="poster"></span>
 			
 			
 			
-			<div class="navigation_album">
-				<!-- affichage en miniatude de la photo précédente -->
-				<div class="photo_precedente">
-					
-					<c:if test="${photoPrecedente != null}">
-						
-						<a href="${ctx}/albumPhoto/affichagePhoto.do?idPhoto=${photoPrecedente.id}${searchtagParameter}" >
-							<div class="photo video">
-								<c:if test="${photoPrecedente.type==1}">
-									<div class="image_video">
-									</div>				
-								</c:if>	
-								<img src="${ctx}/images/albumPhoto/miniatures/${photoPrecedente.id}" alt="<fmt:message key="album_photo.photo.previous.alt"/>" title="<fmt:message key="album_photo.photo.previous.title"/>" />
-							</div>
-						</a>
-					</c:if>
-				</div>
-				<!-- affichage en miniatude de la photo suivante -->
-				<div class="photo_suivante">
-					
-					<c:if test="${photoSuivante != null}">
-						
-						<a href="${ctx}/albumPhoto/affichagePhoto.do?idPhoto=${photoSuivante.id}${searchtagParameter}" >
-							<div class="photo video" >
-								<c:if test="${photoSuivante.type==1}">
-									<div class="image_video">
-									</div>				
-								</c:if>	
-								<img src="${ctx}/images/albumPhoto/miniatures/${photoSuivante.id}" alt="<fmt:message key="album_photo.photo.next.alt"/>" title="<fmt:message key="album_photo.photo.next.title"/>"/>
-							</div>
-						</a>
-					</c:if>
-				</div>
+			<div id="navigation_album" class="navigation_album">
 			</div>
 			<!-- affichage de la photo en cours -->
-			<div class="photo_principal">
-				<c:choose >
-					<c:when test="${photo.type == 0}">
-						<img id="photo_taggage"	src="${ctx}/images/albumPhoto/view/${photo.id}" alt="${photo.id}"/>
-					</c:when>
-					<c:when test="${photo.type == 1}">
-						<video class="video_balise" controls="controls" >
-							<source src="${ctx}/images/albumPhoto/${photo.id}.mp4" type="video/mp4" /> 
-							<source src="${ctx}/images/albumPhoto/${photo.id}.webm" type="video/webm" /> 
-							<source src="${ctx}/images/albumPhoto/${photo.id}.ogv" type="video/ogg" /> 
-							Votre navigateur ne gère pas la balise vidéo. Veuillez mettre à jour votre navigateurs.
-						</video> 
-					</c:when>
-					<c:otherwise>Erreur</c:otherwise>
-				</c:choose>
-			
+			<div id="photo_principal" class="photo_principal">				
 			</div>
 			
 			
@@ -123,22 +77,23 @@
 
 			<div class="description">
 				<security:authorize ifAllGranted="ROLE_ADMINISTRATEUR_PHOTO">
-					<textarea name="description">${photo.description}</textarea>
+					<textarea id="descriptionTextarea" name="description"></textarea>
 					<br />
 					<input type="submit" value="<fmt:message key="album_photo.photo.description.submit"/>" />
 				</security:authorize>
 				<security:authorize ifNotGranted="ROLE_ADMINISTRATEUR_PHOTO">
-					<p>${photo.description}</p>
+					<p id="descriptionP" ></p>
 				</security:authorize>
 			</div>
 			<!-- facebook like ${ctx}-->
-			<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2F${header['host']}${ctx}%2Ffacebook%2FalbumPhoto%2FaffichagePhoto.do%3FidPhoto%3D${photo.id}&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>
+			<iframe id="facebookIframe" src="" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>
 			
 			<script>
-				var mediaId = "${photo.id}";
-				$(function() {
-					$( "#comments" ).comments({mediaId : mediaId});
-				});
+
+			//$("#photo_principal" ).mediaDisplayer({album:27, beginMedia: 952});
+				$("#photo_principal" ).mediaDisplayer({album:19, beginMedia: 611});
+				
+				
 				</script>
 			<div id="comments" class="commentaires"></div>
 

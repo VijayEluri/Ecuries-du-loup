@@ -41,6 +41,7 @@
 		<script src="${ctx}/js/commentsPlugin.js" type="text/javascript"> </script>
 		<script src="${ctx}/js/EdlElementSuggestList.js" type="text/javascript"> </script>
 		<script src="${ctx}/js/SuggestSavedChoose.js" type="text/javascript"> </script>
+		<script src="${ctx}/js/MediaDisplayer.js" type="text/javascript"> </script>
 		
 		
 		<!-- pour le tagage des photo -->
@@ -52,6 +53,7 @@
 		<script src="${ctx}/js/gestionVariable.js" type="text/javascript"> </script>
 		<script type="text/javascript">
 			set_ctx("${ctx}");
+			set_host("${header['host']}");
 		</script>
 		
 		<script> var isomorphicDir = ctx+"/gwtg/sc/"; </script>

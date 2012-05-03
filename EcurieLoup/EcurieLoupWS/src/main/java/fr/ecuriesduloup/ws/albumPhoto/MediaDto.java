@@ -2,6 +2,7 @@ package fr.ecuriesduloup.ws.albumPhoto;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
+import donnees.photo.Media;
 import donnees.photo.TypeMedia;
 
 @XStreamAlias("media")
@@ -10,6 +11,16 @@ public class MediaDto {
 	private String description;
 	private TypeMedia type;
 	private long datePostage;
+	private String poster;
+	
+	public MediaDto(Media media) {
+		this.id= media.getId();
+		this.description = media.getDescription();
+		this.setType(media.getType());
+		this.datePostage = media.getDatePostage();
+		this.poster = media.getPosteur().getLogin();
+	}
+	
 	public long getId() {
 		return id;
 	}
@@ -47,5 +58,13 @@ public class MediaDto {
 	}
 	public void setDatePostage(long datePostage) {
 		this.datePostage = datePostage;
+	}
+
+	public String getPoster() {
+		return poster;
+	}
+
+	public void setPoster(String poster) {
+		this.poster = poster;
 	}
 }
