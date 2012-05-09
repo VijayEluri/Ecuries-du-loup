@@ -55,7 +55,7 @@ public class AlbumPhotoController extends AbstractWsController{
 			medias.addAll(mediasWithUser);
 		}
 		albumWs.setId(0);
-		albumWs.setName("Marqué "+ identifier);
+		albumWs.setName("MarquÃ© "+ identifier);
 		albumWs.setMedias(convert(medias));
 		return this.ChooseView(request, "media", albumWs);
 	}
