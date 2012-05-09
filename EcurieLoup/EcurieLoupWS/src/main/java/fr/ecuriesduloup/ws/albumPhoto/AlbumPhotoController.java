@@ -42,7 +42,7 @@ public class AlbumPhotoController extends AbstractWsController{
 	 */
 	@RequestMapping(value = "/albumPhoto/photos/{identifier}",method=RequestMethod.GET)
 	public ModelAndView GetMediaWith(HttpServletRequest request, @PathVariable String identifier) {
-
+		AlbumWs albumWs = new AlbumWs();
 		User user = this.userService.getUserByLogin(identifier);
 		List<Media> medias = new ArrayList<Media>();
 		if(user == null){
@@ -54,7 +54,10 @@ public class AlbumPhotoController extends AbstractWsController{
 			List<Media> mediasWithUser = this.albumPhotoService.getMediaWithUser(user);
 			medias.addAll(mediasWithUser);
 		}
-		return this.ChooseView(request, "media", convert(medias));
+		albumWs.setId(0);
+		albumWs.setName("Marqué "+ identifier);
+		albumWs.setMedias(convert(medias));
+		return this.ChooseView(request, "media", albumWs);
 	}
 
 	@RequestMapping(value = "/albumPhoto/{identifier}",method=RequestMethod.GET)

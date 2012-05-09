@@ -14,8 +14,6 @@
 				//select current index on album
 				selectCurrentMediaWithBeginId();
 				constructCurrentMedia(element);
-
-				//change facebook ogv info
 			});
 
 		});
@@ -23,14 +21,20 @@
 
 	$.fn.mediaDisplayer.defaults = {
 			album: 0,
-			beginMedia: 0
+			beginMedia: 0,
+			tag: ""
 	};
 
 
 	//load album with id get in option
 	//return void
 	var loadAlbum=  function (callbackSucess){
-		var url =  ctx+"/ws/albumPhoto/"+options.album;  	
+		var url;
+		if(options.album != 0){
+			url =  ctx+"/ws/albumPhoto/"+options.album;  	
+		}else if(options.tag !=""){
+			url =  ctx+"/ws/albumPhoto/photos/"+options.tag;  
+		}
 		$.ajax({
 			url: url, 		  
 			dataType: "json"
@@ -45,7 +49,7 @@
 	//return : void	
 	var selectCurrentMediaWithBeginId= function(){
 		$.each( album.media.medias, function(index, value){
-			if(value.id === options.beginMedia){
+			if(value.id == options.beginMedia){
 				currentMedia= value;
 				currentMediaIndex = index;
 			}
@@ -65,13 +69,19 @@
 		$("#descriptionTextarea").val(currentMedia.description);
 		$("#descriptionP").html(currentMedia.description);
 		//change tag
-		
+		$("#tagsList" ).mediatag({mediaId:  currentMedia.id});
 		//change comment
 		$( "#comments" ).comments({mediaId : currentMedia.id});
 		//change like button
-		$("#facebookIframe").attr("src", "http://www.facebook.com/plugins/like.php?href=http%3A%2F%2F"+host+ctx+"%2Ffacebook%2FalbumPhoto%2FaffichagePhoto.do%3FidPhoto%3D"+currentMedia.id+"&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=80");
+		$("#facebookIframe").attr("src", "http://www.facebook.com/plugins/like.php?href=http%3A%2F%2F"+host+ctx+"%2Ffacebook%2FalbumPhoto%2FaffichagePhoto.do%idPhoto%3D"+currentMedia.id+"&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=80");
 		//change url
-		history.pushState(currentMedia, "photo "+currentMedia.id, "affichagePhoto.do?idPhoto="+ currentMedia.id);
+		var urlHistory = "";
+		if(options.album != 0){
+			urlHistory = "affichagePhoto.do?mediaId="+ currentMedia.id+"&albumId="+options.album;
+		}else if(options.tag !=""){
+			urlHistory = "affichagePhoto.do?mediaId="+ currentMedia.id+"&searchtag="+options.tag;
+		}
+		history.pushState(currentMedia, "photo "+currentMedia.id, urlHistory);
 		//change title
 		$(".mediaId").text(currentMedia.id);
 		//change navigation
@@ -147,8 +157,8 @@
 		
 		var previewImage =  document.createElement("img");
 		 $(previewImage).attr("src", ctx+"/images/albumPhoto/miniatures/"+album.media.medias[nextMediaIndex].id);
-		 $(previewImage).attr("alt", "<fmt:message key=\"album_photo.photo.previous.alt\"/>");
-		 $(previewImage).attr("title", "<fmt:message key=\"album_photo.photo.previous.title\"/>");
+		 $(previewImage).attr("alt", album.media.medias[nextMediaIndex].id);
+		 $(previewImage).attr("title", album.media.medias[nextMediaIndex].id);
 		 
 		 $(div).append(previewImage);
 		 $(photoVideoDiv).append(div);
@@ -159,5 +169,5 @@
 				constructCurrentMedia();
 		 });
 		return photoVideoDiv;
-	}
+	};
 })(jQuery);

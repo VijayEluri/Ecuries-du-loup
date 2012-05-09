@@ -49,7 +49,7 @@
     };
     
     var appendPhoto = function(element, photo, tag) {
-    	var html = "<a href='"+ctx+"/albumPhoto/affichagePhoto.do?idPhoto="+photo.id+"&searchtag="+tag+"'>";
+    	var html = "<a href='"+ctx+"/albumPhoto/affichagePhoto.do?mediaId="+photo.id+"&searchtag="+tag+"'>";
     	html+="<div class='photo video'><img alt='photo "+photo.id+"' src='"+ctx+"/images/albumPhoto/miniatures/"+photo.id+"'>";
     	html+="</div>";
     	html+="</a>";

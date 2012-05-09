@@ -46,7 +46,7 @@
 			</c:if>
 			
 			<c:forEach var="photo" items="${listePhoto}">
-				<a href="${ctx}/albumPhoto/affichagePhoto.do?idPhoto=${photo.id}">
+				<a href="${ctx}/albumPhoto/affichagePhoto.do?mediaId=${photo.id}&albumId=${album.id}">
 					<div class="photo video">
 						<c:if test="${photo.type==1}">
 							<div class="image_video">

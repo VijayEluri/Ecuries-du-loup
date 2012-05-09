@@ -14,7 +14,8 @@ public class AlbumWs {
 	private long id;
 	private String name;
 	private List<MediaDto> medias;
-	
+	public AlbumWs(){
+	}
 	public AlbumWs(Album album){
 		this.id = album.getId();
 		this.name = album.getTitre();

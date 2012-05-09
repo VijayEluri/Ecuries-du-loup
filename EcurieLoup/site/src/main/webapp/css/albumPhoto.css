@@ -159,8 +159,15 @@
 
 	text-align: center;
 }
-.albumPhoto .commentaires .loading{
+#tagsList .loadingDiv{
+	display: inline;	
+}
+.loading{
 	margin: 10px;
+}
+
+.mini{
+	width: 20px;
 }
 .albumPhoto .commentaires {
 	border: 1px none black;

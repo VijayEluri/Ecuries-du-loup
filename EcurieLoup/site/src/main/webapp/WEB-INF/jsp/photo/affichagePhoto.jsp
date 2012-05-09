@@ -29,7 +29,6 @@
 		<div id="saisisTag">
 			
 			<input id="id_tag" name="id_tag" type="hidden" />			
-			<input id="input_tag_photo" name="tag_photo" type="hidden" value="${photo.id}" />
 			<input id="input_tag_x" name="tag_x" type="hidden" />
 			<input id="input_tag_y" name="tag_y" type="hidden"/>
 			<input id="tag_valid" value="Ok" type="button" />
@@ -61,18 +60,8 @@
 			</div>
 			
 			
-			
-			
 			<div id="tags">
-				<img id="tagActivateButton" src="${ctx}/images/tag.jpeg" alt="<fmt:message key="album_photo.photo.tag"/>" title="Activer le taggage"/>			
-				<c:if test="${!empty photo.tags}">					
-					<c:forEach var="tag" items="${photo.tags}">						
-						 <script language="javascript">
-						 var infos =  { id : "${tag.id}", display : "${tag.display}", x :"${tag.x}", y : "${tag.y}", path: "${tag.path}"};
-						 loadedTag.push(infos);
-						</script>
-					</c:forEach>
-				</c:if>
+				<span id="tagsList"></span>
 			</div>
 
 			<div class="description">
@@ -88,11 +77,12 @@
 			<!-- facebook like ${ctx}-->
 			<iframe id="facebookIframe" src="" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>
 			
-			<script>
-
-			//$("#photo_principal" ).mediaDisplayer({album:27, beginMedia: 952});
-				$("#photo_principal" ).mediaDisplayer({album:19, beginMedia: 611});
-				
+			<script type="text/javascript" >
+				var albumId = "${albumId}";
+				var mediaId = "${mediaId}";
+				var searchTag = "${searchTag}";
+				$("#photo_principal" ).mediaDisplayer({album:albumId, beginMedia: mediaId, tag : searchTag });
+				$("#tags" ).tagAppender();
 				
 				</script>
 			<div id="comments" class="commentaires"></div>

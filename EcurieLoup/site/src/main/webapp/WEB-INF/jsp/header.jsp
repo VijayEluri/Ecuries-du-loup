@@ -17,15 +17,14 @@
 		<title><fmt:message key="general.meta.title"/></title>
 		
 		<!-- facebook tag -->
-		<c:if test="${photo != null }">
-			<meta property="og:title" content="Les écuries du loup : photo ${photo.id}" />
+		<c:if test="${mediaId != null && mediaId != 0 }">
+			<meta property="og:title" content="Les écuries du loup : photo ${mediaId}" />
 			<meta property="og:type" content="article" />
 			
-				<meta property="og:url" content="http://${header['host']}${ctx}/facebook/albumPhoto/affichagePhoto.do?idPhoto=${photo.id}" />
+				<meta property="og:url" content="http://${header['host']}${ctx}/facebook/albumPhoto/affichagePhoto.do?mediaId=${mediaId}" />
 			
-			<meta property="og:image" content="http://${header['host']}${ctx}/images/albumPhoto/miniatures/${photo.id}" />
+			<meta property="og:image" content="http://${header['host']}${ctx}/images/albumPhoto/miniatures/${mediaId}" />
 			<meta property="og:site_name" content="Les écuries du loup" />
-			<meta property="og:description" content="${photo.description}"/>
 			<meta property="fb:app_id" content="277479594509" />
 		</c:if>
 		

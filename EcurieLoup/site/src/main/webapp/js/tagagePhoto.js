@@ -1,205 +1,42 @@
-var tagging = false;
-var cadreSize = 100;
-var isfieldTagOpen = false;
-var isMouseOnFieldTag = false;
-var isOpenClick = false;
-var loadedTag = [];
 
+(function($) {
+	var tagging = false;
+	var cadreSize = 100;
+	var isfieldTagOpen = false;
+	var isMouseOnFieldTag = false;
+	var isOpenClick = false;
+	var options;
+	var element;
+	var loadRequest;
 
+	$.fn.tagAppender = function() { 
 
-function createCookie(name,value,days) {
-	if (days) {
-		var date = new Date();
-		date.setTime(date.getTime()+(days*24*60*60*1000));
-		var expires = "; expires="+date.toGMTString();
-	}
-	else var expires = "";
-	document.cookie = name+"="+value+expires+"; path=/";
-}
+		createTagButton($(this));
+		$("#tag_valid").click(function (){
+			saveTag();
+			hideTagField();
+		});
+		$("#photo_taggage").live("click", function(e){
+			if(tagging){
+				taggage(e.pageY, e.pageX);
+			}
+		});
+		$("#photo_taggage").live("hover", function(e){
 
-function readCookie(name) {
-	var nameEQ = name + "=";
-	var ca = document.cookie.split(';');
-	for(var i=0;i < ca.length;i++) {
-		var c = ca[i];
-		while (c.charAt(0)==' ') c = c.substring(1,c.length);
-		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-	}
-	return null;
-}
+			tagActivate();
+		});
 
-function eraseCookie(name) {
-	createCookie(name,"",-1);
-}
+		var options ={
+				horses: true,//get horses
+				humans: true, //get humans
+				loadOnCreate : false,
+				pressEnterCallBack : function (){
+					saveTag();
+					hideTagField();
+				}
+		};
+		$("#id_tag").edlSuggest(options);
 
-
-function saveStartTag(){
-	createCookie("tag","open",1);
-}
-function saveStopTag(){
-	eraseCookie("tag");
-}
-function isSaveTagOpenStared(){
-	var open = readCookie("tag");
-	if((open!=null)&&(open=="open")){
-		return true;
-	}else{
-		return false;
-	}
-}
-
-function startTag(){
-	tagging =true;
-	$("#nouveauTage").css({"cursor": "crosshair"});
-	$("#photo_taggage").css({"cursor": "crosshair"});
-	$("#tagActivateButton").attr("title", "Stopper le taggage");
-	$("#tagActivateButton").attr("src", ctx+"/images/tag_actif.jpeg");
-	$("#id_tag").edlSuggest("load");
-	saveStartTag();
-}
-function stopTag(){
-	tagging = false;
-	hideTagField();
-	$("#nouveauTage").css({"cursor": "default"});
-	$("#photo_taggage").css({"cursor": "default"});
-	$("#tagActivateButton").attr("title", "Activer le taggage");
-	$("#tagActivateButton").attr("src", ctx+"/images/tag.jpeg");
-	saveStopTag();
-
-}
-
-function cleanTagField(){
-	$("#id_tag").edlSuggest("clear");
-	$("input_tag_x").val("");
-	$("input_tag_y").val("");
-}
-
-function showTagField(x, y){	
-	isOpenClick= true;
-	x += 30;
-	y += 30;
-	
-	$("#saisisTag").offset({ top : y, left : x });
-	$("#saisisTag").css({"visibility": "visible"});
-	
-
-	$("#id_tag").edlSuggest("focus");
-	isfieldTagOpen = true;
-}
-
-function recordTag(mediaId, x, y, name){
-	
-	var position = {x:x, y:y};
-	$.ajax ({
-		url : ctx+"/ws/albumPhoto/tag/"+mediaId+"/"+name,
-		data: position, 
-		context : position,
-		type :"post",
-		success : function (response, textStatus, xhr)
-		{
-			var id = $( xhr.responseXML).find("value").text();
-			appendTag(id, name,this.x, this.y);
-		},
-		error : function (xhr, textStatus)
-		{
-			alert("error");
-		}
-		
-	});
-}
-function saveTag(){
-	var id = $("#id_tag").val();
-	var x = $("#input_tag_x").val();
-	var y = $("#input_tag_y").val();
-	var photoId = $("#input_tag_photo").val();
-	
-	var widthPhoto = $("#photo_taggage").width();
-	var heightPhoto = $("#photo_taggage").height();
-	var widthPercent = parseInt(x/widthPhoto*100);
-	var heightPercent =  parseInt(y/heightPhoto*100);
-	
-	if(id != ""){
-		recordTag(photoId, widthPercent, heightPercent, id);
-	}
-}
-
-function hideTagField(){
-	isfieldTagOpen = false;
-	$("#saisisTag").css({"visibility": "hidden"});
-	$("#nouveauTage").css({"visibility": "hidden"});
-	
-	cleanTagField();
-}
-
-
-function taggage(top, left){
-	$("#nouveauTage").css({"border": "4px solid black"});
-	
-	var leftPosition = left;
-	var topPosition = top;
-	
-	var photoTop= $("#photo_taggage").offset().top;
-	var photoLeft= $("#photo_taggage").offset().left;
-	
-	$("#input_tag_x").val(leftPosition-photoLeft);
-	$("#input_tag_y").val(topPosition-photoTop);
-	
-	//mark position
-	$("#nouveauTage").offset({top:top-(cadreSize/2), left: left-(cadreSize/2)});
-	$("#nouveauTage").css({"visibility": "visible"});
-	
-	showTagField(leftPosition , topPosition);
-}
-
-function appendTag(id, displayName, x, y, path){
-	var span = document.createElement ("span");
-	span.className= "nom_tag";
-	if(path == null){
-		$(span).html(displayName+" - ");
-	}else{
-		var link = document.createElement ("a");
-		$(link).attr("href", ctx+path);
-		$(link).html(displayName+" - ");
-		$(span).append(link);
-	}
-
-	$("#tags").append(span);
-	
-	
-	
-	var cadreTag = document.createElement ("div");
-	cadreTag.className = "cadreTague cadreTague2";
-	$(cadreTag).attr("title", displayName);
-	var photoTop= $("#photo_taggage").offset().top;
-	var postionTop =photoTop + (y* $("#photo_taggage").height() / 100)-(cadreSize/2);
-	var photoLeft= $("#photo_taggage").offset().left;
-	var postionLeft =photoLeft + (x* $("#photo_taggage").width() / 100)-(cadreSize/2);
-	$(cadreTag).offset({top: postionTop, left: postionLeft});
-	$(cadreTag).css({"position" : "absolute"});
-	$("#tags").append(cadreTag);
-	
-	$(span).bind("mouseover", { cadre : cadreTag },function(event){
-		$(event.data.cadre).css({"border-style" : "solid"});
-	});
-	$(span).bind("mouseout", { cadre : cadreTag },function(event){
-		$(event.data.cadre).css({"border-style" : "none"});
-	});
-	
-	
-}
-//add suggest list
-$(document).ready(function(){
-	
-	//if($("#input_tag_nom").length!=0){
-		
-		
-		while(loadedTag.length != 0){
-			var tagInfos = loadedTag[0];
-			loadedTag.shift();
-			//add tag
-			appendTag(tagInfos.id, tagInfos.display,tagInfos.x, tagInfos.y,tagInfos.path);
-		}
-	
 		$("body").click(function (){
 			if(isfieldTagOpen && !isMouseOnFieldTag && !isOpenClick){
 				hideTagField();
@@ -207,18 +44,9 @@ $(document).ready(function(){
 				isOpenClick= false;			
 			}
 		});
-		
-		var options ={
-				horses: true,//get horses
-	    		humans: true, //get humans
-				loadOnCreate : false,
-	    		pressEnterCallBack : function (){
-	    			saveTag();
-					hideTagField();
-	    		}
-		};
-		$("#id_tag").edlSuggest(options);
-		
+
+
+
 		$("#saisisTag").mouseover (function(){
 			isMouseOnFieldTag  = true;
 		});	
@@ -231,36 +59,224 @@ $(document).ready(function(){
 		$(".ui-autocomplete").mouseout (function(){
 			isMouseOnFieldTag  = false;
 		});	
-		
-		if( isSaveTagOpenStared()){
-			startTag();
-		}
-		
+	};
+
+	var createTagButton= function(adderElement){
+		var tagButton = document.createElement("img");
+		$(tagButton).attr("id", "tagActivateButton");
 		//add the tag field comportement
-		$("#tagActivateButton").click(function(){
+		$(tagButton).click(function(){
 			if(tagging){
 				stopTag();
 			}else{
 				startTag();
 			}
 		});	
-				
-		$("#tag_valid").click(function (){
-			saveTag();
-			hideTagField();
+		adderElement.prepend( tagButton);
+		offTagButton();
+	};
+
+	$.fn.mediatag = function(param1) { 
+		if(loadRequest != null){
+			loadRequest.abort();
+		}
+		options = $.extend({}, $.fn.mediatag.defaults, param1);
+		return this.each(function() {
+			element = $(this);
+			element.empty();
+			createLoading();
+
+			//add tags of media
+			loadMediaTags();
+			//add element to adding tags
+
+
 		});
-		
-		$("#photo_taggage").click(function(e){
-			if(tagging){
-				taggage(e.pageY, e.pageX);
+	};
+
+	$.fn.mediatag.defaults = {
+			mediaId: 0
+	};
+
+
+	var createLoading = function() {
+		var div = document.createElement("div");
+		div.className="loadingDiv";
+		$(div).append("<img class='loading mini' src='"+ctx+"/images/WaitImg.gif' alt='loading' />");
+		$(element).append(div);
+	};
+	var loadMediaTags = function(){
+		var url = ctx+"/ws/albumPhoto/tag/"+options.mediaId+"/tags";
+		loadRequest = $.ajax({
+			url: url, 		  
+			dataType: "json"
+
+		}).done(function( json ) {
+			$(element).empty();
+			var list = json.tags;
+			$.each( list, function(index, value){
+				appendTag(value);
+
+			});
+		});
+	};
+
+	var appendTag = function (tag){
+		var span = document.createElement ("span");
+		span.className= "nom_tag";
+		if(tag.path == null){
+			$(span).html(tag.display+" - ");
+		}else{
+			var link = document.createElement ("a");
+			$(link).attr("href", ctx+tag.path);
+			$(link).html(tag.display+" - ");
+			$(span).append(link);
+		}
+
+		$(element).append(span);
+
+		var cadreTag = document.createElement ("div");
+		cadreTag.className = "cadreTague cadreTague2";
+		$(cadreTag).attr("title", tag.display);
+		var photoTop= $("#photo_taggage").offset().top;
+		var postionTop =photoTop + (tag.y* $("#photo_taggage").height() / 100)-(cadreSize/2);
+		var photoLeft= $("#photo_taggage").offset().left;
+		var postionLeft =photoLeft + (tag.x* $("#photo_taggage").width() / 100)-(cadreSize/2);
+		$(cadreTag).offset({top: postionTop, left: postionLeft});
+		$(cadreTag).css({"position" : "absolute"});
+		element.append(cadreTag);
+
+		$(span).bind("mouseover", { cadre : cadreTag },function(event){
+			$(event.data.cadre).css({"border-style" : "solid"});
+		});
+		$(span).bind("mouseout", { cadre : cadreTag },function(event){
+			$(event.data.cadre).css({"border-style" : "none"});
+		});
+	};
+
+
+	var startTag = function(){
+		tagging =true;
+		tagActivate();
+		onTagButton();
+		$("#id_tag").edlSuggest("load");
+	};
+	var tagActivate = function(){
+		if(tagging){
+			$("#nouveauTage").css({"cursor": "crosshair"});
+			$("#photo_taggage").css({"cursor": "crosshair"});
+		}
+	};
+
+	var stopTag = function(){
+		tagging = false;
+		hideTagField();
+		$("#nouveauTage").css({"cursor": "default"});
+		$("#photo_taggage").css({"cursor": "default"});
+		offTagButton();
+	};
+
+	var offTagButton= function(){
+		var tagButton = $("#tagActivateButton");
+		tagButton.attr("src", ctx+"/images/tag.jpeg");
+		tagButton.attr("alt", "commencer tag");
+		tagButton.attr("title", "Activer le taggage");
+	};
+	var onTagButton= function(){
+		var tagButton = $("#tagActivateButton");
+		tagButton.attr("title", "Stopper le taggage");
+		tagButton.attr("src", ctx+"/images/tag_actif.jpeg");
+		tagButton.attr("alt", "stoper tag");
+	};
+
+	var cleanTagField = function (){
+		$("#id_tag").edlSuggest("clear");
+		$("input_tag_x").val("");
+		$("input_tag_y").val("");
+	};
+
+	var showTagField = function (x, y){	
+		isOpenClick= true;
+		x += 30;
+		y += 30;
+
+		$("#saisisTag").offset({ top : y, left : x });
+		$("#saisisTag").css({"visibility": "visible"});
+
+
+		$("#id_tag").edlSuggest("focus");
+		isfieldTagOpen = true;
+	};
+
+	var recordTag = function (mediaId, x, y, name){
+
+		var position = {x:x, y:y};
+		$.ajax ({
+			url : ctx+"/ws/albumPhoto/tag/"+mediaId+"/"+name,
+			data: position, 
+			context : position,
+			type :"post",
+			success : function (response, textStatus, xhr)
+			{
+				var id = $( xhr.responseXML).find("value").text();
+				var tag = {
+						name : name,
+						display : name,
+						path : null,
+						x : x,
+						y : y
+
+				};
+				appendTag(tag);
+			},
+			error : function (xhr, textStatus)
+			{
+				alert("error");
 			}
+
 		});
-	//}
-});
+	};
 
 
+	var saveTag = function (){
+		var id = $("#id_tag").val();
+		var x = $("#input_tag_x").val();
+		var y = $("#input_tag_y").val();
+
+		var widthPhoto = $("#photo_taggage").width();
+		var heightPhoto = $("#photo_taggage").height();
+		var widthPercent = parseInt(x/widthPhoto*100);
+		var heightPercent =  parseInt(y/heightPhoto*100);
+
+		if(id != ""){
+			recordTag(options.mediaId, widthPercent, heightPercent, id);
+		}
+	};
+	var hideTagField = function (){
+		isfieldTagOpen = false;
+		$("#saisisTag").css({"visibility": "hidden"});
+		$("#nouveauTage").css({"visibility": "hidden"});
+
+		cleanTagField();
+	};
+	var taggage = function (top, left){
+		$("#nouveauTage").css({"border": "4px solid black"});
+
+		var leftPosition = left;
+		var topPosition = top;
+
+		var photoTop= $("#photo_taggage").offset().top;
+		var photoLeft= $("#photo_taggage").offset().left;
+
+		$("#input_tag_x").val(leftPosition-photoLeft);
+		$("#input_tag_y").val(topPosition-photoTop);
+
+		//mark position
+		$("#nouveauTage").offset({top:top-(cadreSize/2), left: left-(cadreSize/2)});
+		$("#nouveauTage").css({"visibility": "visible"});
+
+		showTagField(leftPosition , topPosition);
+	};
 
 
-
-
-
+})(jQuery);

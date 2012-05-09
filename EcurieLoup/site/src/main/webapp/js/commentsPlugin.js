@@ -3,12 +3,15 @@
 
 (function($) {
 
-
+	var loadRequest;
     $.fn.comments = function(options) {        
         var opts = $.extend({}, $.fn.comments.defaults, options);
         return this.each(function() {
             var $this = $(this);
             $this.empty();
+        	if(loadRequest != null){
+    			loadRequest.abort();
+    		}
             addComments($this, opts);
         });
     };
@@ -26,7 +29,7 @@
     
     var loadComments = function(rootElement, options) {
     	var url = ctx+"/ws/albumPhoto/"+options.mediaId+"/comments/";
-		$.ajax({
+    	loadRequest = $.ajax({
 			  url: url, 		  
 			  dataType: "json"
 		
