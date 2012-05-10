@@ -75,6 +75,7 @@
 		//change like button
 		$("#facebookIframe").attr("src", "http://www.facebook.com/plugins/like.php?href=http%3A%2F%2F"+host+ctx+"%2Ffacebook%2FalbumPhoto%2FaffichagePhoto.do%idPhoto%3D"+currentMedia.id+"&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=80");
 		//change url
+		try{
 		var urlHistory = "";
 		if(options.album != 0){
 			urlHistory = "affichagePhoto.do?mediaId="+ currentMedia.id+"&albumId="+options.album;
@@ -82,6 +83,8 @@
 			urlHistory = "affichagePhoto.do?mediaId="+ currentMedia.id+"&searchtag="+options.tag;
 		}
 		history.pushState(currentMedia, "photo "+currentMedia.id, urlHistory);
+		}catch (e) {
+		}
 		//change title
 		$(".mediaId").text(currentMedia.id);
 		//change navigation
