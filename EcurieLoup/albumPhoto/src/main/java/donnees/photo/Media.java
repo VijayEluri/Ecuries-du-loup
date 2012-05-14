@@ -19,7 +19,7 @@ public class Media extends DataWtihLongIdAbstract<Media> implements DataWithLong
 	private String typeAdding;
 
 
-
+	private boolean readByCurrentUser;
 
 	public Media(){
 		this.commentaires = new ArrayList<Commentaire>();
@@ -99,6 +99,14 @@ public class Media extends DataWtihLongIdAbstract<Media> implements DataWithLong
 
 	}
 
+
+	public boolean isReadByCurrentUser() {
+		return readByCurrentUser;
+	}
+
+	public void setReadByCurrentUser(boolean readByCurrentUser) {
+		this.readByCurrentUser = readByCurrentUser;
+	}
 
 	public String toString(){
 		String retour = "";

@@ -31,8 +31,7 @@ public class AffichageAlbumPhotoController {
 	
 	@RequestMapping("/albumPhoto/affichage.do")
 	public ModelAndView affichageTousLesAlbums(HttpServletRequest request) {
-		List<Album> listeAlbum = this.mediaManager
-				.recupererTousLesAlbums();
+		List<Album> listeAlbum = this.mediaManager.recupererTousLesAlbums();
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("listeAlbums", listeAlbum);
 		if(request.getParameter("message")!=null){
@@ -56,7 +55,6 @@ public class AffichageAlbumPhotoController {
 	@RequestMapping(value="/albumPhoto/affichage.do", params="idAlbum")
 	public ModelAndView affichageAlbum(@RequestParam("idAlbum")long idAlbum, HttpServletRequest request) {
 		Album album = this.mediaManager.recupererAlbum(idAlbum);
-		this.mediaManager.visionnnageAlbum(album);
 
 		List<Media> listePhoto = new ArrayList<Media>(album.getMedias());
 
@@ -76,9 +74,6 @@ public class AffichageAlbumPhotoController {
 	public ModelAndView affichagePhotosNonVu() {
 		List<Media> listePhoto = this.mediaManager.recupererMediasNonVu();
 
-		for (Media photo : listePhoto) {
-			this.mediaManager.visionnnageAlbum(photo.getAlbum());
-		}
 
 		Map<String, Object> model = new HashMap<String, Object>();
 		Album album = new Album();

@@ -159,11 +159,11 @@ public class MediaManagerReflector implements MediaManager, BeanFactoryAware{
 		albumPhotoManager.supprimerTag(tag);
 	}
 
-	@Override
+/*	@Override
 	public void visionnnageAlbum(Album album) {
 		this.init();
 		albumPhotoManager.visionnnageAlbum(album);
-	}
+	}*/
 
 	@Override
 	public Media getLastMedia() {
@@ -180,6 +180,12 @@ public class MediaManagerReflector implements MediaManager, BeanFactoryAware{
 	public List<Media> getTagContent(long horseIdentifier) {
 		this.init();
 		return albumPhotoManager.getTagContent(horseIdentifier);
+	}
+
+	@Override
+	public void readMedia(Media media) {
+		this.albumPhotoManager.readMedia(media);
+		
 	}
 
 	

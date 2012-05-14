@@ -243,25 +243,30 @@ public class MediaManagerImpl implements MediaManager {
 	private Album gestionAlbum(Album album){
 		if(album != null){
 
+			User connectedUser = this.utilisateurManager.getUtilisateurCourant();
+
 			List<Media> nouvelleListePhotos = new ArrayList<Media>();
 			for(Media media : album.getMedias()){
 				if(media != null){
 
 					media = this.gestionTag(media);
 					media = this.gestionCommentaire(media);
+					media = this.fillReading(media, connectedUser);
 					nouvelleListePhotos.add(media);
 				}
 			}
-			album.setMedias(nouvelleListePhotos);
-			User utilisateurCourant = this.utilisateurManager.getUtilisateurCourant();
-			if(utilisateurCourant != null){
-				long dateLecture = this.albumDAO.getReadingDate(album, utilisateurCourant);
-				album.setDateLecture(dateLecture);
-			}
+			album.setMedias(nouvelleListePhotos);		
+			//add flag not see media in album
+			album.setMediasNotSee(this.albumDAO.isAlbumHasNotSeeMedia(album, connectedUser));
 		}
 		return album;
 	}
 
+	private Media fillReading(Media media, User connectedUser) {
+		boolean see = this.mediaDAO.isMediaSee(media, connectedUser);
+		media.setReadByCurrentUser(see);
+		return media;
+	}
 	@Override
 	public List<Album> recupererTousLesAlbums() {
 		List<Album> albums = new ArrayList<Album>();
@@ -273,7 +278,6 @@ public class MediaManagerImpl implements MediaManager {
 
 	@Override
 	public Commentaire recupererCommentaire(long idCommentaire) {
-		
 		return this.formatedComment(this.commentaireDAO.findById(idCommentaire));
 	}
 
@@ -366,29 +370,16 @@ public class MediaManagerImpl implements MediaManager {
 			e.printStackTrace();
 		}
 	}
-
-
-
-	@Override
-	public void visionnnageAlbum(Album album) {
-		User utilisateurCourant = this.utilisateurManager.getUtilisateurCourant();
-		if(utilisateurCourant!= null){
-			this.albumDAO.seeAlbum(album, utilisateurCourant);
-		}
-
-	}
-
-
-
+	//TODO : refaire
 	@Override
 	public boolean hasNouvellesMedias() {
 		boolean hasNouvellesMedias = false;
 
 		for(Album album : this.recupererTousLesAlbums()){
-			if(album.isPhotoNonVu()){
+			/*if(album.isPhotoNonVu()){
 				hasNouvellesMedias = true;
 				break;
-			}
+			}*/
 		}
 		return hasNouvellesMedias;
 
@@ -403,13 +394,13 @@ public class MediaManagerImpl implements MediaManager {
 	}
 
 
-
+	//TODO : refaire
 	@Override
 	public List<Media> recupererMediasNonVu() {
 		List<Media> mediasNonVu = new ArrayList<Media>();
 
 		for(Album album : this.recupererTousLesAlbums()){
-			mediasNonVu.addAll(album.getPhotoNonVu());
+		//	mediasNonVu.addAll(album.getPhotoNonVu());
 
 		}
 		return mediasNonVu;
@@ -433,12 +424,19 @@ public class MediaManagerImpl implements MediaManager {
 	}
 	@Override
 	public List<Media> getTagContent(long horseIdentifier) {
+		User connectedUser = this.utilisateurManager.getUtilisateurCourant();
 		List<Tag> tags = this.tagDAO.getTagOnHorse(horseIdentifier);
 		List<Media> medias = new ArrayList<Media>();
 		for(Tag tag : tags){
-			medias.add(tag.getPhoto());
+			medias.add(this.fillReading(tag.getPhoto(), connectedUser));
 		}
 		return medias;
+	}
+	@Override
+	public void readMedia(Media media) {
+		User connectedUser = this.utilisateurManager.getUtilisateurCourant();
+		this.mediaDAO.seeMedia(media, connectedUser);
+		
 	}
 
 }

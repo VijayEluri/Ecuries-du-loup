@@ -1,16 +1,28 @@
 package dao.photo;
 
-import java.util.Date;
 import java.util.List;
 
 import donnees.User;
 import donnees.photo.Album;
-import donnees.photo.LectureAlbum;
+import donnees.photo.Media;
 import fr.ecurie_du_loup.generique_util.dao.HibernateIdLongBySpringDao;
 
 public class AlbumDAOImpl extends HibernateIdLongBySpringDao<Album> implements AlbumDAO {
-	
+
 	@Override
+	public boolean isAlbumHasNotSeeMedia(Album album, User utilisateurCourant) {
+		String request = "SELECT m " +
+				" FROM Media as m" +
+				" WHERE m.album.id=? " +
+				" and not exists (" +
+				"	from LectureAlbum as l where l.utilisateur.login=? and l.mediaVu = m"+
+				" )";
+		List<Media> medias = this.getHibernateTemplate().find(request, album.getId(), utilisateurCourant.getLogin());
+		
+		return !medias.isEmpty();
+	}
+	
+/*	@Override
 	public long getReadingDate(Album album, User utilisateurCourant) {
 		long dateLecture = 0;
 		try {
@@ -24,7 +36,7 @@ public class AlbumDAOImpl extends HibernateIdLongBySpringDao<Album> implements A
 
 	@Override
 	public void seeAlbum(Album album, User utilisateurCourant) {
-		String requete = "SELECT l FROM LectureAlbum as l WHERE l.albumVu.id='"+album.getId()+"' AND l.utilisateur.login='"+utilisateurCourant.getLogin()+"'";
+		String requete = "SELECT l FROM LectureMedia as l WHERE l.photoVu.id='"+album.getId()+"' AND l.utilisateur.login='"+utilisateurCourant.getLogin()+"'";
 		List<LectureAlbum> lectures = this.getHibernateTemplate().find(requete);
 		
 		long date = new Date().getTime();
@@ -42,5 +54,5 @@ public class AlbumDAOImpl extends HibernateIdLongBySpringDao<Album> implements A
 			 this.getHibernateTemplate().update(lecture);
 		}
 		
-	}
+	}*/
 }

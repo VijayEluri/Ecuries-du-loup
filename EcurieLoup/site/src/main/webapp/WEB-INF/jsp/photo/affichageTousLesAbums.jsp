@@ -40,7 +40,7 @@
 			<c:forEach var="album" items="${listeAlbums}">
 				<a href="${ctx}/albumPhoto/affichage.do?idAlbum=${album.id}">
 					<div class="album">
-						<c:if test="${album.photoNonVu}">
+						<c:if test="${album.mediasNotSee}">
 							<img class="petit_icone_album" src="${ctx}/images/forum/nonVu.png" alt="*" />
 							
 						</c:if>

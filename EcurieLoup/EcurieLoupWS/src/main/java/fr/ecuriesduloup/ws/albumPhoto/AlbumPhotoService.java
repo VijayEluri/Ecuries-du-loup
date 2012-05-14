@@ -21,6 +21,7 @@ public interface AlbumPhotoService {
 	public List<Media> getMediaWithHorse(long horseIdentifier);
 	public List<Media> getMediaWithUser(User user);
 	public void createMedia(Media media, File photoFile, String pathServeur);
+	public void readMedia(long mediaId);
 	
 	//comment bloc
 	public List<Commentaire> getComments(long mediaId);

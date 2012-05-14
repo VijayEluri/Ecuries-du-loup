@@ -52,10 +52,11 @@
 							<div class="image_video">
 							</div>				
 						</c:if>		
-						<c:if test="${photo.datePostage > album.dateLecture}">
+						<c:if test="${not(photo.readByCurrentUser)}">
+						
 							<img class="petit_icone_album" src="${ctx}/images/forum/nonVu.png" alt="*" />
-							
-						</c:if>
+										
+						</c:if>		
 						<img src="${ctx}/images/albumPhoto/miniatures/${photo.id}" alt="photo ${photo.id}" />
 					
 					</div>

@@ -60,6 +60,12 @@ public class AlbumPhotoController extends AbstractWsController{
 		return this.ChooseView(request, "media", albumWs);
 	}
 
+	@RequestMapping(value = "/albumPhoto/photos/{identifier}/read",method=RequestMethod.PUT)
+	public ModelAndView readMedia(HttpServletRequest request, @PathVariable long identifier) {
+		this.albumPhotoService.readMedia(identifier);
+		return this.ChooseView(request, "status", "ok");
+	}
+	
 	@RequestMapping(value = "/albumPhoto/{identifier}",method=RequestMethod.GET)
 	public ModelAndView getAlbum(HttpServletRequest request, @PathVariable long identifier) {
 

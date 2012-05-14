@@ -179,3 +179,8 @@ INSERT INTO `photo_photo` (`id`, `description`, `posteur`, `date_postage`, `albu
 INSERT INTO `photo_tag` (`id`, `photo`, `x`, `y`, `nom`) VALUES (1, '1', '152', '154', 'Agathe');
 
 ALTER TABLE `photo_photo` ADD `type` INT NOT NULL DEFAULT '0';
+
+ALTER TABLE `photo_lecture` CHANGE `album_vu` `media_vu` BIGINT( 20 ) NOT NULL;
+
+ALTER TABLE `photo_lecture` ADD INDEX ( `media_vu` , `utilisateur` ) ;
+ALTER TABLE `photo_lecture`  DROP `heure_lecture`;

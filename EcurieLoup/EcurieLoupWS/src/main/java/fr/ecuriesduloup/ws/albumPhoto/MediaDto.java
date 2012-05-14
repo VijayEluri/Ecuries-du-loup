@@ -12,6 +12,7 @@ public class MediaDto {
 	private TypeMedia type;
 	private long datePostage;
 	private String poster;
+	private boolean read;
 	
 	public MediaDto(Media media) {
 		this.id= media.getId();
@@ -19,6 +20,7 @@ public class MediaDto {
 		this.setType(media.getType());
 		this.datePostage = media.getDatePostage();
 		this.poster = media.getPosteur().getLogin();
+		this.read = media.isReadByCurrentUser();
 	}
 	
 	public long getId() {
@@ -67,4 +69,14 @@ public class MediaDto {
 	public void setPoster(String poster) {
 		this.poster = poster;
 	}
+
+	public boolean isRead() {
+		return read;
+	}
+
+	public void setRead(boolean read) {
+		this.read = read;
+	}
+	
+	
 }

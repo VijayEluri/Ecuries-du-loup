@@ -38,11 +38,12 @@ public interface MediaManager {
 	//TODO : change long in fiche horse
 	public List<Media> getTagContent(long horseIdentifier);
 	
-	public void visionnnageAlbum(Album album);
 	public boolean hasNouvellesMedias();
 	public int getNombreNouvellesMedias();
 	public List<Media> recupererMediasNonVu();
-	
+
+	public void readMedia(Media media);
 
 	public Media getLastMedia();
+
 }

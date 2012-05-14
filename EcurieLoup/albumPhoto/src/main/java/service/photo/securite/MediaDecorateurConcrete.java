@@ -187,11 +187,11 @@ public class MediaDecorateurConcrete extends AlbumPhotoSecuriteDecorateur {
 		}
 	}
 
-	@Override
+	/*@Override
 	public void visionnnageAlbum(Album album) {
 		this.mediaManager.visionnnageAlbum(album);
 		
-	}
+	}*/
 
 	@Override
 	public boolean hasNouvellesMedias() {
@@ -222,6 +222,11 @@ public class MediaDecorateurConcrete extends AlbumPhotoSecuriteDecorateur {
 	@Override
 	public List<Media> getTagContent(long horseIdentifier) {
 		return this.mediaManager.getTagContent(horseIdentifier);
+	}
+
+	@Override
+	public void readMedia(Media media) {
+		this.mediaManager.readMedia(media);
 	}	
 
 }

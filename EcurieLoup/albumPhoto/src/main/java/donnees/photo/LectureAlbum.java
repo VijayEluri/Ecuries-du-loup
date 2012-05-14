@@ -5,9 +5,8 @@ import donnees.User;
 public class LectureAlbum {
 	private long id;
 	
-	private Album albumVu;
+	private Media mediaVu;
 	private User utilisateur;
-	private long heureLecture;
 	
 	public long getId() {
 		return id;
@@ -16,11 +15,13 @@ public class LectureAlbum {
 		this.id = id;
 	}
 	
-	public Album getAlbumVu() {
-		return albumVu;
+	
+	
+	public Media getMediaVu() {
+		return mediaVu;
 	}
-	public void setAlbumVu(Album albumVu) {
-		this.albumVu = albumVu;
+	public void setMediaVu(Media mediaVu) {
+		this.mediaVu = mediaVu;
 	}
 	public User getUtilisateur() {
 		return utilisateur;
@@ -28,12 +29,7 @@ public class LectureAlbum {
 	public void setUtilisateur(User utilisateur) {
 		this.utilisateur = utilisateur;
 	}
-	public long getHeureLecture() {
-		return heureLecture;
-	}
-	public void setHeureLecture(long heureLecture) {
-		this.heureLecture = heureLecture;
-	}
+	
 	
 	
 	

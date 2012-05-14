@@ -11,13 +11,11 @@
 			<generator class="increment" />
 		</id>
 
-		<many-to-one name="albumVu" class="donnees.photo.Album"
-			column="album_vu" lazy="false" />
+		<many-to-one name="mediaVu" class="donnees.photo.Media"
+			column="media_vu" lazy="false" />
 
 		<many-to-one name="utilisateur" class="donnees.User"
 			column="utilisateur" lazy="false" />
-
-		<property name="heureLecture" column="heure_lecture" />
 	</class>
 
 </hibernate-mapping>

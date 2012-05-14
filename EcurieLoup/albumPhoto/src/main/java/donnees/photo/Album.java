@@ -9,9 +9,7 @@ import fr.ecurie_du_loup.generique_util.type.DataWtihLongIdAbstract;
 public class Album extends DataWtihLongIdAbstract<Album> implements DataWithLongId{
 	private String titre;
 	private List<Media> medias;
-
-	//hors persistance
-	private long dateLecture;
+	private boolean mediasNotSee;
 	
 	public Album(){
 		this.medias = new ArrayList<Media>();
@@ -33,15 +31,14 @@ public class Album extends DataWtihLongIdAbstract<Album> implements DataWithLong
 		this.medias = medias;
 	}
 	
-
-	public long getDateLecture() {
-		return dateLecture;
+	public boolean isMediasNotSee() {
+		return mediasNotSee;
 	}
 
-	public void setDateLecture(long dateLecture) {
-		this.dateLecture = dateLecture;
+	public void setMediasNotSee(boolean mediasNotSee) {
+		this.mediasNotSee = mediasNotSee;
 	}
-	
+
 	public String toString(){
 		String retour = "";
 		
@@ -50,33 +47,6 @@ public class Album extends DataWtihLongIdAbstract<Album> implements DataWithLong
 		retour += "titre : "+this.titre+" \n";
 		
 		return retour;
-	}
-	
-	public boolean isPhotoNonVu(){
-		boolean hasPhotoNonVu = false;
-		
-		for(Media media : this.medias){
-			if(media != null){
-				if(media.getDatePostage() > this.getDateLecture()){
-					hasPhotoNonVu = true;
-					break;
-				}
-			}
-		}
-		return hasPhotoNonVu;
-	}
-
-	public List<Media> getPhotoNonVu() {
-		List<Media> photosNonVu = new ArrayList<Media>();
-		
-		for(Media media : this.medias){
-			if(media != null){
-				if(media.getDatePostage() > this.getDateLecture()){
-					photosNonVu.add(media);
-				}
-			}
-		}
-		return photosNonVu;
 	}
 	
 }
