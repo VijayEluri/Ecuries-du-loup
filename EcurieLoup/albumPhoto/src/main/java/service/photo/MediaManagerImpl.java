@@ -370,16 +370,16 @@ public class MediaManagerImpl implements MediaManager {
 			e.printStackTrace();
 		}
 	}
-	//TODO : refaire
+
 	@Override
 	public boolean hasNouvellesMedias() {
 		boolean hasNouvellesMedias = false;
 
 		for(Album album : this.recupererTousLesAlbums()){
-			/*if(album.isPhotoNonVu()){
+			if(album.isMediasNotSee()){
 				hasNouvellesMedias = true;
 				break;
-			}*/
+			}
 		}
 		return hasNouvellesMedias;
 
@@ -394,15 +394,10 @@ public class MediaManagerImpl implements MediaManager {
 	}
 
 
-	//TODO : refaire
 	@Override
 	public List<Media> recupererMediasNonVu() {
-		List<Media> mediasNonVu = new ArrayList<Media>();
-
-		for(Album album : this.recupererTousLesAlbums()){
-		//	mediasNonVu.addAll(album.getPhotoNonVu());
-
-		}
+		User connectedUser = this.utilisateurManager.getUtilisateurCourant();
+		List<Media> mediasNonVu = this.mediaDAO.getMediasNotSee(connectedUser);
 		return mediasNonVu;
 	}
 	@Override
