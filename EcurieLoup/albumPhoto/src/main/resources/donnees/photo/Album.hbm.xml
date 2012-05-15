@@ -13,12 +13,13 @@
 
 		<property name="titre" column="titre" />
 
-		<list name="medias" table="photo_photo" lazy="false" inverse="true">
+		<list name="medias" table="photo_photo" inverse="true">
 
 			<key column="album" />
 			<list-index column="id" />
 			<one-to-many class="donnees.photo.Media" />
 		</list>
+		<property name="presentationMediaId" formula="(SELECT photo_photo.id FROM photo_photo WHERE photo_photo.album = id LIMIT 0, 1)"  />
 	</class>
 
 </hibernate-mapping>

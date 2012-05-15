@@ -31,7 +31,7 @@ public class AffichageAlbumPhotoController {
 	
 	@RequestMapping("/albumPhoto/affichage.do")
 	public ModelAndView affichageTousLesAlbums(HttpServletRequest request) {
-		List<Album> listeAlbum = this.mediaManager.recupererTousLesAlbums();
+		List<Album> listeAlbum = this.mediaManager.getAllAlbumsLigth();
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("listeAlbums", listeAlbum);
 		if(request.getParameter("message")!=null){

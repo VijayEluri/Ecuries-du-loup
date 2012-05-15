@@ -36,31 +36,15 @@ public class MediaManagerImpl implements MediaManager {
 	private TagDAO tagDAO;
 
 	private String pathPhotoInProjet;
-	
+
+	private UtilisateurManager utilisateurManager;
 	@Autowired
 	private EdlCode edlCode;
 	
 	public void setEdlCode(EdlCode edlCode) {
 		this.edlCode = edlCode;
 	}
-
-
-	private UtilisateurManager utilisateurManager;
-
-	//Is use to replace this and transaction is made
-	private MediaManager reflector;
-
-
-
-	public void init(){
-
-	}
-	public void setReflector(MediaManager reflector) {
-		this.reflector = reflector;
-	}
-
-
-
+	
 	public void setAlbumDAO(AlbumDAO albumDAO) {
 		this.albumDAO = albumDAO;
 	}
@@ -168,7 +152,7 @@ public class MediaManagerImpl implements MediaManager {
 	@Override
 	public void supprimerAlbum(Album album, String pathServeur) {
 		for(Media media : album.getMedias()){
-			this.reflector.supprimerMedia(media, pathServeur);
+			this.supprimerMedia(media, pathServeur);
 		}
 		this.albumDAO.remove(album);
 
@@ -261,6 +245,15 @@ public class MediaManagerImpl implements MediaManager {
 		}
 		return album;
 	}
+	
+	private Album albumManageLight(Album album){
+		if(album != null){
+			User connectedUser = this.utilisateurManager.getUtilisateurCourant();
+			//add flag not see media in album
+			album.setMediasNotSee(this.albumDAO.isAlbumHasNotSeeMedia(album, connectedUser));
+		}
+		return album;
+	}
 
 	private Media fillReading(Media media, User connectedUser) {
 		boolean see = this.mediaDAO.isMediaSee(media, connectedUser);
@@ -272,6 +265,14 @@ public class MediaManagerImpl implements MediaManager {
 		List<Album> albums = new ArrayList<Album>();
 		for(Album album : this.albumDAO.findAll()){
 			albums.add(this.gestionAlbum(album));
+		}
+		return albums;
+	}
+	@Override
+	public List<Album> getAllAlbumsLigth() {
+		List<Album> albums = new ArrayList<Album>();
+		for(Album album : this.albumDAO.findAll()){
+			albums.add(this.albumManageLight(album));
 		}
 		return albums;
 	}
@@ -317,9 +318,9 @@ public class MediaManagerImpl implements MediaManager {
 		Album album = new Album();
 		album.setTitre(nom);
 
-		this.reflector.creerAlbum(album);
+		this.creerAlbum(album);
 
-		this.reflector.creerZipMedia(fichierZip, album, posteur, pathServeur);
+		this.creerZipMedia(fichierZip, album, posteur, pathServeur);
 
 	}
 
@@ -353,7 +354,7 @@ public class MediaManagerImpl implements MediaManager {
 					media.setTypeAdding("zip");
 
 					File fichierMedia = new File(entry.getName());
-					this.reflector.creerMedia(media, fichierMedia, pathServeur);
+					this.creerMedia(media, fichierMedia, pathServeur);
 					fichierMedia.delete();
 				}
 			} catch (IOException e) {

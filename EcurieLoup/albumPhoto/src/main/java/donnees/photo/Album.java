@@ -10,6 +10,7 @@ public class Album extends DataWtihLongIdAbstract<Album> implements DataWithLong
 	private String titre;
 	private List<Media> medias;
 	private boolean mediasNotSee;
+	private Long presentationMediaId;
 	
 	public Album(){
 		this.medias = new ArrayList<Media>();
@@ -37,6 +38,15 @@ public class Album extends DataWtihLongIdAbstract<Album> implements DataWithLong
 
 	public void setMediasNotSee(boolean mediasNotSee) {
 		this.mediasNotSee = mediasNotSee;
+	}
+
+
+	public Long getPresentationMediaId() {
+		return presentationMediaId;
+	}
+
+	public void setPresentationMediaId(Long presentationMediaId) {
+		this.presentationMediaId = presentationMediaId;
 	}
 
 	public String toString(){

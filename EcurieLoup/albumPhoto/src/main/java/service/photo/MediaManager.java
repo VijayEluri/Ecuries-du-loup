@@ -12,6 +12,7 @@ import donnees.photo.commentaire.Commentaire;
 public interface MediaManager {
 	
 	public List<Album> recupererTousLesAlbums();
+	public List<Album> getAllAlbumsLigth();
 	
 	public Album recupererAlbum(long id);
 	public void creerAlbum(Album album);

@@ -46,7 +46,7 @@
 						</c:if>
 						
 						<h2>${album.titre}</h2>
-						<img src="${ctx}/images/albumPhoto/miniatures/${album.medias[0].id}" alt="${album.titre}" />
+						<img src="${ctx}/images/albumPhoto/miniatures/${album.presentationMediaId}" alt="${album.titre}" />
 					</div>
 				</a>
 			</c:forEach>

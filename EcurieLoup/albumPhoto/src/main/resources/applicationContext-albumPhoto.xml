@@ -75,9 +75,6 @@
 		<property name="tagDAO">
 			<ref bean="tagDAO" />
 		</property>
-		<property name="reflector">
-			<ref bean="mediaReflector" />
-		</property>
 		<property name="edlCode">
 			<ref bean="edlCode" />
 		</property>
@@ -90,8 +87,7 @@
 		</property>
 	</bean>
 	
-	<bean id="mediaReflector" class="service.photo.MediaManagerReflector">
-	</bean>
+
 
 	<bean name="longToPhotoEditor" class="album_photo.editor.LongToPhotoEditor">
 		<property name="albumPhotoManager">

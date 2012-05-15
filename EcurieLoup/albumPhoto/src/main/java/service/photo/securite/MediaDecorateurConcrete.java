@@ -227,6 +227,12 @@ public class MediaDecorateurConcrete extends AlbumPhotoSecuriteDecorateur {
 	@Override
 	public void readMedia(Media media) {
 		this.mediaManager.readMedia(media);
+	}
+
+	@Override
+	public List<Album> getAllAlbumsLigth() {
+		
+		return this.mediaManager.getAllAlbumsLigth();
 	}	
 
 }
