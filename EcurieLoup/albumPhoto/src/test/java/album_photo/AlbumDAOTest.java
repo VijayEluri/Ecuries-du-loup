@@ -5,6 +5,7 @@ import integration.AlbumInBase;
 
 import org.junit.Before;
 import org.junit.Ignore;
+import org.junit.Test;
 
 import dao.photo.AlbumDAO;
 import donnees.photo.Album;
@@ -38,6 +39,8 @@ public class AlbumDAOTest extends DaoIdLongUtilTest<Album>{
 	}
 
 	@Override
+	@Test
+	@Ignore
 	public void testFindById() {
 		this.notCheckedValue.add("getMedias");
 		this.notCheckedValue.add("getPhotoNonVu");
@@ -46,6 +49,8 @@ public class AlbumDAOTest extends DaoIdLongUtilTest<Album>{
 	}
 
 	@Override
+	@Test
+	@Ignore
 	public void testFindAll() {
 		this.notCheckedValue.add("getMedias");
 		this.notCheckedValue.add("getPhotoNonVu");
