@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import fr.ecurie_du_loup.generique_util.dao.DaoUtil;

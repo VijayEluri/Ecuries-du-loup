@@ -40,7 +40,6 @@ public class AlbumDAOTest extends DaoIdLongUtilTest<Album>{
 
 	@Override
 	@Test
-	@Ignore
 	public void testFindById() {
 		this.notCheckedValue.add("getMedias");
 		this.notCheckedValue.add("getPhotoNonVu");
@@ -50,23 +49,28 @@ public class AlbumDAOTest extends DaoIdLongUtilTest<Album>{
 
 	@Override
 	@Test
-	@Ignore
 	public void testFindAll() {
 		this.notCheckedValue.add("getMedias");
 		this.notCheckedValue.add("getPhotoNonVu");
 
 		super.testFindAll();
 	}
-
 	
-	@Ignore
-	public void testAdd() {
-		// TODO Auto-generated method stub
-	//	super.testAdd();
-	}
 	@Override
+	@Test
+	public void testAdd() {
+		this.notCheckedValue.add("getMedias");
+		this.notCheckedValue.add("getPhotoNonVu");
+
+		super.testAdd();
+	}
+	
+	@Override
+	@Test
 	public void testUpdate() {
-		// TODO Auto-generated method stub
-		//super.testUpdate();
+		this.notCheckedValue.add("getMedias");
+		this.notCheckedValue.add("getPhotoNonVu");
+
+		super.testUpdate();
 	}
 }

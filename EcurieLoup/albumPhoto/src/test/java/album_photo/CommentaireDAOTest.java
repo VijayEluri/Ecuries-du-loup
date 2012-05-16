@@ -19,7 +19,6 @@ public class CommentaireDAOTest extends DaoIdLongUtilTest<Commentaire>{
 
 	}
 	@Test
-	@Ignore
 	@Override
 	public void testAdd() {
 		// TODO Auto-generated method stub
@@ -41,7 +40,6 @@ public class CommentaireDAOTest extends DaoIdLongUtilTest<Commentaire>{
 
 	}
 	@Test
-	@Ignore
 @Override
 public void testFindAll() {
 	// TODO Auto-generated method stub
@@ -49,7 +47,6 @@ public void testFindAll() {
 }
 	@Override
 	@Test
-	@Ignore
 	public void testUpdate() {
 		// TODO Auto-generated method stub
 		super.testUpdate();
@@ -57,7 +54,6 @@ public void testFindAll() {
 	
 	@Override
 	@Test
-	@Ignore
 	public void testFindById() {
 		// TODO Auto-generated method stub
 		super.testFindById();

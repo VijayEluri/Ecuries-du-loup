@@ -44,6 +44,7 @@ public class AlbumInBase {
 		Album album = new Album();
 		album.setId(1);
 		album.setTitre("titre album");
+		album.setPresentationMediaId(1l);
 		return album;
 	}
 	

@@ -154,7 +154,7 @@ public class User implements DataWithStringId{
     		return false;
     	}
     	boolean egal = true;
-    	egal = egal && this.login.toLowerCase().equals(user.login.toLowerCase());
+    	egal = egal && this.getLogin().toLowerCase().equals(user.getLogin().toLowerCase());
     	
     	return egal;
     	
