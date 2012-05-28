@@ -81,7 +81,8 @@
 				var albumId = "${albumId}";
 				var mediaId = "${mediaId}";
 				var searchTag = "${searchTag}";
-				$("#photo_principal" ).mediaDisplayer({album:albumId, beginMedia: mediaId, tag : searchTag });
+				var options = "${options}";
+				$("#photo_principal" ).mediaDisplayer({album:albumId, beginMedia: mediaId, tag : searchTag, options: options });
 				$("#tags" ).tagAppender();
 				
 				</script>

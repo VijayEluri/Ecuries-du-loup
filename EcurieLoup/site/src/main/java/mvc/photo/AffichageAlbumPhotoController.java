@@ -20,86 +20,79 @@ import donnees.photo.Media;
 
 @Controller
 public class AffichageAlbumPhotoController {
-	@Autowired
-	@Qualifier("mediaManager")
-	private MediaManager mediaManager;
+    @Autowired
+    @Qualifier("mediaManager")
+    private MediaManager mediaManager;
 
-	public void setAlbumPhotoManager(MediaManager albumPhotoManager) {
-		this.mediaManager = albumPhotoManager;
+    public void setAlbumPhotoManager(MediaManager albumPhotoManager) {
+	this.mediaManager = albumPhotoManager;
+    }
+
+    @RequestMapping("/albumPhoto/affichage.do")
+    public ModelAndView affichageTousLesAlbums(HttpServletRequest request) {
+	List<Album> listeAlbum = this.mediaManager.getAllAlbumsLigth();
+	Map<String, Object> model = new HashMap<String, Object>();
+	model.put("listeAlbums", listeAlbum);
+	if (request.getParameter("message") != null) {
+	    model.put("message", request.getParameter("message"));
 	}
-	
-	
-	@RequestMapping("/albumPhoto/affichage.do")
-	public ModelAndView affichageTousLesAlbums(HttpServletRequest request) {
-		List<Album> listeAlbum = this.mediaManager.getAllAlbumsLigth();
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("listeAlbums", listeAlbum);
-		if(request.getParameter("message")!=null){
-			model.put("message", request.getParameter("message"));
-		}
-		return new ModelAndView("photo/affichageTousLesAbums", model);
+	return new ModelAndView("photo/affichageTousLesAbums", model);
+    }
+
+    @RequestMapping(value = "/albumPhoto/affichage.do", params = "deletePhoto")
+    public String suppressionPhoto(@RequestParam("deletePhoto") long idPhoto, @RequestParam("idAlbum") long idAlbum, HttpServletRequest request) {
+	Media photo = this.mediaManager.recupererMedia(idPhoto);
+
+	String pathServeur = request.getSession().getServletContext().getRealPath("/");
+
+	this.mediaManager.supprimerMedia(photo, pathServeur);
+	return "redirect:affichage.do?idAlbum=" + idAlbum;
+    }
+
+    @RequestMapping(value = "/albumPhoto/affichage.do", params = "idAlbum")
+    public ModelAndView affichageAlbum(@RequestParam("idAlbum") long idAlbum, HttpServletRequest request) {
+	Album album = this.mediaManager.recupererAlbum(idAlbum);
+
+	List<Media> listePhoto = new ArrayList<Media>(album.getMedias());
+
+	Map<String, Object> model = new HashMap<String, Object>();
+	model.put("album", album);
+
+	model.put("listePhoto", listePhoto);
+
+	if (request.getParameter("message") != null) {
+	    model.put("message", request.getParameter("message"));
 	}
-	
-	@RequestMapping(value="/albumPhoto/affichage.do", params="deletePhoto")
-	public String suppressionPhoto(@RequestParam("deletePhoto") long idPhoto,@RequestParam("idAlbum") long idAlbum,  HttpServletRequest request) {
-		Media photo = this.mediaManager.recupererMedia(idPhoto);
+	return new ModelAndView("photo/affichageAbum", model);
+    }
 
-		String pathServeur = request.getSession().getServletContext()
-				.getRealPath("/");
+    @RequestMapping(value = "/albumPhoto/affichage.do", params = "nonVu")
+    public ModelAndView affichagePhotosNonVu() {
+	List<Media> listePhoto = this.mediaManager.recupererMediasNonVu();
 
-		this.mediaManager.supprimerMedia(photo, pathServeur);
-		return "redirect:affichage.do?idAlbum="+idAlbum;
-	}
-	
-	
-	@RequestMapping(value="/albumPhoto/affichage.do", params="idAlbum")
-	public ModelAndView affichageAlbum(@RequestParam("idAlbum")long idAlbum, HttpServletRequest request) {
-		Album album = this.mediaManager.recupererAlbum(idAlbum);
+	Map<String, Object> model = new HashMap<String, Object>();
+	Album album = new Album();
+	album.setId(0);
+	album.setTitre("non vu");
+	model.put("album", album);
 
-		List<Media> listePhoto = new ArrayList<Media>(album.getMedias());
+	model.put("optionsUrlParameter", "&options=notread");
 
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("album", album);
+	model.put("listePhoto", listePhoto);
 
-		model.put("listePhoto", listePhoto);
+	return new ModelAndView("photo/affichageAbum", model);
+    }
 
-		if(request.getParameter("message")!=null){
-			model.put("message", request.getParameter("message"));
-		}
-		return new ModelAndView("photo/affichageAbum", model);
-	}
+    @RequestMapping(value = "/albumPhoto/affichage.do", params = "deleteAlbum")
+    public String suppressionAlbum(@RequestParam("deleteAlbum") long idAlbum, HttpServletRequest request) {
 
+	Album album = this.mediaManager.recupererAlbum(idAlbum);
 
-	@RequestMapping(value="/albumPhoto/affichage.do", params="nonVu")
-	public ModelAndView affichagePhotosNonVu() {
-		List<Media> listePhoto = this.mediaManager.recupererMediasNonVu();
+	String pathServeur = request.getSession().getServletContext().getRealPath("/");
 
+	this.mediaManager.supprimerAlbum(album, pathServeur);
 
-		Map<String, Object> model = new HashMap<String, Object>();
-		Album album = new Album();
-		album.setId(0);
-		album.setTitre("non vu");
-		model.put("album", album);
-
-		model.put("listePhoto", listePhoto);
-
-		return new ModelAndView("photo/affichageAbum", model);
-	}
-	
-	@RequestMapping(value="/albumPhoto/affichage.do", params="deleteAlbum")
-	public String suppressionAlbum(@RequestParam("deleteAlbum") long idAlbum, HttpServletRequest request) {
-		
-		Album album = this.mediaManager.recupererAlbum(idAlbum);
-
-		String pathServeur = request.getSession().getServletContext()
-				.getRealPath("/");
-
-		this.mediaManager.supprimerAlbum(album, pathServeur);
-		
-		return "redirect:affichage.do";
-	}
-	
-	
-
+	return "redirect:affichage.do";
+    }
 
 }
