@@ -104,7 +104,7 @@
 	// change option button
 	$("#downloadButton").attr("href", ctx + "/albumPhoto/download.do?idMedia=" + currentMedia.id);
 	$("#deleteButton").attr("href", ctx + "/albumPhoto/affichage.do?idAlbum=" + album.media.id + "&deletePhoto=" + currentMedia.id);
-
+	$("#fullImageElement img").attr("src", ctx + "/images/albumPhoto/" + currentMedia.id);
 	// change addeur
 	$("#poster").text(currentMedia.poster);
 

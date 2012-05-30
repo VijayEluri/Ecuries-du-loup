@@ -38,7 +38,9 @@
 	<div class="visualisationPhoto">
 		<form method="post">
 			<h1><fmt:message key="album_photo.photo.title"/><span class="mediaId"></span>
-			
+				<a id="fullImage" class="nyroModal"	href="#fullImageElement">
+					<img class="title_action" src="${ctx}/images/loupe.png" alt="<fmt:message key="album_photo.photo.zoom.alt"/>" title="<fmt:message key="album_photo.photo.zoom.title"/>" />
+				</a>
 				<a id="downloadButton"	href="">
 					<img class="title_action" src="${ctx}/images/button_download.png" alt="<fmt:message key="album_photo.photo.download.alt"/>" title="<fmt:message key="album_photo.photo.download.title"/>" />
 				</a>
@@ -48,7 +50,9 @@
 					</a>
 				</security:authorize>
 			</h1>
-
+			<div id="fullImageElement" style="display: none">
+				<img src="" style="max-width: 100%; max-height: 100%"  />
+			</div>
 			<fmt:message key="album_photo.photo.by"/><span id="poster"></span>
 			
 			
@@ -84,9 +88,12 @@
 				var options = "${options}";
 				$("#photo_principal" ).mediaDisplayer({album:albumId, beginMedia: mediaId, tag : searchTag, options: options });
 				$("#tags" ).tagAppender();
+				$(function() {
+				    $('.nyroModal').nyroModal();
+				  });
 				
 				</script>
-			<div id="comments" class="commentaires"></div>
+			<div id="fullImage" class="commentaires"></div>
 
 
 		</form>

@@ -41,6 +41,8 @@
 		<script src="${ctx}/js/EdlElementSuggestList.js" type="text/javascript"> </script>
 		<script src="${ctx}/js/SuggestSavedChoose.js" type="text/javascript"> </script>
 		<script src="${ctx}/js/MediaDisplayer.js" type="text/javascript"> </script>
+		<link rel="stylesheet" href="${ctx}/js/jquery.nyroModal/styles/nyroModal.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="${ctx}/js/jquery.nyroModal/js/jquery.nyroModal.custom.js"></script>
 		
 		
 		<!-- pour le tagage des photo -->
