@@ -13,7 +13,7 @@
 
 		<property name="titre" column="titre" />
 
-		<list name="medias" table="photo_photo" inverse="true">
+		<list name="medias" table="photo_photo"  inverse="true"  >
 
 			<key column="album" />
 			<list-index column="id" />

@@ -184,3 +184,5 @@ ALTER TABLE `photo_lecture` CHANGE `album_vu` `media_vu` BIGINT( 20 ) NOT NULL;
 
 ALTER TABLE `photo_lecture` ADD INDEX ( `media_vu` , `utilisateur` ) ;
 ALTER TABLE `photo_lecture`  DROP `heure_lecture`;
+
+ALTER TABLE `photo_photo` ADD `shotDate` DATETIME NULL ;

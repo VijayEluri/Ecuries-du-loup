@@ -17,6 +17,7 @@
 		<many-to-one name="posteur" class="donnees.User" column="posteur" />
 		
 		<property name="datePostage" column="date_postage" />
+		<property name="shotDate" type="timestamp" column="shotDate"/>
 		
 		<many-to-one name="album" class="donnees.photo.Album"
 			column="album" />
