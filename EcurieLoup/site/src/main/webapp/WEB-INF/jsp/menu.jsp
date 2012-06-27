@@ -77,6 +77,7 @@
 						<span class="menu_memo_task_status_${memoStatus}"><fmt:message key="menu.connection.myMemos"/></span>
 					</a>
 				</li>
+				<li><a href="${ctx}/tools/tools.do">outils</a></li>
 				<li><a href="${ctx}/compte/profil.do"><fmt:message key="menu.connection.profil"/></a></li>
 				<li>
 					<a href="${ctx}/j_spring_security_logout"><fmt:message key="menu.connection.logout"/></a>
