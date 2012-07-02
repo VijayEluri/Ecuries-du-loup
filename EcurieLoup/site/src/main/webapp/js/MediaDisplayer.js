@@ -11,9 +11,21 @@
 	    element = this;
 	    // load current album
 	    loadAlbum(function() {
+		$("body").keypress(function(e) {
+		    switch (e.keyCode) {
+			case 37: // Flèche gauche
+			    changeImage(-1);
+			    break;
+
+			case 39: // Flèche droite
+			    changeImage(+1);
+			    break;
+		    }
+		});
 		// select current index on album
 		selectCurrentMediaWithBeginId();
 		constructCurrentMedia(element);
+
 	    });
 
 	});
@@ -180,13 +192,18 @@
 	$(photoVideoDiv).append(div);
 
 	$(photoVideoDiv).click(function() {
-	    currentMediaIndex += delta;
-	    currentMedia = album.media.medias[currentMediaIndex];
-	    constructCurrentMedia();
+	    changeImage(delta);
 	});
 	return photoVideoDiv;
     };
 
+    var changeImage = function(delta) {
+	if ((currentMediaIndex + delta >= 0) && (currentMediaIndex + delta < album.media.medias.length)) {
+	    currentMediaIndex += delta;
+	    currentMedia = album.media.medias[currentMediaIndex];
+	    constructCurrentMedia();
+	}
+    };
     var indicateMediaRead = function() {
 	if (!currentMedia.read) {
 	    var url = ctx + "/ws/albumPhoto/photos/" + currentMedia.id + "/read";
