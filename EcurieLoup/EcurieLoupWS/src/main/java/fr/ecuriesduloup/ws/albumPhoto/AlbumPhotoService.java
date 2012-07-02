@@ -28,7 +28,7 @@ public interface AlbumPhotoService {
 
     public void createMedia(Media media, File photoFile, String pathServeur);
 
-    public void readMedia(long mediaId);
+    public void readMedia(long mediaId, User user);
 
     // comment bloc
     public List<Commentaire> getComments(long mediaId);

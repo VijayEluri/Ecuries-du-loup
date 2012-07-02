@@ -182,13 +182,19 @@ public class MediaManagerImpl implements MediaManager {
 
     @Override
     public Media recupererMedia(long id) {
-	Media media = this.mediaDAO.findById(id);
+	Media media = this.getMedia(id);
 
 	if (media != null) {
 	    media.setAlbum(this.gestionAlbum(media.getAlbum()));
 	    media = this.gestionTag(media);
 	    // media = this.gestionCommentaire(media);
 	}
+	return media;
+    }
+
+    @Override
+    public Media getMedia(long id) {
+	Media media = this.mediaDAO.findById(id);
 	return media;
     }
 
@@ -465,9 +471,8 @@ public class MediaManagerImpl implements MediaManager {
     }
 
     @Override
-    public void readMedia(Media media) {
-	User connectedUser = this.utilisateurManager.getUtilisateurCourant();
-	this.mediaDAO.seeMedia(media, connectedUser);
+    public void readMedia(final Media media, User user) {
+	MediaManagerImpl.this.mediaDAO.seeMedia(media, user);
 
     }
 

@@ -63,8 +63,17 @@ public class AlbumPhotoController extends AbstractWsController {
     }
 
     @RequestMapping(value = "/albumPhoto/photos/{identifier}/read", method = RequestMethod.PUT)
-    public ModelAndView readMedia(HttpServletRequest request, @PathVariable long identifier) {
-	this.albumPhotoService.readMedia(identifier);
+    public ModelAndView readMedia(HttpServletRequest request, @PathVariable final long identifier) {
+	final User user = this.userService.getCurrentUser();
+	Thread t = new Thread() {
+	    @Override
+	    public void run() {
+		AlbumPhotoController.this.albumPhotoService.readMedia(identifier, user);
+	    }
+
+	};
+	t.start();
+
 	return this.ChooseView(request, "status", "ok");
     }
 

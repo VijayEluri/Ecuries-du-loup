@@ -82,9 +82,9 @@ public class AlbumPhotoServiceImpl implements AlbumPhotoService {
     }
 
     @Override
-    public void readMedia(long mediaId) {
-	Media media = this.mediaManager.recupererMedia(mediaId);
-	this.mediaManager.readMedia(media);
+    public void readMedia(long mediaId, User user) {
+	Media media = this.mediaManager.getMedia(mediaId);
+	this.mediaManager.readMedia(media, user);
 
     }
 
