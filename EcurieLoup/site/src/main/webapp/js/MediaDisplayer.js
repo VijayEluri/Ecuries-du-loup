@@ -95,7 +95,7 @@
 	// change like button
 	$("#facebookIframe").attr(
 		"src",
-		"http://www.facebook.com/plugins/like.php?href=http%3A%2F%2F" + host + ctx + "%2FalbumPhoto%2FaffichagePhoto.do%3FidPhoto%3D" + currentMedia.id
+		"http://www.facebook.com/plugins/like.php?href=http%3A%2F%2F" + host + ctx + "%2Ffacebook%2FalbumPhoto%2FaffichagePhoto.do%3FidPhoto%3D" + currentMedia.id
 			+ "&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=80");
 	// change url
 	try {
