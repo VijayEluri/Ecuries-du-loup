@@ -93,7 +93,7 @@
 				  });
 				
 				</script>
-			<div id="fullImage" class="commentaires"></div>
+			<div id="comments" class="commentaires"></div>
 
 
 		</form>
