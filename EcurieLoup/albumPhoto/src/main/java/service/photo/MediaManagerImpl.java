@@ -85,6 +85,10 @@ public class MediaManagerImpl implements MediaManager {
 	} catch (IOException e) {
 	}
 	this.mediaDAO.add(media);
+	// addeur has already see the picture
+	User connectedUser = this.utilisateurManager.getUtilisateurCourant();
+	this.readMedia(media, connectedUser);
+
 	String[] s = fichierMedia.getName().split("\\.");
 	String extention = "";
 	if (s.length > 1) {
@@ -100,6 +104,7 @@ public class MediaManagerImpl implements MediaManager {
 
 	}
 	this.copierFichier(fichierMedia.getAbsolutePath(), location + name);
+
     }
 
     private Date extractImageDate(File fichierMedia) throws ImageProcessingException, IOException {
