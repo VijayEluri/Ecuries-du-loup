@@ -136,13 +136,46 @@
 	// change option button
 	$("#downloadButton").attr("href", ctx + "/albumPhoto/download.do?idMedia=" + currentMedia.id);
 	$("#deleteButton").attr("href", ctx + "/albumPhoto/affichage.do?idAlbum=" + album.media.id + "&deletePhoto=" + currentMedia.id);
-	$("#fullImageElement img").attr("src", ctx + "/images/albumPhoto/" + currentMedia.id);
+	fullImageManage();
+
 	// change addeur
 	$("#poster").text(currentMedia.poster);
 
 	// indicate the media is read
 	indicateMediaRead();
 
+    };
+
+    var fullImageManage = function() {
+	// show loading
+	$("#fullImageLoading").css({
+	    display : "block"
+	});
+	// hide image
+	$("#fullImageImg").css({
+	    display : "none"
+	});
+	// on click load current image
+	$("#fullImage").click(function() {
+	    var previousSrc = $("#fullImageImg").attr("src");
+	    var nextSrc = ctx + "/images/albumPhoto/" + currentMedia.id;
+	    if (nextSrc !== previousSrc) {
+		$("#fullImageImg").attr("src", nextSrc);
+		// where current image loading, show image, hide loading and resize popin
+		$("#fullImageImg").load(function() {
+		    $("#fullImageLoading").css({
+			display : "none"
+		    });
+
+		    $("#fullImageImg").css({
+			display : "block"
+		    });
+		    $.nmTop().resize(true);
+
+		});
+	    }
+
+	});
     };
     // define main media
     var createMainMedia = function() {

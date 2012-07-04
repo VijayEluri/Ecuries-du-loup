@@ -51,7 +51,9 @@
 				</security:authorize>
 			</h1>
 			<div id="fullImageElement" style="display: none">
-				<img src="" style="max-width: 100%; max-height: 100%"  />
+				<img id="fullImageLoading" src="${ctx}/images/WaitImg.gif" />
+				
+				<img id="fullImageImg" src="" style="max-width: 100%; max-height: 100%; display: none;"  />
 			</div>
 			<fmt:message key="album_photo.photo.by"/><span id="poster"></span>
 			
