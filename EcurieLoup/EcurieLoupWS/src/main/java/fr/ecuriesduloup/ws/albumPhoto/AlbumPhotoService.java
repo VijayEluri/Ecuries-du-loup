@@ -30,6 +30,8 @@ public interface AlbumPhotoService {
 
     public void readMedia(long mediaId, User user);
 
+    public void changeDescription(long mediaId, String description);
+
     // comment bloc
     public List<Commentaire> getComments(long mediaId);
 

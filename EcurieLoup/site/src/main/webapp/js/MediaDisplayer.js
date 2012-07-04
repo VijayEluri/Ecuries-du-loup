@@ -22,6 +22,19 @@
 			    break;
 		    }
 		});
+
+		$("#descriptionP").blur(function() {
+		    var description = $("#descriptionP").text();
+		    if (options.noDescriptionMessage != description) {
+			if (currentMedia.description != description) {
+			    currentMedia.description = description;
+			    changeDescription(description);
+			    if (description === "") {
+				$("#descriptionP").html(options.noDescriptionMessage);
+			    }
+			}
+		    }
+		});
 		// select current index on album
 		selectCurrentMediaWithBeginId();
 		constructCurrentMedia(element);
@@ -29,13 +42,15 @@
 	    });
 
 	});
+
     };
 
     $.fn.mediaDisplayer.defaults = {
 	album : 0,
 	beginMedia : 0,
 	tag : "",
-	options : ""
+	options : "",
+	noDescriptionMessage : "Pas de description"
     };
 
     // load album with id get in option
@@ -82,8 +97,13 @@
 	// change next image
 	$("#navigation_album").append(createBrowseMedia("photo_suivante", +1));
 	// change description
-	$("#descriptionTextarea").val(currentMedia.description);
-	$("#descriptionP").html(currentMedia.description);
+	// $("#descriptionTextarea").val(currentMedia.description);
+	if (currentMedia.description != "") {
+	    $("#descriptionP").html(currentMedia.description);
+	} else {
+	    $("#descriptionP").html(options.noDescriptionMessage);
+	}
+
 	// change tag
 	$("#tagsList").mediatag({
 	    mediaId : currentMedia.id
@@ -217,6 +237,20 @@
 	    });
 	    ;
 	}
+
+    };
+    var changeDescription = function(description) {
+	description
+	var url = ctx + "/ws/albumPhoto/photos/" + currentMedia.id + "/description";
+
+	$.ajax({
+	    url : url,
+	    type : "post",
+	    data : {
+		description : description
+	    },
+
+	});
 
     };
 })(jQuery);

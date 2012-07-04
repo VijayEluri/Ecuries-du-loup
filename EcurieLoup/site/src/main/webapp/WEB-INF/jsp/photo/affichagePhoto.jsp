@@ -69,13 +69,11 @@
 			</div>
 
 			<div class="description">
-				<security:authorize ifAllGranted="ROLE_ADMINISTRATEUR_PHOTO">
-					<textarea id="descriptionTextarea" name="description"></textarea>
-					<br />
-					<input type="submit" value="<fmt:message key="album_photo.photo.description.submit"/>" />
+				<security:authorize ifAllGranted="ROLE_ADMINISTRATEUR_PHOTO">					
+					<p id="descriptionP" contenteditable="true"></p>
 				</security:authorize>
 				<security:authorize ifNotGranted="ROLE_ADMINISTRATEUR_PHOTO">
-					<p id="descriptionP" ></p>
+					<p id="descriptionP"></p>
 				</security:authorize>
 			</div>
 			<!-- facebook like ${ctx}-->

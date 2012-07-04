@@ -93,4 +93,12 @@ public class AlbumPhotoServiceImpl implements AlbumPhotoService {
 	return this.mediaManager.recupererMediasNonVu();
     }
 
+    @Override
+    public void changeDescription(long mediaId, String description) {
+	Media media = this.mediaManager.getMedia(mediaId);
+	media.setDescription(description);
+	this.mediaManager.modifierMedia(media);
+
+    }
+
 }

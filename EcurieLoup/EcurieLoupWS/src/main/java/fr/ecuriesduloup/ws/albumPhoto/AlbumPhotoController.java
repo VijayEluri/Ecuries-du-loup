@@ -77,6 +77,12 @@ public class AlbumPhotoController extends AbstractWsController {
 	return this.ChooseView(request, "status", "ok");
     }
 
+    @RequestMapping(value = "/albumPhoto/photos/{identifier}/description", method = RequestMethod.POST)
+    public ModelAndView changeDescription(HttpServletRequest request, @PathVariable final long identifier, @RequestParam("description") final String description) {
+	this.albumPhotoService.changeDescription(identifier, description);
+	return this.ChooseView(request, "status", "ok");
+    }
+
     @RequestMapping(value = "/albumPhoto/{identifier}", method = RequestMethod.GET)
     public ModelAndView getAlbum(HttpServletRequest request, @PathVariable long identifier) {
 

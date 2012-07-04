@@ -75,12 +75,4 @@ public class AffichagePhotoAlbumPhotoController {
     public String displayPhoto() {
 	return "photo/affichagePhoto";
     }
-
-    @RequestMapping(value = "/albumPhoto/affichagePhoto.do", method = RequestMethod.POST)
-    public String onSubmit(@ModelAttribute("photo") Media photo) {
-	this.mediaManager.modifierMedia(photo);
-
-	return this.displayPhoto();
-
-    }
 }
