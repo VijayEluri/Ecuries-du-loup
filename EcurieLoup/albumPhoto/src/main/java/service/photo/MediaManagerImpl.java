@@ -1,10 +1,7 @@
 package service.photo;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
@@ -13,8 +10,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -350,69 +345,6 @@ public class MediaManagerImpl implements MediaManager {
     public void supprimerTag(Tag tag) {
 	this.tagDAO.remove(tag);
 
-    }
-
-    @Override
-    public void creerAlbum(File fichierZip, User posteur, String pathServeur) {
-	String nom = fichierZip.getName();
-	nom = nom.split("_tmpZip_")[0];
-	nom = nom.split("\\.")[0];
-
-	Album album = new Album();
-	album.setTitre(nom);
-
-	this.creerAlbum(album);
-
-	this.creerZipMedia(fichierZip, album, posteur, pathServeur);
-
-    }
-
-    @Override
-    public void creerZipMedia(File fichierZip, Album album, User posteur, String pathServeur) {
-	final int BUFFER = 2048;
-	byte data[] = new byte[BUFFER];
-	// TODO : faire un zip manager
-	BufferedOutputStream dest = null;
-	try {
-	    FileInputStream fis = new FileInputStream(fichierZip.getAbsolutePath());
-	    BufferedInputStream buffi = new BufferedInputStream(fis);
-	    ZipInputStream zis = new ZipInputStream(buffi);
-	    ZipEntry entry;
-	    try {
-		while ((entry = zis.getNextEntry()) != null) {
-		    FileOutputStream fos = new FileOutputStream(entry.getName());
-		    dest = new BufferedOutputStream(fos, BUFFER);
-		    int count;
-		    while ((count = zis.read(data, 0, BUFFER)) != -1) {
-			dest.write(data, 0, count);
-		    }
-		    dest.flush();
-		    dest.close();
-
-		    Media media = new Media();
-		    media.setAlbum(album);
-		    media.setPosteur(posteur);
-		    media.setDescription("");
-		    media.setDatePostage(new Date().getTime());
-		    media.setTypeAdding("zip");
-
-		    File fichierMedia = new File(entry.getName());
-		    this.creerMedia(media, fichierMedia, pathServeur);
-		    fichierMedia.delete();
-		}
-	    } catch (IOException e) {
-		e.printStackTrace();
-	    } finally {
-		try {
-		    zis.close();
-		} catch (IOException e) {
-		    e.printStackTrace();
-		}
-	    }
-
-	} catch (FileNotFoundException e) {
-	    e.printStackTrace();
-	}
     }
 
     @Override

@@ -45,9 +45,7 @@
 					<img class="title_action" src="${ctx}/images/button_download.png" alt="<fmt:message key="album_photo.photo.download.alt"/>" title="<fmt:message key="album_photo.photo.download.title"/>" />
 				</a>
 				<security:authorize ifAllGranted="ROLE_ADMINISTRATEUR_PHOTO">
-					<a id="deleteButton"	href="">
-						<img src="${ctx}/images/delete.png" alt="<fmt:message key="album_photo.photo.delete.alt"/>" title="<fmt:message key="album_photo.photo.delete.title"/>" />
-					</a>
+					<img id="deleteButton" src="${ctx}/images/delete.png" alt="<fmt:message key="album_photo.photo.delete.alt"/>" title="<fmt:message key="album_photo.photo.delete.title"/>" />
 				</security:authorize>
 			</h1>
 			<div id="fullImageElement" style="display: none">

@@ -23,6 +23,40 @@
 		    }
 		});
 
+		$("#deleteButton").click(function() {
+		    if (confirm("Voulez-vous supprimer cette image ?")) {
+			var url = ctx + "/ws/albumPhoto/photos/" + currentMedia.id;
+
+			$.ajax({
+			    url : url,
+			    type : "delete"
+
+			});
+
+			album.media.medias.splice(currentMediaIndex, 1);
+			if (album.media.medias.length > 0) {
+			    changeImage(0);
+			} else {
+			    var url = "";
+			    if (options.options != "") {
+				if (options.options === "notread") {
+				    url = ctx + "/albumPhoto/affichage.do?nonVu";
+				}
+			    } else if (options.album != 0) {
+				url = ctx + "/albumPhoto/affichage.do?idAlbum=" + options.album;
+			    } else if (options.tag != "") {
+				if (isNaN(parseInt(options.tag))) {
+				    url = ctx + "/community/card.do?login=" + options.tag;
+				} else {
+				    url = ctx + "/ficheChevaux/affichageFiche.do?id=" + options.tag;
+
+				}
+			    }
+			    window.location = url;
+			}
+		    }
+		});
+
 		$("#descriptionP").blur(function() {
 		    var description = $("#descriptionP").text();
 		    if (options.noDescriptionMessage != description) {
@@ -135,7 +169,7 @@
 	$("#browneAlbum").attr("href", ctx + "/albumPhoto/affichage.do?idAlbum=" + album.media.id);
 	// change option button
 	$("#downloadButton").attr("href", ctx + "/albumPhoto/download.do?idMedia=" + currentMedia.id);
-	$("#deleteButton").attr("href", ctx + "/albumPhoto/affichage.do?idAlbum=" + album.media.id + "&deletePhoto=" + currentMedia.id);
+
 	fullImageManage();
 
 	// change addeur
@@ -268,7 +302,6 @@
 	    }).done(function(json) {
 		currentMedia.read = true;
 	    });
-	    ;
 	}
 
     };

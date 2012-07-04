@@ -26,930 +26,797 @@ import donnees.photo.Album;
 import donnees.photo.Media;
 import donnees.photo.Tag;
 import donnees.photo.commentaire.Commentaire;
+
 @Ignore("probleme avec getUtilisateurCourrant dans un autre thread")
 public class AlbumPhotoDecorateurConcreteTest {
-	private UtilisateurManager utilisateurManager;
-	private MediaManager mediaManager;
-	private MediaDecorateurConcrete mediaDecorateurConcrete;
+    private UtilisateurManager utilisateurManager;
+    private MediaManager mediaManager;
+    private MediaDecorateurConcrete mediaDecorateurConcrete;
 
-	@Before
-	public void setUp() throws Exception {
-		this.mediaManager = EasyMock.createMock(MediaManager.class);
-		this.utilisateurManager = EasyMock.createMock(UtilisateurManager.class);
+    @Before
+    public void setUp() throws Exception {
+	this.mediaManager = EasyMock.createMock(MediaManager.class);
+	this.utilisateurManager = EasyMock.createMock(UtilisateurManager.class);
 
-		this.mediaDecorateurConcrete = new MediaDecorateurConcrete();
-		this.mediaDecorateurConcrete.setAlbumPhotoManager(this.mediaManager);
-		this.mediaDecorateurConcrete.setUtilisateurManager(this.utilisateurManager);
+	this.mediaDecorateurConcrete = new MediaDecorateurConcrete();
+	this.mediaDecorateurConcrete.setAlbumPhotoManager(this.mediaManager);
+	this.mediaDecorateurConcrete.setUtilisateurManager(this.utilisateurManager);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+    }
+
+    private void placeRetourUtilisateurAvecDroitAlbum() {
+	Set<Role> roles = new HashSet<Role>();
+	Role role = new Role();
+	role.setRole(RoleEnum.ROLE_ADMINISTRATEUR_PHOTO.toString());
+	roles.add(role);
+
+	Role roleAuth = new Role();
+	roleAuth.setRole(RoleEnum.ROLE_AUTHENTIFIER.toString());
+	roles.add(roleAuth);
+
+	User utilisateurCourant = new User();
+	utilisateurCourant.setLogin("user courant");
+	utilisateurCourant.setRoles(roles);
+
+	EasyMock.expect(this.utilisateurManager.getUtilisateurCourant()).andReturn(utilisateurCourant);
+
+    }
+
+    private void placeRetourUtilisateurSansDroitAlbum() {
+	Set<Role> roles = new HashSet<Role>();
+
+	Role roleAuth = new Role();
+	roleAuth.setRole(RoleEnum.ROLE_AUTHENTIFIER.toString());
+	roles.add(roleAuth);
+
+	User utilisateurCourant = new User();
+	utilisateurCourant.setLogin("user courant");
+	utilisateurCourant.setRoles(roles);
+
+	EasyMock.expect(this.utilisateurManager.getUtilisateurCourant()).andReturn(utilisateurCourant);
+
+    }
+
+    private void placeRetourUtilisateurSansDroit() {
+	Set<Role> roles = new HashSet<Role>();
+
+	User utilisateurCourant = new User();
+	utilisateurCourant.setLogin("user courant");
+	utilisateurCourant.setRoles(roles);
+
+	EasyMock.expect(this.utilisateurManager.getUtilisateurCourant()).andReturn(utilisateurCourant);
+
+    }
+
+    @Test
+    public void testCreerAlbumAvecDroitAlbum() {
+	this.placeRetourUtilisateurAvecDroitAlbum();
+
+	Album album = new Album();
+	int id = (int) (Math.random() * 10000);
+	album.setId(id);
+
+	this.mediaManager.creerAlbum(album);
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	this.mediaDecorateurConcrete.creerAlbum(album);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testCreerAlbumSansDroitAlbum() {
+	this.placeRetourUtilisateurSansDroitAlbum();
+
+	Album album = new Album();
+	int id = (int) (Math.random() * 10000);
+	album.setId(id);
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	this.mediaDecorateurConcrete.creerAlbum(album);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testCreerPhotoAvecDroitAlbum() {
+	this.placeRetourUtilisateurAvecDroitAlbum();
+
+	Media media = new Media();
+	int id = (int) (Math.random() * 10000);
+	media.setId(id);
+
+	File fichierMedia = new File("");
+
+	this.mediaManager.creerMedia(media, fichierMedia, "");
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	this.mediaDecorateurConcrete.creerMedia(media, fichierMedia, "");
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testCreerPhotoSansDroitAlbum() {
+	this.placeRetourUtilisateurSansDroitAlbum();
+
+	Media media = new Media();
+	int id = (int) (Math.random() * 10000);
+	media.setId(id);
+
+	File fichierMedia = new File("");
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	this.mediaDecorateurConcrete.creerMedia(media, fichierMedia, "");
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testCreerCommentaireAvecDroitAlbum() {
+	this.placeRetourUtilisateurAvecDroitAlbum();
+
+	Commentaire commentaire = new Commentaire();
+	int id = (int) (Math.random() * 10000);
+	commentaire.setId(id);
+
+	this.mediaManager.creerCommentaire(commentaire);
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	this.mediaDecorateurConcrete.creerCommentaire(commentaire);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testCreerCommentaireSansDroitAlbum() {
+	this.placeRetourUtilisateurSansDroitAlbum();
+
+	Commentaire commentaire = new Commentaire();
+	int id = (int) (Math.random() * 10000);
+	commentaire.setId(id);
+
+	this.mediaManager.creerCommentaire(commentaire);
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	this.mediaDecorateurConcrete.creerCommentaire(commentaire);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testCreerCommentaireSansDroit() {
+	this.placeRetourUtilisateurSansDroit();
+
+	Commentaire commentaire = new Commentaire();
+	int id = (int) (Math.random() * 10000);
+	commentaire.setId(id);
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	this.mediaDecorateurConcrete.creerCommentaire(commentaire);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testCreerTagAvecDroitAlbum() {
+	this.placeRetourUtilisateurAvecDroitAlbum();
+
+	Tag tag = new Tag();
+	int id = (int) (Math.random() * 10000);
+	tag.setId(id);
+
+	this.mediaManager.creerTag(tag);
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	this.mediaDecorateurConcrete.creerTag(tag);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testCreerTagSansDroitAlbum() {
+	this.placeRetourUtilisateurSansDroitAlbum();
+
+	Tag tag = new Tag();
+	int id = (int) (Math.random() * 10000);
+	tag.setId(id);
+
+	this.mediaManager.creerTag(tag);
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	this.mediaDecorateurConcrete.creerTag(tag);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testCreerTagSansDroit() {
+	this.placeRetourUtilisateurSansDroit();
+
+	Tag tag = new Tag();
+	int id = (int) (Math.random() * 10000);
+	tag.setId(id);
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	this.mediaDecorateurConcrete.creerTag(tag);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testModifierAlbumAvecDroitAlbum() {
+	this.placeRetourUtilisateurAvecDroitAlbum();
+
+	Album album = new Album();
+	int id = (int) (Math.random() * 10000);
+	album.setId(id);
+
+	this.mediaManager.modifierAlbum(album);
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	this.mediaDecorateurConcrete.modifierAlbum(album);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testModifierAlbumSansDroitAlbum() {
+	this.placeRetourUtilisateurSansDroitAlbum();
+
+	Album album = new Album();
+	int id = (int) (Math.random() * 10000);
+	album.setId(id);
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	this.mediaDecorateurConcrete.modifierAlbum(album);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testModifierPhotoAvecDroitAlbum() {
+	this.placeRetourUtilisateurAvecDroitAlbum();
+
+	Media media = new Media();
+	int id = (int) (Math.random() * 10000);
+	media.setId(id);
+
+	this.mediaManager.modifierMedia(media);
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	this.mediaDecorateurConcrete.modifierMedia(media);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testModifierPhotoSansDroitAlbum() {
+	this.placeRetourUtilisateurSansDroitAlbum();
+
+	Media media = new Media();
+	int id = (int) (Math.random() * 10000);
+	media.setId(id);
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	this.mediaDecorateurConcrete.modifierMedia(media);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testModifierCommentaireAvecDroitAlbum() {
+	this.placeRetourUtilisateurAvecDroitAlbum();
+
+	Commentaire commentaire = new Commentaire();
+	int id = (int) (Math.random() * 10000);
+	commentaire.setId(id);
+
+	this.mediaManager.modifierCommentaire(commentaire);
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	this.mediaDecorateurConcrete.modifierCommentaire(commentaire);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testModifierCommentaireSansDroitAlbum() {
+	this.placeRetourUtilisateurSansDroitAlbum();
+
+	Commentaire commentaire = new Commentaire();
+	int id = (int) (Math.random() * 10000);
+	commentaire.setId(id);
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	this.mediaDecorateurConcrete.modifierCommentaire(commentaire);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testModifierCommentaireSansDroit() {
+	this.placeRetourUtilisateurSansDroit();
+
+	Commentaire commentaire = new Commentaire();
+	int id = (int) (Math.random() * 10000);
+	commentaire.setId(id);
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	this.mediaDecorateurConcrete.modifierCommentaire(commentaire);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testRecupererAlbumAvecDroitAlbum() {
+	this.placeRetourUtilisateurAvecDroitAlbum();
+
+	Album album = new Album();
+	int id = (int) (Math.random() * 10000);
+	album.setId(id);
+
+	EasyMock.expect(this.mediaManager.recupererAlbum(id)).andReturn(album);
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	Album albumRecuperer = this.mediaDecorateurConcrete.recupererAlbum(id);
+
+	assertNotNull(albumRecuperer);
+
+	assertEquals(album, albumRecuperer);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testRecupererAlbumSansDroitAlbum() {
+	this.placeRetourUtilisateurSansDroitAlbum();
+
+	Album album = new Album();
+	int id = (int) (Math.random() * 10000);
+	album.setId(id);
+
+	EasyMock.expect(this.mediaManager.recupererAlbum(id)).andReturn(album);
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	Album albumRecuperer = this.mediaDecorateurConcrete.recupererAlbum(id);
+
+	assertNotNull(albumRecuperer);
+
+	assertEquals(album, albumRecuperer);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testRecupererAlbumSansDroit() {
+	this.placeRetourUtilisateurSansDroit();
+
+	Album album = new Album();
+	int id = (int) (Math.random() * 10000);
+	album.setId(id);
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	Album albumRecuperer = this.mediaDecorateurConcrete.recupererAlbum(id);
+
+	assertNull(albumRecuperer);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testRecupererPhotoAvecDroitAlbum() {
+	this.placeRetourUtilisateurAvecDroitAlbum();
+
+	Media media = new Media();
+	int id = (int) (Math.random() * 10000);
+	media.setId(id);
+
+	EasyMock.expect(this.mediaManager.recupererMedia(id)).andReturn(media);
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	Media mediaRecuperer = this.mediaDecorateurConcrete.recupererMedia(id);
+
+	assertNotNull(mediaRecuperer);
+
+	assertEquals(media, mediaRecuperer);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testRecupererPhotoSansDroitAlbum() {
+	this.placeRetourUtilisateurSansDroitAlbum();
+
+	Media media = new Media();
+	int id = (int) (Math.random() * 10000);
+	media.setId(id);
+
+	EasyMock.expect(this.mediaManager.recupererMedia(id)).andReturn(media);
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	Media mediaRecuperer = this.mediaDecorateurConcrete.recupererMedia(id);
+
+	assertNotNull(mediaRecuperer);
+
+	assertEquals(media, mediaRecuperer);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testRecupererPhotoSansDroi() {
+	this.placeRetourUtilisateurSansDroit();
+
+	Media media = new Media();
+	int id = (int) (Math.random() * 10000);
+	media.setId(id);
+
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
+
+	Media photoRecuperer = this.mediaDecorateurConcrete.recupererMedia(id);
+
+	assertNull(photoRecuperer);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testRecupererTousLesAlbumAvecDroitAlbum() {
+	this.placeRetourUtilisateurAvecDroitAlbum();
+	List<Album> listAlbum = new ArrayList<Album>();
+	for (int i = 0; i < 4; i++) {
+	    Album album = new Album();
+	    int id = (int) (Math.random() * 10000);
+	    album.setId(id);
+
+	    listAlbum.add(album);
+
 	}
 
-	@After
-	public void tearDown() throws Exception {
-	}
+	EasyMock.expect(this.mediaManager.recupererTousLesAlbums()).andReturn(listAlbum);
 
-	private void  placeRetourUtilisateurAvecDroitAlbum () {
-		Set<Role> roles = new HashSet<Role>();
-		Role role = new Role();
-		role.setRole(RoleEnum.ROLE_ADMINISTRATEUR_PHOTO.toString());
-		roles.add(role);
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
 
-		Role roleAuth = new Role();
-		roleAuth.setRole(RoleEnum.ROLE_AUTHENTIFIER.toString());
-		roles.add(roleAuth);
+	List<Album> listAlbumRecuperer = this.mediaDecorateurConcrete.recupererTousLesAlbums();
 
-		User utilisateurCourant = new User();
-		utilisateurCourant.setLogin("user courant");
-		utilisateurCourant.setRoles(roles);
+	assertNotNull(listAlbumRecuperer);
 
-		EasyMock.expect(this.utilisateurManager.getUtilisateurCourant()).andReturn(utilisateurCourant);
+	assertEquals(listAlbumRecuperer, listAlbum);
 
-	}
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
 
-	private void  placeRetourUtilisateurSansDroitAlbum () {
-		Set<Role> roles = new HashSet<Role>();
+    @Test
+    public void testRecupererTousLesAlbumSansDroitAlbum() {
+	this.placeRetourUtilisateurSansDroitAlbum();
+	List<Album> listAlbum = new ArrayList<Album>();
+	for (int i = 0; i < 4; i++) {
+	    Album album = new Album();
+	    int id = (int) (Math.random() * 10000);
+	    album.setId(id);
 
-		Role roleAuth = new Role();
-		roleAuth.setRole(RoleEnum.ROLE_AUTHENTIFIER.toString());
-		roles.add(roleAuth);
-
-		User utilisateurCourant = new User();
-		utilisateurCourant.setLogin("user courant");
-		utilisateurCourant.setRoles(roles);
-
-		EasyMock.expect(this.utilisateurManager.getUtilisateurCourant()).andReturn(utilisateurCourant);
+	    listAlbum.add(album);
 
 	}
 
-	private void  placeRetourUtilisateurSansDroit () {
-		Set<Role> roles = new HashSet<Role>();
+	EasyMock.expect(this.mediaManager.recupererTousLesAlbums()).andReturn(listAlbum);
 
-		User utilisateurCourant = new User();
-		utilisateurCourant.setLogin("user courant");
-		utilisateurCourant.setRoles(roles);
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
 
-		EasyMock.expect(this.utilisateurManager.getUtilisateurCourant()).andReturn(utilisateurCourant);
+	List<Album> listAlbumRecuperer = this.mediaDecorateurConcrete.recupererTousLesAlbums();
+
+	assertNotNull(listAlbumRecuperer);
+
+	assertEquals(listAlbumRecuperer, listAlbum);
+
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
+
+    @Test
+    public void testRecupererTousLesAlbumSansDroit() {
+	this.placeRetourUtilisateurSansDroit();
+	List<Album> listAlbum = new ArrayList<Album>();
+	for (int i = 0; i < 4; i++) {
+	    Album album = new Album();
+	    int id = (int) (Math.random() * 10000);
+	    album.setId(id);
+
+	    listAlbum.add(album);
 
 	}
 
-	@Test
-	public void testCreerAlbumAvecDroitAlbum() {
-		this.placeRetourUtilisateurAvecDroitAlbum();
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
 
-		Album album = new Album();
-		int id = (int) (Math.random()*10000);
-		album.setId(id);
+	List<Album> listAlbumRecuperer = this.mediaDecorateurConcrete.recupererTousLesAlbums();
 
-		this.mediaManager.creerAlbum(album);
+	assertNull(listAlbumRecuperer);
 
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
 
-		this.mediaDecorateurConcrete.creerAlbum(album);
+    @Test
+    public void testRecupererCommentaireAvecDroitAlbum() {
+	this.placeRetourUtilisateurAvecDroitAlbum();
 
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
+	Commentaire commentaire = new Commentaire();
+	long id = (long) (Math.random() * 10000);
+	commentaire.setId(id);
 
-	@Test
-	public void testCreerAlbumSansDroitAlbum() {
-		this.placeRetourUtilisateurSansDroitAlbum();
+	EasyMock.expect(this.mediaManager.recupererCommentaire(id)).andReturn(commentaire);
 
-		Album album = new Album();
-		int id = (int) (Math.random()*10000);
-		album.setId(id);
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
 
+	Commentaire commentaireRecuperer = this.mediaDecorateurConcrete.recupererCommentaire(commentaire.getId());
 
+	assertNotNull(commentaireRecuperer);
 
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
+	assertEquals(commentaireRecuperer, commentaire);
 
-		this.mediaDecorateurConcrete.creerAlbum(album);
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
 
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
+    @Test
+    public void testRecupererCommentaireSansDroitAlbum() {
+	this.placeRetourUtilisateurSansDroitAlbum();
 
-	@Test
-	public void testCreerAlbumZipAvecDroitAlbum() {
-		this.placeRetourUtilisateurAvecDroitAlbum();
+	Commentaire commentaire = new Commentaire();
+	long id = (long) (Math.random() * 10000);
+	commentaire.setId(id);
 
-		Album album = new Album();
-		int id = (int) (Math.random()*10000);
-		album.setId(id);
+	EasyMock.expect(this.mediaManager.recupererCommentaire(id)).andReturn(commentaire);
 
-		File fichierZip = new File("");
-		User utilisateur = new User();
-		utilisateur.setLogin("loginTest");
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
 
-		String pathServeur = "pathServeur";
+	Commentaire commentaireRecuperer = this.mediaDecorateurConcrete.recupererCommentaire(commentaire.getId());
 
-		this.mediaManager.creerAlbum(fichierZip, utilisateur, pathServeur);
+	assertNotNull(commentaireRecuperer);
 
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
+	assertEquals(commentaireRecuperer, commentaire);
 
-		this.mediaDecorateurConcrete.creerAlbum(fichierZip, utilisateur, pathServeur);
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
 
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
+    @Test
+    public void testRecupererCommentaireSansDroi() {
+	this.placeRetourUtilisateurSansDroit();
 
-	@Test
-	public void testCreerAlbumZipSansDroitAlbum() {
-		this.placeRetourUtilisateurSansDroitAlbum();
+	Commentaire commentaire = new Commentaire();
+	long id = (long) (Math.random() * 10000);
+	commentaire.setId(id);
 
-		Album album = new Album();
-		int id = (int) (Math.random()*10000);
-		album.setId(id);
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
 
-		File fichierZip = new File("");
-		User utilisateur = new User();
-		utilisateur.setLogin("loginTest");
-		String pathServeur = "pathServeur";
+	Commentaire commentaireRecuperer = this.mediaDecorateurConcrete.recupererCommentaire(commentaire.getId());
 
+	assertNull(commentaireRecuperer);
 
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
 
-		this.mediaDecorateurConcrete.creerAlbum(fichierZip, utilisateur, pathServeur);
+    @Test
+    public void testSupprimerAlbumAvecDroitAlbum() {
+	this.placeRetourUtilisateurAvecDroitAlbum();
 
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-	
-	@Test
-	public void testCreerPhotoZipAvecDroitAlbum() {
-		this.placeRetourUtilisateurAvecDroitAlbum();
+	Album album = new Album();
+	int id = (int) (Math.random() * 10000);
+	album.setId(id);
 
-		Album album = new Album();
-		int id = (int) (Math.random()*10000);
-		album.setId(id);
+	this.mediaManager.supprimerAlbum(album, "");
 
-		File fichierZip = new File("");
-		User utilisateur = new User();
-		utilisateur.setLogin("loginTest");
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
 
-		String pathServeur = "pathServeur";
+	this.mediaDecorateurConcrete.supprimerAlbum(album, "");
 
-		this.mediaManager.creerZipMedia(fichierZip, album, utilisateur, pathServeur);
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
 
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
+    @Test
+    public void testSupprimerAlbumSansDroitAlbum() {
+	this.placeRetourUtilisateurSansDroitAlbum();
 
-		this.mediaDecorateurConcrete.creerZipMedia(fichierZip, album, utilisateur, pathServeur);
+	Album album = new Album();
+	int id = (int) (Math.random() * 10000);
+	album.setId(id);
 
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
 
-	@Test
-	public void testCreerPhotoZipSansDroitAlbum() {
-		this.placeRetourUtilisateurSansDroitAlbum();
+	this.mediaDecorateurConcrete.supprimerAlbum(album, "");
 
-		Album album = new Album();
-		int id = (int) (Math.random()*10000);
-		album.setId(id);
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
 
-		File fichierZip = new File("");
-		User utilisateur = new User();
-		utilisateur.setLogin("loginTest");
-		String pathServeur = "pathServeur";
+    @Test
+    public void testSupprimerPhotoAvecDroitAlbum() {
+	this.placeRetourUtilisateurAvecDroitAlbum();
 
+	Media media = new Media();
+	int id = (int) (Math.random() * 10000);
+	media.setId(id);
 
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
+	this.mediaManager.supprimerMedia(media, "");
 
-		this.mediaDecorateurConcrete.creerZipMedia(fichierZip, album, utilisateur, pathServeur);
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
 
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
+	this.mediaDecorateurConcrete.supprimerMedia(media, "");
 
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
 
+    @Test
+    public void testSupprimerPhotoSansDroitAlbum() {
+	this.placeRetourUtilisateurSansDroitAlbum();
 
-	@Test
-	public void testCreerPhotoAvecDroitAlbum() {
-		this.placeRetourUtilisateurAvecDroitAlbum();
+	Media media = new Media();
+	int id = (int) (Math.random() * 10000);
+	media.setId(id);
 
-		Media media = new Media();
-		int id = (int) (Math.random()*10000);
-		media.setId(id);
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
 
-		File fichierMedia = new File("");
+	this.mediaDecorateurConcrete.supprimerMedia(media, "");
 
-		this.mediaManager.creerMedia(media, fichierMedia, "");
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
 
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
+    @Test
+    public void testSupprimerCommentaireAvecDroitAlbum() {
+	this.placeRetourUtilisateurAvecDroitAlbum();
 
-		this.mediaDecorateurConcrete.creerMedia(media, fichierMedia, "");
+	Commentaire commentaire = new Commentaire();
+	long id = (long) (Math.random() * 10000);
+	commentaire.setId(id);
 
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
+	this.mediaManager.supprimerCommentaire(commentaire);
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
 
-	@Test
-	public void testCreerPhotoSansDroitAlbum() {
-		this.placeRetourUtilisateurSansDroitAlbum();
+	this.mediaDecorateurConcrete.supprimerCommentaire(commentaire);
 
-		Media media = new Media();
-		int id = (int) (Math.random()*10000);
-		media.setId(id);
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
 
-		File fichierMedia = new File("");
+    @Test
+    public void testSupprimerCommentaireSansDroitAlbum() {
+	this.placeRetourUtilisateurSansDroitAlbum();
 
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
+	Commentaire commentaire = new Commentaire();
+	long id = (long) (Math.random() * 10000);
+	commentaire.setId(id);
 
-		this.mediaDecorateurConcrete.creerMedia(media, fichierMedia, "");
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
 
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-	
-	@Test
-	public void testCreerCommentaireAvecDroitAlbum() {
-		this.placeRetourUtilisateurAvecDroitAlbum();
+	this.mediaDecorateurConcrete.supprimerCommentaire(commentaire);
 
-		Commentaire commentaire = new Commentaire();
-		int id = (int) (Math.random()*10000);
-		commentaire.setId(id);
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
 
-	
-		this.mediaManager.creerCommentaire(commentaire);
+    @Test
+    public void testSupprimerTagAvecDroitAlbum() {
+	this.placeRetourUtilisateurAvecDroitAlbum();
 
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
+	Tag tag = new Tag();
+	long id = (long) (Math.random() * 10000);
+	tag.setId(id);
 
-		this.mediaDecorateurConcrete.creerCommentaire(commentaire);
+	this.mediaManager.supprimerTag(tag);
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
 
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
+	this.mediaDecorateurConcrete.supprimerTag(tag);
 
-	@Test
-	public void testCreerCommentaireSansDroitAlbum() {
-		this.placeRetourUtilisateurSansDroitAlbum();
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
 
-		Commentaire commentaire = new Commentaire();
-		int id = (int) (Math.random()*10000);
-		commentaire.setId(id);
+    @Test
+    public void testSupprimerTagSansDroitAlbum() {
+	this.placeRetourUtilisateurSansDroitAlbum();
 
+	Tag tag = new Tag();
+	long id = (long) (Math.random() * 10000);
+	tag.setId(id);
 
-		this.mediaManager.creerCommentaire(commentaire);
-		
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
+	EasyMock.replay(this.utilisateurManager);
+	EasyMock.replay(this.mediaManager);
 
-		this.mediaDecorateurConcrete.creerCommentaire(commentaire);
+	this.mediaDecorateurConcrete.supprimerTag(tag);
 
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-	
-	@Test
-	public void testCreerCommentaireSansDroit() {
-		this.placeRetourUtilisateurSansDroit();
-
-		Commentaire commentaire = new Commentaire();
-		int id = (int) (Math.random()*10000);
-		commentaire.setId(id);
-		
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		this.mediaDecorateurConcrete.creerCommentaire(commentaire);
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-	
-	@Test
-	public void testCreerTagAvecDroitAlbum() {
-		this.placeRetourUtilisateurAvecDroitAlbum();
-
-		Tag tag = new Tag();
-		int id = (int) (Math.random()*10000);
-		tag.setId(id);
-
-	
-		this.mediaManager.creerTag(tag);
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		this.mediaDecorateurConcrete.creerTag(tag);
-		
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-
-	@Test
-	public void testCreerTagSansDroitAlbum() {
-		this.placeRetourUtilisateurSansDroitAlbum();
-
-		Tag tag = new Tag();
-		int id = (int) (Math.random()*10000);
-		tag.setId(id);
-
-
-		this.mediaManager.creerTag(tag);
-		
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		this.mediaDecorateurConcrete.creerTag(tag);
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-	
-	@Test
-	public void testCreerTagSansDroit() {
-		this.placeRetourUtilisateurSansDroit();
-
-		Tag tag = new Tag();
-		int id = (int) (Math.random()*10000);
-		tag.setId(id);
-		
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		this.mediaDecorateurConcrete.creerTag(tag);
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-
-	@Test
-	public void testModifierAlbumAvecDroitAlbum() {
-		this.placeRetourUtilisateurAvecDroitAlbum();
-
-		Album album = new Album();
-		int id = (int) (Math.random()*10000);
-		album.setId(id);
-
-		this.mediaManager.modifierAlbum(album);
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		this.mediaDecorateurConcrete.modifierAlbum(album);
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-
-	@Test
-	public void testModifierAlbumSansDroitAlbum() {
-		this.placeRetourUtilisateurSansDroitAlbum();
-
-		Album album = new Album();
-		int id = (int) (Math.random()*10000);
-		album.setId(id);
-
-
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		this.mediaDecorateurConcrete.modifierAlbum(album);
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-
-	@Test
-	public void testModifierPhotoAvecDroitAlbum() {
-		this.placeRetourUtilisateurAvecDroitAlbum();
-
-		Media media = new Media();
-		int id = (int) (Math.random()*10000);
-		media.setId(id);
-
-
-		this.mediaManager.modifierMedia(media);
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		this.mediaDecorateurConcrete.modifierMedia(media);
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-
-	@Test
-	public void testModifierPhotoSansDroitAlbum() {
-		this.placeRetourUtilisateurSansDroitAlbum();
-
-		Media media = new Media();
-		int id = (int) (Math.random()*10000);
-		media.setId(id);
-
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		this.mediaDecorateurConcrete.modifierMedia(media);
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-
-	
-	@Test
-	public void testModifierCommentaireAvecDroitAlbum() {
-		this.placeRetourUtilisateurAvecDroitAlbum();
-
-		Commentaire commentaire = new Commentaire();
-		int id = (int) (Math.random()*10000);
-		commentaire.setId(id);
-
-
-		this.mediaManager.modifierCommentaire(commentaire);
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		this.mediaDecorateurConcrete.modifierCommentaire(commentaire);
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-
-	@Test
-	public void testModifierCommentaireSansDroitAlbum() {
-		this.placeRetourUtilisateurSansDroitAlbum();
-
-		Commentaire commentaire = new Commentaire();
-		int id = (int) (Math.random()*10000);
-		commentaire.setId(id);
-
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		this.mediaDecorateurConcrete.modifierCommentaire(commentaire);
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-	
-	@Test
-	public void testModifierCommentaireSansDroit() {
-		this.placeRetourUtilisateurSansDroit();
-
-		Commentaire commentaire = new Commentaire();
-		int id = (int) (Math.random()*10000);
-		commentaire.setId(id);
-
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		this.mediaDecorateurConcrete.modifierCommentaire(commentaire);
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-	
-	
-	@Test
-	public void testRecupererAlbumAvecDroitAlbum() {
-		this.placeRetourUtilisateurAvecDroitAlbum();
-
-		Album album = new Album();
-		int id = (int) (Math.random()*10000);
-		album.setId(id);
-
-		EasyMock.expect(this.mediaManager.recupererAlbum(id)).andReturn(album);
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		Album albumRecuperer = this.mediaDecorateurConcrete.recupererAlbum(id);
-
-		assertNotNull(albumRecuperer);
-
-		assertEquals(album, albumRecuperer);
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-
-	@Test
-	public void testRecupererAlbumSansDroitAlbum() {
-		this.placeRetourUtilisateurSansDroitAlbum();
-
-		Album album = new Album();
-		int id = (int) (Math.random()*10000);
-		album.setId(id);
-
-		EasyMock.expect(this.mediaManager.recupererAlbum(id)).andReturn(album);
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		Album albumRecuperer = this.mediaDecorateurConcrete.recupererAlbum(id);
-
-		assertNotNull(albumRecuperer);
-
-		assertEquals(album, albumRecuperer);
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-	@Test
-	public void testRecupererAlbumSansDroit() {
-		this.placeRetourUtilisateurSansDroit();
-
-		Album album = new Album();
-		int id = (int) (Math.random()*10000);
-		album.setId(id);
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		Album albumRecuperer = this.mediaDecorateurConcrete.recupererAlbum(id);
-
-		assertNull(albumRecuperer);
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-
-	@Test
-	public void testRecupererPhotoAvecDroitAlbum() {
-		this.placeRetourUtilisateurAvecDroitAlbum();
-
-		Media media = new Media();
-		int id = (int) (Math.random()*10000);
-		media.setId(id);
-
-		EasyMock.expect(this.mediaManager.recupererMedia(id)).andReturn(media);
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		Media mediaRecuperer = this.mediaDecorateurConcrete.recupererMedia(id);
-
-		assertNotNull(mediaRecuperer);
-
-		assertEquals(media, mediaRecuperer);
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-
-	@Test
-	public void testRecupererPhotoSansDroitAlbum() {
-		this.placeRetourUtilisateurSansDroitAlbum();
-
-		Media media = new Media();
-		int id = (int) (Math.random()*10000);
-		media.setId(id);
-
-		EasyMock.expect(this.mediaManager.recupererMedia(id)).andReturn(media);
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		Media mediaRecuperer = this.mediaDecorateurConcrete.recupererMedia(id);
-
-		assertNotNull(mediaRecuperer);
-
-		assertEquals(media, mediaRecuperer);
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-
-	@Test
-	public void testRecupererPhotoSansDroi() {
-		this.placeRetourUtilisateurSansDroit();
-
-		Media media = new Media();
-		int id = (int) (Math.random()*10000);
-		media.setId(id);
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		Media photoRecuperer = this.mediaDecorateurConcrete.recupererMedia(id);
-
-		assertNull(photoRecuperer);
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-
-
-	@Test
-	public void testRecupererTousLesAlbumAvecDroitAlbum() {
-		this.placeRetourUtilisateurAvecDroitAlbum();
-		List<Album> listAlbum = new ArrayList<Album>();
-		for(int i = 0; i < 4; i++){
-			Album album = new Album();
-			int id = (int) (Math.random()*10000);
-			album.setId(id);
-
-			listAlbum.add(album);
-
-		}
-
-		EasyMock.expect(this.mediaManager.recupererTousLesAlbums()).andReturn(listAlbum);
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		List<Album> listAlbumRecuperer = this.mediaDecorateurConcrete.recupererTousLesAlbums();
-
-		assertNotNull(listAlbumRecuperer);
-
-		assertEquals(listAlbumRecuperer, listAlbum);
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-
-	@Test
-	public void testRecupererTousLesAlbumSansDroitAlbum() {
-		this.placeRetourUtilisateurSansDroitAlbum();
-		List<Album> listAlbum = new ArrayList<Album>();
-		for(int i = 0; i < 4; i++){
-			Album album = new Album();
-			int id = (int) (Math.random()*10000);
-			album.setId(id);
-
-			listAlbum.add(album);
-
-		}
-
-		EasyMock.expect(this.mediaManager.recupererTousLesAlbums()).andReturn(listAlbum);
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		List<Album> listAlbumRecuperer = this.mediaDecorateurConcrete.recupererTousLesAlbums();
-
-		assertNotNull(listAlbumRecuperer);
-
-		assertEquals(listAlbumRecuperer, listAlbum);
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-
-	@Test
-	public void testRecupererTousLesAlbumSansDroit() {
-		this.placeRetourUtilisateurSansDroit();
-		List<Album> listAlbum = new ArrayList<Album>();
-		for(int i = 0; i < 4; i++){
-			Album album = new Album();
-			int id = (int) (Math.random()*10000);
-			album.setId(id);
-
-			listAlbum.add(album);
-
-		}
-
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		List<Album> listAlbumRecuperer = this.mediaDecorateurConcrete.recupererTousLesAlbums();
-
-		assertNull(listAlbumRecuperer);
-
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-
-	@Test
-	public void testRecupererCommentaireAvecDroitAlbum() {
-		this.placeRetourUtilisateurAvecDroitAlbum();
-
-		Commentaire commentaire = new Commentaire();
-		long id = (long) (Math.random()*10000);
-		commentaire.setId(id);
-
-
-
-
-		EasyMock.expect(this.mediaManager.recupererCommentaire(id)).andReturn(commentaire);
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		Commentaire commentaireRecuperer = this.mediaDecorateurConcrete.recupererCommentaire(commentaire.getId());
-
-		assertNotNull(commentaireRecuperer);
-
-		assertEquals(commentaireRecuperer, commentaire);
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-	
-	@Test
-	public void testRecupererCommentaireSansDroitAlbum() {
-		this.placeRetourUtilisateurSansDroitAlbum();
-
-		Commentaire commentaire = new Commentaire();
-		long id = (long) (Math.random()*10000);
-		commentaire.setId(id);
-
-
-
-
-		EasyMock.expect(this.mediaManager.recupererCommentaire(id)).andReturn(commentaire);
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		Commentaire commentaireRecuperer = this.mediaDecorateurConcrete.recupererCommentaire(commentaire.getId());
-
-		assertNotNull(commentaireRecuperer);
-
-		assertEquals(commentaireRecuperer, commentaire);
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-	
-	@Test
-	public void testRecupererCommentaireSansDroi() {
-		this.placeRetourUtilisateurSansDroit();
-
-		Commentaire commentaire = new Commentaire();
-		long id = (long) (Math.random()*10000);
-		commentaire.setId(id);
-
-		
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		Commentaire commentaireRecuperer = this.mediaDecorateurConcrete.recupererCommentaire(commentaire.getId());
-
-		assertNull(commentaireRecuperer);
-
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-	
-	
-	@Test
-	public void testSupprimerAlbumAvecDroitAlbum() {
-		this.placeRetourUtilisateurAvecDroitAlbum();
-
-		Album album = new Album();
-		int id = (int) (Math.random()*10000);
-		album.setId(id);
-
-		this.mediaManager.supprimerAlbum(album, "");
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		this.mediaDecorateurConcrete.supprimerAlbum(album, "");
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-
-	@Test
-	public void testSupprimerAlbumSansDroitAlbum() {
-		this.placeRetourUtilisateurSansDroitAlbum();
-
-		Album album = new Album();
-		int id = (int) (Math.random()*10000);
-		album.setId(id);
-
-
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		this.mediaDecorateurConcrete.supprimerAlbum(album, "");
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-
-	@Test
-	public void testSupprimerPhotoAvecDroitAlbum() {
-		this.placeRetourUtilisateurAvecDroitAlbum();
-
-		Media media = new Media();
-		int id = (int) (Math.random()*10000);
-		media.setId(id);
-
-
-		this.mediaManager.supprimerMedia(media, "");
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		this.mediaDecorateurConcrete.supprimerMedia(media, "");
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-
-	@Test
-	public void testSupprimerPhotoSansDroitAlbum() {
-		this.placeRetourUtilisateurSansDroitAlbum();
-
-		Media media = new Media();
-		int id = (int) (Math.random()*10000);
-		media.setId(id);
-
-
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		this.mediaDecorateurConcrete.supprimerMedia(media, "");
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-	
-	@Test
-	public void testSupprimerCommentaireAvecDroitAlbum() {
-		this.placeRetourUtilisateurAvecDroitAlbum();
-
-		Commentaire commentaire = new Commentaire();
-		long id = (long) (Math.random()*10000);
-		commentaire.setId(id);
-
-		this.mediaManager.supprimerCommentaire(commentaire);
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		this.mediaDecorateurConcrete.supprimerCommentaire(commentaire);
-
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-	
-	@Test
-	public void testSupprimerCommentaireSansDroitAlbum() {
-		this.placeRetourUtilisateurSansDroitAlbum();
-
-		Commentaire commentaire = new Commentaire();
-		long id = (long) (Math.random()*10000);
-		commentaire.setId(id);
-
-		
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		this.mediaDecorateurConcrete.supprimerCommentaire(commentaire);
-
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-	
-	@Test
-	public void testSupprimerTagAvecDroitAlbum() {
-		this.placeRetourUtilisateurAvecDroitAlbum();
-
-		Tag tag = new Tag();
-		long id = (long) (Math.random()*10000);
-		tag.setId(id);
-
-		this.mediaManager.supprimerTag(tag);
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		this.mediaDecorateurConcrete.supprimerTag(tag);
-
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
-	
-	@Test
-	public void testSupprimerTagSansDroitAlbum() {
-		this.placeRetourUtilisateurSansDroitAlbum();
-
-		Tag tag = new Tag();
-		long id = (long) (Math.random()*10000);
-		tag.setId(id);
-
-		
-		EasyMock.replay(this.utilisateurManager);
-		EasyMock.replay(this.mediaManager);
-
-		this.mediaDecorateurConcrete.supprimerTag(tag);
-
-
-		EasyMock.verify(this.mediaManager);
-		EasyMock.verify(this.utilisateurManager);
-	}
+	EasyMock.verify(this.mediaManager);
+	EasyMock.verify(this.utilisateurManager);
+    }
 
 }

@@ -28,8 +28,7 @@
 						<a href="${ctx}/albumPhoto/formulaireAlbum.do?album=${album.id}">
 							<img src="${ctx}/images/edit.png" alt="<fmt:message key="album_photo.album.edit.alt" />" title="<fmt:message key="album_photo.album.edit.title" />" />
 						</a>
-						<a href="${ctx}/albumPhoto/affichage.do?deleteAlbum=${album.id}">
-						<img src="${ctx}/images/delete.png" alt="<fmt:message key="album_photo.album.delete.alt" />" title="<fmt:message key="album_photo.album.delete.title" />" /></a>
+						<img id="deleteButton" src="${ctx}/images/delete.png" alt="<fmt:message key="album_photo.album.delete.alt" />" title="<fmt:message key="album_photo.album.delete.title" />" />
 					</security:authorize>
 				</c:if>
 			</h1>
@@ -64,7 +63,27 @@
 	</div>
 </div>
 
+<script type="text/javascript" >
 
+var albumId = "${album.id}";
+$(document).ready(function(){
+	$("#deleteButton").click(function(){
+		if (confirm("Voulez-vous supprimer cet album et tout ce qu'il contient ?")) {
+			var url = ctx + "/ws/albumPhoto/album/" + albumId;
+			
+			$.ajax({
+			    url : url,
+			    type : "delete"
+			
+			}).done(function(json) {				
+				 window.location = ctx +"/albumPhoto/affichage.do";
+			});
+			
+		}
+	});
+});
+
+</script>
 
 <!-- on importe le pied de la page -->
 <%@ include file="../foot.jsp"%>

@@ -17,6 +17,8 @@ public interface AlbumPhotoService {
 
     public List<Album> getAlbums();
 
+    public void deleteAlbum(long albumId, String pathServeur);
+
     // media bloc
     public Media getMedia(long mediaId);
 
@@ -32,6 +34,8 @@ public interface AlbumPhotoService {
 
     public void changeDescription(long mediaId, String description);
 
+    public void deleteMedia(long mediaId, String pathServeur);
+
     // comment bloc
     public List<Commentaire> getComments(long mediaId);
 
@@ -40,4 +44,5 @@ public interface AlbumPhotoService {
     public Commentaire createComment(Commentaire comment);
 
     public void deleteComment(long commentId);
+
 }

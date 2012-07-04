@@ -58,15 +58,6 @@ public class MediaDecorateurConcrete extends AlbumPhotoSecuriteDecorateur {
     }
 
     @Override
-    public void creerAlbum(File fichierZip, User posteur, String pathPhoto) {
-	User utilisateur = this.utilisateurManager.getUtilisateurCourant();
-	System.out.println(utilisateur);
-	if (this.aDroitAlbum(posteur)) {
-	    this.mediaManager.creerAlbum(fichierZip, posteur, pathPhoto);
-	}
-    }
-
-    @Override
     public void creerMedia(Media media, File fichierPhoto, String pathPhoto) {
 	User utilisateur = this.utilisateurManager.getUtilisateurCourant();
 	if (this.aDroitAlbum(utilisateur)) {
@@ -181,20 +172,6 @@ public class MediaDecorateurConcrete extends AlbumPhotoSecuriteDecorateur {
 	    this.mediaManager.supprimerTag(tag);
 	}
     }
-
-    @Override
-    public void creerZipMedia(File fichierZip, Album album, User posteur, String pathServeur) {
-	User utilisateur = this.utilisateurManager.getUtilisateurCourant();
-	if (this.aDroitAlbum(posteur)) {
-	    this.mediaManager.creerZipMedia(fichierZip, album, posteur, pathServeur);
-	}
-    }
-
-    /*
-     * @Override public void visionnnageAlbum(Album album) { this.mediaManager.visionnnageAlbum(album);
-     * 
-     * }
-     */
 
     @Override
     public boolean hasNouvellesMedias() {

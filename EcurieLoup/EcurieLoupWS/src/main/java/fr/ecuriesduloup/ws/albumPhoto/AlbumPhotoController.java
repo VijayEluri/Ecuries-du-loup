@@ -77,6 +77,13 @@ public class AlbumPhotoController extends AbstractWsController {
 	return this.ChooseView(request, "status", "ok");
     }
 
+    @RequestMapping(value = "/albumPhoto/photos/{identifier}", method = RequestMethod.DELETE)
+    public ModelAndView deleteMedia(HttpServletRequest request, @PathVariable final long identifier) {
+	String pathServer = request.getSession().getServletContext().getRealPath("/");
+	this.albumPhotoService.deleteMedia(identifier, pathServer);
+	return this.ChooseView(request, "status", "ok");
+    }
+
     @RequestMapping(value = "/albumPhoto/photos/{identifier}/description", method = RequestMethod.POST)
     public ModelAndView changeDescription(HttpServletRequest request, @PathVariable final long identifier, @RequestParam("description") final String description) {
 	this.albumPhotoService.changeDescription(identifier, description);
@@ -153,6 +160,14 @@ public class AlbumPhotoController extends AbstractWsController {
 	id.setValue(idAlbumPhoto);
 
 	return this.ChooseView(request, "albumPhoto", id);
+    }
+
+    @RequestMapping(value = "/albumPhoto/album/{albumId}", method = RequestMethod.DELETE)
+    public ModelAndView deleteAlbum(HttpServletRequest request, @PathVariable long albumId) {
+
+	String pathServeur = request.getSession().getServletContext().getRealPath("/");
+	this.albumPhotoService.deleteAlbum(albumId, pathServeur);
+	return this.ChooseView(request, "status", "ok");
     }
 
     /**

@@ -101,4 +101,16 @@ public class AlbumPhotoServiceImpl implements AlbumPhotoService {
 
     }
 
+    @Override
+    public void deleteMedia(long mediaId, String pathServeur) {
+	Media media = this.mediaManager.recupererMedia(mediaId);
+	this.mediaManager.supprimerMedia(media, pathServeur);
+
+    }
+
+    @Override
+    public void deleteAlbum(long albumId, String pathServeur) {
+	Album album = this.mediaManager.recupererAlbum(albumId);
+	this.mediaManager.supprimerAlbum(album, pathServeur);
+    }
 }

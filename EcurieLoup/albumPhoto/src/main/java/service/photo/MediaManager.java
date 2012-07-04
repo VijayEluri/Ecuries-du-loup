@@ -19,8 +19,6 @@ public interface MediaManager {
 
     public void creerAlbum(Album album);
 
-    public void creerAlbum(File fichierZip, User posteur, String pathServeur);
-
     public void modifierAlbum(Album album);
 
     public void supprimerAlbum(Album album, String pathServeur);
@@ -30,8 +28,6 @@ public interface MediaManager {
     public Media getMedia(long id);
 
     public void creerMedia(Media media, File fichierMedia, String pathServeur);
-
-    public void creerZipMedia(File fichierZip, Album album, User posteur, String pathServeur);
 
     public void modifierMedia(Media media);
 
