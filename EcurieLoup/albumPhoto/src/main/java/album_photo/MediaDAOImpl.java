@@ -5,6 +5,8 @@ import java.util.List;
 import donnees.User;
 import donnees.photo.LectureAlbum;
 import donnees.photo.Media;
+import donnees.photo.Tag;
+import donnees.photo.commentaire.Commentaire;
 import fr.ecurie_du_loup.generique_util.dao.HibernateIdLongBySpringDao;
 
 public class MediaDAOImpl extends HibernateIdLongBySpringDao<Media> implements MediaDAO {
@@ -36,5 +38,20 @@ public class MediaDAOImpl extends HibernateIdLongBySpringDao<Media> implements M
     @Override
     protected String getOrderByOfFindAll() {
 	return " ORDER BY t.shotDate";
+    }
+
+    @Override
+    public List<Tag> getMediasTags(long mediaId) {
+	String request = "SELECT t FROM Tag as t WHERE t.photo.id=?";
+	List<Tag> tags = this.getHibernateTemplate().find(request, mediaId);
+
+	return tags;
+    }
+
+    @Override
+    public List<Commentaire> getMediasComments(long mediaId) {
+	String request = "SELECT c FROM Commentaire as c WHERE c.media.id=?";
+	List<Commentaire> comments = this.getHibernateTemplate().find(request, mediaId);
+	return comments;
     }
 }

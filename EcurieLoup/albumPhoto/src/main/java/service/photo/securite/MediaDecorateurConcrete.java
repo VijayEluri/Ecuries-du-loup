@@ -221,4 +221,14 @@ public class MediaDecorateurConcrete extends AlbumPhotoSecuriteDecorateur {
 	return this.mediaManager.getMedia(id);
     }
 
+    @Override
+    public List<Tag> getMediasTags(long mediaId) {
+	return this.mediaManager.getMediasTags(mediaId);
+    }
+
+    @Override
+    public List<Commentaire> getMediasComments(long mediaId) {
+	return this.mediaManager.getMediasComments(mediaId);
+    }
+
 }

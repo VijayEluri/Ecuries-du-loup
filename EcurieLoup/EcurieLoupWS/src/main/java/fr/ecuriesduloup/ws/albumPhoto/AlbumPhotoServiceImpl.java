@@ -56,7 +56,7 @@ public class AlbumPhotoServiceImpl implements AlbumPhotoService {
 
     @Override
     public List<Commentaire> getComments(long mediaId) {
-	return this.mediaManager.recupererMedia(mediaId).getCommentaires();
+	return this.mediaManager.getMediasComments(mediaId);
     }
 
     @Override

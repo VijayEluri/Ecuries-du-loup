@@ -413,4 +413,14 @@ public class MediaManagerImpl implements MediaManager {
 
     }
 
+    @Override
+    public List<Tag> getMediasTags(long mediaId) {
+	return this.mediaDAO.getMediasTags(mediaId);
+    }
+
+    @Override
+    public List<Commentaire> getMediasComments(long mediaId) {
+	return this.mediaDAO.getMediasComments(mediaId);
+    }
+
 }
