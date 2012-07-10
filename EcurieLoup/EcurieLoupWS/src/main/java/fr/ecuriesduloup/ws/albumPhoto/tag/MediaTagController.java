@@ -43,7 +43,7 @@ public class MediaTagController extends AbstractWsController {
     @RequestMapping(value = "/albumPhoto/tag/{media}/{name}", method = RequestMethod.POST)
     public ModelAndView saveTag(HttpServletRequest request, @PathVariable int media, @PathVariable String name, @RequestParam("x") double x, @RequestParam("y") double y) {
 
-	Media tagMedia = this.mediaManager.recupererMedia(media);
+	Media tagMedia = this.mediaManager.getMedia(media);
 
 	Tag tag = new Tag();
 	tag.setNom(name);
