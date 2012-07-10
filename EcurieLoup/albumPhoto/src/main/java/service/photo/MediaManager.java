@@ -27,8 +27,6 @@ public interface MediaManager {
 
     public Media getMedia(long id);
 
-    public List<Tag> getMediasTags(long mediaId);
-
     public void creerMedia(Media media, File fichierMedia, String pathServeur);
 
     public void modifierMedia(Media media);
@@ -42,6 +40,10 @@ public interface MediaManager {
     public void modifierCommentaire(Commentaire commentaire);
 
     public void supprimerCommentaire(Commentaire commentaire);
+
+    public List<Tag> getMediasTags(long mediaId);
+
+    public Tag getTag(long tagId);
 
     public void creerTag(Tag tag);
 

@@ -84,6 +84,7 @@
 	beginMedia : 0,
 	tag : "",
 	options : "",
+	admin : false,
 	noDescriptionMessage : "Pas de description"
     };
 
@@ -137,15 +138,16 @@
 	} else {
 	    $("#descriptionP").html(options.noDescriptionMessage);
 	}
-
 	// change tag
 	$("#tagsList").mediatag({
-	    mediaId : currentMedia.id
+	    mediaId : currentMedia.id,
+	    admin : options.admin
 	});
 	// change comment
 	$("#comments").comments({
 	    mediaId : currentMedia.id
 	});
+
 	// change like button
 	$("#facebookIframe").attr(
 		"src",

@@ -22,7 +22,6 @@ import donnees.photo.Tag;
 import fiche_chevaux.donnees.Fiche;
 import fiche_chevaux.service.FicheChevauxManager;
 import fr.ecuriesduloup.ws.AbstractWsController;
-import fr.ecuriesduloup.ws.Id;
 
 @Controller
 public class MediaTagController extends AbstractWsController {
@@ -40,6 +39,13 @@ public class MediaTagController extends AbstractWsController {
 	this.mediaManager = mediaManager;
     }
 
+    @RequestMapping(value = "/albumPhoto/tags/{tagId}", method = RequestMethod.DELETE)
+    public ModelAndView deleteTag(HttpServletRequest request, @PathVariable long tagId) {
+	Tag tag = this.mediaManager.getTag(tagId);
+	this.mediaManager.supprimerTag(tag);
+	return this.ChooseView(request, "status", "ok");
+    }
+
     @RequestMapping(value = "/albumPhoto/tag/{media}/{name}", method = RequestMethod.POST)
     public ModelAndView saveTag(HttpServletRequest request, @PathVariable int media, @PathVariable String name, @RequestParam("x") double x, @RequestParam("y") double y) {
 
@@ -53,10 +59,7 @@ public class MediaTagController extends AbstractWsController {
 
 	this.mediaManager.creerTag(tag);
 
-	Id id = new Id();
-	id.setValue(tag.getId());
-
-	return this.ChooseView(request, "tag", id);
+	return this.ChooseView(request, "tag", this.tagManagement(tag));
     }
 
     @RequestMapping(value = "/albumPhoto/tag/{mediaId}/tags", method = RequestMethod.GET)
@@ -70,30 +73,35 @@ public class MediaTagController extends AbstractWsController {
     private List<TagDto> tagsManagement(List<Tag> tags) {
 	List<TagDto> mediasTagDto = new ArrayList<TagDto>();
 	for (Tag tag : tags) {
-	    // TODO : trop laid , changer sa
-	    try {
-		long idHorse = Long.parseLong(tag.getNom());
 
-		Fiche fiche = this.ficheChevauxManager.recupererFiche(idHorse);
-		if (fiche != null) {
-		    tag.setPath("/ficheChevaux/affichageFiche.do?id=" + idHorse);
-		    tag.setDisplay(fiche.getNom());
-		} else {
-		    tag.setDisplay(tag.getNom());
-		}
-	    } catch (NumberFormatException e) {
-		User user = this.utilisateurManager.getById(tag.getNom());
-		if (user != null) {
-		    tag.setPath("/community/card.do?login=" + user.getLogin());
-		    tag.setDisplay(user.getLogin() + " (" + user.getPrenom() + " " + user.getNom() + ")");
-		} else {
-		    tag.setDisplay(tag.getNom());
-		}
-	    }
-	    mediasTagDto.add(new TagDto(tag));
+	    mediasTagDto.add(this.tagManagement(tag));
 	}
 
 	return mediasTagDto;
 
+    }
+
+    private TagDto tagManagement(Tag tag) {
+	// TODO : trop laid , changer sa
+	try {
+	    long idHorse = Long.parseLong(tag.getNom());
+
+	    Fiche fiche = this.ficheChevauxManager.recupererFiche(idHorse);
+	    if (fiche != null) {
+		tag.setPath("/ficheChevaux/affichageFiche.do?id=" + idHorse);
+		tag.setDisplay(fiche.getNom());
+	    } else {
+		tag.setDisplay(tag.getNom());
+	    }
+	} catch (NumberFormatException e) {
+	    User user = this.utilisateurManager.getById(tag.getNom());
+	    if (user != null) {
+		tag.setPath("/community/card.do?login=" + user.getLogin());
+		tag.setDisplay(user.getLogin() + " (" + user.getPrenom() + " " + user.getNom() + ")");
+	    } else {
+		tag.setDisplay(tag.getNom());
+	    }
+	}
+	return new TagDto(tag);
     }
 }

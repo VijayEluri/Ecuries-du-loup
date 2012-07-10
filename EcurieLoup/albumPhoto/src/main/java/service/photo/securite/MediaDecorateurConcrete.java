@@ -231,4 +231,14 @@ public class MediaDecorateurConcrete extends AlbumPhotoSecuriteDecorateur {
 	return this.mediaManager.getMediasComments(mediaId);
     }
 
+    @Override
+    public Tag getTag(long tagId) {
+	User utilisateur = this.utilisateurManager.getUtilisateurCourant();
+	if (this.aDroitAlbum(utilisateur)) {
+	    return this.mediaManager.getTag(tagId);
+	}
+
+	return null;
+    }
+
 }

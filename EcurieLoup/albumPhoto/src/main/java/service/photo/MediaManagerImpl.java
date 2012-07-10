@@ -423,4 +423,9 @@ public class MediaManagerImpl implements MediaManager {
 	return this.mediaDAO.getMediasComments(mediaId);
     }
 
+    @Override
+    public Tag getTag(long tagId) {
+	return this.tagDAO.findById(tagId);
+    }
+
 }

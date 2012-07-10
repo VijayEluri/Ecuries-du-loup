@@ -79,12 +79,24 @@
 			<!-- facebook like ${ctx}-->
 			<iframe id="facebookIframe" src="" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>
 			
+			<!-- define is not admin -->
+			<script type="text/javascript" >
+				var admin = false;
+			</script>
+			
+			<!-- define is admin is has right-->	
+			<security:authorize ifAllGranted="ROLE_ADMINISTRATEUR_PHOTO">					
+				<script type="text/javascript" >
+				admin = true;
+				</script>
+			</security:authorize>
+			
 			<script type="text/javascript" >
 				var albumId = "${albumId}";
 				var mediaId = "${mediaId}";
 				var searchTag = "${searchTag}";
 				var options = "${options}";
-				$("#photo_principal" ).mediaDisplayer({album:albumId, beginMedia: mediaId, tag : searchTag, options: options });
+				$("#photo_principal" ).mediaDisplayer({album:albumId, beginMedia: mediaId, tag : searchTag, options: options, admin: admin });
 				$("#tags" ).tagAppender();
 				$(function() {
 				    $('.nyroModal').nyroModal();

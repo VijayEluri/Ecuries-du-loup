@@ -112,6 +112,7 @@
 .albumPhoto .visualisationPhoto .description {
 	margin: auto;
 	text-align: center;
+	clear: left;
 }
 
 /*************************************/
@@ -252,8 +253,39 @@
 	width: 260px;
 }
 
+.albumPhoto #tagsList {
+	float: left;
+    margin-left: 20px;
+    margin-top: 8px;
+}
+.albumPhoto .tagActivateButton{
+	
+	float: left;
+	
+}
+
 .albumPhoto .nom_tag {
 	font-size: 0.8em;
+	background: none repeat scroll 0 0 #DEE7F8;
+    border: 1px solid #CAD8F3;
+    border-radius: 6px 6px 6px 6px;
+    font-weight: normal;
+    display: block;
+    padding: 5px 10px;
+    margin: 2px 5px 2px 0;
+    float: left;
+}
+.albumPhoto #tags .nom_tag a{
+    color: #0073EA;
+}
+.albumPhoto #tags .nom_tag img{
+	float: right;
+	margin-left: 10px;
+	
+}
+.albumPhoto .nom_tag:hover {
+	background-color: #BBCEF1;
+    border-color: #6D95E0;
 }
 .ui-autocomplete{
 	list-style-type: none;
