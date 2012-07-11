@@ -99,3 +99,51 @@
 #selection_photo #selected{
 	border: solid red 2px;
 }
+
+
+/**************************************************/
+/* birthday date */
+/********************************************/
+.birthday_calendar_arround{
+	background: -moz-linear-gradient(to bottom, rgb(0,128,0), rgb(0,128,0));
+	width: 120px;
+	text-align: center;
+	padding-top: 30px;
+	padding-bottom: 10px;
+	border-radius: 6px;
+ 	box-shadow: 3px 3px 2px #888888; 
+}
+
+.birthday_calendar{
+	border: black solid 1px;
+	background-color: white;
+	width: 100px;
+	text-align: center;
+	margin: auto;
+	padding: 10px 2px;
+	border-radius: 6px;
+ 	box-shadow: 3px 3px 2px #888888 inset; 
+}
+.birthday_calendar .day{
+	font-size: 2em;
+	color: #EE0000;
+	
+}
+.birthday_calendar .month{
+	color: black;
+	display: inline;
+	
+}
+.birthday_calendar .year{
+	
+	color: black;
+	display: inline;
+	
+}
+.birthday_calendar .age{
+	
+	color: gray;
+	display: block;
+	
+}
+

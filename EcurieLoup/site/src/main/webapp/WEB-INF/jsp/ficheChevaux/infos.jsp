@@ -85,7 +85,29 @@
 			<h2>
 				<fmt:message key="ficheChevaux.fiche.dateNaissance" />
 			</h2>
-			<dt:format pattern="dd/MM/yyyy"> ${ficheCheval.dateNaissance}</dt:format>
+			<div class="birthday_calendar_arround">
+				<div class="birthday_calendar">
+					<div class="day">
+						<dt:format pattern="dd"> ${ficheCheval.dateNaissance}</dt:format>
+					</div>
+					<div class="month">
+						<dt:format pattern="MMM"> ${ficheCheval.dateNaissance}</dt:format>
+					</div>
+					<div class="year">
+						<dt:format pattern="yyyy"> ${ficheCheval.dateNaissance}</dt:format>
+					</div>
+					<div class="age" title="<fmt:message key="ficheChevaux.fiche.age.complete">
+						<fmt:param>${yearhorseAge}</fmt:param>
+						<fmt:param>${monthhorseAge}</fmt:param>
+						<fmt:param>${dayhorseAge}</fmt:param>
+					</fmt:message>" >
+					<fmt:message key="ficheChevaux.fiche.age.year">
+						<fmt:param>${yearhorseAge}</fmt:param>
+					</fmt:message>
+					</div>
+				</div>
+			</div>
+			
 			</p>
 		</c:when>
 		<c:otherwise>
