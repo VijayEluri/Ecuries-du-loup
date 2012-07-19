@@ -481,7 +481,11 @@
 			<version>2.5</version>
 			<scope>provided</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.1</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
@@ -605,7 +609,7 @@
 			<artifactId>rome</artifactId>
 			<version>1.0</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.google.code.facebookapi</groupId>
 			<artifactId>facebook-java-api</artifactId>
