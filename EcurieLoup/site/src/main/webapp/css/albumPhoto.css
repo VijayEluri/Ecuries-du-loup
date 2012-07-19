@@ -40,7 +40,10 @@
 	top: 25%;
 	left: 35%;
 }
-
+.albumPhoto .visualisationPhoto{
+	min-height: 800px;
+	
+}
 .albumPhoto .visualisationPhoto .video .image_video {
 	top: 5%;
 	left: 20%;
