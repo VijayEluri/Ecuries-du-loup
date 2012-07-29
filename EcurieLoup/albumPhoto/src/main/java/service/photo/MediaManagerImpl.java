@@ -242,6 +242,51 @@ public class MediaManagerImpl implements MediaManager {
 	}
 	return album;
     }
+    @Override
+    public Album recupererAlbumLight(long id) {
+		Album album = this.albumDAO.findById(id);
+	
+		if (album != null) {
+			User connectedUser = this.utilisateurManager.getUtilisateurCourant();
+			List<Media> mediasRead = this.albumDAO.getMediaReadForAlbum(album, connectedUser);
+		   
+			for(Media media : mediasRead){
+				int index = album.getMedias().indexOf(media);
+				album.getMedias().get(index).setReadByCurrentUser(true);
+			}
+			//delete null media
+			List<Media> mediasNotNull = new ArrayList<Media>();
+			for(Media media : album.getMedias()){
+				if(media != null){
+					mediasNotNull.add(media);
+				}
+			}
+			album.setMedias(mediasNotNull);
+			//sort media
+		   Collections.sort(album.getMedias(), new Comparator<Media>() {
+
+				@Override
+				public int compare(Media arg0, Media arg1) {
+				    if (arg0.getShotDate() == null) {
+					if (arg1.getShotDate() == null) {
+					    return 0;
+					} else {
+					    return -1;
+					}
+				    }
+				    if (arg1.getShotDate() == null) {
+					return 1;
+
+				    }
+
+				    int value = arg0.getShotDate().compareTo(arg1.getShotDate());
+				    return value;
+				}
+
+			    });
+		}
+		return album;
+    }
 
     private Album gestionAlbum(Album album) {
 	if (album != null) {
@@ -251,13 +296,14 @@ public class MediaManagerImpl implements MediaManager {
 	    List<Media> nouvelleListePhotos = new ArrayList<Media>();
 	    for (Media media : album.getMedias()) {
 		if (media != null) {
-
-		    media = this.gestionTag(media);
-		    media = this.gestionCommentaire(media);
+				media = this.gestionTag(media);
+				media = this.gestionCommentaire(media);
+			
 		    media = this.fillReading(media, connectedUser);
 		    nouvelleListePhotos.add(media);
 		}
 	    }
+	    
 	    Collections.sort(nouvelleListePhotos, new Comparator<Media>() {
 
 		@Override

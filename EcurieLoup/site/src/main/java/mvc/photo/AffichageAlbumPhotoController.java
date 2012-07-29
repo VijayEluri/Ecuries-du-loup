@@ -41,7 +41,7 @@ public class AffichageAlbumPhotoController {
 
     @RequestMapping(value = "/albumPhoto/affichage.do", params = "idAlbum")
     public ModelAndView affichageAlbum(@RequestParam("idAlbum") long idAlbum, HttpServletRequest request) {
-	Album album = this.mediaManager.recupererAlbum(idAlbum);
+	Album album = this.mediaManager.recupererAlbumLight(idAlbum);
 
 	List<Media> listePhoto = new ArrayList<Media>(album.getMedias());
 

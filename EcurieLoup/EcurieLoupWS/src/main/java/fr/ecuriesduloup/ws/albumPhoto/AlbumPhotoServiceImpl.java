@@ -36,7 +36,7 @@ public class AlbumPhotoServiceImpl implements AlbumPhotoService {
 
     @Override
     public Album getAlbum(long albumId) {
-	return this.mediaManager.recupererAlbum(albumId);
+	return this.mediaManager.recupererAlbumLight(albumId);
     }
 
     @Override

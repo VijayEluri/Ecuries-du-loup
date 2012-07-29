@@ -241,4 +241,9 @@ public class MediaDecorateurConcrete extends AlbumPhotoSecuriteDecorateur {
 	return null;
     }
 
+	@Override
+	public Album recupererAlbumLight(long id) {
+		return this.mediaManager.recupererAlbumLight(id);
+	}
+
 }

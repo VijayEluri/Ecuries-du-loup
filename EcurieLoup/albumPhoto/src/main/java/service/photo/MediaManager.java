@@ -16,6 +16,7 @@ public interface MediaManager {
     public List<Album> getAllAlbumsLigth();
 
     public Album recupererAlbum(long id);
+    public Album recupererAlbumLight(long id);
 
     public void creerAlbum(Album album);
 

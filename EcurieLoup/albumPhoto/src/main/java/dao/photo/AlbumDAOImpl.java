@@ -21,6 +21,19 @@ public class AlbumDAOImpl extends HibernateIdLongBySpringDao<Album> implements A
 		
 		return !medias.isEmpty();
 	}
+
+	@Override
+	public List<Media> getMediaReadForAlbum(Album album, User utilisateurCourant) {
+		String request = "SELECT m " +
+		" FROM Media as m" +
+		" WHERE m.album.id=? " +
+		" and exists (" +
+		"	from LectureAlbum as l where l.utilisateur.login=? and l.mediaVu = m"+
+		" )";
+		List<Media> medias = this.getHibernateTemplate().find(request, album.getId(), utilisateurCourant.getLogin());
+
+		return medias;
+	}
 	
 /*	@Override
 	public long getReadingDate(Album album, User utilisateurCourant) {

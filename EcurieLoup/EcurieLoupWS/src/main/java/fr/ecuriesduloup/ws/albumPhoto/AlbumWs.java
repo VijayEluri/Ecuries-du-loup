@@ -21,8 +21,11 @@ public class AlbumWs {
 		this.name = album.getTitre();
 		this.medias = new ArrayList<MediaDto>();
 		for(Media media : album.getMedias()){
-			this.medias.add(new MediaDto(media));
+			if(media!=null){
+				this.medias.add(new MediaDto(media));
+			}
 		}
+		
 	}
 	
 	public long getId() {
