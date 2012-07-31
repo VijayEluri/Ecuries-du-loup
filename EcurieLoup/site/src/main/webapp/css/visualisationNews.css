@@ -76,6 +76,9 @@
 	margin-left: 15px;
 }
 
+.visualisationNews .nouvelle .entete .action a{
+	text-decoration: none;
+}
 .visualisationNews .nouvelle .entete .action {
 	display: inline;
 }

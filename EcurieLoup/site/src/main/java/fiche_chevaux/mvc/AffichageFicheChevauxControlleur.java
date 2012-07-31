@@ -34,12 +34,29 @@ public class AffichageFicheChevauxControlleur {
     public ModelAndView handleRequest(@RequestParam("id") long id) {
 	Fiche fiche = this.ficheChevauxManager.recupererFiche(id);
 
+	if("".equals(fiche.getDescription())){
+	   fiche.setDescription(null);
+	}
 	while (fiche.getSurnoms().remove(null)) {
 	}
 
 	Map<String, Object> model = new HashMap<String, Object>();
 	model.put("ficheCheval", fiche);
-	Date bd = new Date(fiche.getDateNaissance());
+	Date bd = null;
+	if (fiche.getDateNaissance() != 0) {
+	    Calendar birthDay = Calendar.getInstance();
+	    birthDay.clear();
+	    birthDay.setTimeInMillis(fiche.getDateNaissance());
+	    
+	    bd = birthDay.getTime();
+
+	} else {
+	    Calendar firstDayOfBirthYear = Calendar.getInstance();
+	    firstDayOfBirthYear.clear();
+	    firstDayOfBirthYear.set(fiche.getAnneeNaissance(), 00, 01);
+	    bd = firstDayOfBirthYear.getTime();
+
+	}
 	Calendar now = Calendar.getInstance();
 
 	Period p = new Period(bd.getTime(), now.getTime().getTime(), PeriodType.yearMonthDay());

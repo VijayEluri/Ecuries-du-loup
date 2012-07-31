@@ -4,12 +4,9 @@
 	width: 95%;
 }
 #corps .fiche_chevaux .visualisationFiche .photo_fiche{
-	float: left;
-	max-width: 40%;
+	text-align: center;
 }
 #corps .fiche_chevaux .visualisationFiche .photo_fiche img{
-	margin: 10%;
-	max-width: 40%;
 	max-height: 200px;
 }
 
@@ -18,11 +15,10 @@
 	margin-bottom: 10px;
 }
 #corps .fiche_chevaux .visualisationFiche .informations {
-	float: left;
-	max-width: 55%;
 }
 #corps .fiche_chevaux .visualisationFiche .informations h2{
 	color: rgb(0,128,0);
+	text-align: center;
 }
 
 #corps .fiche_chevaux .visualisationTousLesFiches ul a{
@@ -53,6 +49,13 @@
 	width: 100%;
 	color: rgb(0, 128, 0);
 	bottom: 0px;
+}
+.photo_fiche .calendar{
+	float: right;
+}
+.robe_img{
+	width: 150px;
+	height: 100px;
 }
 
 /* LE FORMULAIRE */
@@ -101,10 +104,23 @@
 }
 
 
+
+.info_visual > div{
+	float: left;
+	width: 33%;
+	text-align: center; 
+	margin: auto;
+}
+.description{
+	clear: both;
+}
 /**************************************************/
 /* birthday date */
 /********************************************/
-.birthday_calendar_arround{
+.div_birthday_calendar{
+}
+
+.birthday_calendar_arround{	
 	background: -moz-linear-gradient(to bottom, rgb(0,128,0), rgb(0,128,0));
 	width: 120px;
 	text-align: center;
@@ -112,6 +128,7 @@
 	padding-bottom: 10px;
 	border-radius: 6px;
  	box-shadow: 3px 3px 2px #888888; 
+ 	margin: auto;
 }
 
 .birthday_calendar{

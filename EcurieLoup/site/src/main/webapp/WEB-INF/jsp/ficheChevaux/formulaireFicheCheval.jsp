@@ -43,15 +43,6 @@
 				</spring:bind>
 				<br />
 				
-				<spring:bind path="fiche.photoTete">
-					<fmt:message key="ficheChevaux.formulaireFiche.photoTete"/>
-					<div id="imageHeadHorse" ></div>
-					<input type="hidden" id="fieldHeadPicture" name="photoTete" value="<c:out value="${fiche.photoTete.id}"/>" size="15" maxlength="50" />
-					<span class="error">
-						<c:out value="${status.errorMessage}" />
-					</span>
-				</spring:bind>
-				<br />
 				
 				<spring:bind path="fiche.photoCorps">
 					<fmt:message key="ficheChevaux.formulaireFiche.photoCorps"/>

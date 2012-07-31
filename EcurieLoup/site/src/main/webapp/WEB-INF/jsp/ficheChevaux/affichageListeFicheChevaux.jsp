@@ -37,7 +37,7 @@
 				 		<table width="100%" height="100px" align="center" valign="center">
 							<tr>
 								<td style="text-align: center">
-							   		<img src="${ctx}/images/albumPhoto/miniatures/${fiche.photoCorps.id}" />
+							   		<img src="${ctx}/images/albumPhoto/miniatures/${fiche.photo.id}" />
 								</td>
 							</tr>
 						</table>

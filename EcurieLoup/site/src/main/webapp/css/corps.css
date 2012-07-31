@@ -41,7 +41,9 @@ body {
 	-moz-border-radius: 15px 15px 0px 0px;
 	border-radius: 15px 15px 0px 0px;
 }
-
+#corps h1 a{
+	text-decoration: none;
+}
 #corps h1 img{
 	width: 16px;
 	height: 16px;
