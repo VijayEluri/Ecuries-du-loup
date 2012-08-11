@@ -14,104 +14,105 @@ import forum.donnees.Message;
 import forum.donnees.Topic;
 
 public class SiteInBase {
-	public static List<Categorie> getCatergories() {
-		List<Categorie> categoriesInBase = new ArrayList<Categorie>();
+    public static List<Categorie> getCatergories() {
+	List<Categorie> categoriesInBase = new ArrayList<Categorie>();
 
-		{
-			Categorie categorie = new Categorie();
+	{
+	    Categorie categorie = new Categorie();
 
-			categorie.setId(1);
-			categorie.setTitre("titre de la categorie");
-			categorie.setDescription("description de la categorie");
+	    categorie.setId(1);
+	    categorie.setTitre("titre de la categorie");
+	    categorie.setDescription("description de la categorie");
 
-			categoriesInBase.add(categorie);
-		}
-
-		return categoriesInBase;
+	    categoriesInBase.add(categorie);
 	}
 
-	public static Categorie getCatergorie() {
-		Categorie categorie = new Categorie();
+	return categoriesInBase;
+    }
 
-		categorie.setId(1);
-		categorie.setTitre("titre de la categorie");
-		categorie.setDescription("description de la categorie");
-		categorie.setRoleAutoriser(new HashSet<Role>());
-		return categorie;
-	}
+    public static Categorie getCatergorie() {
+	Categorie categorie = new Categorie();
 
-	public static Topic getTopic() {
-		Topic topic = new Topic();
+	categorie.setId(1);
+	categorie.setTitre("titre de la categorie");
+	categorie.setDescription("description de la categorie");
+	categorie.setRoleAutoriser(new HashSet<Role>());
+	return categorie;
+    }
 
-		topic.setId(1);
-		topic.setTitre("titre topic");
-		topic.setCategorie(SiteInBase.getCatergorie());
-		topic.setCreateur(AlbumInBase.getUtilisateurToutDroit());
-		topic.setOuvert(true);
-		return topic;
-	}
+    public static Topic getTopic() {
+	Topic topic = new Topic();
 
-	public static List<Topic> getTopics() {
-		List<Topic> topicsInBase = new ArrayList<Topic>();
+	topic.setId(1);
+	topic.setTitre("titre topic");
+	topic.setCategorie(SiteInBase.getCatergorie());
+	topic.setCreateur(AlbumInBase.getUtilisateurToutDroit());
+	topic.setOuvert(true);
+	return topic;
+    }
 
-		topicsInBase.add(SiteInBase.getTopic());
+    public static List<Topic> getTopics() {
+	List<Topic> topicsInBase = new ArrayList<Topic>();
 
-		return topicsInBase;
-	}
+	topicsInBase.add(SiteInBase.getTopic());
 
-	public static Message getMessage() {
-		Message message = new Message();
-		message.setId(1);
-		message.setContenu("contenu ajouter");
-		message.setAuteur(AlbumInBase.getUtilisateurToutDroit());
-		message.setDateModification(0);
-		message.setDatePostage(123456789);
-		message.setTopic(SiteInBase.getTopic());
+	return topicsInBase;
+    }
 
-		return message;
-	}
+    public static Message getMessage() {
+	Message message = new Message();
+	message.setId(1);
+	message.setContenu("contenu ajouter");
+	message.setAuteur(AlbumInBase.getUtilisateurToutDroit());
+	message.setDateModification(0);
+	message.setDatePostage(123456789);
+	message.setTopic(SiteInBase.getTopic());
 
-	public static User getUtilisateurToutDroit() {
-		User user = new User();
-		user.setLogin("krack");
+	return message;
+    }
 
-		Set<Role> roles = new HashSet<Role>();
+    public static User getUtilisateurToutDroit() {
+	User user = new User();
+	user.setLogin("krack");
 
-		Role roleAuth = new Role();
-		roleAuth.setRole(RoleEnum.ROLE_AUTHENTIFIER.toString());
-		roles.add(roleAuth);
+	Set<Role> roles = new HashSet<Role>();
 
-		Role roleForum = new Role();
-		roleForum.setRole(RoleEnum.ROLE_ADMINISTRATEUR_FORUM.toString());
-		roles.add(roleForum);
+	Role roleAuth = new Role();
+	roleAuth.setRole(RoleEnum.ROLE_AUTHENTIFIER.toString());
+	roles.add(roleAuth);
 
-		user.setRoles(roles);
-		return user;
-	}
+	Role roleForum = new Role();
+	roleForum.setRole(RoleEnum.ROLE_ADMINISTRATEUR_FORUM.toString());
+	roles.add(roleForum);
 
-	public static User getUtilisateurSansDroit() {
-		User user = new User();
-		user.setLogin("loulou");
+	user.setRoles(roles);
+	return user;
+    }
 
-		return user;
-	}
+    public static User getUtilisateurSansDroit() {
+	User user = new User();
+	user.setLogin("loulou");
 
-	public static List<Message> getMessages() {
-		List<Message> topicsInBase = new ArrayList<Message>();
+	return user;
+    }
 
-		topicsInBase.add(SiteInBase.getMessage());
+    public static List<Message> getMessages() {
+	List<Message> topicsInBase = new ArrayList<Message>();
 
-		return topicsInBase;
-	}
+	topicsInBase.add(SiteInBase.getMessage());
 
-	public static Page getPage() {
-		Page page = new Page();
-		page.setId(1);
-		page.setContenu("contenu de test");
-		page.setLien("lien de test");
-		page.setVisible(true);
-		page.setOrdre(1);
-		return page;
-	}
+	return topicsInBase;
+    }
+
+    public static Page getPage() {
+	Page page = new Page();
+	page.setId(1);
+	page.setContent("contenu de test");
+	page.setTitle("title");
+	page.setDescription("description");
+	page.setVisible(true);
+	page.setOrdre(1);
+	return page;
+    }
 
 }

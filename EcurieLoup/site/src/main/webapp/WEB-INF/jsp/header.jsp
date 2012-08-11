@@ -11,10 +11,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<title>
+			<fmt:message key="general.meta.title">
+				<fmt:param>${headPageTitle}</fmt:param>
+			</fmt:message>
+		</title>
+		<meta name="description" content="${headPageDescription}" />
+		<meta name="keywords" content="écuries du loup, centre équestre, Mayenne, 53" />
+			
 		
-		
-		<title><fmt:message key="general.meta.title"/></title>
+		<meta http-equiv="content-language" content="fr" />
+		<meta http-equiv="content-Type" content="text/html; charset=ISO-8859-1" />
 		
 		<!-- facebook tag -->
 		<c:if test="${mediaId != null && mediaId != 0 }">

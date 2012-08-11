@@ -79,7 +79,7 @@ prog returns [String retour =""] :
       DEBUT_GRAS  p =prog FIN_GRAS
         {
        
-          $retour = "<span class=\"edlCode_gras\">"+p+"</span>";
+          $retour = "<strong>"+p+"</strong>";
         }
       |
       

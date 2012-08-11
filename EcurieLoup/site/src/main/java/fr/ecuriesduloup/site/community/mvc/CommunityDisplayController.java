@@ -15,41 +15,42 @@ import service.UtilisateurManager;
 import donnees.User;
 
 @Controller
-public class CommunityDisplayController{
-	@Autowired
-	@Qualifier("utilisateurManager")
-	private UtilisateurManager utilisateurManager;
-	
-	public void setUtilisateurManager(UtilisateurManager utilisateurManager) {
-		this.utilisateurManager = utilisateurManager;
-	}
+public class CommunityDisplayController {
+    @Autowired
+    @Qualifier("utilisateurManager")
+    private UtilisateurManager utilisateurManager;
 
-	@RequestMapping("/community/list.do")
-	public ModelAndView showList() throws Exception {
-		
+    public void setUtilisateurManager(UtilisateurManager utilisateurManager) {
+	this.utilisateurManager = utilisateurManager;
+    }
 
+    @RequestMapping("/community/list.do")
+    public ModelAndView showList() throws Exception {
+
+	Map<String, Object> model = new HashMap<String, Object>();
+
+	List<User> communityUsers = this.utilisateurManager.getAll();
+
+	model.put("listCommunityUsers", communityUsers);
+	model.put("headPageTitle", "Les utilisateurs du site");
+	model.put("headPageDescription", "La liste des personnes inscrits sur ce site.");
+
+	return new ModelAndView("community/list", model);
+    }
+
+    @RequestMapping("/community/card.do")
+    public ModelAndView handleRequest(@RequestParam("login") String login) throws Exception {
+	if (login != null) {
+	    User userOfCard = this.utilisateurManager.getById(login);
+	    if (userOfCard != null) {
 		Map<String, Object> model = new HashMap<String, Object>();
-		
-		List<User> communityUsers = this.utilisateurManager.getAll();
-		
-		model.put("listCommunityUsers", communityUsers);
-		
-		
-		return new ModelAndView("community/list", model);
-	}
+		model.put("userOfCard", userOfCard);
+		model.put("headPageTitle", userOfCard.getLogin() + " - " + userOfCard.getPrenom() + " " + userOfCard.getNom());
 
-	
-	@RequestMapping("/community/card.do")
-	public ModelAndView handleRequest(@RequestParam("login")String login) throws Exception {
-		if(login !=null){
-			User userOfCard = this.utilisateurManager.getById(login);
-			if(userOfCard!=null){
-				Map<String, Object> model = new HashMap<String, Object>();
-				model.put("userOfCard", userOfCard);
-				return new ModelAndView("community/card", model);
-			}
-			return new ModelAndView("redirect:list.do");
-		}
-		return new ModelAndView("redirect:list.do");
+		return new ModelAndView("community/card", model);
+	    }
+	    return new ModelAndView("redirect:list.do");
 	}
+	return new ModelAndView("redirect:list.do");
+    }
 }

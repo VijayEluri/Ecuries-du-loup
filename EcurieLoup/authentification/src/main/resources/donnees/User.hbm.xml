@@ -31,8 +31,6 @@
 			<key column="login" />
 			<many-to-many class="donnees.Role" column="role" />
 		</set>
-
-		<property name="site" column="site" />
 		
 		<property name="birthDate" column="birth_date" />
 		

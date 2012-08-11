@@ -10,8 +10,9 @@
 		<id name="id" column="id">
 			<generator class="increment" />
 		</id>
-		<property name="contenu" column="contenu" />
-		<property name="lien" column="lien" />
+		<property name="description" column="description" />
+		<property name="content" column="contenu" />
+		<property name="title" column="lien" />
 		<property name="ordre" column="ordre" />
 		<property name="visible" column="visible" />
 	</class>

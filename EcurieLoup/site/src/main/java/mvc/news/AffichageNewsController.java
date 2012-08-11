@@ -18,63 +18,63 @@ import service.news.NouvelleManager;
 import donnees.news.Nouvelle;
 
 @Controller
-public class AffichageNewsController{
-	@Autowired
-	@Qualifier("nouvelleManager")
-	private NouvelleManager nouvelleManager;
-	
-	@Autowired
-	@Qualifier("vracManager")
-	private VracManager vracManager;
-	
-	public void setVracManager(VracManager vracManager) {
-		this.vracManager = vracManager;
-	}
-	public void setNouvelleManager(NouvelleManager nouvelleManager) {
-		this.nouvelleManager = nouvelleManager;
-	}
+public class AffichageNewsController {
+    @Autowired
+    @Qualifier("nouvelleManager")
+    private NouvelleManager nouvelleManager;
 
-	@RequestMapping(value = {"/index.do", "/news/affichageNews.do"})
-	public ModelAndView handleRequest(HttpServletRequest request){
+    @Autowired
+    @Qualifier("vracManager")
+    private VracManager vracManager;
 
-		Map<String, Object> renvoyer = new HashMap<String, Object>();
+    public void setVracManager(VracManager vracManager) {
+	this.vracManager = vracManager;
+    }
 
-		List<Nouvelle> listeNews = this.nouvelleManager.recupererDernieresNouvelles(5);
+    public void setNouvelleManager(NouvelleManager nouvelleManager) {
+	this.nouvelleManager = nouvelleManager;
+    }
 
-		renvoyer.put("listeNews", listeNews);
+    @RequestMapping(value = { "/index.do", "/news/affichageNews.do" })
+    public ModelAndView handleRequest(HttpServletRequest request) {
 
-		String edito = this.vracManager.getFormatedVrac("edito").getContenu();
-		
-		renvoyer.put("edito", edito);
+	Map<String, Object> model = new HashMap<String, Object>();
 
-		return new ModelAndView("news/visualisationNews", renvoyer);
-	}
-	
-	@RequestMapping(value = "/news/show.do", params = "newsId")
-	public ModelAndView showNews(HttpServletRequest request, @RequestParam("newsId") long newsId){
+	List<Nouvelle> listeNews = this.nouvelleManager.recupererDernieresNouvelles(5);
 
-		Map<String, Object> renvoyer = new HashMap<String, Object>();
-		
-		Nouvelle news = this.nouvelleManager.getFormatedNews(newsId);
+	model.put("listeNews", listeNews);
 
-		renvoyer.put("news", news);
+	String edito = this.vracManager.getFormatedVrac("edito").getContenu();
 
-		
+	model.put("edito", edito);
+	model.put("headPageTitle", "L'équitation");
+	model.put("headPageDescription",
+		"Le site du centre équestre des écuries du loup, situé à Saint loup du Dorat en Mayenne (53), vous accueille pour de l'initiation, du perfectionnement, de la compétition à cheval ou à poneys.");
 
-		return new ModelAndView("news/showSingleNew", renvoyer);
-	}
-	
-	
-	@RequestMapping(value = {"/index.do", "/news/affichageNews.do"}, params= "deleteNouvelle")
-	public ModelAndView handleRequestDelete(@RequestParam("deleteNouvelle") int idNouvelle){
-		Nouvelle nouvelle = this.nouvelleManager.getById(idNouvelle);
-		this.nouvelleManager.delete(nouvelle);
-		
-		return new ModelAndView("redirect:/index.do");
-	}
-			
+	return new ModelAndView("news/visualisationNews", model);
+    }
 
-	
+    @RequestMapping(value = "/news/show.do", params = "newsId")
+    public ModelAndView showSigleNews(HttpServletRequest request, @RequestParam("newsId") long newsId) {
 
-	
+	Map<String, Object> model = new HashMap<String, Object>();
+
+	Nouvelle news = this.nouvelleManager.getFormatedNews(newsId);
+
+	model.put("news", news);
+
+	model.put("headPageTitle", news.getTitre());
+
+	return new ModelAndView("news/showSingleNew", model);
+    }
+
+    @RequestMapping(value = { "/index.do", "/news/affichageNews.do" }, params = "deleteNouvelle")
+    public ModelAndView handleRequestDelete(@RequestParam("deleteNouvelle") int idNouvelle) {
+	// TODO : make this javascript + rest
+	Nouvelle nouvelle = this.nouvelleManager.getById(idNouvelle);
+	this.nouvelleManager.delete(nouvelle);
+
+	return new ModelAndView("redirect:/index.do");
+    }
+
 }

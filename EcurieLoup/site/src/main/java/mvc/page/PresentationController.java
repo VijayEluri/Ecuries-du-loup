@@ -3,8 +3,6 @@ package mvc.page;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -16,36 +14,40 @@ import service.page.PageManager;
 import donnees.page.Page;
 import edlcode.EdlCode;
 import edlcode.EdlCodeEncodageException;
+
 @Controller
-public class PresentationController{
-	@Autowired
-	@Qualifier("pageManager")
-	private PageManager pageManager;
-	@Autowired
-	private EdlCode edlCode;
+public class PresentationController {
+    @Autowired
+    @Qualifier("pageManager")
+    private PageManager pageManager;
+    @Autowired
+    private EdlCode edlCode;
 
-	public void setEdlCode(EdlCode edlCode) {
-		this.edlCode = edlCode;
+    public void setEdlCode(EdlCode edlCode) {
+	this.edlCode = edlCode;
+    }
+
+    public void setPageManager(PageManager pageManager) {
+	this.pageManager = pageManager;
+    }
+
+    @RequestMapping("/presentation.do")
+    public ModelAndView showPage(@RequestParam("page") int pageId) {
+	Page page = this.pageManager.getById(pageId);
+
+	Map<String, Object> model = new HashMap<String, Object>();
+
+	String content = page.getContent();
+	try {
+	    content = this.edlCode.parse(content);
+	} catch (EdlCodeEncodageException e) {
+	    e.printStackTrace();
 	}
+	page.setContent(content);
+	model.put("headPageTitle", page.getTitle());
+	model.put("headPageDescription", page.getDescription());
+	model.put("page", page);
 
-	public void setPageManager(PageManager pageManager) {
-		this.pageManager = pageManager;
-	}
-	
-	@RequestMapping("/presentation.do")
-	public ModelAndView showPage(@RequestParam("page") int idPage, HttpServletRequest request){
-		Page pageRecuperer = this.pageManager.getById(idPage);
-
-		Map<String, Object> renvoyer = new HashMap<String, Object>();
-
-		String contenu = pageRecuperer.getContenu();
-		try {
-			contenu = this.edlCode.parse(contenu);
-		} catch (EdlCodeEncodageException e) {
-			e.printStackTrace();
-		}
-		renvoyer.put("contenuPage", contenu);
-
-		return new ModelAndView("/page/presentation", renvoyer);
-	}
+	return new ModelAndView("/page/presentation", model);
+    }
 }

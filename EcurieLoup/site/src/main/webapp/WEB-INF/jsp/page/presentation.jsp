@@ -11,7 +11,10 @@
 
 <!-- on place le corps du site (partie centrale) -->
 <div id="corps">
-	<div class="page">${ contenuPage }</div>
+	<div class="page">
+		<h1>${ page.title }</h1>
+		${ page.content }
+	</div>
 </div>
 
 

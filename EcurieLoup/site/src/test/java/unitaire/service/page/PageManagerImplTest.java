@@ -15,71 +15,69 @@ import dao.page.PageDAO;
 import donnees.page.Page;
 import fr.ecurie_du_loup.generique_util.service.test.DataBaseServiceWithLongIdAndOrdonnerUnitaryTest;
 
-public class PageManagerImplTest extends
-		DataBaseServiceWithLongIdAndOrdonnerUnitaryTest<Page> {
+public class PageManagerImplTest extends DataBaseServiceWithLongIdAndOrdonnerUnitaryTest<Page> {
 
-	@Before
-	public void setUp() throws Exception {
-		this.dao = EasyMock.createMock(PageDAO.class);
-		this.service = new PageManagerImpl();
-		this.service.setDao(this.dao);
-	}
+    @Before
+    public void setUp() throws Exception {
+	this.dao = EasyMock.createMock(PageDAO.class);
+	this.service = new PageManagerImpl();
+	this.service.setDao(this.dao);
+    }
 
-	@After
-	public void tearDown() throws Exception {
-	}
+    @After
+    public void tearDown() throws Exception {
+    }
 
-	@Override
-	protected Page getNewObject() {
-		Page page = new Page();
-		int id = (int) (Math.random() * 10000);
-		page.setId(id);
-		page.setContenu("Contenu !!");
-		page.setLien("lien :p");
+    @Override
+    protected Page getNewObject() {
+	Page page = new Page();
+	int id = (int) (Math.random() * 10000);
+	page.setId(id);
+	page.setContent("Contenu !!");
+	page.setTitle("title");
+	page.setDescription("description");
+	page.setVisible(true);
+
+	return page;
+    }
+
+    @Override
+    protected List<Page> getListObjectOrdonner() {
+	List<Page> listPages = super.getListObjectOrdonner();
+	for (Page page : listPages) {
+	    int visible = (int) (Math.random() * 2);
+	    if (visible == 0) {
+		page.setVisible(false);
+	    } else {
+
 		page.setVisible(true);
+	    }
+	}
+	return listPages;
+    }
 
-		return page;
+    @Test
+    public void testRecuperationPagesVisible() throws Throwable {
+
+	List<Page> pages = this.getListObjectOrdonner();
+	List<Page> pagesVisible = new ArrayList<Page>();
+
+	for (Page page : pages) {
+	    if (page.isVisible()) {
+		pagesVisible.add(page);
+	    }
 	}
 
-	@Override
-	protected List<Page> getListObjectOrdonner() {
-		List<Page> listPages = super.getListObjectOrdonner();
-		for (Page page : listPages) {
-			int visible = (int) (Math.random() * 2);
-			if (visible == 0) {
-				page.setVisible(false);
-			} else {
+	EasyMock.expect(((PageDAO) this.dao).findVisiblePages()).andReturn(pagesVisible);
+	EasyMock.replay(this.dao);
 
-				page.setVisible(true);
-			}
-		}
-		return listPages;
+	List<Page> pagesRecuperer = ((PageManagerImpl) this.service).recuperePagesVisibles();
+	assertTrue(pagesVisible.containsAll(pagesRecuperer));
+	assertTrue(pagesRecuperer.containsAll(pagesVisible));
+	for (Page page : pagesRecuperer) {
+
+	    assertTrue(page.isVisible());
 	}
-
-	@Test
-	public void testRecuperationPagesVisible() throws Throwable {
-
-		List<Page> pages = this.getListObjectOrdonner();
-		List<Page> pagesVisible = new ArrayList<Page>();
-
-		for (Page page : pages) {
-			if (page.isVisible()) {
-				pagesVisible.add(page);
-			}
-		}
-
-		EasyMock.expect(((PageDAO) this.dao).findVisiblePages()).andReturn(
-				pagesVisible);
-		EasyMock.replay(this.dao);
-
-		List<Page> pagesRecuperer = ((PageManagerImpl) this.service)
-				.recuperePagesVisibles();
-		assertTrue(pagesVisible.containsAll(pagesRecuperer));
-		assertTrue(pagesRecuperer.containsAll(pagesVisible));
-		for (Page page : pagesRecuperer) {
-
-			assertTrue(page.isVisible());
-		}
-		EasyMock.verify(this.dao);
-	}
+	EasyMock.verify(this.dao);
+    }
 }

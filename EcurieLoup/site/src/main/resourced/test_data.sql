@@ -68,8 +68,8 @@ INSERT INTO `nouvelle` (`id`, `titre`, `contenu`, `auteur`, `date_creation`, `da
 -- Contenu de la table `page`
 --
 
-INSERT INTO `page` (`id`, `contenu`, `lien`, `ordre`, `visible`) VALUES
-(1, 'contenu de test', 'lien de test', 1, 1);
+INSERT INTO `page` (`id`, `contenu`, `lien`, `description`, `ordre`, `visible`) VALUES
+(1, 'contenu de test', 'title', 'description', 1, 1);
 
 
 
