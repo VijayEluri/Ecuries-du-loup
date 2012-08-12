@@ -47,7 +47,7 @@
 						</td>
 						<td>
 							<a href="${ctx}/page/formulairePages.do?page=${page.id}">
-								${page.lien}
+								${page.title}
 							</a>
 						</td>
 			

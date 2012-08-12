@@ -49,11 +49,5 @@
 	
 	
 	
-	<bean id="enregistrementTraceRequeteDAO" class="enregistrement_trace_requete.dao.EnregistrementTraceRequeteDAOHibernate">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean>
-	
 	
 </beans>

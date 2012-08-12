@@ -1,5 +1,7 @@
 @CHARSET "ISO-8859-1";
-
+.visualisationNews h1{
+	font-size: x-large;
+}
 .visualisationNews .edito {
 	border: black 2px groove;
 	width: 90%;

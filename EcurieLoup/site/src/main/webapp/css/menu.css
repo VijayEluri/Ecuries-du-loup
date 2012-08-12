@@ -51,7 +51,7 @@
 	padding-left: 10%;
 }
 
-.element_menu li a:hover {
+.element_menu li:hover a {
 	color: white;
 	padding-left: 5%;
 }

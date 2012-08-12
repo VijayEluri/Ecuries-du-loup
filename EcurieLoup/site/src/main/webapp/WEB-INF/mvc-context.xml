@@ -27,7 +27,6 @@
 				<!--<ref bean="nouveauMessageForumInterceptor" />
 				<ref bean="nouvellePhotoInterceptor" />
 				<ref bean="memoInterceptor" />-->
-				<ref bean="lienInterceptor" />
 				<ref bean="pathServeurInterceptor" />
 				<!-- <ref bean="enregisteurInformationInterceptor" /> -->
 
@@ -41,39 +40,12 @@
 		</property>
 	</bean>
 
-	<bean id="nouveauMessageForumInterceptor" class="mvc.NouveauMessageForumInterceptor">
-		<property name="utilisateurManager">
-			<ref bean="utilisateurManager" />
-		</property>
-		<property name="forumManager">
-			<ref bean="forumManager" />
-		</property>
-	</bean>
-
-	<bean id="nouvellePhotoInterceptor" class="mvc.NouvellePhotoInterceptor">
-		<property name="utilisateurManager">
-			<ref bean="utilisateurManager" />
-		</property>
-		<property name="albumPhotoManager">
-			<ref bean="mediaManager" />
-		</property>
-	</bean>
-	<bean id="lienInterceptor" class="mvc.LienInterceptor">
-		<property name="utilisateurManager">
-			<ref bean="utilisateurManager" />
-		</property>
-	</bean>
+	
+	
 	<bean id="pathServeurInterceptor" class="mvc.PathServeurInterceptor">
 
 	</bean>
 
-	<bean id="enregisteurInformationInterceptor" class="mvc.EnregistrementInformationInterceptor">
-		<property name="enregistrementManager">
-			<ref bean="enregistrementTraceRequeteManager" />
-		</property>
-	</bean>
-	
-	
 	<bean id="photoEditor" class="mvc.photo.commentaire.PhotoEditor">
 		<property name="albumPhotoManager">
 			<ref bean="mediaManager" />

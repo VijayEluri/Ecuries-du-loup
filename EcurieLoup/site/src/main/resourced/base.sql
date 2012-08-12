@@ -458,3 +458,5 @@ INSERT INTO `role` (`role`, `image`, `description`) VALUES
 
 ALTER TABLE `photo_photo` ADD `typeAdding` VARCHAR( 50 ) NOT NULL;
 ALTER TABLE `photo_photo` ADD `shotDate` DATETIME NULL ;
+
+ALTER TABLE `page` ADD `description` TEXT NULL ;

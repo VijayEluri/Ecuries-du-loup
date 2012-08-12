@@ -76,16 +76,6 @@
 		</spring:bind>
 		<br />
 		<br />
-		<spring:bind path="profil.site">
-			<fmt:message key="profil.form.site"/>  
-			<input type="text" name="site" value="<c:out value="${status.value}"/>" size="50" maxlength="255" />
-			&#160;
-			<span class="error">
-				<c:out value="${status.errorMessage}" />
-			</span>
-		</spring:bind>
-		<br />
-		<br />
 		<spring:bind path="profil.birthDate">
 			<fmt:message key="profil.form.birthDate"/>  
 			

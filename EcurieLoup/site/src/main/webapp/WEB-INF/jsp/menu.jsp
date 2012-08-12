@@ -17,7 +17,7 @@
 		<ul>
 			<li><a href="${ctx}/index.do"><fmt:message key="menu.modulaire.welcome"/></a></li>
 			<c:forEach var="page" items="${listePagesPresentation}">
-				<li><a href="${ctx}/presentation.do?page=${page.id}">${page.lien}</a></li>
+				<li><a href="${ctx}/presentation.do?page=${page.id}">${page.title}</a></li>
 			</c:forEach>
 			<li><a href="${ctx}/ficheChevaux/categoryslist.do"><fmt:message key="menu.membre.fiche_chevaux"/></a></li>
 		</ul>
@@ -88,17 +88,6 @@
 				<li><a href="${ctx}/inscription.do"><fmt:message key="menu.connection.register_you"/></a></li>
 			</security:authorize>
 			
-		</ul>
-	</div>
-
-
-	
-	<div class="element_menu">
-		<h3><fmt:message key="menu.lien.title"/></h3>
-		<ul>
-			<c:forEach var="lien" items="${listeLien}">
-				<li><a href="${lien}" target="_blank">${lien}</a></li>
-			</c:forEach>
 		</ul>
 	</div>
 </div>

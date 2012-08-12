@@ -31,21 +31,33 @@
 			</spring:bind>
 	
 			<form method="post">
-				<spring:bind path="page.lien">
+				<spring:bind path="page.title">
 					<fmt:message key="page.form.lien"/>
-					<input name="lien" type="text" value="<c:out value="${page.lien}" />" />
+					<input name="title" type="text" value="<c:out value="${page.title}" />" />
 					&#160;
 					<span class="error">
 						<c:out value="${status.errorMessage}" />
 					</span>
 				</spring:bind> 
 				<br />
+				
+				<spring:bind path="page.description">
+					<fmt:message key="page.form.description"/>
+					<textarea name="description" cols="30" rows="3"><c:out value="${page.description}" /></textarea>
+					&#160;
+					<span class="error">
+						<c:out value="${status.errorMessage}" />
+					</span>
+				</spring:bind> 
+				
+				<br />
+				<br />
 	
-				<spring:bind path="page.contenu">
+				<spring:bind path="page.content">
 					<fmt:message key="page.form.contenu"/><br />
 	
-					<c:set var="nameContenuEDLCode" value="contenu" />
-					<c:set var="valeurContenuEDLCode" value="${page.contenu}" />
+					<c:set var="nameContenuEDLCode" value="content" />
+					<c:set var="valeurContenuEDLCode" value="${page.content}" />
 	
 					<%@ include file="../contenuEDLcode.jsp"%>
 				</spring:bind>

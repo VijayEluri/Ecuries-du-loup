@@ -16,81 +16,80 @@ import service.page.PageManager;
 import donnees.page.Page;
 
 @org.springframework.stereotype.Controller
-public class AffichageAdministrationPageController{
-	@Autowired
-	@Qualifier("pageManager")
-	private PageManager pageManager;
+public class AffichageAdministrationPageController {
+    @Autowired
+    @Qualifier("pageManager")
+    private PageManager pageManager;
 
-	public void setPageManager(PageManager pageManager) {
-		this.pageManager = pageManager;
+    public void setPageManager(PageManager pageManager) {
+	this.pageManager = pageManager;
+    }
+
+    @RequestMapping("/page/administrationPages.do")
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	Map<String, Object> model = new HashMap<String, Object>();
+	try {
+	    this.gestionPageVisible(request);
+	    this.gestionOrdrePage(request);
+	    this.gestionSuppressionPage(request);
+
+	    List<Page> pagesList = this.pageManager.getAll();
+
+	    model.put("listePages", pagesList);
+	    model.put("headPageTitle", "administration des pages");
+
+	    return new ModelAndView("page/affichageAdministrationPage", model);
+	} catch (Exception e) {
+	    e.printStackTrace();
+	    return null;
 	}
 
-	@RequestMapping("/page/administrationPages.do")
-	public ModelAndView handleRequest(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		Map<String, Object> renvoyer = new HashMap<String, Object>();
-		try {
-			this.gestionPageVisible(request);
-			this.gestionOrdrePage(request);
-			this.gestionSuppressionPage(request);
+    }
 
-			List<Page> listePages = this.pageManager.getAll();
+    private void gestionPageVisible(HttpServletRequest request) {
+	String visible = request.getParameter("visible");
+	if (visible != null) {
+	    int numPage = Integer.parseInt(visible);
 
-			renvoyer.put("listePages", listePages);
+	    Page page = this.pageManager.getById(numPage);
 
-			return new ModelAndView("page/affichageAdministrationPage",
-					renvoyer);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+	    page.setVisible(!page.isVisible());
+
+	    this.pageManager.update(page);
 
 	}
+    }
 
-	private void gestionPageVisible(HttpServletRequest request) {
-		String visible = request.getParameter("visible");
-		if (visible != null) {
-			int numPage = Integer.parseInt(visible);
+    private void gestionOrdrePage(HttpServletRequest request) {
 
-			Page page = this.pageManager.getById(numPage);
+	String up = request.getParameter("up");
+	String down = request.getParameter("down");
+	if (up != null) {
+	    int numPage = Integer.parseInt(up);
 
-			page.setVisible(!page.isVisible());
+	    Page page = this.pageManager.getById(numPage);
 
-			this.pageManager.update(page);
+	    this.pageManager.changeOrdre(page, page.getOrdre() - 1);
 
-		}
+	} else if (down != null) {
+	    int numPage = Integer.parseInt(down);
+
+	    Page page = this.pageManager.getById(numPage);
+
+	    this.pageManager.changeOrdre(page, page.getOrdre() + 1);
 	}
 
-	private void gestionOrdrePage(HttpServletRequest request) {
+    }
 
-		String up = request.getParameter("up");
-		String down = request.getParameter("down");
-		if (up != null) {
-			int numPage = Integer.parseInt(up);
+    private void gestionSuppressionPage(HttpServletRequest request) {
+	String delete = request.getParameter("delete");
+	if (delete != null) {
+	    int numPage = Integer.parseInt(delete);
 
-			Page page = this.pageManager.getById(numPage);
+	    Page page = this.pageManager.getById(numPage);
 
-			this.pageManager.changeOrdre(page, page.getOrdre() - 1);
-
-		} else if (down != null) {
-			int numPage = Integer.parseInt(down);
-
-			Page page = this.pageManager.getById(numPage);
-
-			this.pageManager.changeOrdre(page, page.getOrdre() + 1);
-		}
+	    this.pageManager.delete(page);
 
 	}
-
-	private void gestionSuppressionPage(HttpServletRequest request) {
-		String delete = request.getParameter("delete");
-		if (delete != null) {
-			int numPage = Integer.parseInt(delete);
-
-			Page page = this.pageManager.getById(numPage);
-
-			this.pageManager.delete(page);
-
-		}
-	}
+    }
 }

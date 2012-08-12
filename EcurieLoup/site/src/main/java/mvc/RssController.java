@@ -17,25 +17,24 @@ import donnees.news.Nouvelle;
 @Controller
 public class RssController {
 
-	@Autowired
-	@Qualifier("nouvelleManager")
-	private NouvelleManager nouvelleManager;
-	
-	public void setNouvelleManager(NouvelleManager nouvelleManager) {
-		this.nouvelleManager = nouvelleManager;
-	}
-	
-	@RequestMapping(value="/rssfeed.do", method = RequestMethod.GET)
-	public ModelAndView getFeedInRss(HttpServletRequest request){
+    @Autowired
+    @Qualifier("nouvelleManager")
+    private NouvelleManager nouvelleManager;
 
-		List<Nouvelle> items = this.nouvelleManager.recupererDernieresNouvelles(5);
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("rssViewer");
-		mav.addObject("feedContent", items);
-		
-		return mav;
-	}
-	
-	
+    public void setNouvelleManager(NouvelleManager nouvelleManager) {
+	this.nouvelleManager = nouvelleManager;
+    }
+
+    @RequestMapping(value = "/rssfeed.do", method = RequestMethod.GET)
+    public ModelAndView getFeedInRss(HttpServletRequest request) {
+
+	List<Nouvelle> items = this.nouvelleManager.recupererDernieresNouvelles(5);
+
+	ModelAndView mav = new ModelAndView();
+	mav.setViewName("rssViewer");
+	mav.addObject("feedContent", items);
+
+	return mav;
+    }
+
 }

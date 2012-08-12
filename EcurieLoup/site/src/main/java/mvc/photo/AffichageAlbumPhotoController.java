@@ -36,6 +36,9 @@ public class AffichageAlbumPhotoController {
 	if (request.getParameter("message") != null) {
 	    model.put("message", request.getParameter("message"));
 	}
+	model.put("headPageTitle", "Liste des albums photos");
+	model.put("headPageDescription", "Les albums photos des cavaliers et chevaux des écuries du loup.");
+
 	return new ModelAndView("photo/affichageTousLesAbums", model);
     }
 
@@ -53,6 +56,8 @@ public class AffichageAlbumPhotoController {
 	if (request.getParameter("message") != null) {
 	    model.put("message", request.getParameter("message"));
 	}
+	model.put("headPageTitle", album.getTitre());
+
 	return new ModelAndView("photo/affichageAbum", model);
     }
 
@@ -69,6 +74,9 @@ public class AffichageAlbumPhotoController {
 	model.put("optionsUrlParameter", "&options=notread");
 
 	model.put("listePhoto", listePhoto);
+
+	model.put("headPageTitle", "Photos non vues");
+	model.put("headPageDescription", "La liste des photos que vous n'avez pas encore vu.");
 
 	return new ModelAndView("photo/affichageAbum", model);
     }

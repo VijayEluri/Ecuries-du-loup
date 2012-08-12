@@ -15,7 +15,7 @@
 
 <div id="corps">
 	<div class="visualisationNews">
-		<h1><fmt:message key="new.view.title"/></h1>
+		<h1><fmt:message key="accueil.title"/></h1>
 		
 		
 		<div class="edito">

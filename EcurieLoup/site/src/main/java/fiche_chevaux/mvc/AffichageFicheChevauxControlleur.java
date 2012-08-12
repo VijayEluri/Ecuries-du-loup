@@ -34,8 +34,8 @@ public class AffichageFicheChevauxControlleur {
     public ModelAndView handleRequest(@RequestParam("id") long id) {
 	Fiche fiche = this.ficheChevauxManager.recupererFiche(id);
 
-	if("".equals(fiche.getDescription())){
-	   fiche.setDescription(null);
+	if ("".equals(fiche.getDescription())) {
+	    fiche.setDescription(null);
 	}
 	while (fiche.getSurnoms().remove(null)) {
 	}
@@ -47,7 +47,7 @@ public class AffichageFicheChevauxControlleur {
 	    Calendar birthDay = Calendar.getInstance();
 	    birthDay.clear();
 	    birthDay.setTimeInMillis(fiche.getDateNaissance());
-	    
+
 	    bd = birthDay.getTime();
 
 	} else {
@@ -64,6 +64,9 @@ public class AffichageFicheChevauxControlleur {
 	model.put("monthhorseAge", p.get(DurationFieldType.months()));
 	model.put("dayhorseAge", p.get(DurationFieldType.days()));
 
+	model.put("headPageTitle", fiche.getNom());
+	model.put("headPageDescription", fiche.getDescription());
+
 	return new ModelAndView("ficheChevaux/affichageFicheCheval", model);
     }
 
@@ -71,23 +74,29 @@ public class AffichageFicheChevauxControlleur {
     public ModelAndView showFicheList(@RequestParam("id") long id) {
 	Category category = this.ficheChevauxManager.getCategory(id);
 	List<Fiche> fiches = this.ficheChevauxManager.getHorseCardCategory(id);
-	Map<String, Object> renvoyer = new HashMap<String, Object>();
-	renvoyer.put("category", category);
-	renvoyer.put("fichesChevaux", fiches);
-	return new ModelAndView("ficheChevaux/affichageListeFicheChevaux", renvoyer);
+	Map<String, Object> model = new HashMap<String, Object>();
+	model.put("category", category);
+	model.put("fichesChevaux", fiches);
+
+	model.put("headPageTitle", category.getName());
+
+	return new ModelAndView("ficheChevaux/affichageListeFicheChevaux", model);
     }
 
     @RequestMapping("/ficheChevaux/categoryslist.do")
     public ModelAndView showCategoryList() {
 	List<Category> categorys = this.ficheChevauxManager.getAllCategorys();
-	Map<String, Object> renvoyer = new HashMap<String, Object>();
+	Map<String, Object> model = new HashMap<String, Object>();
 
-	renvoyer.put("categorys", categorys);
-	return new ModelAndView("ficheChevaux/showHorseCardCategorys", renvoyer);
+	model.put("categorys", categorys);
+
+	model.put("headPageTitle", "Notre cavalerie éclectique");
+	return new ModelAndView("ficheChevaux/showHorseCardCategorys", model);
     }
 
     @RequestMapping(value = "/ficheChevaux/affichage.do", params = "suppression")
     public String deleteFiche(@RequestParam("suppression") long idFiche) {
+	// TODO : make this with javascript and REST
 	Fiche fiche = this.ficheChevauxManager.recupererFiche(idFiche);
 	this.ficheChevauxManager.supprimerFicheChevaux(fiche);
 	return "redirect:affichage.do";

@@ -53,36 +53,6 @@
 			</props>
 		</property>
 	</bean>
-
-
-	
-	
-	
-	
-	
-	<bean id="enregistrementTraceRequeteManager" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-		<property name="transactionManager">
-			<ref bean="transactionManager" />
-		</property>
-		<property name="target">
-			<ref bean="enregistrementTraceRequeteManagerTarget" />
-		</property>
-		<property name="transactionAttributes">
-			<props>
-				<prop key="*">PROPAGATION_REQUIRED</prop>
-			</props>
-		</property>
-	</bean>
-	
-	<bean id="enregistrementTraceRequeteManagerTarget" class="enregistrement_trace_requete.services.EnregistrementManagerImpl">
-		<property name="enregistrementTraceRequeteDAO">
-			<ref bean="enregistrementTraceRequeteDAO" />
-		</property>
-		
-	</bean>
-	
-	
-	
 	
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">

@@ -44,7 +44,7 @@ public class FormulairePageController {
 		int idPage = Integer.parseInt(param);
 		Page page = this.pageManager.getById(idPage);
 
-		page.setContenu(this.gestionCaractereSpeciaux(page.getContenu()));
+		page.setContent(this.gestionCaractereSpeciaux(page.getContent()));
 		return page;
 	}
 
