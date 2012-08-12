@@ -28,6 +28,10 @@
 		<!-- SQL dialect -->
 		<property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
 		<property name="hibernate.show_sql">false</property>
+		<property name="show_sql">false</property>
+		<property name="format_sql">false</property>
+		<property name="use_sql_comments">false</property>
+		
 		<!--
 			<property name="hibernate.use_outer_join">true</property> <property
 			name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
@@ -55,12 +59,6 @@
 
 		<mapping resource="donnees/smiley/CategorieSmiley.hbm.xml" />
 		<mapping resource="donnees/smiley/Smiley.hbm.xml" />
-
-	
-		<mapping
-			resource="enregistrement_trace_requete/donnees/EnregistrementTraceRequete.hbm.xml" />
-		<mapping
-			resource="enregistrement_trace_requete/donnees/ParametreEnregistrementTraceRequete.hbm.xml" />
 
 		<mapping resource="fiche_chevaux/donnees/Fiche.hbm.xml" />
 		<mapping resource="fiche_chevaux/donnees/Robe.hbm.xml" />

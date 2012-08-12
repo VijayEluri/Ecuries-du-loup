@@ -39,8 +39,6 @@
 			<ref bean="pageManager" />
 		</property>
 	</bean>
-
-	
 	
 	<bean id="pathServeurInterceptor" class="mvc.PathServeurInterceptor">
 
