@@ -46,8 +46,7 @@
 }
 
 .element_menu li a {
-	display: inline;
-	width: 100%;
+	display: block;
 	padding-left: 10%;
 }
 
