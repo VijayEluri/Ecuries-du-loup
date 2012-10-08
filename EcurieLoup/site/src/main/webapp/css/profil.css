@@ -20,3 +20,8 @@
 	float: left;
 	width: 95%;
 }
+
+
+img[disabled=disabled]{
+	opacity:0.5; 
+}

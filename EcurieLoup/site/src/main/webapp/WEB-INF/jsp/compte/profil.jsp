@@ -106,6 +106,8 @@
 		<br />
 		<input type="submit" value="<fmt:message key="profil.form.submit"/> " />
 	</form>
+	<h2><fmt:message key="profil.option.title"/></h2>
+	<label><fmt:message key="profil.option.requestNotifier.label"/></label><img class="requestnotifier" title="<fmt:message key="profil.option.requestNotifier.title"/>" src="${ctx}/images/notifier/notRead.png"/>
 </div>
 
 <!-- on importe le pied de la page -->

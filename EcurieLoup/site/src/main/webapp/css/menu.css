@@ -70,18 +70,16 @@
 	margin: 0px;
 	color: rgb(50, 60, 40);
 }
-.notifier{
-	display: inline;	
-	
-}
-.notifier div{
-	display: inline;
-}
-.notifier img{
-	display: inline;
-}
 
 #breizhFlag {
 	margin-left: 0%;
 	max-width: 100%;
+}
+
+.notifier-icon{
+	display: block;
+	height: 17px;
+	float: left;
+	 margin-bottom: 2px;
+	 cursor: pointer;
 }

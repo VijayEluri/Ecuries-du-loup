@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt" %>
 <fmt:setBundle basename="i18n.general"/>
 
@@ -47,7 +47,12 @@
 		<script src="${ctx}/js/commentsPlugin.js" type="text/javascript"> </script>
 		<script src="${ctx}/js/EdlElementSuggestList.js" type="text/javascript"> </script>
 		<script src="${ctx}/js/SuggestSavedChoose.js" type="text/javascript"> </script>
-		<script src="${ctx}/js/MediaDisplayer.js" type="text/javascript"> </script>
+		<script src="${ctx}/js/MediaDisplayer.js" type="text/javascript"> </script>	
+	
+		<security:authorize ifAllGranted="ROLE_AUTHENTIFIER">
+			<script src="${ctx}/js/plugins/notifier.js" type="text/javascript"> </script>
+			<script src="${ctx}/js/plugins/notifierApi.js" type="text/javascript"> </script>	
+		</security:authorize>	
 		<link rel="stylesheet" href="${ctx}/js/jquery.nyroModal/styles/nyroModal.css" type="text/css" media="screen" />
 		<script type="text/javascript" src="${ctx}/js/jquery.nyroModal/js/jquery.nyroModal.custom.js"></script>
 		
@@ -160,6 +165,8 @@
 	
 			}
 		</script>
+		
+		
 	</head>
 	
 	

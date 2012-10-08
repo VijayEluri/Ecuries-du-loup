@@ -26,18 +26,12 @@
 	<div class="element_menu">
 		<h3><fmt:message key="menu.membre.title"/></h3>
 		<ul>
-			<li>
-				<security:authorize ifAllGranted="ROLE_AUTHENTIFIER">
-					<div id="forumNotifier" class="notifier"></div>		
-				</security:authorize>		
+			<li id="forumNotifier">	
 				<a href="${ctx}/forum/affichage.do">
 					<fmt:message key="menu.membre.forum"/>
 				</a>
 			</li>
-			<li>
-				<security:authorize ifAllGranted="ROLE_AUTHENTIFIER">
-					<div id="mediaNotifier" class="notifier"></div>
-				</security:authorize>
+			<li id="mediaNotifier">
 				<a href="${ctx}/albumPhoto/affichage.do">
 					<fmt:message key="menu.membre.album_photo"/>
 				</a>
