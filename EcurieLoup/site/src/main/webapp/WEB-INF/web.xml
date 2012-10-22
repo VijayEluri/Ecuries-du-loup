@@ -22,7 +22,6 @@
 			classpath:/applicationContext-SendUser.xml
 			classpath:/applicationContext-options.xml
 			classpath:/applicationContext-secretFlag.xml
-			classpath:/applicationContext-webnotifier.xml
 			classpath:/applicationContext-imagechooser.xml
 		 </param-value>
 
