@@ -154,7 +154,7 @@ public class FormulaireFicheChevalController {
 	if (this.estUneModificationFiche(ficheFormulaire)) {
 	    redirect = "redirect:/ficheChevaux/affichageFiche.do?id=" + ficheFormulaire.getId();
 	} else {
-	    redirect = "redirect:/ficheChevaux/affichage.do";
+	    redirect = "redirect:/ficheChevaux/affichage.do?id=" + ficheFormulaire.getCategory();
 	}
 
 	return new ModelAndView(redirect);

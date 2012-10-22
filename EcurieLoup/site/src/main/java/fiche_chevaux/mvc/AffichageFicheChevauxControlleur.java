@@ -77,9 +77,12 @@ public class AffichageFicheChevauxControlleur {
 	Map<String, Object> model = new HashMap<String, Object>();
 	model.put("category", category);
 	model.put("fichesChevaux", fiches);
+	if (category != null) {
+	    model.put("headPageTitle", category.getName());
+	} else {
+	    model.put("headPageTitle", "non classé");
 
-	model.put("headPageTitle", category.getName());
-
+	}
 	return new ModelAndView("ficheChevaux/affichageListeFicheChevaux", model);
     }
 
